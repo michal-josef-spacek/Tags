@@ -1,9 +1,12 @@
-$Id: TODO,v 1.1 2005-03-21 10:57:12 skim Exp $
+$Id: TODO,v 1.2 2005-03-21 10:58:10 skim Exp $
 
 TODO
 ====
 1. Modul pro cteni radkoveho xml formatu. 
-2. 
+2. Mozna by bylo dobre mit interni strukturu, ktera by se vykreslovala.
+3. PYX input reader.
+4. XML input reader.
+5. 
 
 Applied
 =======
