@@ -1,0 +1,12 @@
+$Id: INFO,v 1.1 2005-03-21 10:57:12 skim Exp $
+
+Info
+====
+Radkove orientovany xml format:
+Aid Hodnota id
+(xml
+-Text mezi <xml></xml>
+)xml
+
+V onsgml parseru jsou atributy jeste s typem dat, co v nich muzou byt.
+Aid IMPLIED Hodnota id.
