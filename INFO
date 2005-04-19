@@ -1,4 +1,4 @@
-$Id: INFO,v 1.1 2005-03-21 10:57:12 skim Exp $
+$Id: INFO,v 1.2 2005-04-19 14:29:05 skim Exp $
 
 Info
 ====
@@ -10,3 +10,4 @@ Aid Hodnota id
 
 V onsgml parseru jsou atributy jeste s typem dat, co v nich muzou byt.
 Aid IMPLIED Hodnota id.
+
