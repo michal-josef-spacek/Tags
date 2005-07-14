@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2;
 #------------------------------------------------------------------------------
-# $Id: Tags2.pm,v 1.2 2005-07-14 21:40:34 skim Exp $
+# $Id: Tags2.pm,v 1.3 2005-07-14 21:55:45 skim Exp $
 
 # Pragmas.
 use strict;
@@ -142,7 +142,7 @@ sub _detect_data {
 			$self->_flush_tmp('>');
 		}
 		push @{$self->{'tmp_code'}}, "<$data->[1]";
-		push @{$self->{'printed_tags'}}, $data->[1];
+		unshift @{$self->{'printed_tags'}}, $data->[1];
 
 	# Comment.
 	} elsif ($data->[0] eq 'c') {
