@@ -1,0 +1,11 @@
+bin/ex1.pl
+bin/simple.pl
+bin/simple_oo.pl
+concept
+INFO
+Makefile.PL
+MANIFEST			This list of files
+Tags2.pm
+Tags2/Simple.pm
+Tags2/SimpleOO.pm
+TODO

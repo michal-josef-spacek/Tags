@@ -1,0 +1,30 @@
+$Id: concept,v 1.1 2005-07-14 21:37:35 skim Exp $
+
+Concept
+=======
+1. Zakladni modul ma handlery pro vkladani znacek:
+- tag
+- end_tag
+- odkaz na data.
+- odkaz na pole parametru.
+
+- b_tag
+- e_tag
+- ['c', 'data', 'data']
+- ['d', 'data', 'data']
+- ['i', 'target', 'data']
+- ['a', 'par', 'val', 'par2', 'val2']
+
+- ['b', 'tag']
+- ['e', 'tag']
+- ['c', 'data', 'data']
+- ['d', 'data', 'data']
+- ['i', 'target', 'data']
+- ['a', 'par', 'val', 'par2', 'val2']
+
+('b, 'tag)
+('e, 'tag)
+('c, 'data, 'data)
+('d, 'data, 'data)
+('i, 'target, 'data)
+('a, 'par, 'val, 'par2, 'val2)
