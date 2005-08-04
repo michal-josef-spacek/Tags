@@ -1,11 +1,12 @@
-$Id: TODO,v 1.4 2005-07-14 20:49:05 skim Exp $
+$Id: TODO,v 1.5 2005-08-04 19:12:13 skim Exp $
 
 TODO
 ====
 1. Jedna pripominka proti Tags: Vrati se cely tag a teprve potom se indentuje.
    Lepsi by bylo vratit jeste tu neslozenou strukturu a ty indentovane
-   vykreslit.
-2. 
+   vykreslit. Tohle by nemel byt problem na takovychhle datech.
+2. Pridat indentovani.
+3.
 
 Applied
 =======
