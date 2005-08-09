@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Simple;
 #------------------------------------------------------------------------------
-# $Id: Simple.pm,v 1.1 2005-07-14 21:37:36 skim Exp $
+# $Id: Simple.pm,v 1.2 2005-08-09 06:58:45 skim Exp $
 
 # Pragmas.
 use strict;
@@ -11,7 +11,7 @@ use Exporter;
 use Carp;
 
 # Version.
-our $VERSION = 0.1;
+our $VERSION = 0.01;
 
 # Global variables.
 use vars qw($tags_obj @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);

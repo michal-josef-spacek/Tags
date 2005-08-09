@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::SimpleOO;
 #------------------------------------------------------------------------------
-# $Id: SimpleOO.pm,v 1.1 2005-07-14 21:37:36 skim Exp $
+# $Id: SimpleOO.pm,v 1.2 2005-08-09 06:58:45 skim Exp $
 
 # Pragmas.
 use strict;
@@ -10,7 +10,7 @@ use strict;
 use Tags2;
 
 # Version.
-our $VERSION = 0.1;
+our $VERSION = 0.01;
 
 # Global variables.
 use vars qw(@ISA);
