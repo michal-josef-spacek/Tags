@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2;
 #------------------------------------------------------------------------------
-# $Id: Tags2.pm,v 1.5 2005-08-09 06:59:14 skim Exp $
+# $Id: Tags2.pm,v 1.6 2005-08-11 15:10:30 skim Exp $
 
 # Pragmas.
 use strict;
@@ -190,10 +190,11 @@ sub _detect_data {
 		}
 		shift @{$data};
 		$self->{'flush_code'} .= '<?';
+		my $target = shift @{$data};
+		$self->{'flush_code'} .= $target;
 		while (@{$data}) {
-			my $target = shift @{$data};
 			my $data = shift @{$data};
-			$self->{'flush_code'} .= " $target $data";
+			$self->{'flush_code'} .= " $data";
 		}
 		$self->{'flush_code'} .= ' ?>';
 
