@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Simple;
 #------------------------------------------------------------------------------
-# $Id: Simple.pm,v 1.2 2005-08-09 06:58:45 skim Exp $
+# $Id: Simple.pm,v 1.3 2005-09-26 18:40:59 skim Exp $
 
 # Pragmas.
 use strict;
@@ -14,15 +14,15 @@ use Carp;
 our $VERSION = 0.01;
 
 # Global variables.
-use vars qw($tags_obj @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
+use vars qw($tags_obj);
 
 # Inheritance.
-@ISA = qw(Exporter);
+our @ISA = qw(Exporter);
 
 # Export.
-@EXPORT = qw(register);
-@EXPORT_OK = qw(put_a put_b put_c put_d put_e put_i);
-%EXPORT_TAGS = (
+our @EXPORT = qw(register);
+our @EXPORT_OK = qw(put_a put_b put_c put_d put_e put_i);
+our %EXPORT_TAGS = (
 	all => [qw(put_a put_b put_c put_d put_e put_i)],
 );
 
