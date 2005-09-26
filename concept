@@ -1,4 +1,4 @@
-$Id: concept,v 1.1 2005-07-14 21:37:35 skim Exp $
+$Id: concept,v 1.2 2005-09-26 18:54:38 skim Exp $
 
 Concept
 =======
@@ -15,6 +15,7 @@ Concept
 - ['i', 'target', 'data']
 - ['a', 'par', 'val', 'par2', 'val2']
 
+# Tohle se pouziva.
 - ['b', 'tag']
 - ['e', 'tag']
 - ['c', 'data', 'data']
