@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.2 2005-09-26 18:41:09 skim Exp $
+# $Id: Indent.pm,v 1.3 2005-09-26 18:42:47 skim Exp $
 
 # Pragmas.
 use strict;
@@ -35,9 +35,6 @@ sub new {
                 err "Bad parameter '$key'." if ! exists $self->{$key};
                 $self->{$key} = $val;
         }
-
-	# Class.
-	$self->{'class'} = $class;
 
 	# Object.
 	return $self;
