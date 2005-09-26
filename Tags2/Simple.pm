@@ -1,14 +1,14 @@
 #------------------------------------------------------------------------------
 package Tags2::Simple;
 #------------------------------------------------------------------------------
-# $Id: Simple.pm,v 1.3 2005-09-26 18:40:59 skim Exp $
+# $Id: Simple.pm,v 1.4 2005-09-26 18:42:24 skim Exp $
 
 # Pragmas.
 use strict;
 
 # Modules.
+use Error::Simple;
 use Exporter;
-use Carp;
 
 # Version.
 our $VERSION = 0.01;
@@ -33,7 +33,7 @@ sub register {
 
 	$tags_obj = shift;
 	unless ($tags_obj && $tags_obj->isa('Tags2')) {
-		croak "Tags2::Simple: Bad Tags2 object.\n";
+		err "Bad Tags2 object.\n";
 	}
 }
 

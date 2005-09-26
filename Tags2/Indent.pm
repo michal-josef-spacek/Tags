@@ -1,13 +1,13 @@
 #------------------------------------------------------------------------------
 package Tags2::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.1 2005-08-13 20:39:57 skim Exp $
+# $Id: Indent.pm,v 1.2 2005-09-26 18:41:09 skim Exp $
 
 # Pragmas.
 use strict;
 
 # Modules.
-use Carp;
+use Error::Simple;
 
 # Version.
 our $VERSION = 0.01;
@@ -32,7 +32,7 @@ sub new {
         while (@_) {
                 my $key = shift;
                 my $val = shift;
-                croak "Bad parameter '$key'." if ! exists $self->{$key};
+                err "Bad parameter '$key'." if ! exists $self->{$key};
                 $self->{$key} = $val;
         }
 

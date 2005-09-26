@@ -1,13 +1,13 @@
 #------------------------------------------------------------------------------
 package Tags2;
 #------------------------------------------------------------------------------
-# $Id: Tags2.pm,v 1.6 2005-08-11 15:10:30 skim Exp $
+# $Id: Tags2.pm,v 1.7 2005-09-26 18:43:03 skim Exp $
 
 # Pragmas.
 use strict;
 
 # Modules.
-use Carp;
+use Error::Simple;
 
 # Version.
 our $VERSION = 0.01;
@@ -27,7 +27,7 @@ sub new {
         while (@_) {
                 my $key = shift;
                 my $val = shift;
-                croak "Bad parameter '$key'." if ! exists $self->{$key};
+                err "Bad parameter '$key'." if ! exists $self->{$key};
                 $self->{$key} = $val;
         }
 
@@ -39,9 +39,6 @@ sub new {
 
 	# Printed tags.
 	$self->{'printed_tags'} = [];
-
-	# Class.
-	$self->{'class'} = $class;
 
 	# Object.
 	return $self;
@@ -94,7 +91,7 @@ sub put {
 
 		# Bad data.
 		unless (ref $dat eq 'ARRAY') {
-			croak "$self->{'class'}: Bad data.";
+			err "Bad data.";
 		}
 
 		# Detect and process data.
@@ -127,7 +124,7 @@ sub _detect_data {
 	# Attributes.
 	if ($data->[0] eq 'a') {
 		unless ($#{$self->{'tmp_code'}} > -1) {
-			croak "Bad tag type 'a'.";
+			err "Bad tag type 'a'.";
 		}
 		shift @{$data};
 		while (@{$data}) {
@@ -174,8 +171,8 @@ sub _detect_data {
 	} elsif ($data->[0] eq 'e') {
 		my $printed = shift @{$self->{'printed_tags'}};
 		unless ($printed eq $data->[1]) {
-			croak "$self->{'class'}: Ending bad tag: ".
-				"'$data->[1]' in block of tag '$printed'.";
+			err "Ending bad tag: '$data->[1]' in block of ".
+				"tag '$printed'.";
 		}
 		if ($#{$self->{'tmp_code'}} > -1) {
 			$self->_flush_tmp(' />');
@@ -200,7 +197,7 @@ sub _detect_data {
 
 	# Other.
 	} else {
-		croak "$self->{'class'}: Bad type of data.";
+		err "Bad type of data.";
 	}
 }
 
