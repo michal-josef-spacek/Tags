@@ -1,4 +1,4 @@
-$Id: TODO,v 1.6 2005-09-26 18:43:26 skim Exp $
+$Id: TODO,v 1.7 2005-09-26 18:54:17 skim Exp $
 
 TODO
 ====
@@ -6,7 +6,9 @@ TODO
    Lepsi by bylo vratit jeste tu neslozenou strukturu a ty indentovane
    vykreslit. Tohle by nemel byt problem na takovychhle datech.
 2. Pridat indentovani.
-4.
+4. Chyba v Tags2.pm, kde pri comment a data vykresluji ' '. Je to nesmysl treba 
+   na zacatku dat.
+5.
 
 Applied
 =======
