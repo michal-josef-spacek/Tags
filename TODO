@@ -1,4 +1,4 @@
-$Id: TODO,v 1.5 2005-08-04 19:12:13 skim Exp $
+$Id: TODO,v 1.6 2005-09-26 18:43:26 skim Exp $
 
 TODO
 ====
@@ -6,7 +6,9 @@ TODO
    Lepsi by bylo vratit jeste tu neslozenou strukturu a ty indentovane
    vykreslit. Tohle by nemel byt problem na takovychhle datech.
 2. Pridat indentovani.
-3.
+4.
 
 Applied
 =======
+3. Predelat Carp na Error::Simple.
+OK [20050926] skim
