@@ -1,4 +1,4 @@
-$Id: TODO,v 1.7 2005-09-26 18:54:17 skim Exp $
+$Id: TODO,v 1.8 2005-09-27 14:49:13 skim Exp $
 
 TODO
 ====
@@ -8,7 +8,8 @@ TODO
 2. Pridat indentovani.
 4. Chyba v Tags2.pm, kde pri comment a data vykresluji ' '. Je to nesmysl treba 
    na zacatku dat.
-5.
+5. Trida pro vystup do PYX.
+6.
 
 Applied
 =======
