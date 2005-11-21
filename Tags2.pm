@@ -1,13 +1,13 @@
 #------------------------------------------------------------------------------
 package Tags2;
 #------------------------------------------------------------------------------
-# $Id: Tags2.pm,v 1.7 2005-09-26 18:43:03 skim Exp $
+# $Id: Tags2.pm,v 1.8 2005-11-21 18:25:05 skim Exp $
 
 # Pragmas.
 use strict;
 
 # Modules.
-use Error::Simple;
+use Error::Simple::Multiple;
 
 # Version.
 our $VERSION = 0.01;
@@ -27,7 +27,7 @@ sub new {
         while (@_) {
                 my $key = shift;
                 my $val = shift;
-                err "Bad parameter '$key'." if ! exists $self->{$key};
+                err "Bad parameter '$key'." unless exists $self->{$key};
                 $self->{$key} = $val;
         }
 
