@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2;
 #------------------------------------------------------------------------------
-# $Id: Tags2.pm,v 1.8 2005-11-21 18:25:05 skim Exp $
+# $Id: Tags2.pm,v 1.9 2005-11-21 18:27:02 skim Exp $
 
 # Pragmas.
 use strict;
@@ -21,7 +21,7 @@ sub new {
 	my $self = bless {}, $class;
 
 	# Set output handler.
-	$self->{'output_handler'} = '';
+	$self->{'output_handler'} = '*STDOUT';
 
 	# Process params.
         while (@_) {
@@ -50,12 +50,8 @@ sub flush {
 # Flush tags in object.
 
 	my $self = shift;
-	if ($self->{'output_handler'}) {
-		my $ouf = $self->{'output_handler'};
-		print $ouf $self->{'flush_code'};
-	} else {
-		return $self->{'flush_code'};
-	}
+	my $ouf = $self->{'output_handler'};
+	print $ouf $self->{'flush_code'};
 }
 
 #------------------------------------------------------------------------------

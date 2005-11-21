@@ -1,4 +1,4 @@
-$Id: TODO,v 1.8 2005-09-27 14:49:13 skim Exp $
+$Id: TODO,v 1.9 2005-11-21 18:25:05 skim Exp $
 
 TODO
 ====
@@ -9,7 +9,8 @@ TODO
 4. Chyba v Tags2.pm, kde pri comment a data vykresluji ' '. Je to nesmysl treba 
    na zacatku dat.
 5. Trida pro vystup do PYX.
-6.
+6. Predelat podobne jako Tags tak, aby vzdycky sel vystup do handleru.
+7.
 
 Applied
 =======
