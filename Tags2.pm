@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2;
 #------------------------------------------------------------------------------
-# $Id: Tags2.pm,v 1.9 2005-11-21 18:27:02 skim Exp $
+# $Id: Tags2.pm,v 1.10 2005-11-21 18:31:19 skim Exp $
 
 # Pragmas.
 use strict;
@@ -21,7 +21,7 @@ sub new {
 	my $self = bless {}, $class;
 
 	# Set output handler.
-	$self->{'output_handler'} = '*STDOUT';
+	$self->{'output_handler'} = *STDOUT;
 
 	# Process params.
         while (@_) {
