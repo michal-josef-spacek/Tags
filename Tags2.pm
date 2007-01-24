@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2;
 #------------------------------------------------------------------------------
-# $Id: Tags2.pm,v 1.10 2005-11-21 18:31:19 skim Exp $
+# $Id: Tags2.pm,v 1.11 2007-01-24 12:14:15 skim Exp $
 
 # Pragmas.
 use strict;
@@ -145,11 +145,10 @@ sub _detect_data {
 		shift @{$data};
 		$self->{'flush_code'} .= '<!--';
 		foreach my $d (@{$data}) {
-			$self->{'flush_code'} .= ' ';
 			$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d} 
 				: $d;
 		}
-		$self->{'flush_code'} .= ' -->';
+		$self->{'flush_code'} .= '-->';
 
 	# Data.
 	} elsif ($data->[0] eq 'd') {
@@ -158,7 +157,6 @@ sub _detect_data {
 		}
 		shift @{$data};
 		foreach my $d (@{$data}) {
-			$self->{'flush_code'} .= ' ';
 			$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d} 
 				: $d;
 		}
