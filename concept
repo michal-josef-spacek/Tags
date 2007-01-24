@@ -1,4 +1,4 @@
-$Id: concept,v 1.2 2005-09-26 18:54:38 skim Exp $
+$Id: concept,v 1.3 2007-01-24 12:28:08 skim Exp $
 
 Concept
 =======
@@ -16,16 +16,18 @@ Concept
 - ['a', 'par', 'val', 'par2', 'val2']
 
 # Tohle se pouziva.
-- ['b', 'tag']
-- ['e', 'tag']
-- ['c', 'data', 'data']
-- ['d', 'data', 'data']
-- ['i', 'target', 'data']
-- ['a', 'par', 'val', 'par2', 'val2']
+- ['b', 'tag']                         # "<tag>"
+- ['e', 'tag']                         # "</tag>"
+- ['c', 'data', 'data']                # "<!--datadata-->"
+- ['d', 'data', 'data']                # "datadata"
+- ['i', 'target', 'data']              # "<?target data?>
+- ['a', 'par', 'val', 'par2', 'val2']  # 'par="val" par2="val2"'
+- ['r', "text\ntext"]                  # "text\ntext"
 
-('b, 'tag)
-('e, 'tag)
-('c, 'data, 'data)
-('d, 'data, 'data)
-('i, 'target, 'data)
-('a, 'par, 'val, 'par2, 'val2)
+('b 'tag)
+('e 'tag)
+('c 'data 'data)
+('d 'data 'data)
+('i 'target 'data)
+('a 'par 'val 'par2 'val2)
+('r "text\ntext")
