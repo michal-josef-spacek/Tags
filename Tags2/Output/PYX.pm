@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::PYX;
 #------------------------------------------------------------------------------
-# $Id: PYX.pm,v 1.1 2007-01-24 13:52:47 skim Exp $
+# $Id: PYX.pm,v 1.2 2007-01-24 13:57:13 skim Exp $
 
 # Pragmas.
 use strict;
@@ -118,9 +118,6 @@ sub _detect_data($$) {
 
 	# Attributes.
 	if ($data->[0] eq 'a') {
-		unless ($#{$self->{'tmp_code'}} > -1) {
-			err "Bad tag type 'a'.";
-		}
 		shift @{$data};
 		while (@{$data}) {
 			my $par = shift @{$data};
