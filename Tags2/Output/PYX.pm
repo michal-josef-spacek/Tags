@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::PYX;
 #------------------------------------------------------------------------------
-# $Id: PYX.pm,v 1.2 2007-01-24 13:57:13 skim Exp $
+# $Id: PYX.pm,v 1.3 2007-01-24 13:59:39 skim Exp $
 
 # Pragmas.
 use strict;
@@ -174,11 +174,13 @@ sub _detect_data($$) {
 	# Raw data.
 	} elsif ($data->[0] eq 'r') {
 		shift @{$data};
+		my $tmp_data = '';
 		while (@{$data}) {
 			my $data = shift @{$data};
-			push @{$self->{'flush_code'}}, 
-				'R'.$self->_encode_newline($data);
+			$tmp_data .= $data;
 		}
+		push @{$self->{'flush_code'}}, 
+			'R'.$self->_encode_newline($tmp_data);
 
 	# Other.
 	} else {
