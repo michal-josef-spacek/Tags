@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::PYX;
 #------------------------------------------------------------------------------
-# $Id: PYX.pm,v 1.5 2007-01-24 14:03:41 skim Exp $
+# $Id: PYX.pm,v 1.6 2007-01-24 16:30:30 skim Exp $
 
 # Pragmas.
 use strict;
@@ -138,7 +138,7 @@ sub _detect_data($$) {
 			$tmp_data .= ref $d eq 'SCALAR' ? ${$d} : $d;
 		}
 		push @{$self->{'flush_code'}}, 
-			'C'.$self->_encode_newline($tmp_data);
+			'_'.$self->_encode_newline($tmp_data);
 
 	# Data.
 	} elsif ($data->[0] eq 'd') {
