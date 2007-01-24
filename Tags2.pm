@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2;
 #------------------------------------------------------------------------------
-# $Id: Tags2.pm,v 1.11 2007-01-24 12:14:15 skim Exp $
+# $Id: Tags2.pm,v 1.12 2007-01-24 12:30:52 skim Exp $
 
 # Pragmas.
 use strict;
@@ -188,6 +188,14 @@ sub _detect_data {
 			$self->{'flush_code'} .= " $data";
 		}
 		$self->{'flush_code'} .= ' ?>';
+
+	# Raw data.
+	} elsif ($data->[0] eq 'r') {
+		shift @{$data};
+		while (@{$data}) {
+			my $data = shift @{$data};
+			$self->{'flush_code'} .= $data;
+		}
 
 	# Other.
 	} else {
