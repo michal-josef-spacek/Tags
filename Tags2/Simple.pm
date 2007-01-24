@@ -1,13 +1,13 @@
 #------------------------------------------------------------------------------
 package Tags2::Simple;
 #------------------------------------------------------------------------------
-# $Id: Simple.pm,v 1.4 2005-09-26 18:42:24 skim Exp $
+# $Id: Simple.pm,v 1.5 2007-01-24 12:12:14 skim Exp $
 
 # Pragmas.
 use strict;
 
 # Modules.
-use Error::Simple;
+use Error::Simple::Multiple;;
 use Exporter;
 
 # Version.

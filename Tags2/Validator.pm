@@ -1,13 +1,13 @@
 #------------------------------------------------------------------------------
 package Tags2::Validator;
 #------------------------------------------------------------------------------
-# $Id: Validator.pm,v 1.2 2005-09-26 18:42:24 skim Exp $
+# $Id: Validator.pm,v 1.3 2007-01-24 12:12:14 skim Exp $
 
 # Pragmas.
 use strict;
 
 # Modules.
-use Error::Simple;
+use Error::Simple::Multiple;
 
 # Version.
 our $VERSION = 0.01;

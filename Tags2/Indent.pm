@@ -1,13 +1,13 @@
 #------------------------------------------------------------------------------
 package Tags2::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.3 2005-09-26 18:42:47 skim Exp $
+# $Id: Indent.pm,v 1.4 2007-01-24 12:12:14 skim Exp $
 
 # Pragmas.
 use strict;
 
 # Modules.
-use Error::Simple;
+use Error::Simple::Multiple;
 
 # Version.
 our $VERSION = 0.01;
