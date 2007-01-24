@@ -7,3 +7,4 @@ Tags2/Utils/SimpleOO.pm
 Tags2/Process/Validator.pm
 Tags2/Output/Raw.pm
 Tags2/Output/Indent.pm
+Tags2/Output/PYX.pm
