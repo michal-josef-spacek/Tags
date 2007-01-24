@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
-package Tags2::Validator;
+package Tags2::Process::Validator;
 #------------------------------------------------------------------------------
-# $Id: Validator.pm,v 1.1 2007-01-24 13:00:26 skim Exp $
+# $Id: Validator.pm,v 1.2 2007-01-24 13:01:49 skim Exp $
 
 # Pragmas.
 use strict;
