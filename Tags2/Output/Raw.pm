@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.3 2007-01-24 13:52:37 skim Exp $
+# $Id: Raw.pm,v 1.4 2007-01-24 15:16:15 skim Exp $
 
 # Pragmas.
 use strict;
@@ -22,6 +22,9 @@ sub new($) {
 
 	# Set output handler.
 	$self->{'output_handler'} = *STDOUT;
+
+	# No simple tags.
+	$self->{'no_simple'} = [];
 
 	# Process params.
         while (@_) {
@@ -167,9 +170,18 @@ sub _detect_data($$) {
 			err "Ending bad tag: '$data->[1]' in block of ".
 				"tag '$printed'.";
 		}
-		if ($#{$self->{'tmp_code'}} > -1) {
-			$self->_flush_tmp(' />');
+
+		# Tag can be simple.
+		if (! grep { $_ eq $data->[1] } @{$self->{'no_simple'}}) {
+			if ($#{$self->{'tmp_code'}} > -1) {
+				$self->_flush_tmp(' />');
+			} else {
+				$self->{'flush_code'} .= "</$data->[1]>";
+			}
+
+		# Tag cannot be simple.
 		} else {
+			$self->_flush_tmp('>');
 			$self->{'flush_code'} .= "</$data->[1]>";
 		}
 
