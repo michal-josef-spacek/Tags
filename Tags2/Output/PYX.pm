@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::PYX;
 #------------------------------------------------------------------------------
-# $Id: PYX.pm,v 1.3 2007-01-24 13:59:39 skim Exp $
+# $Id: PYX.pm,v 1.4 2007-01-24 14:03:02 skim Exp $
 
 # Pragmas.
 use strict;
@@ -194,8 +194,8 @@ sub _encode_newline($$) {
 # Encode newline in data to '\n' in output.
 
 	my ($self, $string) = @_;
-	my @tmp_data = split(/\n/, $string);
-	return join('\n', @tmp_data);
+	$string =~ s/\n/\\n/;
+	return $string;
 }
 
 1;
