@@ -2,8 +2,8 @@ concept
 Makefile.PL
 MANIFEST			This list of files
 MANIFEST.SKIP
-Tags2/Simple.pm
-Tags2/SimpleOO.pm
-Tags2/Validator.pm
+Tags2/Utils/Simple.pm
+Tags2/Utils/SimpleOO.pm
+Tags2/Process/Validator.pm
 Tags2/Output/Raw.pm
 Tags2/Output/Indent.pm
