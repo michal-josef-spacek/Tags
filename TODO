@@ -1,4 +1,4 @@
-$Id: TODO,v 1.11 2007-01-24 13:11:58 skim Exp $
+$Id: TODO,v 1.12 2007-02-18 23:34:18 skim Exp $
 
 TODO
 ====
@@ -7,8 +7,6 @@ TODO
    vykreslit. Tohle by nemel byt problem na takovychhle datech.
 2. Pridat indentovani.
    Viz Tags2::Output::Indent.
-5. Trida pro vystup do PYX.
-   Viz Tags2::Output::PYX.
 7. Data optimalization.
    Viz Tags2::Process::DataOptimalization
 8.
@@ -24,3 +22,7 @@ OK [20051121] skim
 4. Chyba v Tags2.pm, kde pri comment a data vykresluji ' '. Je to nesmysl treba 
    na zacatku dat.
 OK [20070124] skim
+
+5. Trida pro vystup do PYX.
+   Viz Tags2::Output::PYX.
+OK [20070218] skim
