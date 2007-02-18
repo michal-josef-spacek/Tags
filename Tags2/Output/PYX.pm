@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::PYX;
 #------------------------------------------------------------------------------
-# $Id: PYX.pm,v 1.7 2007-01-24 21:29:38 skim Exp $
+# $Id: PYX.pm,v 1.8 2007-02-18 23:23:25 skim Exp $
 
 # Pragmas.
 use strict;
@@ -22,6 +22,9 @@ sub new($@) {
 
 	# Set output handler.
 	$self->{'output_handler'} = *STDOUT;
+
+	# Skip bad tags.
+	$self->{'skip_bad_tags'} = 0;
 
 	# Process params.
         while (@_) {
@@ -130,16 +133,6 @@ sub _detect_data($$) {
 		push @{$self->{'flush_code'}}, "($data->[1]";
 		unshift @{$self->{'printed_tags'}}, $data->[1];
 
-	# Comment.
-	} elsif ($data->[0] eq 'c') {
-		shift @{$data};
-		my $tmp_data = '';
-		foreach my $d (@{$data}) {
-			$tmp_data .= ref $d eq 'SCALAR' ? ${$d} : $d;
-		}
-		push @{$self->{'flush_code'}}, 
-			'_'.$self->_encode_newline($tmp_data);
-
 	# Data.
 	} elsif ($data->[0] eq 'd') {
 		shift @{$data};
@@ -171,20 +164,9 @@ sub _detect_data($$) {
 		push @{$self->{'flush_code'}}, 
 			"?$target ".$self->_encode_newline($tmp_data);
 
-	# Raw data.
-	} elsif ($data->[0] eq 'r') {
-		shift @{$data};
-		my $tmp_data = '';
-		while (@{$data}) {
-			my $data = shift @{$data};
-			$tmp_data .= $data;
-		}
-		push @{$self->{'flush_code'}}, 
-			'R'.$self->_encode_newline($tmp_data);
-
 	# Other.
 	} else {
-		err "Bad type of data.";
+		err "Bad type of data." unless $self->{'skip_bad_tags'};
 	}
 }
 
