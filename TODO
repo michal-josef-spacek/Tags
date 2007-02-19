@@ -1,10 +1,7 @@
-$Id: TODO,v 1.15 2007-02-19 23:50:37 skim Exp $
+$Id: TODO,v 1.16 2007-02-19 23:57:33 skim Exp $
 
 TODO
 ====
-1. Jedna pripominka proti Tags: Vrati se cely tag a teprve potom se indentuje.
-   Lepsi by bylo vratit jeste tu neslozenou strukturu a ty indentovane
-   vykreslit. Tohle by nemel byt problem na takovychhle datech.
 2. Pridat indentovani.
    Viz Tags2::Output::Indent.
 7. Data optimalization.
@@ -30,4 +27,10 @@ OK [20070124] skim
 OK [20070218] skim
 
 8. Do SESIS pridat cdata sekci.
+OK [20070219] skim
+
+1. Jedna pripominka proti Tags: Vrati se cely tag a teprve potom se indentuje.
+   Lepsi by bylo vratit jeste tu neslozenou strukturu a ty indentovane
+   vykreslit. Tohle by nemel byt problem na takovychhle datech.
+Tohle je prvotni cil. 
 OK [20070219] skim
