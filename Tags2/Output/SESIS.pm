@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::SESIS;
 #------------------------------------------------------------------------------
-# $Id: SESIS.pm,v 1.1 2007-02-18 23:32:33 skim Exp $
+# $Id: SESIS.pm,v 1.2 2007-02-19 23:50:19 skim Exp $
 
 # Pragmas.
 use strict;
@@ -142,6 +142,16 @@ sub _detect_data($$) {
 		}
 		push @{$self->{'flush_code'}}, 
 			'_'.$self->_encode_newline($tmp_data);
+
+	# CData.
+	} elsif ($data->[0] eq 'cd') {
+		shift @{$data};
+		my $tmp_data = '';
+		foreach my $d (@{$data}) {
+			$tmp_data .= ref $d eq 'SCALAR' ? ${$d} : $d;
+		}
+		push @{$self->{'flush_code'}}, 
+			'CD'.$self->_encode_newline($tmp_data);
 
 	# Data.
 	} elsif ($data->[0] eq 'd') {
