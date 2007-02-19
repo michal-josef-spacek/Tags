@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.4 2007-02-19 00:31:01 skim Exp $
+# $Id: Indent.pm,v 1.5 2007-02-19 00:41:36 skim Exp $
 
 # Pragmas.
 use strict;
@@ -264,6 +264,22 @@ sub _detect_data($$) {
 			my $data = shift @{$data};
 			$self->{'flush_code'} .= $data;
 		}
+
+	# CData.
+	} elsif ($data->[0] eq 'cd') {
+		if ($#{$self->{'tmp_code'}} > -1) {
+			$self->_print_tag('>');
+		}
+		shift @{$data};
+		my @cdata = ('<![CDATA[');
+		foreach (@{$data}) {
+			err "Bad cdata section." if $_ =~ /\]\]>/;
+			push @cdata, $_;
+		}
+		push @cdata, ']]>';
+		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+			\@cdata
+		);
 
 	# Other.
 	} else {
