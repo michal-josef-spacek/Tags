@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.5 2007-02-19 00:41:36 skim Exp $
+# $Id: Indent.pm,v 1.6 2007-02-19 00:58:42 skim Exp $
 
 # Pragmas.
 use strict;
@@ -254,7 +254,7 @@ sub _detect_data($$) {
 		shift @{$data};
 		my $target = shift @{$data};
 		$self->{'flush_code'} .= $self->{'indent_block'}->indent([
-			'<?'.$target, @{$data}, '?>'
+			'<?'.$target, ' ', @{$data}, '?>'
 		]);
 
 	# Raw data.
@@ -293,15 +293,18 @@ sub _print_tag($$) {
 # Print indented tag from @{$self->{'tmp_code'}}.
 
 	my ($self, $string) = @_;
-	# TODO Add indent.
+	if ($self->{'set_indent'} && ! $self->{'non_indent'}) {
+		$self->{'indent'}->add;
+	}
 	if ($string) {
 		if ($string =~ /^\/>$/) {
 			push @{$self->{'tmp_code'}}, ' ';
 		}
 		push @{$self->{'tmp_code'}}, $string;
 	}
-	$self->{'flush_code'} 
-		.= $self->{'indent_block'}->indent($self->{'tmp_code'});
+	$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+		$self->{'tmp_code'}, $self->{'indent'}->get,
+	);
 	$self->{'tmp_code'} = [];
 }
 
@@ -313,11 +316,10 @@ sub _print_end_tag($$) {
 	my ($self, $string) = @_;
 	if ($self->{'set_indent'} && ! $self->{'non_indent'}) {
 		$self->{'indent'}->remove;
-		$self->{'flush_code'} .= $self->{'indent'}->get;
 	}
-	$self->{'flush_code'} .= $self->{'indent_block'}->indent([
-		'</'.$string, '>',
-	]);
+	$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+		['</'.$string, '>'], $self->{'indent'}->get,
+	);
 }
 
 1;
