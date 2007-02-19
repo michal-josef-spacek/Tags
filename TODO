@@ -1,4 +1,4 @@
-$Id: TODO,v 1.13 2007-02-19 00:41:52 skim Exp $
+$Id: TODO,v 1.14 2007-02-19 00:45:01 skim Exp $
 
 TODO
 ====
@@ -10,7 +10,9 @@ TODO
 7. Data optimalization.
    Viz Tags2::Process::DataOptimalization
 8. Do SESIS pridat cdata sekci.
-9.
+9. Do Tags2::Output::Raw zaimplementovat preserve veci.
+10. Pridat Tags2::Process::Filter s callback funkcemi navazanymi na tagy.
+11.
 
 Applied
 =======
