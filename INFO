@@ -1,4 +1,4 @@
-$Id: INFO,v 1.4 2005-07-20 20:56:36 skim Exp $
+$Id: INFO,v 1.5 2007-02-20 00:15:11 skim Exp $
 
 Info
 ====
@@ -10,6 +10,7 @@ Aid Hodnota id
 
 V onsgml parseru jsou atributy jeste s typem dat, co v nich muzou byt.
 Aid IMPLIED Hodnota id.
+Navic jsou atributy nad vlastnim tagem.
 
 Kouknout na HTML::Element.
 
