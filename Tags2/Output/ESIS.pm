@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::ESIS;
 #------------------------------------------------------------------------------
-# $Id: ESIS.pm,v 1.3 2007-02-20 00:20:53 skim Exp $
+# $Id: ESIS.pm,v 1.4 2007-02-20 00:22:46 skim Exp $
 
 # Pragmas.
 use strict;
@@ -220,7 +220,7 @@ sub _flush_tmp($) {
 
 =head1 SESIS LINE CHARS
 
- _  - Commen data.
+ _  - Comment data.
  ?  - Instruction.
  (  - Open tag.
  )  - Close tag.
