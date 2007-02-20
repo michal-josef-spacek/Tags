@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::ESIS;
 #------------------------------------------------------------------------------
-# $Id: ESIS.pm,v 1.1 2007-02-18 23:23:35 skim Exp $
+# $Id: ESIS.pm,v 1.2 2007-02-20 00:20:15 skim Exp $
 
 # Pragmas.
 use strict;
@@ -207,3 +207,84 @@ sub _flush_tmp($) {
 }
 
 1;
+
+=pod
+
+=head1 NAME
+
+ Tags2::Output::ESIS - ESIS class for line oriented output for 'Tags2'.
+
+=head1 SYNOPSYS
+
+ TODO
+
+=head1 SESIS LINE CHARS
+
+ _  - Commen data.
+ ?  - Instruction.
+ (  - Open tag.
+ )  - Close tag.
+ A  - Attribute.
+ -  - Normal data.
+
+=head1 METHODS
+
+=over 8
+
+=item B<new()>
+
+ TODO
+
+=head2 PARAMETERS
+
+=over 8
+
+=item B<output_handler>
+
+ TODO
+
+=item B<skip_bad_data>
+
+ TODO
+
+=back
+
+=item B<finalize()>
+
+ TODO
+
+=item B<flush()>
+
+ TODO
+
+=item B<open_tags()>
+
+ TODO
+
+=item B<put()>
+
+ TODO
+
+=item B<reset()>
+
+ TODO
+
+=back
+
+=head1 EXAMPLE
+
+ TODO
+
+=head1 REQUIREMENTS
+
+ L<Error::Simple::Multiple>
+
+=head1 AUTHOR
+
+ Michal Spacek L<tupinek@gmail.com>
+
+=head1 VERSION
+
+ 0.01
+
+=cut

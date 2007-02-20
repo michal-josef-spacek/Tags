@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::PYX;
 #------------------------------------------------------------------------------
-# $Id: PYX.pm,v 1.8 2007-02-18 23:23:25 skim Exp $
+# $Id: PYX.pm,v 1.10 2007-02-20 00:22:52 skim Exp $
 
 # Pragmas.
 use strict;
@@ -48,6 +48,17 @@ sub new($@) {
 }
 
 #------------------------------------------------------------------------------
+sub finalize($) {
+#------------------------------------------------------------------------------
+# Finalize Tags output.
+
+	my $self = shift;
+	while ($#{$self->{'printed_tags'}} != -1) {
+		$self->put(['e', shift @{$self->{'printed_tags'}}]);
+	}
+}
+
+#------------------------------------------------------------------------------
 sub flush($) {
 #------------------------------------------------------------------------------
 # Flush tags in object.
@@ -64,17 +75,6 @@ sub open_tags($) {
 
 	my $self = shift;
 	return @{$self->{'printed_tags'}};
-}
-
-#------------------------------------------------------------------------------
-sub finalize($) {
-#------------------------------------------------------------------------------
-# Finalize Tags output.
-
-	my $self = shift;
-	while ($#{$self->{'printed_tags'}} != -1) {
-		$self->put(['e', shift @{$self->{'printed_tags'}}]);
-	}
 }
 
 #------------------------------------------------------------------------------
@@ -181,3 +181,83 @@ sub _encode_newline($$) {
 }
 
 1;
+
+=pod
+
+=head1 NAME
+
+ Tags2::Output::PYX - PYX class for line oriented output for 'Tags2'.
+
+=head1 SYNOPSYS
+
+ TODO
+
+=head1 SESIS LINE CHARS
+
+ ?  - Instruction.
+ (  - Open tag.
+ )  - Close tag.
+ A  - Attribute.
+ -  - Normal data.
+
+=head1 METHODS
+
+=over 8
+
+=item B<new()>
+
+ TODO
+
+=head2 PARAMETERS
+
+=over 8
+
+=item B<output_handler>
+
+ TODO
+
+=item B<skip_bad_data>
+
+ TODO
+
+=back
+
+=item B<finalize()>
+
+ TODO
+
+=item B<flush()>
+
+ TODO
+
+=item B<open_tags()>
+
+ TODO
+
+=item B<put()>
+
+ TODO
+
+=item B<reset()>
+
+ TODO
+
+=back
+
+=head1 EXAMPLE
+
+ TODO
+
+=head1 REQUIREMENTS
+
+ L<Error::Simple::Multiple>
+
+=head1 AUTHOR
+
+ Michal Spacek L<tupinek@gmail.com>
+
+=head1 VERSION
+
+ 0.01
+
+=cut
