@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.8 2007-02-20 00:04:34 skim Exp $
+# $Id: Raw.pm,v 1.9 2007-02-20 00:05:12 skim Exp $
 
 # Pragmas.
 use strict;
@@ -254,6 +254,12 @@ sub _flush_tmp($$) {
 =head1 PARAMETERS
 
 =over 8
+
+=item B<output_handler>
+
+ TODO
+
+=item B<no-simple>
 
  TODO
 
