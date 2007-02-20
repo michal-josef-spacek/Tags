@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.6 2007-01-24 21:29:38 skim Exp $
+# $Id: Raw.pm,v 1.7 2007-02-20 00:03:56 skim Exp $
 
 # Pragmas.
 use strict;
@@ -232,3 +232,57 @@ sub _flush_tmp($$) {
 }
 
 1;
+
+=pod
+
+=head1 NAME
+
+ Tags2::Output::Raw - Raw printing 'Tags2' structure to tags code.
+
+=head1 SYNOPSIS
+
+ TODO
+
+=head1 METHODS
+
+=over 8
+
+=item B<new(%parameters)>
+
+ Constructor.
+
+=head1 PARAMETERS
+
+=over 8
+
+ TODO
+
+=back
+
+=item B<finalize()>
+
+ TODO
+
+=item B<flush()>
+
+ TODO
+
+=item B<put()>
+
+ TODO
+
+=item B<reset()>
+
+ TODO
+
+=back
+
+=head1 AUTHOR
+
+ Michal Spacek L<tupinek@gmail.com>
+
+=head1 VERSION
+
+ 0.01
+
+=cut
