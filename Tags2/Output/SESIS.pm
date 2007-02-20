@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::SESIS;
 #------------------------------------------------------------------------------
-# $Id: SESIS.pm,v 1.3 2007-02-19 23:56:52 skim Exp $
+# $Id: SESIS.pm,v 1.4 2007-02-20 00:20:06 skim Exp $
 
 # Pragmas.
 use strict;
@@ -217,7 +217,7 @@ sub _encode_newline($$) {
 
 =head1 NAME
 
- Tags2::Output::SESIS - S(kim) ESIS class for line oriented output for Tags2.
+ Tags2::Output::SESIS - S(kim) ESIS class for line oriented output for 'Tags2'.
 
 =head1 SYNOPSYS
 
@@ -226,7 +226,7 @@ sub _encode_newline($$) {
 =head1 SESIS LINE CHARS
 
  R  - Raw data.
- _  - Commen data.
+ _  - Comment data.
  ?  - Instruction.
  (  - Open tag.
  )  - Close tag.
