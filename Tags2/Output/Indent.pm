@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.11 2007-02-20 00:45:19 skim Exp $
+# $Id: Indent.pm,v 1.12 2007-02-20 00:47:07 skim Exp $
 
 # Pragmas.
 use strict;
@@ -194,7 +194,8 @@ sub _detect_data($$) {
 			push @comment, (ref $d eq 'SCALAR') ? ${$d} : $d;
 		}
 		push @comment, '-->';
-		$self->{'flush_code'} .= "\n".$self->{'indent_block'}->indent(
+		$self->{'flush_code'} .= "\n" if $self->{'flush_code'};
+		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
 			\@comment,
 			$self->{'indent'}->get,
 		);
@@ -209,7 +210,8 @@ sub _detect_data($$) {
 		foreach my $d (@{$data}) {
 			push @tmp_data, (ref $d eq 'SCALAR') ? ${$d} : $d;
 		}
-		$self->{'flush_code'} .= "\n".$self->{'indent_word'}->indent(
+		$self->{'flush_code'} .= "\n" if $self->{'flush_code'};
+		$self->{'flush_code'} .= $self->{'indent_word'}->indent(
 			join('', @tmp_data), $self->{'indent'}->get,
 		);
 
@@ -242,7 +244,8 @@ sub _detect_data($$) {
 		}
 		shift @{$data};
 		my $target = shift @{$data};
-		$self->{'flush_code'} .= "\n".$self->{'indent_block'}->indent([
+		$self->{'flush_code'} .= "\n" if $self->{'flush_code'};
+		$self->{'flush_code'} .= $self->{'indent_block'}->indent([
 			'<?'.$target, ' ', @{$data}, '?>',
 			$self->{'indent'}->get,
 		]);
@@ -307,7 +310,8 @@ sub _print_end_tag($$) {
 	if (! $self->{'non_indent'}) {
 		$self->{'indent'}->remove;
 	}
-	$self->{'flush_code'} .= "\n".$self->{'indent_block'}->indent(
+	$self->{'flush_code'} .= "\n" if $self->{'flush_code'};
+	$self->{'flush_code'} .= $self->{'indent_block'}->indent(
 		['</'.$string, '>'], $self->{'indent'}->get,
 	);
 }
