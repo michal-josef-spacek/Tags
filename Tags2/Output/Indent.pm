@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.9 2007-02-20 00:32:55 skim Exp $
+# $Id: Indent.pm,v 1.10 2007-02-20 00:34:54 skim Exp $
 
 # Pragmas.
 use strict;
@@ -190,20 +190,8 @@ sub _detect_data($$) {
 		shift @{$data};
 		my @comment = ();
 		push @comment, '<!--';
-		if (ref $data->[0] eq 'SCALAR') {
-			if (${$data->[0]} =~ /^-/) {
-				push @comment, ' ';
-			}
-		} else {
-			if ($data->[0] =~ /^-/) {
-				push @comment, ' ';
-			}
-		}
 		foreach my $d (@{$data}) {
 			push @comment, (ref $d eq 'SCALAR') ? ${$d} : $d;
-		}
-		if ($comment[-1] =~ /-$/) {
-			push @comment, ' ';
 		}
 		push @comment, '-->';
 		$self->{'flush_code'} .= "\n".$self->{'indent_block'}->indent(
@@ -273,7 +261,6 @@ sub _detect_data($$) {
 		shift @{$data};
 		my @cdata = ('<![CDATA[');
 		foreach (@{$data}) {
-			err "Bad cdata section." if $_ =~ /\]\]>/;
 			push @cdata, $_;
 		}
 		push @cdata, ']]>';
