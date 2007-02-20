@@ -1,4 +1,4 @@
-$Id: concept,v 1.3 2007-01-24 12:28:08 skim Exp $
+$Id: concept,v 1.4 2007-02-20 00:14:36 skim Exp $
 
 Concept
 =======
@@ -23,6 +23,7 @@ Concept
 - ['i', 'target', 'data']              # "<?target data?>
 - ['a', 'par', 'val', 'par2', 'val2']  # 'par="val" par2="val2"'
 - ['r', "text\ntext"]                  # "text\ntext"
+- ['cd', "cdata section <tag>"]        # "<![CDATA[cdata section <tag>]]>"
 
 ('b 'tag)
 ('e 'tag)
@@ -31,3 +32,4 @@ Concept
 ('i 'target 'data)
 ('a 'par 'val 'par2 'val2)
 ('r "text\ntext")
+('cd "cdata section <tag>")
