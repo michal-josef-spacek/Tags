@@ -1,4 +1,4 @@
-$Id: TODO,v 1.18 2007-02-20 00:12:57 skim Exp $
+$Id: TODO,v 1.19 2007-02-20 00:35:33 skim Exp $
 
 TODO
 ====
@@ -8,9 +8,6 @@ TODO
    Viz Tags2::Process::DataOptimalization
 9. Do Tags2::Output::Raw zaimplementovat preserve veci.
 10. Pridat Tags2::Process::Filter s callback funkcemi navazanymi na tagy.
-11. V tech vykreslovacich by nemely byt kontroly na nic. V Raw mam kontrolu na
-    data. V Indent mam vice kontrol. Tohle by melo byt ve validatoru.
-Z 'Raw' odstranena kontrola na komentare.
 12. Optimalizovat deni ve vystupnich rutinach. Casto se tam pouziva stejny kod
     (?, _, -, CD) pro vystup pole dat.
 13. Na reseni entit by mohla byt taky vlastni procesni trida.
@@ -43,4 +40,10 @@ OK [20070219] skim
    Lepsi by bylo vratit jeste tu neslozenou strukturu a ty indentovane
    vykreslit. Tohle by nemel byt problem na takovychhle datech.
 Tohle je prvotni cil. 
+OK [20070219] skim
+
+11. V tech vykreslovacich by nemely byt kontroly na nic. V Raw mam kontrolu na
+    data. V Indent mam vice kontrol. Tohle by melo byt ve validatoru.
+Z 'Raw' odstranena kontrola na komentare.
+I z 'Indent' odstraneno.
 OK [20070219] skim
