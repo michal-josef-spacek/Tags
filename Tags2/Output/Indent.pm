@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.12 2007-02-20 00:47:07 skim Exp $
+# $Id: Indent.pm,v 1.13 2007-02-20 00:49:26 skim Exp $
 
 # Pragmas.
 use strict;
@@ -269,6 +269,7 @@ sub _detect_data($$) {
 			push @cdata, $_;
 		}
 		push @cdata, ']]>';
+		$self->{'flush_code'} .= "\n" if $self->{'flush_code'};
 		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
 			\@cdata
 		);
