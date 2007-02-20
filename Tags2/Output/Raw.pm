@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.10 2007-02-20 00:12:32 skim Exp $
+# $Id: Raw.pm,v 1.11 2007-02-20 00:32:30 skim Exp $
 
 # Pragmas.
 use strict;
@@ -25,6 +25,12 @@ sub new($@) {
 
 	# No simple tags.
 	$self->{'no_simple'} = [];
+
+	# Preserved tags.
+	$self->{'preserved'} = [];
+
+	# Attribute delimeter.
+	$self->{'attr_delimeter'} = '"';
 
 	# Process params.
         while (@_) {
@@ -128,7 +134,9 @@ sub _detect_data($$) {
 		while (@{$data}) {
 			my $par = shift @{$data};
 			my $val = shift @{$data};
-			push @{$self->{'tmp_code'}}, " $par=\"$val\"";
+			push @{$self->{'tmp_code'}}, $par.'='.
+				$self->{'attr_delimeter'}.$val.
+				$self->{'attr_delimeter'};
 		}
 
 	# Begin of tag.
@@ -267,6 +275,14 @@ sub _flush_tmp($$) {
  TODO
 
 =item B<no-simple>
+
+ TODO
+
+=item B<attr_delimeter>
+
+ TODO
+
+=item B<preserved>
 
  TODO
 
