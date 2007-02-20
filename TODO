@@ -1,4 +1,4 @@
-$Id: TODO,v 1.17 2007-02-20 00:12:14 skim Exp $
+$Id: TODO,v 1.18 2007-02-20 00:12:57 skim Exp $
 
 TODO
 ====
@@ -17,7 +17,8 @@ Z 'Raw' odstranena kontrola na komentare.
 14. Pokud bude tolik procesnich trid, nebude lepsi to pak nejak prepsat?
     [Struktura] -> Validator(jenom co muze byt za cim) -> Entitator? 
     -> Kontrola xml? -> Indenter
-15.
+15. Testy.
+16.
 
 Applied
 =======
