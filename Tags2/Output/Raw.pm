@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.9 2007-02-20 00:05:12 skim Exp $
+# $Id: Raw.pm,v 1.10 2007-02-20 00:12:32 skim Exp $
 
 # Pragmas.
 use strict;
@@ -150,13 +150,20 @@ sub _detect_data($$) {
 			$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d} 
 				: $d;
 		}
-
-		# In XML standard isn't posible '<!--comment--->'.
-		if (substr($self->{'flush_code'}, -1, 1) eq '-') {
-			$self->{'flush_code'} .= ' ';
-		}
-
 		$self->{'flush_code'} .= '-->';
+
+	# Cdata.
+	} elsif ($data->[0] eq 'cd') {
+		if ($#{$self->{'tmp_code'}} > -1) {
+			$self->_flush_tmp('>');
+		}
+		shift @{$data};
+		$self->{'flush_code'} .= '<![CDATA[';
+		foreach my $d (@{$data}) {
+			$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d}
+				: $d;
+		}
+		$self->{'flush_code'} .= ']]>';
 
 	# Data.
 	} elsif ($data->[0] eq 'd') {
