@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.8 2007-02-20 00:23:25 skim Exp $
+# $Id: Indent.pm,v 1.9 2007-02-20 00:32:55 skim Exp $
 
 # Pragmas.
 use strict;
@@ -23,9 +23,6 @@ sub new($@) {
 	my $class = shift;
 	my $self = bless {}, $class;
 
-	# DTD.
-	$self->{'dtd'} = {};
-
 	# Indent params.
 	$self->{'next_indent'} = '  ';
 	$self->{'line_size'} = 79;
@@ -36,6 +33,9 @@ sub new($@) {
 
 	# No simple tags.
 	$self->{'no_simple'} = [];
+
+	# Preserved tags.
+	$self->{'preserved'} = [];
 
 	# Attribute delimeter.
 	$self->{'attr_delimeter'} = '"';
@@ -348,6 +348,38 @@ TODO
 =over 8
 
 TODO
+
+=item B<output_handler>
+
+ TODO
+
+=item B<no-simple>
+
+ TODO
+
+=item B<attr_delimeter>
+
+ TODO
+
+=item B<preserved>
+
+ TODO
+
+=item B<skip_bad_tags>
+
+ TODO
+
+=item B<next_indent>
+
+ TODO
+
+=item B<output_separator>
+
+ TODO
+
+=item B<line_size>
+
+ TODO
 
 =back
 
