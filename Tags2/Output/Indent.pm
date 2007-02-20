@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.10 2007-02-20 00:34:54 skim Exp $
+# $Id: Indent.pm,v 1.11 2007-02-20 00:45:19 skim Exp $
 
 # Pragmas.
 use strict;
@@ -205,11 +205,13 @@ sub _detect_data($$) {
 			$self->_print_tag('>');
 		}
 		shift @{$data};
-		# TODO Indent.
+		my @tmp_data;
 		foreach my $d (@{$data}) {
-			$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d} 
-				: $d;
+			push @tmp_data, (ref $d eq 'SCALAR') ? ${$d} : $d;
 		}
+		$self->{'flush_code'} .= "\n".$self->{'indent_word'}->indent(
+			join('', @tmp_data), $self->{'indent'}->get,
+		);
 
 	# End of tag.
 	} elsif ($data->[0] eq 'e') {
