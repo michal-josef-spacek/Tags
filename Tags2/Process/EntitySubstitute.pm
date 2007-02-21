@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::EntitySubstitute;
 #------------------------------------------------------------------------------
-# $Id: EntitySubstitute.pm,v 1.1 2007-02-21 01:17:15 skim Exp $
+# $Id: EntitySubstitute.pm,v 1.2 2007-02-21 01:24:15 skim Exp $
 
 # Pragmas.
 use strict;
@@ -70,7 +70,7 @@ sub _substitute($$) {
 	my ($self, $data) = @_;
 	for (my $i = 1; $i <= $#{$data}; $i++) {
 		foreach my $ent (keys %{$self->{'entity'}}) {
-			$data->[$i] =~ s/$ent/$self->{'entity'}->{$ent}/g;
+			$data->[$i] =~ s/$ent\b/$self->{'entity'}->{$ent}/g;
 		}
 	}
 	return $data;
