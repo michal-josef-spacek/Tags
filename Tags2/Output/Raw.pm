@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.11 2007-02-20 00:32:30 skim Exp $
+# $Id: Raw.pm,v 1.12 2007-02-21 00:25:21 skim Exp $
 
 # Pragmas.
 use strict;
@@ -134,7 +134,7 @@ sub _detect_data($$) {
 		while (@{$data}) {
 			my $par = shift @{$data};
 			my $val = shift @{$data};
-			push @{$self->{'tmp_code'}}, $par.'='.
+			push @{$self->{'tmp_code'}}, ' ', $par.'='.
 				$self->{'attr_delimeter'}.$val.
 				$self->{'attr_delimeter'};
 		}
