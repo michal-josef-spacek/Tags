@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Id;
 #------------------------------------------------------------------------------
-# $Id: Id.pm,v 1.1 2007-02-21 00:14:15 skim Exp $
+# $Id: Id.pm,v 1.2 2007-02-21 00:19:07 skim Exp $
 
 # Pragmas.
 use strict;
@@ -46,7 +46,7 @@ sub check($@) {
 	my ($self, @data) = @_;
 
 	# For every 'Tags2' structure.
-	foreach $data (@data) {
+	foreach my $data (@data) {
 
 		# Begin of tag.
 		if ($data->[0] eq 'b') {
