@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Validator;
 #------------------------------------------------------------------------------
-# $Id: Validator.pm,v 1.3 2007-02-19 23:45:22 skim Exp $
+# $Id: Validator.pm,v 1.4 2007-02-21 00:14:45 skim Exp $
 
 # Pragmas.
 use strict;
@@ -13,7 +13,7 @@ use Error::Simple::Multiple;
 our $VERSION = 0.01;
 
 #------------------------------------------------------------------------------
-sub new {
+sub new($@) {
 #------------------------------------------------------------------------------
 # Constructor.
 
@@ -35,13 +35,21 @@ sub new {
 	return $self;
 }
 
+#------------------------------------------------------------------------------
+sub check($$) {
+#------------------------------------------------------------------------------
+# Check structure opposite dtd struct.
+
+	my ($self, $data) = @_;
+}
+
 1;
 
 =pod
 
 =head1 NAME
 
- Tags2::Process::Validator - TODO
+ Tags2::Process::Validator - Validator class for 'Tags2' structure.
 
 =head1 SYNOPSIS
 
