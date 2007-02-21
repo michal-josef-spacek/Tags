@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Id;
 #------------------------------------------------------------------------------
-# $Id: Id.pm,v 1.2 2007-02-21 00:19:07 skim Exp $
+# $Id: Id.pm,v 1.3 2007-02-21 00:29:27 skim Exp $
 
 # Pragmas.
 use strict;
@@ -34,6 +34,9 @@ sub new($@) {
 	# Actual tag.
 	$self->{'actual_tag'} = '';
 
+	# Log flag for id in current tag.
+	$self->{'log'} = 0;
+
 	# Object.
 	return $self;
 }
@@ -56,6 +59,11 @@ sub check($@) {
 		} elsif ($data->[0] eq 'a') {
 			shift @{$data};
 			$self->_check_atributes_for_id($data);
+
+		# End of tag.
+		} elsif ($data->[0] eq 'e') {
+			$self->{'actual_tag'} = '';
+			$self->{'log'} = 0;
 		}
 	}
 	
@@ -67,8 +75,9 @@ sub reset($) {
 # Resets class id register.
 
 	my $self = shift;
-	$self->{'id_tags'} = [];
 	$self->{'actual_tag'} = '';
+	$self->{'id_tags'} = [];
+	$self->{'log'} = 0;
 }
 
 #------------------------------------------------------------------------------
@@ -81,10 +90,9 @@ sub _check_atributes_for_id($$) {
 # Check attribute for bad ids.
 
 	my ($self, $data) = @_;
-	my $log = 0;
-	for (my $i = 2; $i <= $#{$data}; $i++) {
+	for (my $i = 0; $i <= $#{$data}; $i++) {
 		if ($i % 2 == 0 && $data->[$i] eq 'id') {
-			if ($log == 1) {
+			if ($self->{'log'} == 1) {
 				err "Other id attribute in tag ".
 					"'$self->{'actual_tag'}'.";
 			} elsif (! grep { $_ eq $data->[$i + 1] }
@@ -92,7 +100,7 @@ sub _check_atributes_for_id($$) {
 
 				push @{$self->{'id_tags'}},
 					$data->[$i + 1];	
-				$log = 1;
+				$self->{'log'} = 1;
 			} else {
 				err "Id attribute '$data->[$i + 1]'".
 					" in tag '$self->{'actual_tag'}'".
