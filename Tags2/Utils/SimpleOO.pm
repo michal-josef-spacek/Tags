@@ -1,17 +1,19 @@
 #------------------------------------------------------------------------------
 package Tags2::Utils::SimpleOO;
 #------------------------------------------------------------------------------
-# $Id: SimpleOO.pm,v 1.2 2007-01-24 13:02:11 skim Exp $
+# $Id: SimpleOO.pm,v 1.3 2007-02-21 00:36:28 skim Exp $
 
 # Pragmas.
 use strict;
 
+# TODO Bad module.
 # Modules.
 use Tags2;
 
 # Version.
 our $VERSION = 0.01;
 
+# TODO Bad module.
 # Inheritance.
 our @ISA = qw(Tags2);
 
@@ -82,3 +84,57 @@ sub put_a {
 }
 
 1;
+
+=pod
+
+=head1 NAME
+
+ Tag2::Utils::SimpleOO - Class that simplifies tags data putting.
+
+=head1 SYNOPSIS
+
+ TODO
+
+=head1 METHODS
+
+=over 8
+
+=item B<put_a()>
+
+ TODO
+
+=item B<put_b()>
+
+ TODO
+
+=item B<put_c()>
+
+ TODO
+
+=item B<put_d()>
+
+ TODO
+
+=item B<put_e()>
+
+ TODO
+
+=item B<put_i()>
+
+ TODO
+
+=back
+
+=head1 REQUIREMENTS
+
+ TODO
+
+=head1 AUTHOR
+
+ Michal Spacek L<tupinek@gmail.com>
+
+=head1 VERSION
+
+ 0.01
+
+=cut
