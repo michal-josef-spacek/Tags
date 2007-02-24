@@ -1,10 +1,11 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::EntitySubstitute;
 #------------------------------------------------------------------------------
-# $Id: EntitySubstitute.pm,v 1.3 2007-02-21 03:09:32 skim Exp $
+# $Id: EntitySubstitute.pm,v 1.4 2007-02-24 13:27:00 skim Exp $
 
 # Pragmas.
 use strict;
+use encoding 'utf8';
 
 # Modules.
 use Error::Simple::Multiple;
@@ -22,6 +23,9 @@ sub new($@) {
 
 	# Entity structure. 
 	$self->{'entity'} = {};
+
+	# Entity characters to encode/decode.
+	$self->{'entity_chars'} = [];
 
 	# Process params.
         while (@_) {
@@ -64,7 +68,7 @@ sub encode($@) {
 #------------------------------------------------------------------------------
 sub decode($@) {
 #------------------------------------------------------------------------------
-# Decode entoty from dtd to text strings.
+# Decode entity from dtd to text strings.
 
 	my ($self, @data) = @_;
 
@@ -74,6 +78,50 @@ sub decode($@) {
 			for (my $j = 1; $j <= $#{$data[$i]}; $j++) {
 				$data[$i]->[$j] 
 					= $self->_decode($data[$i]->[$j]);
+			}
+		}
+	}
+
+	# Return data.
+	return @data;
+}
+
+#------------------------------------------------------------------------------
+sub encode_chars($@) {
+#------------------------------------------------------------------------------
+# Encode characters to '&#[0-9]+;' syntax.
+
+	my ($self, @data) = @_;
+
+	# For every 'Tags2' structure.
+	foreach (my $i = 0; $i <= $#data; $i++) {
+		if ($data[$i]->[0] eq 'd') {
+			for (my $j = 1; $j <= $#{$data[$i]}; $j++) {
+				$data[$i]->[$j] 
+					= $self->_encode_chars(
+					$data[$i]->[$j]);
+			}
+		}
+	}
+
+	# Return data.
+	return @data;
+}
+
+#------------------------------------------------------------------------------
+sub decode_chars($@) {
+#------------------------------------------------------------------------------
+# Decode characters from '&#[0-9]+;' syntax.
+
+	my ($self, @data) = @_;
+
+	# For every 'Tags2' structure.
+	foreach (my $i = 0; $i <= $#data; $i++) {
+		if ($data[$i]->[0] eq 'd') {
+			for (my $j = 1; $j <= $#{$data[$i]}; $j++) {
+				$data[$i]->[$j] 
+					= $self->_decode_chars(
+					$data[$i]->[$j]);
 			}
 		}
 	}
@@ -114,6 +162,32 @@ sub _decode($$) {
 	}
 	return $data;
 }
+
+#------------------------------------------------------------------------------
+sub _encode_chars($$) {
+#------------------------------------------------------------------------------
+# Encode chars.
+
+	my ($self, $data) = @_;
+	$data = $self->_decode_chars($data);
+	foreach my $ent_char (@{$self->{'entity_chars'}}) {
+		my $tmp = '&#'.ord($ent_char).';';
+		$data =~ s/$ent_char/$tmp/g;
+	}
+	return $data;
+}
+
+#------------------------------------------------------------------------------
+sub _decode_chars($$) {
+#------------------------------------------------------------------------------
+# Decode chars.
+
+	my ($self, $data) = @_;
+	$data =~ s/&#(\d+);/chr($1)/ge;
+	$data =~ s/&#x([\da-fA-F]+);/chr($1)/ge;
+	return $data;
+}
+
 1;
 
 =pod
@@ -142,6 +216,10 @@ sub _decode($$) {
 
  TODO
 
+=item B<entity_chars>
+
+ TODO
+
 =back
 
 =item B<encode($data)>
@@ -149,6 +227,14 @@ sub _decode($$) {
  TODO
 
 =item B<decode($data)>
+
+ TODO
+
+=item B<encode_chars($data)>
+
+ TODO
+
+=item B<decode_chars($data)>
 
  TODO
 
