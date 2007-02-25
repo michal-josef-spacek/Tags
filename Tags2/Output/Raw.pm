@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.14 2007-02-25 16:38:53 skim Exp $
+# $Id: Raw.pm,v 1.15 2007-02-25 16:42:19 skim Exp $
 
 # Pragmas.
 use strict;
@@ -260,7 +260,14 @@ sub _flush_tmp($$) {
 
 =head1 SYNOPSIS
 
- TODO
+ use Tags2::Output::Raw;
+ my $t = Tags2::Output::Raw->new;
+ $t->put(['b', 'tag']);
+ $t->finalize;
+ $t->flush;
+ $t->reset;
+ $t->put(['b', 'tag']);
+ my @open_tags = $t->open_tags;
 
 =head1 METHODS
 
@@ -316,6 +323,10 @@ sub _flush_tmp($$) {
  TODO
 
 =item B<flush()>
+
+ TODO
+
+=item B<open_tags()>
 
  TODO
 
