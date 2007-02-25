@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.13 2007-02-25 16:36:14 skim Exp $
+# $Id: Raw.pm,v 1.14 2007-02-25 16:38:53 skim Exp $
 
 # Pragmas.
 use strict;
@@ -39,7 +39,7 @@ sub new($@) {
 
 	# Check 'attr_delimeter'.
 	if ($self->{'attr_delimeter'} ne '"' 
-		|| $self->{'attr_delimeter'} ne "'") {
+		&& $self->{'attr_delimeter'} ne "'") {
 
 		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
 	}
