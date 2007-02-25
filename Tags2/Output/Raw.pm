@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.12 2007-02-21 00:25:21 skim Exp $
+# $Id: Raw.pm,v 1.13 2007-02-25 16:36:14 skim Exp $
 
 # Pragmas.
 use strict;
@@ -26,9 +26,6 @@ sub new($@) {
 	# No simple tags.
 	$self->{'no_simple'} = [];
 
-	# Preserved tags.
-	$self->{'preserved'} = [];
-
 	# Attribute delimeter.
 	$self->{'attr_delimeter'} = '"';
 
@@ -39,6 +36,13 @@ sub new($@) {
                 err "Bad parameter '$key'." unless exists $self->{$key};
                 $self->{$key} = $val;
         }
+
+	# Check 'attr_delimeter'.
+	if ($self->{'attr_delimeter'} ne '"' 
+		|| $self->{'attr_delimeter'} ne "'") {
+
+		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
+	}
 
 	# Flush code.
 	$self->{'flush_code'} = '';
@@ -272,19 +276,38 @@ sub _flush_tmp($$) {
 
 =item B<output_handler>
 
- TODO
+ Handler for print output strings.
+ Default is *STDOUT.
 
 =item B<no-simple>
 
- TODO
+ Reference to array of tags, that can't by simple.
+ Default is [].
+
+ Example:
+ That's normal in html pages, web browsers has problem with <script /> tag.
+ Prints <script></script> instead <script />.
+
+ my $t = Tags2::Output::Raw->new(
+   'no_simple' => ['script'] 
+ );
+ $t->put(['b', 'script'], ['e', 'script']);
+ $t->flush;
 
 =item B<attr_delimeter>
 
- TODO
+ String, that defines attribute delimeter 
+ Default is '"'.
+ Possible is '"' or "'".
 
-=item B<preserved>
+ Example:
+ Prints <tag attr='val' /> instead default <tag attr="val" />
 
- TODO
+ my $t = Tags2::Output::Raw->new(
+   'attr_delimeter' => "'",
+ );
+ $t->put(['b', 'tag'], ['a', 'attr', 'val'], ['e', 'tag']);
+ $t->flush;
 
 =back
 
