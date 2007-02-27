@@ -1,10 +1,11 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::LibXML;
 #------------------------------------------------------------------------------
-# $Id: LibXML.pm,v 1.1 2007-02-27 17:28:47 skim Exp $
+# $Id: LibXML.pm,v 1.2 2007-02-27 18:06:38 skim Exp $
 
 # Pragmas.
 use strict;
+#use Encoding 'utf-8';
 
 # Modules.
 use Error::Simple::Multiple;
@@ -48,9 +49,6 @@ sub new($@) {
 		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
 	}
 
-	# Flush code.
-	$self->{'flush_code'} = '';
-
 	# Tmp code.
 	$self->{'tmp_code'} = [];
 
@@ -85,7 +83,7 @@ sub flush($) {
 
 	my $self = shift;
 	my $ouf = $self->{'output_handler'};
-	print $ouf $self->{'doc'}->toString;
+	print $ouf $self->{'doc'}->toString($self->{'set_indent'} ? 2 : 0);
 }
 
 #------------------------------------------------------------------------------
@@ -126,7 +124,6 @@ sub reset($) {
 
 	my $self = shift;
 	$self->{'printed_tags'} = [];
-	$self->{'flush_code'} = '';
 }
 
 #------------------------------------------------------------------------------
@@ -162,29 +159,50 @@ sub _detect_data($$) {
 
 	# Comment.
 	} elsif ($data->[0] eq 'c') {
-		my $comment_node = $self->{'doc'}->createComment($data->[1]);
+		my $tmp = '';
+		foreach my $d (@{$data}) {
+			$tmp .= ref $d eq 'SCALAR' ? ${$d} 
+				: $d;
+		}
+		my $comment_node = $self->{'doc'}->createComment($tmp);
 		$self->{'printed_tags'}->[0]->addChild($comment_node);
 
 	# Cdata.
 	} elsif ($data->[0] eq 'cd') {
-		my $cdata_node = $self->{'doc'}->create($data->[1]);
+		my $tmp = '';
+		foreach my $d (@{$data}) {
+			$tmp .= ref $d eq 'SCALAR' ? ${$d} 
+				: $d;
+		}
+		my $cdata_node = $self->{'doc'}->create($tmp);
 		$self->{'printed_tags'}->[0]->addChild($cdata_node);
 
 	# Data.
 	} elsif ($data->[0] eq 'd') {
-		my $data_node = $self->{'doc'}->createTextNode($data->[1]);
+		my $tmp = '';
+		foreach my $d (@{$data}) {
+			$tmp .= ref $d eq 'SCALAR' ? ${$d} 
+				: $d;
+		}
+		my $data_node = $self->{'doc'}->createTextNode($tmp);
 		$self->{'printed_tags'}->[0]->addChild($data_node);
 
 	# End of tag.
 	} elsif ($data->[0] eq 'e') {
 		shift @{$self->{'printed_tags'}};
-		$self->{'printed_tags'}->[0] = shift @{$self->{'printed_tags'}};
 
 	# Instruction.
 	} elsif ($data->[0] eq 'i') {
+		shift @{$data};
+		my $target = shift @{$data};
+		my $tmp = '';
+		while (@{$data}) {
+			my $tmp_data = shift @{$data};
+			$tmp .= " $tmp_data";
+		}
 		my $instruction_node 
 			= $self->{'doc'}->createProcessingInstruction(
-			$data->[1], $data->[2]);
+			$target, $tmp);
 		if (! defined $self->{'printed_tags'}->[0]) {
 			$self->{'doc'}->appendChild($instruction_node);
 		} else {
@@ -193,6 +211,11 @@ sub _detect_data($$) {
 
 	# Raw data.
 	} elsif ($data->[0] eq 'r') {
+#		shift @{$data};
+#		while (@{$data}) {
+#			my $data = shift @{$data};
+#			$self->{'flush_code'} .= $data;
+#		}
 
 	# Other.
 	} else {
