@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.16 2007-02-27 14:53:10 skim Exp $
+# $Id: Raw.pm,v 1.17 2007-02-27 19:03:23 skim Exp $
 
 # Pragmas.
 use strict;
@@ -28,6 +28,9 @@ sub new($@) {
 
 	# Attribute delimeter.
 	$self->{'attr_delimeter'} = '"';
+
+	# Skip bad tags.
+	$self->{'skip_bad_tags'} = 0;
 
 	# Process params.
         while (@_) {
@@ -235,7 +238,7 @@ sub _detect_data($$) {
 
 	# Other.
 	} else {
-		err "Bad type of data.";
+		err "Bad type of data." if $self->{'skip_bad_tags'};
 	}
 }
 
@@ -339,6 +342,10 @@ sub _flush_tmp($$) {
  TODO
 
 =back
+
+=head1 REQUIREMENTS
+
+ L<Error::Simple::Multiple>
 
 =head1 AUTHOR
 
