@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::LibXML;
 #------------------------------------------------------------------------------
-# $Id: LibXML.pm,v 1.3 2007-02-27 18:13:56 skim Exp $
+# $Id: LibXML.pm,v 1.4 2007-02-27 18:21:56 skim Exp $
 
 # Pragmas.
 use strict;
@@ -52,18 +52,8 @@ sub new($@) {
 		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
 	}
 
-	# Tmp code.
-	$self->{'tmp_code'} = [];
-
-	# Printed tags.
-	$self->{'printed_tags'} = [];
-
-	# Root node.
-	$self->{'doc'} = XML::LibXML::Document->new('1.1', 
-		$self->{'encoding'});
-
-	# First node = root node.
-	$self->{'first'} = 0;
+	# Inicialization.
+	$self->_init;
 
 	# Object.
 	return $self;
@@ -127,7 +117,7 @@ sub reset($) {
 # Resets internal variables.
 
 	my $self = shift;
-	$self->{'printed_tags'} = [];
+	$self->_init;
 }
 
 #------------------------------------------------------------------------------
@@ -225,6 +215,24 @@ sub _detect_data($$) {
 	} else {
 		err "Bad type of data.";
 	}
+}
+
+#------------------------------------------------------------------------------
+sub _init($) {
+#------------------------------------------------------------------------------
+# Incialization.
+
+	my $self = shift;
+
+	# Printed tags.
+	$self->{'printed_tags'} = [];
+
+	# Root node.
+	$self->{'doc'} = XML::LibXML::Document->new('1.1', 
+		$self->{'encoding'});
+
+	# First node = root node.
+	$self->{'first'} = 0;
 }
 
 1;
