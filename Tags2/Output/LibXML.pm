@@ -1,11 +1,10 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::LibXML;
 #------------------------------------------------------------------------------
-# $Id: LibXML.pm,v 1.4 2007-02-27 18:21:56 skim Exp $
+# $Id: LibXML.pm,v 1.5 2007-02-27 19:02:56 skim Exp $
 
 # Pragmas.
 use strict;
-#use Encoding 'utf-8';
 
 # Modules.
 use Error::Simple::Multiple;
@@ -25,17 +24,14 @@ sub new($@) {
 	# Set output handler.
 	$self->{'output_handler'} = *STDOUT;
 
-	# No simple tags.
-	$self->{'no_simple'} = [];
-
-	# Attribute delimeter.
-	$self->{'attr_delimeter'} = '"';
-
 	# Set indent.
 	$self->{'set_indent'} = 0;
 
 	# Document encoding.
 	$self->{'encoding'} = 'UTF-8';
+
+	# Skip bad tags.
+	$self->{'skip_bad_tags'} = 0;
 
 	# Process params.
         while (@_) {
@@ -44,13 +40,6 @@ sub new($@) {
                 err "Bad parameter '$key'." unless exists $self->{$key};
                 $self->{$key} = $val;
         }
-
-	# Check 'attr_delimeter'.
-	if ($self->{'attr_delimeter'} ne '"' 
-		&& $self->{'attr_delimeter'} ne "'") {
-
-		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
-	}
 
 	# Inicialization.
 	$self->_init;
@@ -213,7 +202,8 @@ sub _detect_data($$) {
 
 	# Other.
 	} else {
-		err "Bad type of data.";
+		err "Bad type of data." if $self->{'skip_bad_tags'};
+
 	}
 }
 
@@ -247,12 +237,16 @@ sub _init($) {
 
  use Tags2::Output::Raw;
  my $t = Tags2::Output::Raw->new;
- $t->put(['b', 'tag']);
+ $t->put(['b', 'tag'], ['d', 'data']);
  $t->finalize;
  $t->flush;
  $t->reset;
- $t->put(['b', 'tag']);
+ $t->put(['b', 'tag'], ['d', 'data']);
  my @open_tags = $t->open_tags;
+
+=head1 DESCRIPTION
+
+ This class is only for XML structures.
 
 =head1 METHODS
 
@@ -271,35 +265,17 @@ sub _init($) {
  Handler for print output strings.
  Default is *STDOUT.
 
-=item B<no-simple>
+=item B<set_indent>
 
- Reference to array of tags, that can't by simple.
- Default is [].
+ TODO
 
- Example:
- That's normal in html pages, web browsers has problem with <script /> tag.
- Prints <script></script> instead <script />.
+=item B<encoding>
 
- my $t = Tags2::Output::Raw->new(
-   'no_simple' => ['script'] 
- );
- $t->put(['b', 'script'], ['e', 'script']);
- $t->flush;
+ TODO
 
-=item B<attr_delimeter>
+=item B<skip_bad_tags>
 
- String, that defines attribute delimeter 
- Default is '"'.
- Possible is '"' or "'".
-
- Example:
- Prints <tag attr='val' /> instead default <tag attr="val" />
-
- my $t = Tags2::Output::Raw->new(
-   'attr_delimeter' => "'",
- );
- $t->put(['b', 'tag'], ['a', 'attr', 'val'], ['e', 'tag']);
- $t->flush;
+ TODO
 
 =back
 
@@ -324,6 +300,11 @@ sub _init($) {
  TODO
 
 =back
+
+=head1 REQUIREMENTS
+
+ L<Error::Simple::Multiple>
+ L<XML::LibXML>
 
 =head1 AUTHOR
 
