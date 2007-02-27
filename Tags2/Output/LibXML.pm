@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::LibXML;
 #------------------------------------------------------------------------------
-# $Id: LibXML.pm,v 1.2 2007-02-27 18:06:38 skim Exp $
+# $Id: LibXML.pm,v 1.3 2007-02-27 18:13:56 skim Exp $
 
 # Pragmas.
 use strict;
@@ -34,6 +34,9 @@ sub new($@) {
 	# Set indent.
 	$self->{'set_indent'} = 0;
 
+	# Document encoding.
+	$self->{'encoding'} = 'UTF-8';
+
 	# Process params.
         while (@_) {
                 my $key = shift;
@@ -56,7 +59,8 @@ sub new($@) {
 	$self->{'printed_tags'} = [];
 
 	# Root node.
-	$self->{'doc'} = XML::LibXML::Document->new('1.1', 'UTF-8');
+	$self->{'doc'} = XML::LibXML::Document->new('1.1', 
+		$self->{'encoding'});
 
 	# First node = root node.
 	$self->{'first'} = 0;
