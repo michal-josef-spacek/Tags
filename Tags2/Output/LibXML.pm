@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::LibXML;
 #------------------------------------------------------------------------------
-# $Id: LibXML.pm,v 1.5 2007-02-27 19:02:56 skim Exp $
+# $Id: LibXML.pm,v 1.6 2007-02-27 19:06:32 skim Exp $
 
 # Pragmas.
 use strict;
@@ -163,6 +163,7 @@ sub _detect_data($$) {
 	# Data.
 	} elsif ($data->[0] eq 'd') {
 		my $tmp = '';
+		shift @{$data};
 		foreach my $d (@{$data}) {
 			$tmp .= ref $d eq 'SCALAR' ? ${$d} 
 				: $d;
