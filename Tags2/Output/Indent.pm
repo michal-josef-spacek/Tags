@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.17 2007-03-06 22:22:55 skim Exp $
+# $Id: Indent.pm,v 1.18 2007-03-06 22:30:47 skim Exp $
 
 # Pragmas.
 use strict;
@@ -94,8 +94,8 @@ sub finalize($) {
 # Finalize Tags output.
 
 	my $self = shift;
-	foreach (@{$self->{'printed_tags'}}) {
-		$self->put(['e', $_]);
+	while (@{$self->{'printed_tags'}}) {
+		$self->put(['e', $self->{'printed_tags'}->[0]]);
 	}
 }
 

@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.17 2007-02-27 19:03:23 skim Exp $
+# $Id: Raw.pm,v 1.18 2007-03-06 22:31:46 skim Exp $
 
 # Pragmas.
 use strict;
@@ -66,8 +66,8 @@ sub finalize($) {
 # Finalize Tags output.
 
 	my $self = shift;
-	foreach (@{$self->{'printed_tags'}}) {
-		$self->put(['e', $_]);
+	while (@{$self->{'printed_tags'}}) {
+		$self->put(['e', $self->{'printed_tags'}->[0]]);
 	}
 }
 
