@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.16 2007-02-27 14:53:38 skim Exp $
+# $Id: Indent.pm,v 1.17 2007-03-06 22:22:55 skim Exp $
 
 # Pragmas.
 use strict;
@@ -226,6 +226,9 @@ sub _detect_data($$) {
 		if (! grep { $_ eq $data->[1] } @{$self->{'no_simple'}}) {
 			if ($#{$self->{'tmp_code'}} > -1) {
 				$self->_print_tag('/>');
+				if (! $self->{'non_indent'}) {
+					$self->{'indent'}->remove;
+				}
 			} else {
 				$self->_print_end_tag($data->[1]);
 			}
