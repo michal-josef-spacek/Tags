@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.18 2007-03-06 22:30:47 skim Exp $
+# $Id: Indent.pm,v 1.19 2007-03-14 12:26:50 skim Exp $
 
 # Pragmas.
 use strict;
@@ -272,8 +272,10 @@ sub _detect_data($$) {
 		}
 		push @cdata, ']]>';
 		$self->{'flush_code'} .= "\n" if $self->{'flush_code'};
+		# TODO Ted je zapnute non-indent.
+		# Tady bych se mel kouknout, jak se cdata sekce vubec chova.
 		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
-			\@cdata, $self->{'indent'}->get,
+			\@cdata, $self->{'indent'}->get, 1,
 		);
 
 	# Other.
