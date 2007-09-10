@@ -1,4 +1,4 @@
-# $Id: Makefile.PL,v 1.5 2007-01-24 12:12:28 skim Exp $
+# $Id: Makefile.PL,v 1.6 2007-09-10 15:35:06 skim Exp $
 
 # Modules.
 use ExtUtils::MakeMaker;
@@ -7,7 +7,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
 	'NAME' => 'Tags2',
 	'PREREQ_PM' => {
-		'Error::Simple::Multiple' => 0.02,
+		'Error::Simple::Multiple' => 0.03,
 	},
-	'VERSION' => 0.01,
+	'VERSION' => 0.02,
 );
