@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.19 2007-03-14 12:26:50 skim Exp $
+# $Id: Indent.pm,v 1.20 2007-09-10 15:34:43 skim Exp $
 
 # Pragmas.
 use strict;
@@ -84,6 +84,9 @@ sub new($@) {
 	# xml:space value of actual tag.
 	$self->{'xml_space'} = {};
 
+	# Flag, that means raw tag.
+	$self->{'raw_tag'} = 0;
+
 	# Object.
 	return $self;
 }
@@ -146,6 +149,7 @@ sub reset($) {
 	my $self = shift;
 	$self->{'printed_tags'} = [];
 	$self->{'flush_code'} = '';
+	$self->{'raw_tag'} = 0;
 }
 
 #------------------------------------------------------------------------------
@@ -193,7 +197,7 @@ sub _detect_data($$) {
 			push @comment, (ref $d eq 'SCALAR') ? ${$d} : $d;
 		}
 		push @comment, '-->';
-		$self->{'flush_code'} .= "\n" if $self->{'flush_code'};
+		$self->_newline;
 		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
 			\@comment,
 			$self->{'indent'}->get,
@@ -209,7 +213,7 @@ sub _detect_data($$) {
 		foreach my $d (@{$data}) {
 			push @tmp_data, (ref $d eq 'SCALAR') ? ${$d} : $d;
 		}
-		$self->{'flush_code'} .= "\n" if $self->{'flush_code'};
+		$self->_newline;
 		$self->{'flush_code'} .= $self->{'indent_word'}->indent(
 			join('', @tmp_data), $self->{'indent'}->get,
 		);
@@ -246,7 +250,7 @@ sub _detect_data($$) {
 		}
 		shift @{$data};
 		my $target = shift @{$data};
-		$self->{'flush_code'} .= "\n" if $self->{'flush_code'};
+		$self->_newline;
 		$self->{'flush_code'} .= $self->{'indent_block'}->indent([
 			'<?'.$target, ' ', @{$data}, '?>',
 			$self->{'indent'}->get,
@@ -259,6 +263,7 @@ sub _detect_data($$) {
 			my $data = shift @{$data};
 			$self->{'flush_code'} .= $data;
 		}
+		$self->{'raw_tag'} = 1;
 
 	# CData.
 	} elsif ($data->[0] eq 'cd') {
@@ -271,7 +276,7 @@ sub _detect_data($$) {
 			push @cdata, $_;
 		}
 		push @cdata, ']]>';
-		$self->{'flush_code'} .= "\n" if $self->{'flush_code'};
+		$self->_newline;
 		# TODO Ted je zapnute non-indent.
 		# Tady bych se mel kouknout, jak se cdata sekce vubec chova.
 		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
@@ -296,7 +301,7 @@ sub _print_tag($$) {
 		}
 		push @{$self->{'tmp_code'}}, $string;
 	}
-	$self->{'flush_code'} .= "\n" if $self->{'flush_code'};
+	$self->_newline;
 	$self->{'flush_code'} .= $self->{'indent_block'}->indent(
 		$self->{'tmp_code'}, $self->{'indent'}->get,
 	);
@@ -315,10 +320,29 @@ sub _print_end_tag($$) {
 	if (! $self->{'non_indent'}) {
 		$self->{'indent'}->remove;
 	}
-	$self->{'flush_code'} .= "\n" if $self->{'flush_code'};
+	$self->_newline;
 	$self->{'flush_code'} .= $self->{'indent_block'}->indent(
 		['</'.$string, '>'], $self->{'indent'}->get,
 	);
+}
+
+#------------------------------------------------------------------------------
+sub _newline($) {
+#------------------------------------------------------------------------------
+# Print newline if need.
+
+	my $self = shift;
+
+	# Null raw tag (normal tag processing).
+	if ($self->{'raw_tag'}) {
+		$self->{'raw_tag'} = 0;
+
+	# Adding newline if flush_code.
+	} else {
+		if ($self->{'flush_code'}) {
+			$self->{'flush_code'} .= "\n";
+		}
+	}
 }
 
 1;
