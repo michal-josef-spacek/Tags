@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.19 2007-09-10 15:23:08 skim Exp $
+# $Id: Raw.pm,v 1.20 2007-09-10 17:13:00 skim Exp $
 
 # Pragmas.
 use strict;
@@ -213,7 +213,9 @@ sub _detect_data($$) {
 
 		# Tag cannot be simple.
 		} else {
-			$self->_flush_tmp('>');
+			if ($#{$self->{'tmp_code'}} > -1) {
+				$self->_flush_tmp('>');
+			}
 			$self->{'flush_code'} .= "</$data->[1]>";
 		}
 

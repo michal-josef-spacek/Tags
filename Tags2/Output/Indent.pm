@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.21 2007-09-10 15:35:08 skim Exp $
+# $Id: Indent.pm,v 1.22 2007-09-10 17:13:00 skim Exp $
 
 # Pragmas.
 use strict;
@@ -239,7 +239,9 @@ sub _detect_data($$) {
 
 		# Tag cannot be simple.
 		} else {
-			$self->_print_tag('>');
+			if ($#{$self->{'tmp_code'}} > -1) {
+				$self->_print_tag('>');
+			}
 			$self->_print_end_tag($data->[1]);
 		}
 
