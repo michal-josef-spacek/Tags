@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.22 2007-09-10 20:25:29 skim Exp $
+# $Id: Raw.pm,v 1.23 2007-09-10 20:30:55 skim Exp $
 
 # Pragmas.
 use strict;
@@ -310,6 +310,10 @@ sub _flush_tmp($$) {
  $t->put(['b', 'script'], ['e', 'script']);
  $t->flush;
 
+=item B<preserved>
+
+ TODO
+
 =item B<attr_delimeter>
 
  String, that defines attribute delimeter 
@@ -324,6 +328,10 @@ sub _flush_tmp($$) {
  );
  $t->put(['b', 'tag'], ['a', 'attr', 'val'], ['e', 'tag']);
  $t->flush;
+
+=item B<skip_bad_tags>
+
+ TODO
 
 =back
 
