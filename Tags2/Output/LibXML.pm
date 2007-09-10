@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::LibXML;
 #------------------------------------------------------------------------------
-# $Id: LibXML.pm,v 1.6 2007-02-27 19:06:32 skim Exp $
+# $Id: LibXML.pm,v 1.7 2007-09-10 15:00:18 skim Exp $
 
 # Pragmas.
 use strict;
@@ -41,7 +41,7 @@ sub new($@) {
                 $self->{$key} = $val;
         }
 
-	# Inicialization.
+	# Initialization.
 	$self->_init;
 
 	# Object.
