@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Utils::Preserve;
 #------------------------------------------------------------------------------
-# $Id: Preserve.pm,v 1.1 2007-09-10 21:04:06 skim Exp $
+# $Id: Preserve.pm,v 1.2 2007-09-10 23:25:47 skim Exp $
 
 # Pragmas.
 use strict;
@@ -44,8 +44,8 @@ sub begin_tag($$) {
 # Process for begin of tag.
 
 	my ($self, $tag) = @_;
-	if (grep { $tag eq $_ } @{$self->{'preserved'}}
-		|| $self->{'preserved_flag'}) {
+	if ((grep { $tag eq $_ } @{$self->{'preserved'}})
+		|| $self->{'preserved_flag'} ) {
 
 		push @{$self->{'preserved_stack'}}, $tag;
 		$self->{'preserved_flag'} = 1 unless $self->{'preserved_flag'};
@@ -53,6 +53,15 @@ sub begin_tag($$) {
 
 	# Return preserved flag.
 	return $self->{'preserved_flag'};
+}
+
+#------------------------------------------------------------------------------
+sub count($) {
+#------------------------------------------------------------------------------
+# Count tags in stack.
+
+	my $self = shift;
+	return $#{$self->{'preserved_stack'}};
 }
 
 #------------------------------------------------------------------------------
@@ -68,6 +77,18 @@ sub end_tag($$) {
 			$self->{'preserved_flag'} = 0;
 		}
 	}
+
+	# Return preserved flag.
+	return $self->{'preserved_flag'};
+}
+
+#------------------------------------------------------------------------------
+sub get($) {
+#------------------------------------------------------------------------------
+# Get preserved flag.
+
+	my $self = shift;
+	return $self->{'preserved_flag'};
 }
 
 #------------------------------------------------------------------------------
