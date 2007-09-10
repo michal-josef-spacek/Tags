@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.18 2007-03-06 22:31:46 skim Exp $
+# $Id: Raw.pm,v 1.19 2007-09-10 15:23:08 skim Exp $
 
 # Pragmas.
 use strict;
@@ -25,6 +25,10 @@ sub new($@) {
 
 	# No simple tags.
 	$self->{'no_simple'} = [];
+
+	# Preserved tags.
+	# TODO To implement.
+	$self->{'preserved'} = [];
 
 	# Attribute delimeter.
 	$self->{'attr_delimeter'} = '"';
