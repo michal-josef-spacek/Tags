@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Utils::Preserve;
 #------------------------------------------------------------------------------
-# $Id: Preserve.pm,v 1.3 2007-09-11 11:49:43 skim Exp $
+# $Id: Preserve.pm,v 1.4 2007-09-11 11:58:33 skim Exp $
 
 # Pragmas.
 use strict;
@@ -72,7 +72,7 @@ sub end($$) {
 	my ($self, $tag) = @_;
 	$self->save_previous;
 	my $stack = $self->{'preserved_stack'};
-	if ($tag eq $stack->[$#{$stack}]) {
+	if ($#{$stack} > -1 && $tag eq $stack->[$#{$stack}]) {
 		pop @{$stack};
 		if ($#{$stack} == -1) {
 			$self->{'preserved_flag'} = 0;
