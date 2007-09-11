@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.22 2007-09-10 17:13:00 skim Exp $
+# $Id: Indent.pm,v 1.23 2007-09-11 11:50:59 skim Exp $
 
 # Pragmas.
 use strict;
@@ -11,6 +11,7 @@ use Error::Simple::Multiple;
 use Indent;
 use Indent::Word;
 use Indent::Block;
+use Tags2::Utils::Preserve;
 
 # Version.
 our $VERSION = 0.02;
@@ -81,11 +82,13 @@ sub new($@) {
 	# Non indent flag.
 	$self->{'non_indent'} = 0;
 
-	# xml:space value of actual tag.
-	$self->{'xml_space'} = {};
-
 	# Flag, that means raw tag.
 	$self->{'raw_tag'} = 0;
+
+	# Preserved object.
+	$self->{'preserve_obj'} = Tags2::Utils::Preserve->new(
+		'preserved' => $self->{'preserved'},
+	);
 
 	# Object.
 	return $self;
@@ -214,8 +217,12 @@ sub _detect_data($$) {
 			push @tmp_data, (ref $d eq 'SCALAR') ? ${$d} : $d;
 		}
 		$self->_newline;
+		$self->{'preserve_obj'}->save_previous;
+		my $pre = $self->{'preserve_obj'}->get;
 		$self->{'flush_code'} .= $self->{'indent_word'}->indent(
-			join('', @tmp_data), $self->{'indent'}->get,
+			join('', @tmp_data), 
+			$pre ? '' : $self->{'indent'}->get,
+			$pre ? 1 : 0
 		);
 
 	# End of tag.
@@ -228,9 +235,10 @@ sub _detect_data($$) {
 
 		# Tag can be simple.
 		if (! grep { $_ eq $data->[1] } @{$self->{'no_simple'}}) {
+			my $pre = $self->{'preserve_obj'}->end($data->[1]);
 			if ($#{$self->{'tmp_code'}} > -1) {
 				$self->_print_tag('/>');
-				if (! $self->{'non_indent'}) {
+				if (! $self->{'non_indent'} && ! $pre) {
 					$self->{'indent'}->remove;
 				}
 			} else {
@@ -240,8 +248,13 @@ sub _detect_data($$) {
 		# Tag cannot be simple.
 		} else {
 			if ($#{$self->{'tmp_code'}} > -1) {
+				unshift @{$self->{'printed_tags'}}, 
+					$data->[1];
 				$self->_print_tag('>');
+				shift @{$self->{'printed_tags'}};
+				$self->_newline;
 			}
+			$self->{'preserve_obj'}->end($data->[1]);
 			$self->_print_end_tag($data->[1]);
 		}
 
@@ -253,6 +266,7 @@ sub _detect_data($$) {
 		shift @{$data};
 		my $target = shift @{$data};
 		$self->_newline;
+		$self->{'preserve_obj'}->save_previous;
 		$self->{'flush_code'} .= $self->{'indent_block'}->indent([
 			'<?'.$target, ' ', @{$data}, '?>',
 			$self->{'indent'}->get,
@@ -279,6 +293,7 @@ sub _detect_data($$) {
 		}
 		push @cdata, ']]>';
 		$self->_newline;
+		$self->{'preserve_obj'}->save_previous;
 		# TODO Ted je zapnute non-indent.
 		# Tady bych se mel kouknout, jak se cdata sekce vubec chova.
 		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
@@ -303,14 +318,20 @@ sub _print_tag($$) {
 		}
 		push @{$self->{'tmp_code'}}, $string;
 	}
+	my $pre = $self->{'preserve_obj'}->get;
+	my $act_indent;
+	if (! $self->{'non_indent'} && ! $pre) {
+		$act_indent = $self->{'indent'}->get;
+	}
 	$self->_newline;
 	$self->{'flush_code'} .= $self->{'indent_block'}->indent(
-		$self->{'tmp_code'}, $self->{'indent'}->get,
+		$self->{'tmp_code'}, $act_indent, $pre ? 1 : 0
 	);
 	$self->{'tmp_code'} = [];
-	if (! $self->{'non_indent'}) {
+	if (! $self->{'non_indent'} && ! $pre) {
 		$self->{'indent'}->add;
 	}
+	$self->{'preserve_obj'}->begin($self->{'printed_tags'}->[0]);
 }
 
 #------------------------------------------------------------------------------
@@ -319,12 +340,17 @@ sub _print_end_tag($$) {
 # Print indented end of tag.
 
 	my ($self, $string) = @_;
-	if (! $self->{'non_indent'}) {
+	my $act_indent;
+	my ($pre, $pre_pre) = $self->{'preserve_obj'}->get;
+	if (! $self->{'non_indent'} && ! $pre) {
 		$self->{'indent'}->remove;
+		if (! $pre_pre) {
+			$act_indent = $self->{'indent'}->get;
+		}
 	}
 	$self->_newline;
 	$self->{'flush_code'} .= $self->{'indent_block'}->indent(
-		['</'.$string, '>'], $self->{'indent'}->get,
+		['</'.$string, '>'], $act_indent, $pre ? 1 : 0
 	);
 }
 
@@ -341,7 +367,8 @@ sub _newline($) {
 
 	# Adding newline if flush_code.
 	} else {
-		if ($self->{'flush_code'}) {
+		my (undef, $pre_pre) = $self->{'preserve_obj'}->get;
+		if ($self->{'flush_code'} && $pre_pre == 0) {
 			$self->{'flush_code'} .= "\n";
 		}
 	}

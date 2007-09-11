@@ -1,13 +1,14 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.23 2007-09-10 20:30:55 skim Exp $
+# $Id: Raw.pm,v 1.24 2007-09-11 11:50:10 skim Exp $
 
 # Pragmas.
 use strict;
 
 # Modules.
 use Error::Simple::Multiple;
+use Tags2::Utils::Preserve;
 
 # Version.
 our $VERSION = 0.02;
@@ -27,7 +28,6 @@ sub new($@) {
 	$self->{'no_simple'} = [];
 
 	# Preserved tags.
-	# TODO To implement.
 	$self->{'preserved'} = [];
 
 	# Attribute delimeter.
@@ -59,6 +59,11 @@ sub new($@) {
 
 	# Printed tags.
 	$self->{'printed_tags'} = [];
+
+	# Preserved object.
+	$self->{'preserve_obj'} = Tags2::Utils::Preserve->new(
+		'preserved' => $self->{'preserved'},
+	);
 
 	# Object.
 	return $self;
@@ -157,6 +162,7 @@ sub _detect_data($$) {
 		}
 		push @{$self->{'tmp_code'}}, "<$data->[1]";
 		unshift @{$self->{'printed_tags'}}, $data->[1];
+		$self->{'preserve_obj'}->begin($data->[1]);
 
 	# Comment.
 	} elsif ($data->[0] eq 'c') {
@@ -218,6 +224,7 @@ sub _detect_data($$) {
 			}
 			$self->{'flush_code'} .= "</$data->[1]>";
 		}
+		$self->{'preserve_obj'}->end($data->[1]);
 
 	# Instruction.
 	} elsif ($data->[0] eq 'i') {
@@ -255,6 +262,10 @@ sub _flush_tmp($$) {
 
 	my ($self, $string) = @_;
 	push @{$self->{'tmp_code'}}, $string if $string;
+	my ($pre, $pre_pre) = $self->{'preserve_obj'}->get;
+	if ($pre && ! $pre_pre) {
+		push @{$self->{'tmp_code'}}, "\n";
+	}
 	$self->{'flush_code'} .= join('', @{$self->{'tmp_code'}});
 	$self->{'tmp_code'} = [];
 }
