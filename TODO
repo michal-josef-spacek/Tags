@@ -1,4 +1,4 @@
-$Id: TODO,v 1.22 2007-09-10 21:04:16 skim Exp $
+$Id: TODO,v 1.23 2007-09-11 11:58:08 skim Exp $
 
 TODO
 ====
@@ -16,6 +16,9 @@ TODO
 15. Testy.
 17. Tags2::Output::Raw a jine by mely byt dohromady s dtd, protoze treba
     xml:space FIXED znamena, ze je preserved, ale neni to krome dtd nikde videt.
+Tohle by slo resit tak:
+1) S validatorem (mel by dtd), predal by seznam preserved veci z dtd.
+2) Bez validatoru. Rucne bych pridal seznam preserved veci, ktere jsou v dtd.
 18.
 
 Applied
