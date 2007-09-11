@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Utils::Preserve;
 #------------------------------------------------------------------------------
-# $Id: Preserve.pm,v 1.2 2007-09-10 23:25:47 skim Exp $
+# $Id: Preserve.pm,v 1.3 2007-09-11 11:49:43 skim Exp $
 
 # Pragmas.
 use strict;
@@ -39,37 +39,38 @@ sub new($@) {
 }
 
 #------------------------------------------------------------------------------
-sub begin_tag($$) {
+sub begin($$) {
 #------------------------------------------------------------------------------
 # Process for begin of tag.
 
 	my ($self, $tag) = @_;
-	if ((grep { $tag eq $_ } @{$self->{'preserved'}})
-		|| $self->{'preserved_flag'} ) {
-
+	$self->save_previous;
+	if (grep { $tag eq $_ } @{$self->{'preserved'}}) {
 		push @{$self->{'preserved_stack'}}, $tag;
-		$self->{'preserved_flag'} = 1 unless $self->{'preserved_flag'};
+		$self->{'preserved_flag'} = 1;
 	}
 
 	# Return preserved flag.
-	return $self->{'preserved_flag'};
+	return wantarray ? ($self->{'preserved_flag'}, 
+		$self->{'prev_preserved_flag'}) : $self->{'preserved_flag'};
 }
 
 #------------------------------------------------------------------------------
-sub count($) {
+sub save_previous($) {
 #------------------------------------------------------------------------------
-# Count tags in stack.
+# Save previsou stay.
 
 	my $self = shift;
-	return $#{$self->{'preserved_stack'}};
+	$self->{'prev_preserved_flag'} = $self->{'preserved_flag'};
 }
 
 #------------------------------------------------------------------------------
-sub end_tag($$) {
+sub end($$) {
 #------------------------------------------------------------------------------
 # Process for end of tag.
 
 	my ($self, $tag) = @_;
+	$self->save_previous;
 	my $stack = $self->{'preserved_stack'};
 	if ($tag eq $stack->[$#{$stack}]) {
 		pop @{$stack};
@@ -79,7 +80,8 @@ sub end_tag($$) {
 	}
 
 	# Return preserved flag.
-	return $self->{'preserved_flag'};
+	return wantarray ? ($self->{'preserved_flag'}, 
+		$self->{'prev_preserved_flag'}) : $self->{'preserved_flag'};
 }
 
 #------------------------------------------------------------------------------
@@ -88,7 +90,8 @@ sub get($) {
 # Get preserved flag.
 
 	my $self = shift;
-	return $self->{'preserved_flag'};
+	return wantarray ? ($self->{'preserved_flag'}, 
+		$self->{'prev_preserved_flag'}) : $self->{'preserved_flag'};
 }
 
 #------------------------------------------------------------------------------
@@ -100,6 +103,9 @@ sub reset($) {
 
 	# Preserved flag.
 	$self->{'preserved_flag'} = 0;
+
+	# Previsous preserved flag.
+	$self->{'prev_preserved_flag'} = 0;
 
 	# Preserved tag.
 	$self->{'preserved_stack'} = [];
