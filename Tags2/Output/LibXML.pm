@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::LibXML;
 #------------------------------------------------------------------------------
-# $Id: LibXML.pm,v 1.7 2007-09-10 15:00:18 skim Exp $
+# $Id: LibXML.pm,v 1.8 2007-09-11 11:50:37 skim Exp $
 
 # Pragmas.
 use strict;
@@ -29,6 +29,14 @@ sub new($@) {
 
 	# Document encoding.
 	$self->{'encoding'} = 'UTF-8';
+
+	# Preserved tags.
+	# TODO not implemented.
+	$self->{'preserved'} = [];
+
+	# No simple tags.
+	# TODO not implemented.
+	$self->{'no_simple'} = [];
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
