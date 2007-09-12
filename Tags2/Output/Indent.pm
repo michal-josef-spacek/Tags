@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.25 2007-09-12 22:37:56 skim Exp $
+# $Id: Indent.pm,v 1.26 2007-09-12 23:43:48 skim Exp $
 
 # Pragmas.
 use strict;
@@ -55,43 +55,8 @@ sub new($@) {
                 $self->{$key} = $val;
         }
 
-	# Indent object.
-	$self->{'indent'} = Indent->new(
-		'next_indent' => $self->{'next_indent'}
-	);
-
-	# Indent::Word object.
-	$self->{'indent_word'} = Indent::Word->new(
-		'line_size' => $self->{'line_size'},
-		'next_indent' => '',
-	);
-
-	# Indent::Block object.
-	$self->{'indent_block'} = Indent::Block->new(
-		'line_size' => $self->{'line_size'},
-		'next_indent' => $self->{'next_indent'},
-		'strict' => 0,
-	);
-
-	# Flush code.
-	$self->{'flush_code'} = '';
-
-	# Tmp code.
-	$self->{'tmp_code'} = [];
-
-	# Printed tags.
-	$self->{'printed_tags'} = [];
-
-	# Non indent flag.
-	$self->{'non_indent'} = 0;
-
-	# Flag, that means raw tag.
-	$self->{'raw_tag'} = 0;
-
-	# Preserved object.
-	$self->{'preserve_obj'} = Tags2::Utils::Preserve->new(
-		'preserved' => $self->{'preserved'},
-	);
+	# Reset.
+	$self->reset;
 
 	# Object.
 	return $self;
@@ -157,9 +122,44 @@ sub reset($) {
 # Resets internal variables.
 
 	my $self = shift;
-	$self->{'printed_tags'} = [];
+
+	# Indent object.
+	$self->{'indent'} = Indent->new(
+		'next_indent' => $self->{'next_indent'}
+	);
+
+	# Indent::Word object.
+	$self->{'indent_word'} = Indent::Word->new(
+		'line_size' => $self->{'line_size'},
+		'next_indent' => '',
+	);
+
+	# Indent::Block object.
+	$self->{'indent_block'} = Indent::Block->new(
+		'line_size' => $self->{'line_size'},
+		'next_indent' => $self->{'next_indent'},
+		'strict' => 0,
+	);
+
+	# Flush code.
 	$self->{'flush_code'} = '';
+
+	# Tmp code.
+	$self->{'tmp_code'} = [];
+
+	# Printed tags.
+	$self->{'printed_tags'} = [];
+
+	# Non indent flag.
+	$self->{'non_indent'} = 0;
+
+	# Flag, that means raw tag.
 	$self->{'raw_tag'} = 0;
+
+	# Preserved object.
+	$self->{'preserve_obj'} = Tags2::Utils::Preserve->new(
+		'preserved' => $self->{'preserved'},
+	);
 }
 
 #------------------------------------------------------------------------------

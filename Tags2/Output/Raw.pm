@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.25 2007-09-12 02:43:18 skim Exp $
+# $Id: Raw.pm,v 1.26 2007-09-12 23:43:48 skim Exp $
 
 # Pragmas.
 use strict;
@@ -51,19 +51,8 @@ sub new($@) {
 		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
 	}
 
-	# Flush code.
-	$self->{'flush_code'} = '';
-
-	# Tmp code.
-	$self->{'tmp_code'} = [];
-
-	# Printed tags.
-	$self->{'printed_tags'} = [];
-
-	# Preserved object.
-	$self->{'preserve_obj'} = Tags2::Utils::Preserve->new(
-		'preserved' => $self->{'preserved'},
-	);
+	# Reset.
+	$self->reset;
 
 	# Object.
 	return $self;
@@ -130,8 +119,20 @@ sub reset($) {
 # Resets internal variables.
 
 	my $self = shift;
-	$self->{'printed_tags'} = [];
+
+	# Flush code.
 	$self->{'flush_code'} = '';
+
+	# Tmp code.
+	$self->{'tmp_code'} = [];
+
+	# Printed tags.
+	$self->{'printed_tags'} = [];
+
+	# Preserved object.
+	$self->{'preserve_obj'} = Tags2::Utils::Preserve->new(
+		'preserved' => $self->{'preserved'},
+	);
 }
 
 #------------------------------------------------------------------------------
