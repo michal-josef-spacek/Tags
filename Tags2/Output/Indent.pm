@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.24 2007-09-12 02:43:17 skim Exp $
+# $Id: Indent.pm,v 1.25 2007-09-12 22:37:56 skim Exp $
 
 # Pragmas.
 use strict;
@@ -43,6 +43,9 @@ sub new($@) {
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
+
+	# Callback to instruction.
+	$self->{'instruction'} = '';
 
 	# Process params.
         while (@_) {
@@ -269,12 +272,17 @@ sub _detect_data($$) {
 		}
 		shift @{$data};
 		my $target = shift @{$data};
-		$self->_newline;
-		$self->{'preserve_obj'}->save_previous;
-		$self->{'flush_code'} .= $self->{'indent_block'}->indent([
-			'<?'.$target, ' ', @{$data}, '?>',
-			$self->{'indent'}->get,
-		]);
+		if (ref $self->{'instruction'} eq 'CODE') {
+			$self->{'instruction'}->($self, $target, @{$data});
+		} else {
+			$self->_newline;
+			$self->{'preserve_obj'}->save_previous;
+			$self->{'flush_code'} .= $self->{'indent_block'}
+				->indent([
+				'<?'.$target, ' ', @{$data}, '?>',
+				$self->{'indent'}->get,
+			]);
+		}
 
 	# Raw data.
 	} elsif ($data->[0] eq 'r') {
