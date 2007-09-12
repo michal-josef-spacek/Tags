@@ -1,4 +1,4 @@
-$Id: TODO,v 1.23 2007-09-11 11:58:08 skim Exp $
+$Id: TODO,v 1.24 2007-09-12 02:42:37 skim Exp $
 
 TODO
 ====
@@ -19,7 +19,9 @@ TODO
 Tohle by slo resit tak:
 1) S validatorem (mel by dtd), predal by seznam preserved veci z dtd.
 2) Bez validatoru. Rucne bych pridal seznam preserved veci, ktere jsou v dtd.
-18.
+18. Predelat testy tak, aby se nemuselo pouzivat IO::Scalar pro prebirani
+    vystupu ze stdout. Udelat test na stdout.
+19.
 
 Applied
 =======
