@@ -1,4 +1,4 @@
-$Id: TODO,v 1.25 2007-09-12 22:37:43 skim Exp $
+$Id: TODO,v 1.26 2007-09-12 23:43:36 skim Exp $
 
 TODO
 ====
@@ -22,7 +22,12 @@ Tohle by slo resit tak:
 18. Predelat testy tak, aby se nemuselo pouzivat IO::Scalar pro prebirani
     vystupu ze stdout. Udelat test na stdout.
 19. Implementovat do vsech Tags2::Output::* parametr instruction.
-20.
+Tags2::Output::Indent je hotov.
+20. Predelat ve vsech Tags2::Output::* reset. Reset se vola v konstruktoru.
+    A metode reset bude vsechno, co jde resetovat.
+Tags2::Output::Indent je hotov.
+Tags2::Output::Raw je hotov
+21.
 
 Applied
 =======
