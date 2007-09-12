@@ -1,9 +1,10 @@
-# $Id: 06_preserve_from_constructor.t,v 1.1 2007-09-11 12:04:17 skim Exp $
+# $Id: 06_preserve_from_constructor.t,v 1.2 2007-09-12 02:43:19 skim Exp $
 
 print "Testing: Preserving from constructor.\n" if $debug;
 print "- CHILD1 preserving is off.\n" if $debug;
 my $obj = $class->new(
 	'preserved' => [],
+	'output_handler' => *STDOUT,
 );
 my $text = <<"END";
   text
@@ -19,6 +20,7 @@ ok($ret, $right_ret);
 print "- CHILD1 preserving is on.\n" if $debug;
 $obj = $class->new(
 	'preserved' => ['CHILD1'],
+	'output_handler' => *STDOUT,
 );
 $ret = go($obj, 1, ['b', 'MAIN'], ['b', 'CHILD1'], 
 	['d', $text], ['e', 'CHILD1'], ['e', 'MAIN']);

@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.24 2007-09-11 11:50:10 skim Exp $
+# $Id: Raw.pm,v 1.25 2007-09-12 02:43:18 skim Exp $
 
 # Pragmas.
 use strict;
@@ -22,7 +22,7 @@ sub new($@) {
 	my $self = bless {}, $class;
 
 	# Set output handler.
-	$self->{'output_handler'} = *STDOUT;
+	$self->{'output_handler'} = '';
 
 	# No simple tags.
 	$self->{'no_simple'} = [];
@@ -87,7 +87,11 @@ sub flush($) {
 
 	my $self = shift;
 	my $ouf = $self->{'output_handler'};
-	print $ouf $self->{'flush_code'};
+	if ($ouf) {
+		print $ouf $self->{'flush_code'};
+	} else {
+		return $self->{'flush_code'};
+	}
 }
 
 #------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::ESIS;
 #------------------------------------------------------------------------------
-# $Id: ESIS.pm,v 1.4 2007-02-20 00:22:46 skim Exp $
+# $Id: ESIS.pm,v 1.5 2007-09-12 02:43:17 skim Exp $
 
 # Pragmas.
 use strict;
@@ -21,7 +21,7 @@ sub new($@) {
 	my $self = bless {}, $class;
 
 	# Set output handler.
-	$self->{'output_handler'} = *STDOUT;
+	$self->{'output_handler'} = '';
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
@@ -65,7 +65,11 @@ sub flush($) {
 
 	my $self = shift;
 	my $ouf = $self->{'output_handler'};
-	print $ouf join("\n", @{$self->{'flush_code'}});
+	if ($ouf) {
+		print $ouf join("\n", @{$self->{'flush_code'}});
+	} else {
+		return join("\n", @{$self->{'flush_code'}});
+	}
 }
 
 #------------------------------------------------------------------------------

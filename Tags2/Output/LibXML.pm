@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::LibXML;
 #------------------------------------------------------------------------------
-# $Id: LibXML.pm,v 1.8 2007-09-11 11:50:37 skim Exp $
+# $Id: LibXML.pm,v 1.9 2007-09-12 02:43:18 skim Exp $
 
 # Pragmas.
 use strict;
@@ -22,7 +22,7 @@ sub new($@) {
 	my $self = bless {}, $class;
 
 	# Set output handler.
-	$self->{'output_handler'} = *STDOUT;
+	$self->{'output_handler'} = '';
 
 	# Set indent.
 	$self->{'set_indent'} = 0;
@@ -74,7 +74,13 @@ sub flush($) {
 
 	my $self = shift;
 	my $ouf = $self->{'output_handler'};
-	print $ouf $self->{'doc'}->toString($self->{'set_indent'} ? 2 : 0);
+	if ($ouf) {
+		print $ouf $self->{'doc'}->toString(
+			$self->{'set_indent'} ? 2 : 0);
+	} else {
+		return $self->{'doc'}->toString(
+			$self->{'set_indent'} ? 2 : 0);
+	}
 }
 
 #------------------------------------------------------------------------------

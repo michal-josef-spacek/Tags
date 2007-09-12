@@ -1,8 +1,10 @@
-# $Id: 05_preserve_from_attribute.t,v 1.1 2007-09-11 12:04:17 skim Exp $
+# $Id: 05_preserve_from_attribute.t,v 1.2 2007-09-12 02:43:19 skim Exp $
 
 print "Testing: Preserving from attributes.\n" if $debug;
 print "- CHILD1 preserving is off.\n" if $debug;
-my $obj = $class->new;
+my $obj = $class->new(
+	'output_handler' => *STDOUT,
+);
 my $text = <<"END";
   text
      text
@@ -16,7 +18,9 @@ ok($ret, $right_ret);
 
 # TODO
 #print "- CHILD1 preserving is on.\n" if $debug;
-#$obj = $class->new;
+#$obj = $class->new(
+#	'output_handler' => *STDOUT,
+#);
 #$ret = go($obj, 1, ['b', 'MAIN'], ['b', 'CHILD1'], 
 #	['a', 'xml:space', 'preserve'], ['d', $text],
 #	['e', 'CHILD1'], ['e', 'MAIN']);
