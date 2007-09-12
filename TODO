@@ -1,4 +1,4 @@
-$Id: TODO,v 1.24 2007-09-12 02:42:37 skim Exp $
+$Id: TODO,v 1.25 2007-09-12 22:37:43 skim Exp $
 
 TODO
 ====
@@ -21,7 +21,8 @@ Tohle by slo resit tak:
 2) Bez validatoru. Rucne bych pridal seznam preserved veci, ktere jsou v dtd.
 18. Predelat testy tak, aby se nemuselo pouzivat IO::Scalar pro prebirani
     vystupu ze stdout. Udelat test na stdout.
-19.
+19. Implementovat do vsech Tags2::Output::* parametr instruction.
+20.
 
 Applied
 =======
