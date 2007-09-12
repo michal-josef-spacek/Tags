@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::PYX;
 #------------------------------------------------------------------------------
-# $Id: PYX.pm,v 1.9 2007-02-20 00:21:18 skim Exp $
+# $Id: PYX.pm,v 1.11 2007-09-12 23:51:34 skim Exp $
 
 # Pragmas.
 use strict;
@@ -181,3 +181,92 @@ sub _encode_newline($$) {
 }
 
 1;
+
+=pod
+
+=head1 NAME
+
+ Tags2::Output::PYX - PYX class for line oriented output for 'Tags2'.
+
+=head1 SYNOPSYS
+
+ TODO
+
+=head1 SESIS LINE CHARS
+
+ ?  - Instruction.
+ (  - Open tag.
+ )  - Close tag.
+ A  - Attribute.
+ -  - Normal data.
+
+=head1 METHODS
+
+=over 8
+
+=item B<new()>
+
+ TODO
+
+=head2 PARAMETERS
+
+=over 8
+
+=item B<output_handler>
+
+ TODO
+
+=item B<skip_bad_data>
+
+ TODO
+
+=back
+
+=item B<finalize()>
+
+ TODO
+
+=item B<flush()>
+
+ TODO
+
+=item B<open_tags()>
+
+ TODO
+
+=item B<put()>
+
+ TODO
+
+=item B<reset()>
+
+ TODO
+
+=back
+
+=head1 EXAMPLE
+
+ TODO
+
+=head1 REQUIREMENTS
+
+L<Error::Simple::Multiple>
+
+=head1 SEE ALSO
+
+L<Tags2::Output::ESIS>,
+L<Tags2::Output::Indent>,
+L<Tags2::Output::LibXML>,
+L<Tags2::Output::Raw>,
+L<Tags2::Output::SESIS>,
+TODO
+
+=head1 AUTHOR
+
+ Michal Spacek L<tupinek@gmail.com>
+
+=head1 VERSION
+
+ 0.01
+
+=cut

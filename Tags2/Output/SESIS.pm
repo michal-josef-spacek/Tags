@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::SESIS;
 #------------------------------------------------------------------------------
-# $Id: SESIS.pm,v 1.5 2007-09-12 02:43:18 skim Exp $
+# $Id: SESIS.pm,v 1.6 2007-09-12 23:51:34 skim Exp $
 
 # Pragmas.
 use strict;
@@ -282,7 +282,16 @@ sub _encode_newline($$) {
 
 =head1 REQUIREMENTS
 
- L<Error::Simple::Multiple>
+L<Error::Simple::Multiple>
+
+=head1 SEE ALSO
+
+L<Tags2::Output::ESIS>,
+L<Tags2::Output::Indent>,
+L<Tags2::Output::LibXML>,
+L<Tags2::Output::PYX>,
+L<Tags2::Output::Raw>,
+TODO
 
 =head1 AUTHOR
 
