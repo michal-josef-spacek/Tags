@@ -1,4 +1,4 @@
-$Id: TODO,v 1.26 2007-09-12 23:43:36 skim Exp $
+$Id: TODO,v 1.27 2007-09-15 13:37:13 skim Exp $
 
 TODO
 ====
@@ -27,7 +27,9 @@ Tags2::Output::Indent je hotov.
     A metode reset bude vsechno, co jde resetovat.
 Tags2::Output::Indent je hotov.
 Tags2::Output::Raw je hotov
-21.
+21. Docela neprakticke je dat komentar mezi zacatek tagu a atribut. Pak je
+    error. Bylo by dobre to presunout za/pred tag.
+22.
 
 Applied
 =======
