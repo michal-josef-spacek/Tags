@@ -1,4 +1,4 @@
-$Id: TODO,v 1.27 2007-09-15 13:37:13 skim Exp $
+$Id: TODO,v 1.28 2007-09-17 16:00:52 skim Exp $
 
 TODO
 ====
@@ -29,7 +29,9 @@ Tags2::Output::Indent je hotov.
 Tags2::Output::Raw je hotov
 21. Docela neprakticke je dat komentar mezi zacatek tagu a atribut. Pak je
     error. Bylo by dobre to presunout za/pred tag.
-22.
+22. class v atributu muze mit vice moznosti, takze 
+    ['a', 'class', 'neco'] + ['a', 'class', 'neco_jineho'] by se melo sloucit.
+23.
 
 Applied
 =======
