@@ -1,4 +1,4 @@
-$Id: TODO,v 1.28 2007-09-17 16:00:52 skim Exp $
+$Id: TODO,v 1.29 2007-09-18 01:07:19 skim Exp $
 
 TODO
 ====
@@ -31,7 +31,8 @@ Tags2::Output::Raw je hotov
     error. Bylo by dobre to presunout za/pred tag.
 22. class v atributu muze mit vice moznosti, takze 
     ['a', 'class', 'neco'] + ['a', 'class', 'neco_jineho'] by se melo sloucit.
-23.
+23. V Tags2::Output::Indent se muze rozdelit atribut na novy radek. To muze?
+24.
 
 Applied
 =======
