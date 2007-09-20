@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.29 2007-09-20 21:20:36 skim Exp $
+# $Id: Indent.pm,v 1.30 2007-09-20 21:21:13 skim Exp $
 
 # Pragmas.
 use strict;
@@ -14,7 +14,7 @@ use Indent::Block;
 use Tags2::Utils::Preserve;
 
 # Version.
-our $VERSION = 0.03;
+our $VERSION = 0.04;
 
 #------------------------------------------------------------------------------
 sub new($@) {
@@ -54,6 +54,13 @@ sub new($@) {
                 err "Bad parameter '$key'." if ! exists $self->{$key};
                 $self->{$key} = $val;
         }
+
+	# Check 'attr_delimeter'.
+	if ($self->{'attr_delimeter'} ne '"' 
+		&& $self->{'attr_delimeter'} ne "'") {
+
+		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
+	}
 
 	# Reset.
 	$self->reset;
