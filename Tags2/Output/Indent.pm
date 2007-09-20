@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.27 2007-09-12 23:51:34 skim Exp $
+# $Id: Indent.pm,v 1.28 2007-09-20 14:53:57 skim Exp $
 
 # Pragmas.
 use strict;
@@ -14,7 +14,7 @@ use Indent::Block;
 use Tags2::Utils::Preserve;
 
 # Version.
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 #------------------------------------------------------------------------------
 sub new($@) {
@@ -206,7 +206,11 @@ sub _detect_data($$) {
 		foreach my $d (@{$data}) {
 			push @comment, (ref $d eq 'SCALAR') ? ${$d} : $d;
 		}
-		push @comment, '-->';
+		if (substr($comment[-1], -1) eq '-') {
+			push @comment, ' -->';
+		} else {
+			push @comment, '-->';
+		}
 		$self->_newline;
 		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
 			\@comment,
@@ -495,6 +499,6 @@ TODO
 
 =head1 VERSION
 
- 0.02
+ 0.03
 
 =cut

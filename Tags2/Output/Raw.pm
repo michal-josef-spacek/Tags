@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.27 2007-09-12 23:51:34 skim Exp $
+# $Id: Raw.pm,v 1.28 2007-09-20 14:53:57 skim Exp $
 
 # Pragmas.
 use strict;
@@ -11,7 +11,7 @@ use Error::Simple::Multiple;
 use Tags2::Utils::Preserve;
 
 # Version.
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 #------------------------------------------------------------------------------
 sub new($@) {
@@ -179,6 +179,9 @@ sub _detect_data($$) {
 		foreach my $d (@{$data}) {
 			$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d} 
 				: $d;
+		}
+		if (substr($self->{'flush_code'}, -1) eq '-') {
+			$self->{'flush_code'} .= ' ';
 		}
 		$self->{'flush_code'} .= '-->';
 
@@ -393,6 +396,6 @@ TODO
 
 =head1 VERSION
 
- 0.02
+ 0.03
 
 =cut
