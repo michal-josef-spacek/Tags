@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.28 2007-09-20 14:53:57 skim Exp $
+# $Id: Indent.pm,v 1.29 2007-09-20 21:20:36 skim Exp $
 
 # Pragmas.
 use strict;
@@ -123,6 +123,9 @@ sub reset($) {
 
 	my $self = shift;
 
+	# Comment flag.
+	$self->{'comment_flag'} = 0;
+
 	# Indent object.
 	$self->{'indent'} = Indent->new(
 		'next_indent' => $self->{'next_indent'}
@@ -146,6 +149,7 @@ sub reset($) {
 
 	# Tmp code.
 	$self->{'tmp_code'} = [];
+	$self->{'tmp_comment_code'} = [];
 
 	# Printed tags.
 	$self->{'printed_tags'} = [];
@@ -185,6 +189,7 @@ sub _detect_data($$) {
 			push @{$self->{'tmp_code'}}, ' ', $par, '=', 
 				$self->{'attr_delimeter'}.$val.
 				$self->{'attr_delimeter'};
+			$self->{'comment_flag'} = 0;
 		}
 
 	# Begin of tag.
@@ -197,9 +202,8 @@ sub _detect_data($$) {
 
 	# Comment.
 	} elsif ($data->[0] eq 'c') {
-		if ($#{$self->{'tmp_code'}} > -1) {
-			$self->_print_tag('>');
-		}
+
+		# Comment data.
 		shift @{$data};
 		my @comment = ();
 		push @comment, '<!--';
@@ -211,11 +215,20 @@ sub _detect_data($$) {
 		} else {
 			push @comment, '-->';
 		}
-		$self->_newline;
-		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
-			\@comment,
-			$self->{'indent'}->get,
-		);
+
+		# Process comment.
+		if ($#{$self->{'tmp_code'}} > -1) {
+			push @{$self->{'tmp_comment_code'}}, \@comment;
+
+			# Flag, that means comment is last.
+			$self->{'comment_flag'} = 1;
+		} else {
+			$self->_newline;
+			$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+				\@comment,
+				$self->{'indent'}->get,
+			);
+		}
 
 	# Data.
 	} elsif ($data->[0] eq 'd') {
@@ -248,7 +261,16 @@ sub _detect_data($$) {
 		if (! grep { $_ eq $data->[1] } @{$self->{'no_simple'}}) {
 			my $pre = $self->{'preserve_obj'}->end($data->[1]);
 			if ($#{$self->{'tmp_code'}} > -1) {
-				$self->_print_tag('/>');
+				if ($#{$self->{'tmp_comment_code'}} > -1
+					&& $self->{'comment_flag'} == 1) {
+
+					$self->_print_tag('>');
+					$self->_newline;
+					$self->{'flush_code'} 
+						.= "</$data->[1]>";
+				} else {
+					$self->_print_tag('/>');
+				}
 				if (! $self->{'non_indent'} && ! $pre) {
 					$self->{'indent'}->remove;
 				}
@@ -327,6 +349,7 @@ sub _print_tag($$) {
 #------------------------------------------------------------------------------
 # Print indented tag from @{$self->{'tmp_code'}}.
 
+	# TODO Optimalization.
 	my ($self, $string) = @_;
 	if ($string) {
 		if ($string =~ /^\/>$/) {
@@ -334,20 +357,54 @@ sub _print_tag($$) {
 		}
 		push @{$self->{'tmp_code'}}, $string;
 	}
-	my $pre = $self->{'preserve_obj'}->get;
-	my $act_indent;
-	if (! $self->{'non_indent'} && ! $pre) {
-		$act_indent = $self->{'indent'}->get;
+	# Flush comment code before tag.
+	if ($self->{'comment_flag'} == 0 
+		&& $#{$self->{'tmp_comment_code'}} > -1) {
+
+		foreach (@{$self->{'tmp_comment_code'}}) {
+			$self->_newline;
+			$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+				$_, $self->{'indent'}->get,
+			);
+		}
+
+		my $pre = $self->{'preserve_obj'}->get;
+		my $act_indent;
+		if (! $self->{'non_indent'} && ! $pre) {
+			$act_indent = $self->{'indent'}->get;
+		}
+		$self->_newline;
+		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+			$self->{'tmp_code'}, $act_indent, $pre ? 1 : 0
+		);
+		$self->{'tmp_code'} = [];
+		if (! $self->{'non_indent'} && ! $pre) {
+			$self->{'indent'}->add;
+		}
+		$self->{'preserve_obj'}->begin($self->{'printed_tags'}->[0]);
+	} else {
+		my $pre = $self->{'preserve_obj'}->get;
+		my $act_indent;
+		if (! $self->{'non_indent'} && ! $pre) {
+			$act_indent = $self->{'indent'}->get;
+		}
+		$self->_newline;
+		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+			$self->{'tmp_code'}, $act_indent, $pre ? 1 : 0
+		);
+		$self->{'tmp_code'} = [];
+		if (! $self->{'non_indent'} && ! $pre) {
+			$self->{'indent'}->add;
+		}
+		$self->{'preserve_obj'}->begin($self->{'printed_tags'}->[0]);
+
+		foreach (@{$self->{'tmp_comment_code'}}) {
+			$self->_newline;
+			$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+				$_, $self->{'indent'}->get,
+			);
+		}
 	}
-	$self->_newline;
-	$self->{'flush_code'} .= $self->{'indent_block'}->indent(
-		$self->{'tmp_code'}, $act_indent, $pre ? 1 : 0
-	);
-	$self->{'tmp_code'} = [];
-	if (! $self->{'non_indent'} && ! $pre) {
-		$self->{'indent'}->add;
-	}
-	$self->{'preserve_obj'}->begin($self->{'printed_tags'}->[0]);
 }
 
 #------------------------------------------------------------------------------
