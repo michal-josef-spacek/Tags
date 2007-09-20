@@ -1,12 +1,9 @@
-$Id: TODO,v 1.29 2007-09-18 01:07:19 skim Exp $
+$Id: TODO,v 1.30 2007-09-20 21:43:44 skim Exp $
 
 TODO
 ====
-2. Pridat indentovani.
-   Viz Tags2::Output::Indent.
 7. Data optimalization.
    Viz Tags2::Process::DataOptimalization
-9. Do Tags2::Output::Raw zaimplementovat preserve veci.
 10. Pridat Tags2::Process::Filter s callback funkcemi navazanymi na tagy.
 12. Optimalizovat deni ve vystupnich rutinach. Casto se tam pouziva stejny kod
     (?, _, -, CD) pro vystup pole dat.
@@ -70,3 +67,10 @@ OK [20070221] skim
 
 16. Do entit pridat encode a decode utf znaku? (&#cislo)
 OK [20070224] skim
+
+9. Do Tags2::Output::Raw zaimplementovat preserve veci.
+OK [20070920] skim
+
+2. Pridat indentovani.
+   Viz Tags2::Output::Indent.
+OK [20070920] skim
