@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.28 2007-09-20 14:53:57 skim Exp $
+# $Id: Raw.pm,v 1.29 2007-09-20 17:26:36 skim Exp $
 
 # Pragmas.
 use strict;
@@ -11,7 +11,7 @@ use Error::Simple::Multiple;
 use Tags2::Utils::Preserve;
 
 # Version.
-our $VERSION = 0.03;
+our $VERSION = 0.04;
 
 #------------------------------------------------------------------------------
 sub new($@) {
@@ -120,11 +120,15 @@ sub reset($) {
 
 	my $self = shift;
 
+	# Comment flag.
+	$self->{'comment_flag'} = 0;
+
 	# Flush code.
 	$self->{'flush_code'} = '';
 
 	# Tmp code.
 	$self->{'tmp_code'} = [];
+	$self->{'tmp_comment_code'} = [];
 
 	# Printed tags.
 	$self->{'printed_tags'} = [];
@@ -158,6 +162,7 @@ sub _detect_data($$) {
 			push @{$self->{'tmp_code'}}, ' ', $par.'='.
 				$self->{'attr_delimeter'}.$val.
 				$self->{'attr_delimeter'};
+			$self->{'comment_flag'} = 0;
 		}
 
 	# Begin of tag.
@@ -171,19 +176,28 @@ sub _detect_data($$) {
 
 	# Comment.
 	} elsif ($data->[0] eq 'c') {
-		if ($#{$self->{'tmp_code'}} > -1) {
-			$self->_flush_tmp('>');
-		}
+
+		# Comment string.
 		shift @{$data};
-		$self->{'flush_code'} .= '<!--';
+		my $comment_string = '<!--';
 		foreach my $d (@{$data}) {
-			$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d} 
+			$comment_string .= ref $d eq 'SCALAR' ? ${$d} 
 				: $d;
 		}
-		if (substr($self->{'flush_code'}, -1) eq '-') {
-			$self->{'flush_code'} .= ' ';
+		if (substr($comment_string, -1) eq '-') {
+			$comment_string .= ' ';
 		}
-		$self->{'flush_code'} .= '-->';
+		$comment_string .= '-->';
+
+		# Process comment.
+		if ($#{$self->{'tmp_code'}} > -1) {
+			push @{$self->{'tmp_comment_code'}}, $comment_string;
+
+			# Flag, that means comment is last.
+			$self->{'comment_flag'} = 1;
+		} else {
+			$self->{'flush_code'} .= $comment_string;
+		}
 
 	# Cdata.
 	} elsif ($data->[0] eq 'cd') {
@@ -220,7 +234,15 @@ sub _detect_data($$) {
 		# Tag can be simple.
 		if (! grep { $_ eq $data->[1] } @{$self->{'no_simple'}}) {
 			if ($#{$self->{'tmp_code'}} > -1) {
-				$self->_flush_tmp(' />');
+				if ($#{$self->{'tmp_comment_code'}} > -1
+					&& $self->{'comment_flag'} == 1) {
+
+					$self->_flush_tmp('>');
+					$self->{'flush_code'} 
+						.= "</$data->[1]>";
+				} else {
+					$self->_flush_tmp(' />');
+				}
 			} else {
 				$self->{'flush_code'} .= "</$data->[1]>";
 			}
@@ -269,13 +291,32 @@ sub _flush_tmp($$) {
 # Flush $self->{'tmp_code'}.
 
 	my ($self, $string) = @_;
+
+	# Get tmp_code.
 	push @{$self->{'tmp_code'}}, $string if $string;
 	my ($pre, $pre_pre) = $self->{'preserve_obj'}->get;
 	if ($pre && ! $pre_pre) {
 		push @{$self->{'tmp_code'}}, "\n";
 	}
-	$self->{'flush_code'} .= join('', @{$self->{'tmp_code'}});
+
+	# Flush comment code before tag.
+	if ($self->{'comment_flag'} == 0 
+		&& $#{$self->{'tmp_comment_code'}} > -1) {
+
+		$self->{'flush_code'} .= join('',
+			@{$self->{'tmp_comment_code'}}, 
+			@{$self->{'tmp_code'}});
+
+	# After tag.
+	} else {
+		$self->{'flush_code'} .= join('',
+			@{$self->{'tmp_code'}},
+			@{$self->{'tmp_comment_code'}});
+	}
+
+	# Resets tmp_codes.
 	$self->{'tmp_code'} = [];
+	$self->{'tmp_comment_code'} = [];
 }
 
 1;
@@ -396,6 +437,6 @@ TODO
 
 =head1 VERSION
 
- 0.03
+ 0.04
 
 =cut
