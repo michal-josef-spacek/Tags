@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.31 2007-09-21 13:44:11 skim Exp $
+# $Id: Indent.pm,v 1.32 2007-09-21 13:53:06 skim Exp $
 
 # Pragmas.
 use strict;
@@ -291,7 +291,7 @@ sub _detect_data($$) {
 					$data->[1];
 				$self->_print_tag('>');
 				shift @{$self->{'printed_tags'}};
-				$self->_newline;
+# XXX				$self->_newline;
 			}
 			$self->{'preserve_obj'}->end($data->[1]);
 			$self->_print_end_tag($data->[1]);
