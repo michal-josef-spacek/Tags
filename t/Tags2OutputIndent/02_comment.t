@@ -1,4 +1,4 @@
-# $Id: 02_comment.t,v 1.4 2007-09-20 21:22:00 skim Exp $
+# $Id: 02_comment.t,v 1.5 2007-09-21 13:44:21 skim Exp $
 
 print "Testing: Comment.\n" if $debug;
 my $obj = $class->new;
@@ -95,4 +95,16 @@ $obj->put(
 );
 $ret = $obj->flush;
 $right_ret = "<!--<tag>comment</tag>-->\n<tag par=\"val\" />";
+ok($ret, $right_ret);
+
+$obj->reset;
+$obj->put(
+	['b', 'tag1'],
+	['b', 'tag2'],
+	['c', ' comment '],
+	['e', 'tag2'],
+	['e', 'tag1'],
+);
+$ret = $obj->flush;
+$right_ret = "<tag1>\n  <tag2>\n    <!-- comment -->\n  </tag2>\n</tag1>";
 ok($ret, $right_ret);
