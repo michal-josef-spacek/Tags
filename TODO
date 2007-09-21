@@ -1,4 +1,4 @@
-$Id: TODO,v 1.31 2007-09-21 13:16:46 skim Exp $
+$Id: TODO,v 1.32 2007-09-21 14:10:40 skim Exp $
 
 TODO
 ====
@@ -31,7 +31,9 @@ Tags2::Output::Indent je hotov.
 22. class v atributu muze mit vice moznosti, takze 
     ['a', 'class', 'neco'] + ['a', 'class', 'neco_jineho'] by se melo sloucit.
 23. V Tags2::Output::Indent se muze rozdelit atribut na novy radek. To muze?
-24.
+24. Tags2::Output::Indent prepsat. Kod, ke je prehazovani comment pred/za tag je
+    neefektivni. Idealni to resit pred timto modulem primo na strukture.
+25.
 
 Applied
 =======
