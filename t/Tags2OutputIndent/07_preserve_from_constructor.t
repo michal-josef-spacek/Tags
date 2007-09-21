@@ -1,8 +1,19 @@
-# $Id: 07_preserve_from_constructor.t,v 1.1 2007-09-20 21:40:21 skim Exp $
+# $Id: 07_preserve_from_constructor.t,v 1.2 2007-09-21 14:04:18 skim Exp $
 
 print "Testing: Preserving from constructor.\n" if $debug;
 print "- CHILD1 preserving is off.\n" if $debug;
 my $obj = $class->new(
+	'preserved' => [],
+);
+$obj->put(
+	['b', 'CHILD1'],
+	['d', 'DATA'],
+	['e', 'CHILD1'],
+);
+my $ret = $obj->flush;
+ok($ret, "<CHILD1>\n  DATA\n</CHILD1>");
+
+$obj = $class->new(
 	'preserved' => [],
 );
 my $text = <<"END";
@@ -18,11 +29,22 @@ $obj->put(
 	['e', 'CHILD1'],
 	['e', 'MAIN'],
 );
-my $ret = $obj->flush;
+$ret = $obj->flush;
 my $right_ret = "<MAIN>\n  <CHILD1 xml:space=\"default\">\n    $text\n  </CHILD1>\n</MAIN>";
 ok($ret, $right_ret);
 
 print "- CHILD1 preserving is on.\n" if $debug;
+$obj = $class->new(
+	'preserved' => ['CHILD1'],
+);
+$obj->put(
+	['b', 'CHILD1'],
+	['d', 'DATA'],
+	['e', 'CHILD1'],
+);
+$ret = $obj->flush;
+ok($ret, "<CHILD1>\nDATA</CHILD1>");
+
 $obj = $class->new(
 	'preserved' => ['CHILD1'],
 );
