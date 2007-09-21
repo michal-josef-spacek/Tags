@@ -1,8 +1,10 @@
-# $Id: 06_preserve_from_constructor.t,v 1.3 2007-09-21 14:01:52 skim Exp $
+# $Id: 06_preserve_from_constructor.t,v 1.4 2007-09-21 14:02:47 skim Exp $
 
 print "Testing: Preserving from constructor.\n" if $debug;
 print "- CHILD1 preserving is off.\n" if $debug;
-my $obj = $class->new;
+my $obj = $class->new(
+	'preserved' => [],
+);
 $obj->put(
 	['b', 'CHILD1'],
 	['d', 'DATA'],
@@ -11,7 +13,9 @@ $obj->put(
 my $ret = $obj->flush;
 ok($ret, "<CHILD1>DATA</CHILD1>");
 
-$obj->reset;
+$obj = $class->new(
+	'preserved' => [],
+);
 my $text = <<"END";
   text
      text
