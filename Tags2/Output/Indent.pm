@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.30 2007-09-20 21:21:13 skim Exp $
+# $Id: Indent.pm,v 1.31 2007-09-21 13:44:11 skim Exp $
 
 # Pragmas.
 use strict;
@@ -272,14 +272,13 @@ sub _detect_data($$) {
 					&& $self->{'comment_flag'} == 1) {
 
 					$self->_print_tag('>');
-					$self->_newline;
-					$self->{'flush_code'} 
-						.= "</$data->[1]>";
+# XXX					$self->{'preserve_obj'}->end($data->[1]);
+					$self->_print_end_tag($data->[1]);
 				} else {
 					$self->_print_tag('/>');
-				}
-				if (! $self->{'non_indent'} && ! $pre) {
-					$self->{'indent'}->remove;
+					if (! $self->{'non_indent'} && ! $pre) {
+						$self->{'indent'}->remove;
+					}
 				}
 			} else {
 				$self->_print_end_tag($data->[1]);
@@ -356,7 +355,6 @@ sub _print_tag($$) {
 #------------------------------------------------------------------------------
 # Print indented tag from @{$self->{'tmp_code'}}.
 
-	# TODO Optimalization.
 	my ($self, $string) = @_;
 	if ($string) {
 		if ($string =~ /^\/>$/) {
@@ -364,7 +362,9 @@ sub _print_tag($$) {
 		}
 		push @{$self->{'tmp_code'}}, $string;
 	}
+
 	# Flush comment code before tag.
+	# TODO Optimalization.
 	if ($self->{'comment_flag'} == 0 
 		&& $#{$self->{'tmp_comment_code'}} > -1) {
 
@@ -407,11 +407,13 @@ sub _print_tag($$) {
 
 		foreach (@{$self->{'tmp_comment_code'}}) {
 			$self->_newline;
-			$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+			$self->{'flush_code'} 
+				.= $self->{'indent_block'}->indent(
 				$_, $self->{'indent'}->get,
 			);
 		}
 	}
+	$self->{'tmp_comment_code'} = [];
 }
 
 #------------------------------------------------------------------------------
