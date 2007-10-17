@@ -1,4 +1,4 @@
-$Id: TODO,v 1.32 2007-09-21 14:10:40 skim Exp $
+$Id: TODO,v 1.33 2007-10-17 08:51:10 skim Exp $
 
 TODO
 ====
@@ -33,7 +33,13 @@ Tags2::Output::Indent je hotov.
 23. V Tags2::Output::Indent se muze rozdelit atribut na novy radek. To muze?
 24. Tags2::Output::Indent prepsat. Kod, ke je prehazovani comment pred/za tag je
     neefektivni. Idealni to resit pred timto modulem primo na strukture.
-25.
+25. Opravit zobrazovani raw tagu za nevykreslenym tagem.
+    Pr: ['b', 'tag'], ['r', 'raw'], ['e', 'tag']: Melo by vykreslit
+    <tag>raw</tag>
+    Nefunguje v:
+    Tags2::Output::Raw
+    Tags2::Output::Indent
+26.
 
 Applied
 =======
