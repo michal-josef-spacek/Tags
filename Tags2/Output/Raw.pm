@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.30 2008-04-18 14:49:26 skim Exp $
+# $Id: Raw.pm,v 1.33 2008-04-18 16:01:47 skim Exp $
 
 # Pragmas.
 use strict;
@@ -11,7 +11,7 @@ use Error::Simple::Multiple;
 use Tags2::Utils::Preserve;
 
 # Version.
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 #------------------------------------------------------------------------------
 sub new($@) {
@@ -20,6 +20,9 @@ sub new($@) {
 
 	my $class = shift;
 	my $self = bless {}, $class;
+
+	# Auto-flush.
+	$self->{'auto_flush'} = 0;
 
 	# Attribute delimeter.
 	$self->{'attr_delimeter'} = '"';
@@ -51,6 +54,11 @@ sub new($@) {
 		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
 	}
 
+	# Check auto-flush only with output handler.
+	if ($self->{'auto_flush'} && $self->{'output_handler'} eq '') {
+		err "Auto-flush can't use without output handler.";
+	}
+
 	# Reset.
 	$self->reset;
 
@@ -70,16 +78,21 @@ sub finalize($) {
 }
 
 #------------------------------------------------------------------------------
-sub flush($) {
+sub flush($$) {
 #------------------------------------------------------------------------------
 # Flush tags in object.
 
-	my $self = shift;
+	my ($self, $reset_flag) = @_;
 	my $ouf = $self->{'output_handler'};
 	if ($ouf) {
 		print $ouf $self->{'flush_code'};
 	} else {
 		return $self->{'flush_code'};
+	}
+
+	# Reset.
+	if ($reset_flag) {
+		$self->reset;
 	}
 }
 
@@ -110,6 +123,12 @@ sub put($@) {
 
 		# Detect and process data.
 		$self->_detect_data($dat);
+	}
+
+	# Auto-flush.
+	if ($self->{'auto_flush'}) {
+		$self->flush;
+		$self->{'flush_code'} = '';
 	}
 }
 
@@ -350,10 +369,25 @@ sub _flush_tmp($$) {
 
 =over 8
 
-=item B<output_handler>
+=item B<attr_delimeter>
 
- Handler for print output strings.
- Default is *STDOUT.
+ String, that defines attribute delimeter 
+ Default is '"'.
+ Possible is '"' or "'".
+
+ Example:
+ Prints <tag attr='val' /> instead default <tag attr="val" />
+
+ my $t = Tags2::Output::Raw->new(
+   'attr_delimeter' => "'",
+ );
+ $t->put(['b', 'tag'], ['a', 'attr', 'val'], ['e', 'tag']);
+ $t->flush;
+
+=item B<auto_flush>
+
+ TODO
+ Default is 0.
 
 =item B<no-simple>
 
@@ -370,28 +404,20 @@ sub _flush_tmp($$) {
  $t->put(['b', 'script'], ['e', 'script']);
  $t->flush;
 
+=item B<output_handler>
+
+ Handler for print output strings.
+ Default is *STDOUT.
+
 =item B<preserved>
 
  TODO
-
-=item B<attr_delimeter>
-
- String, that defines attribute delimeter 
- Default is '"'.
- Possible is '"' or "'".
-
- Example:
- Prints <tag attr='val' /> instead default <tag attr="val" />
-
- my $t = Tags2::Output::Raw->new(
-   'attr_delimeter' => "'",
- );
- $t->put(['b', 'tag'], ['a', 'attr', 'val'], ['e', 'tag']);
- $t->flush;
+ Default is reference to blank array.
 
 =item B<skip_bad_tags>
 
  TODO
+ Default is 0.
 
 =back
 
@@ -399,7 +425,7 @@ sub _flush_tmp($$) {
 
  TODO
 
-=item B<flush()>
+=item B<flush($reset_flag)>
 
  TODO
 
@@ -437,6 +463,6 @@ TODO
 
 =head1 VERSION
 
- 0.04
+ 0.05
 
 =cut
