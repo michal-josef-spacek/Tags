@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.32 2007-09-21 13:53:06 skim Exp $
+# $Id: Indent.pm,v 1.33 2008-04-18 16:08:19 skim Exp $
 
 # Pragmas.
 use strict;
@@ -14,7 +14,7 @@ use Indent::Block;
 use Tags2::Utils::Preserve;
 
 # Version.
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 #------------------------------------------------------------------------------
 sub new($@) {
@@ -23,6 +23,9 @@ sub new($@) {
 
 	my $class = shift;
 	my $self = bless {}, $class;
+
+	# Auto-flush.
+	$self->{'auto_flush'} = 0;
 
 	# Indent params.
 	$self->{'next_indent'} = '  ';
@@ -62,6 +65,11 @@ sub new($@) {
 		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
 	}
 
+	# Check auto-flush only with output handler.
+	if ($self->{'auto_flush'} && $self->{'output_handler'} eq '') {
+		err "Auto-flush can't use without output handler.";
+	}
+
 	# Reset.
 	$self->reset;
 
@@ -81,16 +89,21 @@ sub finalize($) {
 }
 
 #------------------------------------------------------------------------------
-sub flush($) {
+sub flush($$) {
 #------------------------------------------------------------------------------
 # Flush tags in object.
 
-	my $self = shift;
+	my ($self, $reset_flag) = @_;
 	my $ouf = $self->{'output_handler'};
 	if ($ouf) {
 		print $ouf $self->{'flush_code'};
 	} else {
 		return $self->{'flush_code'};
+	}
+
+	# Reset.
+	if ($reset_flag) {
+		$self->reset;
 	}
 }
 
@@ -120,6 +133,12 @@ sub put($@) {
 
 		# Detect and process data.
 		$self->_detect_data($dat);
+	}
+
+	# Auto-flush.
+	if ($self->{'auto_flush'}) {
+		$self->flush;
+		$self->{'flush_code'} = '';
 	}
 }
 
@@ -480,7 +499,9 @@ TODO
 
 =over 8
 
-TODO
+=item B<auto-flush>
+
+ TODO
 
 =item B<output_handler>
 
@@ -520,7 +541,7 @@ TODO
 
 TODO
 
-=item B<flush()>
+=item B<flush($reset_flag)>
 
 TODO
 
@@ -565,6 +586,6 @@ TODO
 
 =head1 VERSION
 
- 0.03
+ 0.05
 
 =cut
