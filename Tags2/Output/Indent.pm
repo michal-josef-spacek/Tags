@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.33 2008-04-18 16:08:19 skim Exp $
+# $Id: Indent.pm,v 1.34 2008-04-18 17:17:51 skim Exp $
 
 # Pragmas.
 use strict;
@@ -337,6 +337,9 @@ sub _detect_data($$) {
 
 	# Raw data.
 	} elsif ($data->[0] eq 'r') {
+		if ($#{$self->{'tmp_code'}} > -1) {
+			$self->_print_tag('>');
+		}
 		shift @{$data};
 		while (@{$data}) {
 			my $data = shift @{$data};
