@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.32 2008-04-18 16:01:04 skim Exp $
+# $Id: Raw.pm,v 1.34 2008-04-18 17:16:52 skim Exp $
 
 # Pragmas.
 use strict;
@@ -292,6 +292,9 @@ sub _detect_data($$) {
 
 	# Raw data.
 	} elsif ($data->[0] eq 'r') {
+		if ($#{$self->{'tmp_code'}} > -1) {
+			$self->_flush_tmp('>');
+		}
 		shift @{$data};
 		while (@{$data}) {
 			my $data = shift @{$data};
@@ -463,6 +466,6 @@ TODO
 
 =head1 VERSION
 
- 0.04
+ 0.05
 
 =cut
