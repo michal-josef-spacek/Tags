@@ -1,4 +1,4 @@
-# $Id: 10_raw.t,v 1.2 2008-04-18 17:04:59 skim Exp $
+# $Id: 10_raw.t,v 1.3 2008-04-18 17:17:05 skim Exp $
 
 print "Testing: Raw.\n" if $debug;
 my $obj = $class->new;
@@ -38,5 +38,5 @@ $obj->put(
 	['e', 'tag'],
 );
 $ret = $obj->flush;
-$right_ret = '<tag key="val">\n  <![CDATA[<other>bla</other>]]>\n</tag>';
+$right_ret = "<tag key=\"val\">\n  <![CDATA[<other>bla</other>]]>\n</tag>";
 ok($ret, $right_ret);
