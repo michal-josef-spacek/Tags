@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.29 2007-09-20 17:26:36 skim Exp $
+# $Id: Raw.pm,v 1.30 2008-04-18 14:49:26 skim Exp $
 
 # Pragmas.
 use strict;
@@ -21,17 +21,17 @@ sub new($@) {
 	my $class = shift;
 	my $self = bless {}, $class;
 
-	# Set output handler.
-	$self->{'output_handler'} = '';
+	# Attribute delimeter.
+	$self->{'attr_delimeter'} = '"';
 
 	# No simple tags.
 	$self->{'no_simple'} = [];
 
+	# Set output handler.
+	$self->{'output_handler'} = '';
+
 	# Preserved tags.
 	$self->{'preserved'} = [];
-
-	# Attribute delimeter.
-	$self->{'attr_delimeter'} = '"';
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
