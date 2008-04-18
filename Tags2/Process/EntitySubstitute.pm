@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::EntitySubstitute;
 #------------------------------------------------------------------------------
-# $Id: EntitySubstitute.pm,v 1.4 2007-02-24 13:27:00 skim Exp $
+# $Id: EntitySubstitute.pm,v 1.5 2008-04-18 17:00:33 skim Exp $
 
 # Pragmas.
 use strict;
@@ -50,15 +50,8 @@ sub encode($@) {
 # Encode text strings in data to entity from dtd.
 
 	my ($self, @data) = @_;
-
-	# For every 'Tags2' structure.
-	foreach (my $i = 0; $i <= $#data; $i++) {
-		if ($data[$i]->[0] eq 'd') {
-			for (my $j = 1; $j <= $#{$data[$i]}; $j++) {
-				$data[$i]->[$j] 
-					= $self->_encode($data[$i]->[$j]);
-			}
-		}
+	for (my $i = 0; $i <= $#data; $i++) {
+		$data[$i] = $self->_encode($data[$i]);
 	}
 
 	# Return data.
@@ -71,15 +64,8 @@ sub decode($@) {
 # Decode entity from dtd to text strings.
 
 	my ($self, @data) = @_;
-
-	# For every 'Tags2' structure.
-	foreach (my $i = 0; $i <= $#data; $i++) {
-		if ($data[$i]->[0] eq 'd') {
-			for (my $j = 1; $j <= $#{$data[$i]}; $j++) {
-				$data[$i]->[$j] 
-					= $self->_decode($data[$i]->[$j]);
-			}
-		}
+	for (my $i = 0; $i <= $#data; $i++) {
+		$data[$i] = $self->_decode($data[$i]);
 	}
 
 	# Return data.
@@ -92,16 +78,8 @@ sub encode_chars($@) {
 # Encode characters to '&#[0-9]+;' syntax.
 
 	my ($self, @data) = @_;
-
-	# For every 'Tags2' structure.
-	foreach (my $i = 0; $i <= $#data; $i++) {
-		if ($data[$i]->[0] eq 'd') {
-			for (my $j = 1; $j <= $#{$data[$i]}; $j++) {
-				$data[$i]->[$j] 
-					= $self->_encode_chars(
-					$data[$i]->[$j]);
-			}
-		}
+	for (my $i = 0; $i <= $#data; $i++) {
+		$data[$i] = $self->_encode_chars($data[$i]);
 	}
 
 	# Return data.
@@ -114,16 +92,8 @@ sub decode_chars($@) {
 # Decode characters from '&#[0-9]+;' syntax.
 
 	my ($self, @data) = @_;
-
-	# For every 'Tags2' structure.
-	foreach (my $i = 0; $i <= $#data; $i++) {
-		if ($data[$i]->[0] eq 'd') {
-			for (my $j = 1; $j <= $#{$data[$i]}; $j++) {
-				$data[$i]->[$j] 
-					= $self->_decode_chars(
-					$data[$i]->[$j]);
-			}
-		}
+	for (my $i = 0; $i <= $#data; $i++) {
+		$data[$i] = $self->_decode_chars($data[$i]);
 	}
 
 	# Return data.
