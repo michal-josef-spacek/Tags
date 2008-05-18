@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::ESIS;
 #------------------------------------------------------------------------------
-# $Id: ESIS.pm,v 1.6 2007-09-12 23:51:34 skim Exp $
+# $Id: ESIS.pm,v 1.7 2008-05-18 10:11:01 skim Exp $
 
 # Pragmas.
 use strict;
@@ -281,16 +281,16 @@ sub _flush_tmp($) {
 
 =head1 REQUIREMENTS
 
-L<Error::Simple::Multiple>
+L<Error::Simple::Multiple(3pm)>.
 
 =head1 SEE ALSO
 
-L<Tags2::Output::Indent>,
-L<Tags2::Output::LibXML>,
-L<Tags2::Output::PYX>,
-L<Tags2::Output::Raw>,
-L<Tags2::Output::SESIS>,
-TODO
+L<Tags2(3pm)>,
+L<Tags2::Output::Indent(3pm)>,
+L<Tags2::Output::LibXML(3pm)>,
+L<Tags2::Output::PYX(3pm)>,
+L<Tags2::Output::Raw(3pm)>,
+L<Tags2::Output::SESIS(3pm)>.
 
 =head1 AUTHOR
 

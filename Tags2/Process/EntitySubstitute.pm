@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::EntitySubstitute;
 #------------------------------------------------------------------------------
-# $Id: EntitySubstitute.pm,v 1.5 2008-04-18 17:00:33 skim Exp $
+# $Id: EntitySubstitute.pm,v 1.6 2008-05-18 10:11:02 skim Exp $
 
 # Pragmas.
 use strict;
@@ -216,7 +216,7 @@ sub _decode_chars($$) {
 
 =head1 REQUIREMENTS
 
- L<Error::Simple::Multiple>
+ L<Error::Simple::Multiple(3pm)>
 
 =head1 AUTHOR
 

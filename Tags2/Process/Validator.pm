@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Validator;
 #------------------------------------------------------------------------------
-# $Id: Validator.pm,v 1.4 2007-02-21 00:14:45 skim Exp $
+# $Id: Validator.pm,v 1.5 2008-05-18 10:11:02 skim Exp $
 
 # Pragmas.
 use strict;
@@ -81,7 +81,7 @@ TODO
 
 =head1 REQUIREMENTS
 
- L<Error::Simple::Multiple>
+ L<Error::Simple::Multiple(3pm)>
 
 =head1 AUTHOR
 

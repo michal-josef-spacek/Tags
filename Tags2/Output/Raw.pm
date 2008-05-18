@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.34 2008-04-18 17:16:52 skim Exp $
+# $Id: Raw.pm,v 1.35 2008-05-18 10:11:01 skim Exp $
 
 # Pragmas.
 use strict;
@@ -448,17 +448,17 @@ sub _flush_tmp($$) {
 
 =head1 REQUIREMENTS
 
-L<Error::Simple::Multiple>,
-L<Tags2::Utils::Preserve>
+L<Error::Simple::Multiple(3pm)>,
+L<Tags2::Utils::Preserve(3pm)>.
 
 =head1 SEE ALSO
 
-L<Tags2::Output::ESIS>,
-L<Tags2::Output::Indent>,
-L<Tags2::Output::LibXML>,
-L<Tags2::Output::PYX>,
-L<Tags2::Output::SESIS>,
-TODO
+L<Tags2(3pm)>,
+L<Tags2::Output::ESIS(3pm)>,
+L<Tags2::Output::Indent(3pm)>,
+L<Tags2::Output::LibXML(3pm)>,
+L<Tags2::Output::PYX(3pm)>,
+L<Tags2::Output::SESIS(3pm)>.
 
 =head1 AUTHOR
 

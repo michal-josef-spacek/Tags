@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Utils::Simple;
 #------------------------------------------------------------------------------
-# $Id: Simple.pm,v 1.3 2007-02-21 00:34:02 skim Exp $
+# $Id: Simple.pm,v 1.4 2008-05-18 10:11:03 skim Exp $
 
 # Pragmas.
 use strict;
@@ -133,8 +133,8 @@ sub put_i {
 
 =head1 REQUIREMENTS
 
- L<Error::Simple::Multiple>
- L<Exporter>
+ L<Error::Simple::Multiple(3pm)>
+ L<Exporter(3pm)>
 
 =head1 AUTHOR
 

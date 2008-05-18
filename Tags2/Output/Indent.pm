@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.34 2008-04-18 17:17:51 skim Exp $
+# $Id: Indent.pm,v 1.35 2008-05-18 10:11:01 skim Exp $
 
 # Pragmas.
 use strict;
@@ -568,20 +568,20 @@ TODO
 
 =head1 REQUIREMENTS
 
-L<Error::Simple::Multiple>,
-L<Indent>,
-L<Indent::Word>,
-L<Indent::Block>,
-L<Tags2::Utils::Preserve>
+L<Error::Simple::Multiple(3pm)>,
+L<Indent(3pm)>,
+L<Indent::Word(3pm)>,
+L<Indent::Block(3pm)>,
+L<Tags2::Utils::Preserve(3pm)>.
 
 =head1 SEE ALSO
 
-L<Tags2::Output::Raw>,
-L<Tags2::Output::LibXML>,
-L<Tags2::Output::ESIS>,
-L<Tags2::Output::PYX>,
-L<Tags2::Output::SESIS>,
-TODO
+L<Tags2(3pm)>,
+L<Tags2::Output::Raw(3pm)>,
+L<Tags2::Output::LibXML(3pm)>,
+L<Tags2::Output::ESIS(3pm)>,
+L<Tags2::Output::PYX(3pm)>,
+L<Tags2::Output::SESIS(3pm)>.
 
 =head1 AUTHOR
 
