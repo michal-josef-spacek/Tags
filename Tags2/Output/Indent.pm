@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.37 2008-06-14 10:45:17 skim Exp $
+# $Id: Indent.pm,v 1.38 2008-06-14 10:45:35 skim Exp $
 
 # Pragmas.
 use strict;
@@ -594,7 +594,7 @@ L<Tags2::Output::SESIS(3pm)>.
 
 =head1 AUTHOR
 
- Michal Spacek L<tupinek@gmail.com>
+ Michal Špaček L<tupinek@gmail.com>
 
 =head1 VERSION
 
