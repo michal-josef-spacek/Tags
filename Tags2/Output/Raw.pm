@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.35 2008-05-18 10:11:01 skim Exp $
+# $Id: Raw.pm,v 1.36 2008-06-14 10:25:00 skim Exp $
 
 # Pragmas.
 use strict;
@@ -367,8 +367,6 @@ sub _flush_tmp($$) {
 =item B<new(%parameters)>
 
  Constructor.
-
-=head1 PARAMETERS
 
 =over 8
 
