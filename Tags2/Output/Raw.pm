@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.38 2008-06-14 10:33:07 skim Exp $
+# $Id: Raw.pm,v 1.39 2008-06-14 10:45:17 skim Exp $
 
 # Pragmas.
 use strict;
@@ -440,7 +440,7 @@ sub _flush_tmp($$) {
 
 =item B<put(@data)>
 
- Put tags code in tags2 format (L<Tags2(3pm)>).
+ Put tags code in tags2 format.
 
 =item B<reset()>
 

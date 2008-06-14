@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.36 2008-06-14 10:33:15 skim Exp $
+# $Id: Indent.pm,v 1.37 2008-06-14 10:45:17 skim Exp $
 
 # Pragmas.
 use strict;
@@ -563,7 +563,7 @@ sub _newline($) {
 
 =item B<put(@data)>
 
- Put tags code in tags2 format (L<Tags2(3pm)>).
+ Put tags code in tags2 format.
 
 =item B<reset()>
 
