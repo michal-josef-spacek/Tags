@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.36 2008-06-14 10:25:00 skim Exp $
+# $Id: Raw.pm,v 1.37 2008-06-14 10:28:32 skim Exp $
 
 # Pragmas.
 use strict;
@@ -424,23 +424,27 @@ sub _flush_tmp($$) {
 
 =item B<finalize()>
 
- TODO
+ Finalize Tags output.
+ Automaticly puts end of all opened tags.
 
 =item B<flush($reset_flag)>
 
- TODO
+ Flush tags in object.
+ If defined 'output_handler' flush to its.
+ Or return code.
+ If enabled $reset_flag, then resets internal variables via reset method.
 
 =item B<open_tags()>
 
- TODO
+ Return array of opened tags.
 
-=item B<put()>
+=item B<put(@data)>
 
- TODO
+ Put tags code.
 
 =item B<reset()>
 
- TODO
+ Resets internal variables.
 
 =back
 
@@ -460,7 +464,7 @@ L<Tags2::Output::SESIS(3pm)>.
 
 =head1 AUTHOR
 
- Michal Spacek L<tupinek@gmail.com>
+ Michal Špaček L<tupinek@gmail.com>
 
 =head1 VERSION
 
