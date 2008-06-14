@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.37 2008-06-14 10:28:32 skim Exp $
+# $Id: Raw.pm,v 1.38 2008-06-14 10:33:07 skim Exp $
 
 # Pragmas.
 use strict;
@@ -352,7 +352,7 @@ sub _flush_tmp($$) {
 =head1 SYNOPSIS
 
  use Tags2::Output::Raw;
- my $t = Tags2::Output::Raw->new;
+ my $t = Tags2::Output::Raw->new(%params);
  $t->put(['b', 'tag']);
  $t->finalize;
  $t->flush;
@@ -364,13 +364,13 @@ sub _flush_tmp($$) {
 
 =over 8
 
-=item B<new(%parameters)>
+=item B<new(%params)>
 
  Constructor.
 
 =over 8
 
-=item B<attr_delimeter>
+=item * B<attr_delimeter>
 
  String, that defines attribute delimeter 
  Default is '"'.
@@ -385,12 +385,12 @@ sub _flush_tmp($$) {
  $t->put(['b', 'tag'], ['a', 'attr', 'val'], ['e', 'tag']);
  $t->flush;
 
-=item B<auto_flush>
+=item * B<auto_flush>
 
  TODO
  Default is 0.
 
-=item B<no-simple>
+=item * B<no-simple>
 
  Reference to array of tags, that can't by simple.
  Default is [].
@@ -405,17 +405,17 @@ sub _flush_tmp($$) {
  $t->put(['b', 'script'], ['e', 'script']);
  $t->flush;
 
-=item B<output_handler>
+=item * B<output_handler>
 
  Handler for print output strings.
  Default is *STDOUT.
 
-=item B<preserved>
+=item * B<preserved>
 
  TODO
  Default is reference to blank array.
 
-=item B<skip_bad_tags>
+=item * B<skip_bad_tags>
 
  TODO
  Default is 0.
@@ -440,7 +440,7 @@ sub _flush_tmp($$) {
 
 =item B<put(@data)>
 
- Put tags code.
+ Put tags code in tags2 format (L<Tags2(3pm)>).
 
 =item B<reset()>
 

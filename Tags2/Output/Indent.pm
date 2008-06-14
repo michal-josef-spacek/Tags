@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.35 2008-05-18 10:11:01 skim Exp $
+# $Id: Indent.pm,v 1.36 2008-06-14 10:33:15 skim Exp $
 
 # Pragmas.
 use strict;
@@ -488,53 +488,58 @@ sub _newline($) {
 
 =head1 SYNOPSIS
 
-TODO
+ use Tags2::Output::Indent(%params);
+ my $t = Tags2::Output::Raw->new;
+ $t->put(['b', 'tag']);
+ $t->finalize;
+ $t->flush;
+ $t->reset;
+ $t->put(['b', 'tag']);
+ my @open_tags = $t->open_tags;
 
 =head1 METHODS
 
 =over 8
 
-=item B<new(%parameters)>
+=item B<new(%params)>
 
-TODO
-
-=head2 PARAMETERS
+ Constructor
 
 =over 8
 
-=item B<auto-flush>
+=item * B<auto-flush>
 
  TODO
 
-=item B<output_handler>
+=item * B<output_handler>
 
  TODO
 
-=item B<no-simple>
+=item * B<no-simple>
 
  TODO
 
-=item B<attr_delimeter>
+=item * B<attr_delimeter>
 
  TODO
 
-=item B<preserved>
+=item * B<preserved>
 
  TODO
 
-=item B<skip_bad_tags>
+=item * B<skip_bad_tags>
 
  TODO
 
-=item B<next_indent>
+=item * B<next_indent>
 
  TODO
 
-=item B<output_separator>
+=item * B<output_separator>
 
  TODO
 
-=item B<line_size>
+=item * B<line_size>
 
  TODO
 
@@ -542,23 +547,27 @@ TODO
 
 =item B<finalize()>
 
-TODO
+ Finalize Tags output.
+ Automaticly puts end of all opened tags.
 
 =item B<flush($reset_flag)>
 
-TODO
+ Flush tags in object.
+ If defined 'output_handler' flush to its.
+ Or return code.
+ If enabled $reset_flag, then resets internal variables via reset method.
 
 =item B<open_tags()>
 
-TODO
+ Return array of opened tags.
 
-=item B<put()>
+=item B<put(@data)>
 
-TODO
+ Put tags code in tags2 format (L<Tags2(3pm)>).
 
 =item B<reset()>
 
-TODO
+ Resets internal variables.
 
 =back
 
