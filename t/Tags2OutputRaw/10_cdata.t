@@ -1,4 +1,4 @@
-# $Id: 10_cdata.t,v 1.1 2008-04-18 17:25:23 skim Exp $
+# $Id: 10_cdata.t,v 1.2 2008-07-15 09:27:55 skim Exp $
 
 print "Testing: CDATA.\n" if $debug;
 my $obj = $class->new;
@@ -12,13 +12,11 @@ my $right_ret = '<tag><![CDATA[aaaaa<dddd>dddd]]></tag>';
 ok($ret, $right_ret);
 
 $obj->reset;
-$obj->put(
-	['b', 'tag'],
-	['cd', 'aaaaa<dddd>dddd', ']]>'],
-	['e', 'tag'],
-);
-$ret = $obj->flush;
-# TODO Error.
-$right_ret = '<tag><![CDATA[aaaaa<dddd>dddd]]></tag>';
-ok($ret, $right_ret);
-
+eval {
+	$obj->put(
+		['b', 'tag'],
+		['cd', 'aaaaa<dddd>dddd', ']]>'],
+		['e', 'tag'],
+	);
+};
+ok($@, "Bad CDATA data.\n");
