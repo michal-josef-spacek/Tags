@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.39 2008-06-14 10:45:17 skim Exp $
+# $Id: Raw.pm,v 1.40 2008-07-15 09:27:48 skim Exp $
 
 # Pragmas.
 use strict;
@@ -229,6 +229,7 @@ sub _detect_data($$) {
 			$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d}
 				: $d;
 		}
+		err "Bad CDATA data." if $self->{'flush_code'} =~ /]]>$/;
 		$self->{'flush_code'} .= ']]>';
 
 	# Data.
