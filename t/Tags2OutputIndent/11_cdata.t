@@ -1,4 +1,4 @@
-# $Id: 11_cdata.t,v 1.2 2008-07-15 09:31:14 skim Exp $
+# $Id: 11_cdata.t,v 1.3 2008-07-15 09:57:15 skim Exp $
 
 print "Testing: CDATA.\n" if $debug;
 my $obj = $class->new;
@@ -8,10 +8,47 @@ $obj->put(
 	['e', 'tag'],
 );
 my $ret = $obj->flush;
-my $right_ret = '<tag><![CDATA[aaaaa<dddd>dddd]]></tag>';
+my $right_ret = "<tag>\n  <![CDATA[aaaaa<dddd>dddd]]>\n</tag>";
 ok($ret, $right_ret);
 
-$obj->reset;
+$obj = $class->new(
+	'cdata_indent' => 1,
+);
+$obj->put(
+	['b', 'tag'],
+	['cd', (('aaaaa<dddd>dddd') x 10)],
+	['e', 'tag'], 
+);
+my $ret = $obj->flush;
+$right_ret = <<'END';
+<tag>
+  <![CDATA[aaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>dddd
+    aaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>dddd
+    aaaaa<dddd>dddd]]>
+</tag>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
+
+$obj = $class->new(
+	'cdata_indent' => 0,
+);
+$obj->put(
+	['b', 'tag'],
+	['cd', (('aaaaa<dddd>dddd') x 10)],
+	['e', 'tag'], 
+);
+my $ret = $obj->flush;
+$right_ret = <<'END';
+<tag>
+  <![CDATA[aaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>dddd]]>
+</tag>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
+
+print "Testing: CDATA errors.\n" if $debug;
+$obj = $class->new;
 eval {
 	$obj->put(
 		['b', 'tag'],
