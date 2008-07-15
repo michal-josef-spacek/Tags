@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.39 2008-07-15 09:31:06 skim Exp $
+# $Id: Indent.pm,v 1.40 2008-07-15 09:57:08 skim Exp $
 
 # Pragmas.
 use strict;
@@ -49,6 +49,9 @@ sub new($@) {
 
 	# Callback to instruction.
 	$self->{'instruction'} = '';
+
+	# Indent CDATA section.
+	$self->{'cdata_indent'} = 0;
 
 	# Process params.
         while (@_) {
@@ -361,10 +364,9 @@ sub _detect_data($$) {
 		push @cdata, ']]>';
 		$self->_newline;
 		$self->{'preserve_obj'}->save_previous;
-		# TODO Ted je zapnute non-indent.
-		# Tady bych se mel kouknout, jak se cdata sekce vubec chova.
 		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
-			\@cdata, $self->{'indent'}->get, 1,
+			\@cdata, $self->{'indent'}->get, 
+			$self->{'cdata_indent'} == 1 ? 0 : 1,
 		);
 
 	# Other.
@@ -511,6 +513,11 @@ sub _newline($) {
 =item * B<auto-flush>
 
  TODO
+
+=item * B<cdata_indent>
+
+ Flag, that means indent CDATA section.
+ Default value is no-indent (0).
 
 =item * B<output_handler>
 
