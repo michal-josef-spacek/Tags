@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.38 2008-06-14 10:45:35 skim Exp $
+# $Id: Indent.pm,v 1.39 2008-07-15 09:31:06 skim Exp $
 
 # Pragmas.
 use strict;
@@ -357,6 +357,7 @@ sub _detect_data($$) {
 		foreach (@{$data}) {
 			push @cdata, $_;
 		}
+		err "Bad CDATA section." if join('', @cdata) =~ /]]>$/;
 		push @cdata, ']]>';
 		$self->_newline;
 		$self->{'preserve_obj'}->save_previous;
