@@ -1,4 +1,4 @@
-# $Id: 04_tag.t,v 1.4 2008-07-17 10:29:38 skim Exp $
+# $Id: 04_tag.t,v 1.5 2008-07-17 10:37:39 skim Exp $
 
 print "Testing: Normal tag without parameters (sgml version).\n" if $debug;
 my $obj = $class->new(
@@ -7,6 +7,11 @@ my $obj = $class->new(
 $obj->put(['b', 'MAIN'], ['d', 'data'], ['e', 'MAIN']);
 my $ret = $obj->flush;
 ok($ret, '<MAIN>data</MAIN>');
+
+$obj->reset;
+$obj->put(['b', 'TAG'], ['b', 'TAG2'], ['e', 'TAG']);
+$ret = $obj->flush;
+ok($ret, '<TAG><TAG2></TAG>');
 
 print "Testing: Normal tag with parameters (sgml version).\n" if $debug;
 $obj = $class->new(
