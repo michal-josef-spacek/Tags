@@ -1,4 +1,4 @@
-# $Id: 11_cdata.t,v 1.3 2008-07-15 09:57:15 skim Exp $
+# $Id: 11_cdata.t,v 1.4 2008-07-17 10:30:09 skim Exp $
 
 print "Testing: CDATA.\n" if $debug;
 my $obj = $class->new;
@@ -19,7 +19,7 @@ $obj->put(
 	['cd', (('aaaaa<dddd>dddd') x 10)],
 	['e', 'tag'], 
 );
-my $ret = $obj->flush;
+$ret = $obj->flush;
 $right_ret = <<'END';
 <tag>
   <![CDATA[aaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>dddd
@@ -38,7 +38,7 @@ $obj->put(
 	['cd', (('aaaaa<dddd>dddd') x 10)],
 	['e', 'tag'], 
 );
-my $ret = $obj->flush;
+$ret = $obj->flush;
 $right_ret = <<'END';
 <tag>
   <![CDATA[aaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>ddddaaaaa<dddd>dddd]]>
