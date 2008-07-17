@@ -1,4 +1,4 @@
-$Id: TODO,v 1.35 2008-05-26 16:43:48 skim Exp $
+$Id: TODO,v 1.36 2008-07-17 10:10:10 skim Exp $
 
 TODO
 ====
@@ -41,7 +41,11 @@ Tags2::Output::Indent je hotov.
     Tags2::Output::Indent
 Tags2::Output::Raw opraveno.
 26. Tags2::Output::Raw nevypise nexml vystup. Kdyz neukoncim tag, tak zahlasi error.
-27.
+    Patri resit / v simple tagu. Nevim jak je to v sgml.
+Do Tags2::Output::Raw jsem pridal xml parameter.
+Jeden error je vazan na tenhle xml parametr.
+27. XML vystup muze byt pouze malymi pismeny.
+28.
 
 Applied
 =======
