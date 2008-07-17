@@ -1,7 +1,9 @@
-# $Id: 09_raw.t,v 1.2 2008-04-18 17:03:47 skim Exp $
+# $Id: 09_raw.t,v 1.3 2008-07-17 10:25:36 skim Exp $
 
 print "Testing: Raw.\n" if $debug;
-my $obj = $class->new;
+my $obj = $class->new(
+	'xml' => 1,
+);
 $obj->put(
 	['b', 'tag'],
 	['r', '<![CDATA['],
