@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.40 2008-07-15 09:27:48 skim Exp $
+# $Id: Raw.pm,v 1.41 2008-07-17 10:16:56 skim Exp $
 
 # Pragmas.
 use strict;
@@ -38,6 +38,9 @@ sub new($@) {
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
+
+	# XML output.
+	$self->{'xml'} = 0;
 
 	# Process params.
         while (@_) {
@@ -189,6 +192,9 @@ sub _detect_data($$) {
 		if ($#{$self->{'tmp_code'}} > -1) {
 			$self->_flush_tmp('>');
 		}
+		if ($self->{'xml'} && $data->[1] ne lc($data->[1])) {
+			err "In XML must be lowercase tag name.";
+		}
 		push @{$self->{'tmp_code'}}, "<$data->[1]";
 		unshift @{$self->{'printed_tags'}}, $data->[1];
 		$self->{'preserve_obj'}->begin($data->[1]);
@@ -246,7 +252,7 @@ sub _detect_data($$) {
 	# End of tag.
 	} elsif ($data->[0] eq 'e') {
 		my $printed = shift @{$self->{'printed_tags'}};
-		unless ($printed eq $data->[1]) {
+		if ($self->{'xml'} && $printed ne $data->[1]) {
 			err "Ending bad tag: '$data->[1]' in block of ".
 				"tag '$printed'.";
 		}
@@ -421,6 +427,11 @@ sub _flush_tmp($$) {
  TODO
  Default is 0.
 
+=item * B<xml>
+
+ Flag, that means xml output.
+ Default is 0 (sgml).
+
 =back
 
 =item B<finalize()>
@@ -448,6 +459,11 @@ sub _flush_tmp($$) {
  Resets internal variables.
 
 =back
+
+=head1 ERRORS
+
+ In XML must be lowercase tag name.
+ TODO
 
 =head1 REQUIREMENTS
 
