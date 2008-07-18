@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Raw;
 #------------------------------------------------------------------------------
-# $Id: Raw.pm,v 1.41 2008-07-17 10:16:56 skim Exp $
+# $Id: Raw.pm,v 1.42 2008-07-18 13:57:18 skim Exp $
 
 # Pragmas.
 use strict;
@@ -258,7 +258,9 @@ sub _detect_data($$) {
 		}
 
 		# Tag can be simple.
-		if (! grep { $_ eq $data->[1] } @{$self->{'no_simple'}}) {
+		if ((! grep { $_ eq $data->[1] } @{$self->{'no_simple'}})
+			&& $self->{'xml'}) {
+
 			if ($#{$self->{'tmp_code'}} > -1) {
 				if ($#{$self->{'tmp_comment_code'}} > -1
 					&& $self->{'comment_flag'} == 1) {
