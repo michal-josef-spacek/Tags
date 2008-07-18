@@ -1,4 +1,4 @@
-$Id: TODO,v 1.37 2008-07-17 10:30:50 skim Exp $
+$Id: TODO,v 1.38 2008-07-18 13:59:10 skim Exp $
 
 TODO
 ====
@@ -40,11 +40,6 @@ Tags2::Output::Indent je hotov.
     Tags2::Output::Raw
     Tags2::Output::Indent
 Tags2::Output::Raw opraveno.
-26. Tags2::Output::Raw nevypise nexml vystup. Kdyz neukoncim tag, tak zahlasi error.
-    Patri resit / v simple tagu. Nevim jak je to v sgml.
-Do Tags2::Output::Raw jsem pridal xml parameter.
-Pridany testy.
-Jeden error je vazan na tenhle xml parametr.
 27. XML vystup muze byt pouze malymi pismeny.
 28.
 
@@ -91,3 +86,11 @@ OK [20070920] skim
 2. Pridat indentovani.
    Viz Tags2::Output::Indent.
 OK [20070920] skim
+
+26. Tags2::Output::Raw nevypise nexml vystup. Kdyz neukoncim tag, tak zahlasi error.
+    Patri resit / v simple tagu. Nevim jak je to v sgml.
+Do Tags2::Output::Raw jsem pridal xml parameter.
+Pridany testy.
+Jeden error je vazan na tenhle xml parametr.
+no_simple pro sgml.
+OK [20080718] skim
