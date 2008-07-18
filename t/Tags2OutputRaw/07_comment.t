@@ -1,7 +1,9 @@
-# $Id: 07_comment.t,v 1.4 2007-09-20 17:26:55 skim Exp $
+# $Id: 07_comment.t,v 1.5 2008-07-18 13:57:29 skim Exp $
 
 print "Testing: Comment.\n" if $debug;
-my $obj = $class->new;
+my $obj = $class->new(
+	'xml' => 1,
+);
 $obj->put(
 	['c', 'comment'],
 	['c', ' comment '],

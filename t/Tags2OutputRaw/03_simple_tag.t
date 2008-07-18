@@ -1,4 +1,4 @@
-# $Id: 03_simple_tag.t,v 1.4 2008-07-17 10:17:02 skim Exp $
+# $Id: 03_simple_tag.t,v 1.5 2008-07-18 13:57:28 skim Exp $
 
 print "Testing: Simple tag without parameters (sgml version).\n" if $debug;
 my $obj = $class->new(
@@ -9,7 +9,7 @@ $obj->put(
 	['e', 'MAIN'],
 );
 my $ret = $obj->flush;
-ok($ret, '<MAIN />');
+ok($ret, '<MAIN></MAIN>');
 
 print "Testing: Simple tag with parameters (sgml version).\n" if $debug;
 $obj->reset;
@@ -19,7 +19,7 @@ $obj->put(
 	['e', 'MAIN'],
 );
 $ret = $obj->flush;
-ok($ret, '<MAIN id="id_value" />');
+ok($ret, '<MAIN id="id_value"></MAIN>');
 
 print "Testing: Simple tag after simple tag (sgml version).\n" if $debug;
 $obj->reset;
@@ -32,7 +32,7 @@ $obj->put(
 	['e', 'MAIN'],
 );
 $ret = $obj->flush;
-ok($ret, '<MAIN id="id_value" /><MAIN id="id_value2" />');
+ok($ret, '<MAIN id="id_value"></MAIN><MAIN id="id_value2"></MAIN>');
 
 print "Testing: Simple tag without parameters (xml version).\n" if $debug;
 $obj = $class->new(
