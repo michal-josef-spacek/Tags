@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Id;
 #------------------------------------------------------------------------------
-# $Id: Id.pm,v 1.5 2008-07-30 10:50:38 skim Exp $
+# $Id: Id.pm,v 1.6 2008-07-30 10:56:01 skim Exp $
 
 # Pragmas.
 use strict;
@@ -123,9 +123,9 @@ sub _check_atributes_for_id($$) {
  use Tags2::Process::Id;
  my $id = Tags2::Process::Id->new;
  $id->check(
-   ['b', 'tag'],
-   ['a', 'id', 'id1'],
-   ['a', 'id', 'id2'],
+         ['b', 'tag'],
+         ['a', 'id', 'id1'],
+         ['a', 'id', 'id2'],
  );
 
 =head1 DESCRIPTION
@@ -140,9 +140,10 @@ sub _check_atributes_for_id($$) {
 
  Constructor.
 
-=item B<check()>
+=item B<check(@data)>
 
- TODO
+ Check tags2 structure.
+ If is structure bad, turn error.
 
 =item B<reset()>
 
@@ -150,9 +151,56 @@ sub _check_atributes_for_id($$) {
 
 =back
 
-=head1 EXAMPLE
+=head1 ERRORS
 
  TODO
+
+=head1 EXAMPLE1
+
+ # Pragmas.
+ use strict;
+ use warnings;
+
+ # Modules.
+ use Tags2::Process::Id;
+
+ # Object.
+ my $id = Tags2::Process::Id->new;
+
+ # Check bad tag with two ids.
+ $id->check(
+         ['b', 'tag'],
+         ['a', 'id', 'id1'],
+         ['a', 'id', 'id2'],
+ );
+
+ # Output:
+ # Tags2::Process::Id: Other id attribute in tag 'tag'.
+
+=head1 EXAMPLE2
+
+ # Pragmas.
+ use strict;
+ use warnings;
+
+ # Modules.
+ use Tags2::Process::Id;
+
+ # Object.
+ my $id = Tags2::Process::Id->new;
+
+ # Check bad tag with two ids.
+ $id->check(
+         ['b', 'tag'],
+         ['a', 'id', 'id1'],
+         ['e', 'tag'],
+         ['b', 'tag'],
+         ['a', 'id', 'id1'],
+         ['e', 'tag'],
+ );
+
+ # Output:
+ # Tags2::Process::Id: Id attribute 'id1' in tag 'tag' is duplicit over structure.
 
 =head1 REQUIREMENTS
 
@@ -160,7 +208,7 @@ sub _check_atributes_for_id($$) {
 
 =head1 AUTHOR
 
- Michal Spacek L<tupinek@gmail.com>
+ Michal Špaček L<tupinek@gmail.com>
 
 =head1 VERSION 
 
