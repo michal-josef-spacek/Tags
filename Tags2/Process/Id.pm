@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Id;
 #------------------------------------------------------------------------------
-# $Id: Id.pm,v 1.7 2008-07-30 10:58:45 skim Exp $
+# $Id: Id.pm,v 1.8 2008-07-30 11:03:11 skim Exp $
 
 # Pragmas.
 use strict;
@@ -206,7 +206,11 @@ sub _check_atributes_for_id($$) {
 
 =head1 REQUIREMENTS
 
- L<Error::Simple::Multiple(3pm)>
+ L<Error::Simple::Multiple(3pm)>.
+
+=head1 SEE ALSO
+
+ L<Tags2(3pm)>.
 
 =head1 AUTHOR
 
