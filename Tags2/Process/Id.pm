@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Id;
 #------------------------------------------------------------------------------
-# $Id: Id.pm,v 1.6 2008-07-30 10:56:01 skim Exp $
+# $Id: Id.pm,v 1.7 2008-07-30 10:58:45 skim Exp $
 
 # Pragmas.
 use strict;
@@ -153,7 +153,9 @@ sub _check_atributes_for_id($$) {
 
 =head1 ERRORS
 
- TODO
+ Bad parameter '%s'.
+ Id attribute '%s' in tag '%s' is duplicit over structure.
+ Other id attribute in tag '%s'.
 
 =head1 EXAMPLE1
 
