@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Id;
 #------------------------------------------------------------------------------
-# $Id: Id.pm,v 1.4 2008-05-18 10:11:02 skim Exp $
+# $Id: Id.pm,v 1.5 2008-07-30 10:50:38 skim Exp $
 
 # Pragmas.
 use strict;
@@ -28,14 +28,8 @@ sub new($@) {
                 $self->{$key} = $val;
         }
 
-	# Class id register array.
-	$self->{'id_tags'} = [];
-
-	# Actual tag.
-	$self->{'actual_tag'} = '';
-
-	# Log flag for id in current tag.
-	$self->{'log'} = 0;
+	# Initialization.
+	$self->reset;
 
 	# Object.
 	return $self;
@@ -75,8 +69,14 @@ sub reset($) {
 # Resets class id register.
 
 	my $self = shift;
-	$self->{'actual_tag'} = '';
+
+	# Actual tag.
+	$self->{'actual_tag'} = undef;
+
+	# Class id register array.
 	$self->{'id_tags'} = [];
+
+	# Log flag for id in current tag.
 	$self->{'log'} = 0;
 }
 
