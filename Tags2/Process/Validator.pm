@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Validator;
 #------------------------------------------------------------------------------
-# $Id: Validator.pm,v 1.6 2008-07-30 22:43:42 skim Exp $
+# $Id: Validator.pm,v 1.7 2008-08-16 19:36:02 skim Exp $
 
 # Pragmas.
 use strict;
@@ -35,9 +35,13 @@ sub new($@) {
                 $self->{$key} = $val;
         }
 
-	# Is exist file for dtd?
-	err "Cannot read file '$self->{'dtd_file'}' with DTD."
-		if $self->{'dtd_file'} eq '' || ! -r $self->{'dtd_file'};
+	# Is exists 'dtd_file' name.
+	err "Cannot read file with DTD defined by 'dtd_file' paremeter."
+		if ! $self->{'dtd_file'};
+
+	# Is 'dtd_file' readable.
+ 	err "Cannot read file '$self->{'dtd_file'}' with DTD."
+		if ! -r $self->{'dtd_file'};
 
 	# DTD structure.
 	if (! $self->{'dtd'}) {
@@ -77,12 +81,46 @@ sub check_one($$) {
 			my $val = shift @{$data};
 		}
 
+		# TODO
+
 	# Begin of tag.
 	} elsif ($data->[0] eq 'b') {
-		$self->{'actual_tag'} = $data->[1];
+		my $tag = $data->[1];
+
+		# Tag non exists in dtd.
+		if (! exists $self->{'dtd'}->{$tag}) {
+			err "Tag '$tag' doesn't exist in dtd.";
+		}
+
+		# First tag.
+		if ($#{$self->{'printed'}} == -1) {
+
+			# Error with parent.
+			if (exists $self->{'dtd'}->{$tag}->{'parent'}) {
+				err "Tag '$tag' cannot be first.";
+			}
+
+		# Normal tag.
+		} else {
+			if (! exists $self->{'dtd'}->{$tag}->{'parent'}) {
+				err "Tag '$tag' cannot be after other tag.";
+			}
+
+			my $prev_tag = $self->{'printed'}->[0];
+			if (! grep { $prev_tag eq $_ } 
+				@{$self->{'dtd'}->{$tag}->{'parent'}}) {
+
+				err "Tag '$tag' cannot be after tag ".
+					"'$prev_tag'.";
+			}
+		}
+
+		# Printed.
+		unshift @{$self->{'printed'}}, $tag;
 
 	# End of tag.
 	} elsif ($data->[0] eq 'e') {
+		shift @{$self->{'printed'}};
 	}
 }
 
@@ -93,8 +131,8 @@ sub reset($) {
 
 	my $self = shift;
 
-	# Actual tag.
-	$self->{'actual_tag'} = undef;
+	# Parent stack.
+	$self->{'printed'} = [];
 }
 
 1;
@@ -152,6 +190,11 @@ sub reset($) {
 
  Bad parameter '%s'.
  Cannot read file '%s' with DTD.
+ Cannot read file with DTD defined by 'dtd_file' paremeter.
+ Tag '%s' cannot be first.
+ Tag '%s' cannot be after other tag.
+ Tag '%s' cannot be after tag '%s'.
+ Tag '%s' doesn't exist in dtd.
  TODO
 
 =head1 EXAMPLE
