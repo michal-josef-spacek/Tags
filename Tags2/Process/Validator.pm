@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Validator;
 #------------------------------------------------------------------------------
-# $Id: Validator.pm,v 1.7 2008-08-16 19:36:02 skim Exp $
+# $Id: Validator.pm,v 1.8 2008-08-16 22:21:50 skim Exp $
 
 # Pragmas.
 use strict;
@@ -12,6 +12,10 @@ use XML::DTDParser qw(ParseDTDFile);
 
 # Version.
 our $VERSION = 0.01;
+
+# TODO
+# a) Overit, jestli jsou #REQUIRED atributy pouzity.
+# b) Overit, jestli jsou spravne data (simple tag, nebo tag s daty).
 
 #------------------------------------------------------------------------------
 sub new($@) {
@@ -76,12 +80,44 @@ sub check_one($$) {
 	# Attributes.
 	if ($data->[0] eq 'a') {
 		shift @{$data};
-		while (@{$data}) {
-			my $par = shift @{$data};
-			my $val = shift @{$data};
-		}
 
-		# TODO
+		# Actual tag.
+		my $tag = $self->{'printed'}->[0];
+
+		# For all attributes.
+		while (@{$data}) {
+			my $attr = shift @{$data};
+			my $val = shift @{$data};
+
+			# Check to duplicit attribute.
+			if (grep { $attr eq $_ } @{$self->{'printed_attr'}}) {
+				err "Attribute '$attr' at tag '$tag' is ".
+					"duplicit.";
+			}
+
+			# Attributes of printed tag.
+			my @tag_attributes = keys %{$self->{'dtd'}->{$tag}
+				->{'attributes'}};
+
+			# Check to attribute exist.
+			if (! grep { $attr eq $_ } @tag_attributes) {
+				err "Bad attribute '$attr' at tag '$tag'.";
+			}
+
+			# Control default values.
+			if (ref $self->{'dtd'}->{$tag}->{'attributes'}
+				->{$attr}->[3] eq 'ARRAY' 
+				&& ! grep { $val eq $_ }
+				@{$self->{'dtd'}->{$tag}->{'attributes'}
+				->{$attr}->[3]}) {
+
+				err "Bad value '$val' of attribute '$attr' ".
+					"at tag '$tag'.";
+			}
+
+			# Add parameter to atribute stack.
+			unshift @{$self->{'printed_attr'}}, $attr;
+		}
 
 	# Begin of tag.
 	} elsif ($data->[0] eq 'b') {
@@ -118,6 +154,9 @@ sub check_one($$) {
 		# Printed.
 		unshift @{$self->{'printed'}}, $tag;
 
+		# Clear tag attributes stack.
+		$self->{'printed_attr'} = [];
+
 	# End of tag.
 	} elsif ($data->[0] eq 'e') {
 		shift @{$self->{'printed'}};
@@ -131,8 +170,25 @@ sub reset($) {
 
 	my $self = shift;
 
-	# Parent stack.
+	# Tags stack.
 	$self->{'printed'} = [];
+
+	# Tag attributes stack.
+	$self->{'printed_attr'} = [];
+}
+
+#------------------------------------------------------------------------------
+# Private methods.
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+sub _get_required_attr($$) {
+#------------------------------------------------------------------------------
+# Get required attributes.
+
+	my ($self, $tag) = @_;
+	my $attr = $self->{'dtd'}->{$tag}->{'attributes'};
+	return grep { $attr->{$_}->[1] eq '#REQUIRED' } keys %{$attr};
 }
 
 1;
@@ -188,14 +244,16 @@ sub reset($) {
 
 =head1 ERRORS
 
+ Attribute '%s' at tag '%s' is duplicit.
+ Bad attribute '%s' at tag '%s'.
  Bad parameter '%s'.
+ Bad value '%s' of attribute '%s' at tag '%s'.
  Cannot read file '%s' with DTD.
  Cannot read file with DTD defined by 'dtd_file' paremeter.
  Tag '%s' cannot be first.
  Tag '%s' cannot be after other tag.
  Tag '%s' cannot be after tag '%s'.
  Tag '%s' doesn't exist in dtd.
- TODO
 
 =head1 EXAMPLE
 
