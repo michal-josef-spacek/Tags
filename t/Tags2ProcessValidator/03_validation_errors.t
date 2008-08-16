@@ -1,4 +1,4 @@
-# $Id: 03_validation_errors.t,v 1.1 2008-08-16 19:35:12 skim Exp $
+# $Id: 03_validation_errors.t,v 1.2 2008-08-16 22:22:17 skim Exp $
 
 # Tests directory.
 my $test_dir = "$ENV{'PWD'}/t/Tags2ProcessValidator";
@@ -30,3 +30,6 @@ eval {
 	$obj->check_one(['b', 'CHILD1']);
 };
 ok($@, "Tag 'CHILD1' cannot be after tag 'CHILD1'.\n");
+
+# TODO
+Check to attributes.
