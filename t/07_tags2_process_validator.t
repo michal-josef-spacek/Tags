@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# $Id: 07_tags2_process_validator.t,v 1.1 2008-07-30 22:43:43 skim Exp $
+# $Id: 07_tags2_process_validator.t,v 1.2 2008-08-16 19:35:01 skim Exp $
 
 # Pragmas.
 use strict;
@@ -35,4 +35,3 @@ foreach (@list) {
         do $_;
 	print $@;
 }
-
