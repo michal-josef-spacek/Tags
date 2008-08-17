@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Validator;
 #------------------------------------------------------------------------------
-# $Id: Validator.pm,v 1.8 2008-08-16 22:21:50 skim Exp $
+# $Id: Validator.pm,v 1.9 2008-08-17 15:39:55 skim Exp $
 
 # Pragmas.
 use strict;
@@ -79,15 +79,16 @@ sub check_one($$) {
 
 	# Attributes.
 	if ($data->[0] eq 'a') {
-		shift @{$data};
+		my @tmp_data = @{$data};
+		shift @tmp_data;
 
 		# Actual tag.
 		my $tag = $self->{'printed'}->[0];
 
 		# For all attributes.
-		while (@{$data}) {
-			my $attr = shift @{$data};
-			my $val = shift @{$data};
+		while (@tmp_data) {
+			my $attr = shift @tmp_data;
+			my $val = shift @tmp_data;
 
 			# Check to duplicit attribute.
 			if (grep { $attr eq $_ } @{$self->{'printed_attr'}}) {
@@ -159,6 +160,7 @@ sub check_one($$) {
 
 	# End of tag.
 	} elsif ($data->[0] eq 'e') {
+		# TODO Pouze u xml.
 		shift @{$self->{'printed'}};
 	}
 }
