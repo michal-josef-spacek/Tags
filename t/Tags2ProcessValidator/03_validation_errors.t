@@ -1,4 +1,4 @@
-# $Id: 03_validation_errors.t,v 1.5 2008-08-17 16:03:49 skim Exp $
+# $Id: 03_validation_errors.t,v 1.6 2008-08-17 17:24:40 skim Exp $
 
 # Tests directory.
 my $test_dir = "$ENV{'PWD'}/t/Tags2ProcessValidator";
@@ -53,6 +53,13 @@ eval {
 	$obj->check_one(['a', 'xml:space', 'foo']);
 };
 ok($@, "Bad value 'foo' of attribute 'xml:space' at tag 'CHILD1'.\n");
+
+$obj->reset;
+$obj->check_one(['b', 'MAIN']);
+eval {
+	$obj->check_one(['e', 'MAIN']);
+};
+ok($@, "Missing tag 'CHILD1' at tag 'MAIN'.\n");
 
 $obj = $class->new('dtd_file' => "$test_dir/DTD/test10.dtd");
 $obj->check_one(['b', 'MAIN']);
