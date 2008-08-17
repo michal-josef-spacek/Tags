@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Validator;
 #------------------------------------------------------------------------------
-# $Id: Validator.pm,v 1.11 2008-08-17 16:03:43 skim Exp $
+# $Id: Validator.pm,v 1.12 2008-08-17 17:39:50 skim Exp $
 
 # Pragmas.
 use strict;
@@ -170,6 +170,9 @@ sub check_one($$) {
 			}
 		}
 
+		# Check to missing tags.
+		$self->_check_missing($tag);
+
 		# Printed.
 		unshift @{$self->{'printed'}}, $tag;
 
@@ -179,10 +182,18 @@ sub check_one($$) {
 		# Clear tag attributes stack.
 		$self->{'printed_attr'} = [];
 
+		# Initialization value of children tags.
+		unshift @{$self->{'children_tags'}}, -1;
+
 	# End of tag.
 	} elsif ($data->[0] eq 'e') {
+
+		# Check to missing tags.
+		$self->_check_missing;
+
 		# TODO Pouze u xml.
 		shift @{$self->{'printed'}};
+		shift @{$self->{'children_tags'}};
 
 	# Data.
 	} elsif ($data->[0] eq 'd') {
@@ -207,6 +218,9 @@ sub reset($) {
 	# Check required attributes flag.
 	$self->{'check_req_attr'} = 0;
 
+	# Children tags stack.
+	$self->{'children_tags'} = [];
+
 	# Tags stack.
 	$self->{'printed'} = [];
 
@@ -217,6 +231,38 @@ sub reset($) {
 #------------------------------------------------------------------------------
 # Private methods.
 #------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+sub _check_missing($;$) {
+#------------------------------------------------------------------------------
+# Check to missing tags.
+
+	my ($self, $tag) = @_;
+
+	# Previous tag.
+	my $prev_tag = $self->{'printed'}->[0];
+
+	# No previous tag.
+	return unless $prev_tag;
+
+	# Without children.
+	return unless exists $self->{'dtd'}->{$prev_tag}->{'children'};
+
+	# No other tags.
+	my $index = $self->{'children_tags'}->[0] + 1;
+	return if $index > $#{$self->{'dtd'}->{$prev_tag}->{'childrenARR'}};
+
+	# Check to missing tags.
+	if ($tag && $self->{'dtd'}->{$prev_tag}->{'childrenARR'}
+		->[$index] eq $tag) {
+
+		$self->{'children_tags'}->[0]++;
+	} else {
+		my $missing = $self->{'dtd'}->{$prev_tag}->{'childrenARR'}
+			->[$index];
+		err "Missing tag '$missing' at tag '$prev_tag'.";
+	}
+}
 
 #------------------------------------------------------------------------------
 sub _get_required_attr($$) {
