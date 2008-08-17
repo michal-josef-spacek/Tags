@@ -1,4 +1,4 @@
-# $Id: 03_validation_errors.t,v 1.4 2008-08-17 15:56:51 skim Exp $
+# $Id: 03_validation_errors.t,v 1.5 2008-08-17 16:03:49 skim Exp $
 
 # Tests directory.
 my $test_dir = "$ENV{'PWD'}/t/Tags2ProcessValidator";
@@ -60,3 +60,11 @@ eval {
 	$obj->check_one(['b', 'CHILD1']);
 };
 ok($@, "Missing required attribute 'id' at tag 'MAIN'.\n");
+
+$obj->reset;
+$obj->check_one(['b', 'MAIN']);
+$obj->check_one(['a', 'id', 'id']);
+eval {
+	$obj->check_one(['d', 'foo data']);
+};
+ok($@, "Bad data section in tag 'MAIN'.\n");
