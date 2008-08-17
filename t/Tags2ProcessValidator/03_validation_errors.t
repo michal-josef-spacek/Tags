@@ -1,4 +1,4 @@
-# $Id: 03_validation_errors.t,v 1.3 2008-08-17 15:40:24 skim Exp $
+# $Id: 03_validation_errors.t,v 1.4 2008-08-17 15:56:51 skim Exp $
 
 # Tests directory.
 my $test_dir = "$ENV{'PWD'}/t/Tags2ProcessValidator";
@@ -31,5 +31,32 @@ eval {
 };
 ok($@, "Tag 'CHILD1' cannot be after tag 'CHILD1'.\n");
 
-# TODO
-# Check to attributes.
+$obj->reset;
+$obj->check_one(['b', 'MAIN']);
+$obj->check_one(['a', 'id', 1]);
+eval {
+	$obj->check_one(['a', 'id', 2]);
+};
+ok($@, "Attribute 'id' at tag 'MAIN' is duplicit.\n");
+
+$obj->reset;
+$obj->check_one(['b', 'MAIN']);
+eval {
+	$obj->check_one(['a', 'foo', 'bar']);
+};
+ok($@, "Bad attribute 'foo' at tag 'MAIN'.\n");
+
+$obj->reset;
+$obj->check_one(['b', 'MAIN']);
+$obj->check_one(['b', 'CHILD1']);
+eval {
+	$obj->check_one(['a', 'xml:space', 'foo']);
+};
+ok($@, "Bad value 'foo' of attribute 'xml:space' at tag 'CHILD1'.\n");
+
+$obj = $class->new('dtd_file' => "$test_dir/DTD/test10.dtd");
+$obj->check_one(['b', 'MAIN']);
+eval {
+	$obj->check_one(['b', 'CHILD1']);
+};
+ok($@, "Missing required attribute 'id' at tag 'MAIN'.\n");
