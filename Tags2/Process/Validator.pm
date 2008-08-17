@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Validator;
 #------------------------------------------------------------------------------
-# $Id: Validator.pm,v 1.9 2008-08-17 15:39:55 skim Exp $
+# $Id: Validator.pm,v 1.10 2008-08-17 15:56:45 skim Exp $
 
 # Pragmas.
 use strict;
@@ -76,6 +76,24 @@ sub check_one($$) {
 # Detect and process one tag.
 
 	my ($self, $data) = @_;
+
+	# Check required attributes.
+	if ($data->[0] ne 'a' && $self->{'check_req_attr'}) {
+
+		# Actual tag.
+		my $tag = $self->{'printed'}->[0];
+
+		# For each required attributes check.
+		foreach my $req ($self->_get_required_attr($tag)) {
+			if (! grep { $req eq $_ } @{$self->{'printed_attr'}}) {
+				err "Missing required attribute '$req' ".
+					"at tag '$tag'.";
+			}
+		}
+
+		# Cleat flag.
+		$self->{'check_req_attr'} = 0;
+	}
 
 	# Attributes.
 	if ($data->[0] eq 'a') {
@@ -155,6 +173,9 @@ sub check_one($$) {
 		# Printed.
 		unshift @{$self->{'printed'}}, $tag;
 
+		# Check required attributes flag.
+		$self->{'check_req_attr'} = 1;
+
 		# Clear tag attributes stack.
 		$self->{'printed_attr'} = [];
 
@@ -171,6 +192,9 @@ sub reset($) {
 # Resets object.
 
 	my $self = shift;
+
+	# Check required attributes flag.
+	$self->{'check_req_attr'} = 0;
 
 	# Tags stack.
 	$self->{'printed'} = [];
@@ -252,6 +276,7 @@ sub _get_required_attr($$) {
  Bad value '%s' of attribute '%s' at tag '%s'.
  Cannot read file '%s' with DTD.
  Cannot read file with DTD defined by 'dtd_file' paremeter.
+ Missing required attribute '%s' at tag '%s'.
  Tag '%s' cannot be first.
  Tag '%s' cannot be after other tag.
  Tag '%s' cannot be after tag '%s'.
