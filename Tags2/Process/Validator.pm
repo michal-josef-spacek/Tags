@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Validator;
 #------------------------------------------------------------------------------
-# $Id: Validator.pm,v 1.10 2008-08-17 15:56:45 skim Exp $
+# $Id: Validator.pm,v 1.11 2008-08-17 16:03:43 skim Exp $
 
 # Pragmas.
 use strict;
@@ -183,6 +183,17 @@ sub check_one($$) {
 	} elsif ($data->[0] eq 'e') {
 		# TODO Pouze u xml.
 		shift @{$self->{'printed'}};
+
+	# Data.
+	} elsif ($data->[0] eq 'd') {
+		
+		# Actual tag.
+		my $tag = $self->{'printed'}->[0];
+
+		# Check to possibility of data in this tag.
+		if (! exists $self->{'dtd'}->{$tag}->{'content'}) {
+			err "Bad data section in tag '$tag'.";
+		}
 	}
 }
 
@@ -272,6 +283,7 @@ sub _get_required_attr($$) {
 
  Attribute '%s' at tag '%s' is duplicit.
  Bad attribute '%s' at tag '%s'.
+ Bad data section in tag '%s'.
  Bad parameter '%s'.
  Bad value '%s' of attribute '%s' at tag '%s'.
  Cannot read file '%s' with DTD.
