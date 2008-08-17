@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.42 2008-08-17 13:41:49 skim Exp $
+# $Id: Indent.pm,v 1.43 2008-08-17 13:43:41 skim Exp $
 
 # Pragmas.
 use strict;
@@ -592,7 +592,30 @@ sub _newline($) {
 
 =head1 EXAMPLE
 
-TODO
+ # Pragmas.
+ use strict;
+ use warnings;
+
+ # Modules.
+ use Tags2::Output::Indent;
+
+ # Object.
+ my $tags = Tags2::Output::Indent->new;
+
+ # Put data.
+ $tags->put(
+         ['b', 'text'],
+	 ['d', 'data'],
+	 ['e', 'text'],
+ );
+
+ # Print.
+ print $tags->flush."\n";
+
+ # Output:
+ # <text>
+ #   data
+ # </text>
 
 =head1 REQUIREMENTS
 
