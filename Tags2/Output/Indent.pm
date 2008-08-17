@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.41 2008-08-17 13:34:58 skim Exp $
+# $Id: Indent.pm,v 1.42 2008-08-17 13:41:49 skim Exp $
 
 # Pragmas.
 use strict;
@@ -578,6 +578,17 @@ sub _newline($) {
  Resets internal variables.
 
 =back
+
+=head1 ERRORS
+ 
+ Auto-flush can't use without output handler.
+ Bad attribute delimeter '%s'.
+ Bad CDATA section.
+ Bad data.
+ Bad parameter '%s'.
+ Bad tag type 'a'.
+ Bad type of data.
+ Ending bad tag: '%s' in block of tag '%s'.
 
 =head1 EXAMPLE
 
