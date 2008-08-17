@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.40 2008-07-15 09:57:08 skim Exp $
+# $Id: Indent.pm,v 1.41 2008-08-17 13:34:58 skim Exp $
 
 # Pragmas.
 use strict;
@@ -492,7 +492,7 @@ sub _newline($) {
 =head1 SYNOPSIS
 
  use Tags2::Output::Indent(%params);
- my $t = Tags2::Output::Raw->new;
+ my $t = Tags2::Output::Indent->new;
  $t->put(['b', 'tag']);
  $t->finalize;
  $t->flush;
