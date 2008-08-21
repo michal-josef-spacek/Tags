@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Process::Validator;
 #------------------------------------------------------------------------------
-# $Id: Validator.pm,v 1.12 2008-08-17 17:39:50 skim Exp $
+# $Id: Validator.pm,v 1.13 2008-08-21 15:36:14 skim Exp $
 
 # Pragmas.
 use strict;
@@ -93,6 +93,9 @@ sub check_one($$) {
 
 		# Cleat flag.
 		$self->{'check_req_attr'} = 0;
+
+		# Clear tag attributes stack.
+		$self->{'printed_attr'} = [];
 	}
 
 	# Attributes.
@@ -171,16 +174,14 @@ sub check_one($$) {
 		}
 
 		# Check to missing tags.
-		$self->_check_missing($tag);
+# TODO Je to spatne.
+#		$self->_check_missing($tag);
 
 		# Printed.
 		unshift @{$self->{'printed'}}, $tag;
 
 		# Check required attributes flag.
 		$self->{'check_req_attr'} = 1;
-
-		# Clear tag attributes stack.
-		$self->{'printed_attr'} = [];
 
 		# Initialization value of children tags.
 		unshift @{$self->{'children_tags'}}, -1;
@@ -189,7 +190,8 @@ sub check_one($$) {
 	} elsif ($data->[0] eq 'e') {
 
 		# Check to missing tags.
-		$self->_check_missing;
+# TODO Je to spatne.
+#		$self->_check_missing;
 
 		# TODO Pouze u xml.
 		shift @{$self->{'printed'}};
