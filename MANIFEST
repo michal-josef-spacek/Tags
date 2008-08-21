@@ -41,6 +41,7 @@ t/Tags2ProcessId/03_check.t
 t/Tags2ProcessValidator/01_version.t
 t/Tags2ProcessValidator/02_constructor.t
 t/Tags2ProcessValidator/03_validation_errors.t
+t/Tags2ProcessValidator/04_correct.t
 t/Tags2ProcessValidator/DTD/fake.dtd
 t/Tags2ProcessValidator/DTD/test1.dtd
 t/Tags2ProcessValidator/DTD/test10.dtd
