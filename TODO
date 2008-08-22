@@ -1,4 +1,4 @@
-$Id: TODO,v 1.38 2008-07-18 13:59:10 skim Exp $
+$Id: TODO,v 1.39 2008-08-22 19:24:22 skim Exp $
 
 TODO
 ====
@@ -41,7 +41,8 @@ Tags2::Output::Indent je hotov.
     Tags2::Output::Indent
 Tags2::Output::Raw opraveno.
 27. XML vystup muze byt pouze malymi pismeny.
-28.
+28. Chyba ve vykreslovani pomoci perl/MODULES/Tags2::MARC::Field/ex2.pl
+29.
 
 Applied
 =======
