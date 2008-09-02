@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.47 2008-09-02 21:03:59 skim Exp $
+# $Id: Indent.pm,v 1.48 2008-09-02 21:27:23 skim Exp $
 
 # Pragmas.
 use strict;
@@ -457,18 +457,19 @@ sub _print_end_tag($$) {
 			$act_indent = $self->{'indent'}->get;
 		}
 	}
-	$self->_newline;
+	$self->_newline(1);
 	$self->{'flush_code'} .= $self->{'indent_block'}->indent(
 		['</'.$string, '>'], $act_indent, $pre ? 1 : 0
 	);
 }
 
 #------------------------------------------------------------------------------
-sub _newline($) {
+sub _newline($;$) {
 #------------------------------------------------------------------------------
 # Print newline if need.
 
-	my $self = shift;
+	my ($self, $newline_flag) = @_;
+	$newline_flag = 0 unless $newline_flag;
 
 	# Null raw tag (normal tag processing).
 	if ($self->{'raw_tag'}) {
@@ -477,7 +478,9 @@ sub _newline($) {
 	# Adding newline if flush_code.
 	} else {
 		my (undef, $pre_pre) = $self->{'preserve_obj'}->get;
-		if ($self->{'flush_code'} && $pre_pre == 0) {
+		if (($self->{'flush_code'} || $newline_flag) 
+			&& $pre_pre == 0) {
+
 			$self->{'flush_code'} .= "\n";
 		}
 	}
