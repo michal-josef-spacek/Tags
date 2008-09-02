@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.44 2008-09-02 20:05:19 skim Exp $
+# $Id: Indent.pm,v 1.45 2008-09-02 20:11:34 skim Exp $
 
 # Pragmas.
 use strict;
@@ -70,7 +70,8 @@ sub new($@) {
 
 	# Check auto-flush only with output handler.
 	if ($self->{'auto_flush'} && $self->{'output_handler'} eq '') {
-		err "Auto-flush can't use without output handler.";
+		err "'auto_flush' parameter can't use without ".
+			"'output_handler' parameter.";
 	}
 
 	# Reset.
