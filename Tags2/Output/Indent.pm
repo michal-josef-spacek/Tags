@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.49 2008-09-02 22:05:43 skim Exp $
+# $Id: Indent.pm,v 1.50 2008-09-02 22:27:38 skim Exp $
 
 # Pragmas.
 use strict;
@@ -425,9 +425,12 @@ sub _print_tag($$) {
 			$act_indent = $self->{'indent'}->get;
 		}
 		$self->_newline;
+
+		# TODO Pravdepodobna chyba jako dole.
 		$self->_flush_code($self->{'indent_block'}->indent(
 			$self->{'tmp_code'}, $act_indent, $pre ? 1 : 0
 		));
+
 		$self->{'tmp_code'} = [];
 		if (! $self->{'non_indent'} && ! $pre) {
 			$self->{'indent'}->add;
@@ -440,9 +443,13 @@ sub _print_tag($$) {
 			$act_indent = $self->{'indent'}->get;
 		}
 		$self->_newline;
-		$self->_flush_code($self->{'indent_block'}->indent(
+
+		# TODO Proc tohle nejde volat primo?
+		my $tmp = $self->{'indent_block'}->indent(
 			$self->{'tmp_code'}, $act_indent, $pre ? 1 : 0
-		));
+		);
+		$self->_flush_code($tmp);
+
 		$self->{'tmp_code'} = [];
 		if (! $self->{'non_indent'} && ! $pre) {
 			$self->{'indent'}->add;
