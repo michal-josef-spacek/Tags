@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.43 2008-08-17 13:43:41 skim Exp $
+# $Id: Indent.pm,v 1.44 2008-09-02 20:05:19 skim Exp $
 
 # Pragmas.
 use strict;
@@ -510,7 +510,7 @@ sub _newline($) {
 
 =over 8
 
-=item * B<auto-flush>
+=item * B<auto_flush>
 
  TODO
 
@@ -523,7 +523,7 @@ sub _newline($) {
 
  TODO
 
-=item * B<no-simple>
+=item * B<no_simple>
 
  TODO
 
