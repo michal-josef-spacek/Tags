@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.48 2008-09-02 21:27:23 skim Exp $
+# $Id: Indent.pm,v 1.49 2008-09-02 22:05:43 skim Exp $
 
 # Pragmas.
 use strict;
@@ -195,6 +195,9 @@ sub reset($) {
 	$self->{'preserve_obj'} = Tags2::Utils::Preserve->new(
 		'preserved' => $self->{'preserved'},
 	);
+
+	# Process flag.
+	$self->{'process'} = 0;
 }
 
 #------------------------------------------------------------------------------
@@ -255,10 +258,10 @@ sub _detect_data($$) {
 			$self->{'comment_flag'} = 1;
 		} else {
 			$self->_newline;
-			$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+			$self->_flush_code($self->{'indent_block'}->indent(
 				\@comment,
 				$self->{'indent'}->get,
-			);
+			));
 		}
 
 	# Data.
@@ -274,11 +277,11 @@ sub _detect_data($$) {
 		$self->_newline;
 		$self->{'preserve_obj'}->save_previous;
 		my $pre = $self->{'preserve_obj'}->get;
-		$self->{'flush_code'} .= $self->{'indent_word'}->indent(
-			join('', @tmp_data), 
+		$self->_flush_code($self->{'indent_word'}->indent(
+			join('', @tmp_data),
 			$pre ? '' : $self->{'indent'}->get,
 			$pre ? 1 : 0
-		);
+		));
 
 	# End of tag.
 	} elsif ($data->[0] eq 'e') {
@@ -333,11 +336,11 @@ sub _detect_data($$) {
 		} else {
 			$self->_newline;
 			$self->{'preserve_obj'}->save_previous;
-			$self->{'flush_code'} .= $self->{'indent_block'}
+			$self->_flush_code($self->{'indent_block'}
 				->indent([
 				'<?'.$target, ' ', @{$data}, '?>',
 				$self->{'indent'}->get,
-			]);
+			]));
 		}
 
 	# Raw data.
@@ -348,7 +351,7 @@ sub _detect_data($$) {
 		shift @{$data};
 		while (@{$data}) {
 			my $data = shift @{$data};
-			$self->{'flush_code'} .= $data;
+			$self->_flush_code($data);
 		}
 		$self->{'raw_tag'} = 1;
 
@@ -366,15 +369,28 @@ sub _detect_data($$) {
 		push @cdata, ']]>';
 		$self->_newline;
 		$self->{'preserve_obj'}->save_previous;
-		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
-			\@cdata, $self->{'indent'}->get, 
+
+		# TODO Proc tohle nejde volat primo?
+		my $tmp = $self->{'indent_block'}->indent(
+			\@cdata, $self->{'indent'}->get,
 			$self->{'cdata_indent'} == 1 ? 0 : 1,
 		);
+		$self->_flush_code($tmp);
 
 	# Other.
 	} else {
 		err "Bad type of data." unless $self->{'skip_bad_tags'};
 	}
+}
+
+#------------------------------------------------------------------------------
+sub _flush_code($$) {
+#------------------------------------------------------------------------------
+# Helper for flush data.
+
+	my ($self, $code) = @_;
+	$self->{'process'} = 1 unless $self->{'process'};
+	$self->{'flush_code'} .= $code;
 }
 
 #------------------------------------------------------------------------------
@@ -395,11 +411,12 @@ sub _print_tag($$) {
 	if ($self->{'comment_flag'} == 0 
 		&& $#{$self->{'tmp_comment_code'}} > -1) {
 
+		# Comment.
 		foreach (@{$self->{'tmp_comment_code'}}) {
 			$self->_newline;
-			$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+			$self->_flush_code($self->{'indent_block'}->indent(
 				$_, $self->{'indent'}->get,
-			);
+			));
 		}
 
 		my $pre = $self->{'preserve_obj'}->get;
@@ -408,9 +425,9 @@ sub _print_tag($$) {
 			$act_indent = $self->{'indent'}->get;
 		}
 		$self->_newline;
-		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+		$self->_flush_code($self->{'indent_block'}->indent(
 			$self->{'tmp_code'}, $act_indent, $pre ? 1 : 0
-		);
+		));
 		$self->{'tmp_code'} = [];
 		if (! $self->{'non_indent'} && ! $pre) {
 			$self->{'indent'}->add;
@@ -423,9 +440,9 @@ sub _print_tag($$) {
 			$act_indent = $self->{'indent'}->get;
 		}
 		$self->_newline;
-		$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+		$self->_flush_code($self->{'indent_block'}->indent(
 			$self->{'tmp_code'}, $act_indent, $pre ? 1 : 0
-		);
+		));
 		$self->{'tmp_code'} = [];
 		if (! $self->{'non_indent'} && ! $pre) {
 			$self->{'indent'}->add;
@@ -434,10 +451,9 @@ sub _print_tag($$) {
 
 		foreach (@{$self->{'tmp_comment_code'}}) {
 			$self->_newline;
-			$self->{'flush_code'} 
-				.= $self->{'indent_block'}->indent(
+			$self->_flush_code($self->{'indent_block'}->indent(
 				$_, $self->{'indent'}->get,
-			);
+			));
 		}
 	}
 	$self->{'tmp_comment_code'} = [];
@@ -457,19 +473,18 @@ sub _print_end_tag($$) {
 			$act_indent = $self->{'indent'}->get;
 		}
 	}
-	$self->_newline(1);
-	$self->{'flush_code'} .= $self->{'indent_block'}->indent(
+	$self->_newline;
+	$self->_flush_code($self->{'indent_block'}->indent(
 		['</'.$string, '>'], $act_indent, $pre ? 1 : 0
-	);
+	));
 }
 
 #------------------------------------------------------------------------------
-sub _newline($;$) {
+sub _newline($) {
 #------------------------------------------------------------------------------
 # Print newline if need.
 
-	my ($self, $newline_flag) = @_;
-	$newline_flag = 0 unless $newline_flag;
+	my $self = shift;
 
 	# Null raw tag (normal tag processing).
 	if ($self->{'raw_tag'}) {
@@ -478,10 +493,8 @@ sub _newline($;$) {
 	# Adding newline if flush_code.
 	} else {
 		my (undef, $pre_pre) = $self->{'preserve_obj'}->get;
-		if (($self->{'flush_code'} || $newline_flag) 
-			&& $pre_pre == 0) {
-
-			$self->{'flush_code'} .= "\n";
+		if ($self->{'process'} && $pre_pre == 0) {
+			$self->_flush_code("\n");
 		}
 	}
 }
