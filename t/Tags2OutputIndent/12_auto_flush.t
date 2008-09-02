@@ -1,4 +1,4 @@
-# $Id: 12_auto_flush.t,v 1.1 2008-09-02 20:11:25 skim Exp $
+# $Id: 12_auto_flush.t,v 1.2 2008-09-02 21:27:32 skim Exp $
 
 # Modules.
 use IO::Scalar;
@@ -12,7 +12,7 @@ my $ret;
 tie *STDOUT, 'IO::Scalar', \$ret;
 $obj->put(['b', 'tag']);
 $obj->put(['e', 'tag']);
-untie $ret;
+untie *STDOUT;
 my $right_ret = '<tag />';
 ok($ret, $right_ret);
 
@@ -22,10 +22,11 @@ tie *STDOUT, 'IO::Scalar', \$ret;
 $obj->put(['b', 'tag']);
 $obj->put(['d', 'data']);
 $obj->put(['e', 'tag']);
-untie $ret;
-my $right_ret = <<'END';
+untie *STDOUT;
+$right_ret = <<'END';
 <tag>
   data
 </tag>
 END
+chomp $right_ret;
 ok($ret, $right_ret);
