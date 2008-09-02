@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.46 2008-09-02 20:12:40 skim Exp $
+# $Id: Indent.pm,v 1.47 2008-09-02 21:03:59 skim Exp $
 
 # Pragmas.
 use strict;
@@ -93,11 +93,12 @@ sub finalize($) {
 }
 
 #------------------------------------------------------------------------------
-sub flush($$) {
+sub flush($;$) {
 #------------------------------------------------------------------------------
 # Flush tags in object.
 
 	my ($self, $reset_flag) = @_;
+	$reset_flag = 0 unless $reset_flag;
 	my $ouf = $self->{'output_handler'};
 	if ($ouf) {
 		print $ouf $self->{'flush_code'};
