@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 package Tags2::Output::Indent;
 #------------------------------------------------------------------------------
-# $Id: Indent.pm,v 1.45 2008-09-02 20:11:34 skim Exp $
+# $Id: Indent.pm,v 1.46 2008-09-02 20:12:40 skim Exp $
 
 # Pragmas.
 use strict;
@@ -582,7 +582,7 @@ sub _newline($) {
 
 =head1 ERRORS
  
- Auto-flush can't use without output handler.
+ 'auto_flush' parameter can't use without 'output_handler' parameter.
  Bad attribute delimeter '%s'.
  Bad CDATA section.
  Bad data.
