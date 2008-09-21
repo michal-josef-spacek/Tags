@@ -1,5 +1,3 @@
-# $Id: 04_simple_tag.t,v 1.1 2007-09-20 21:25:51 skim Exp $
-
 print "Testing: Simple tag without parameters.\n" if $debug;
 my $obj = $class->new;
 $obj->put(

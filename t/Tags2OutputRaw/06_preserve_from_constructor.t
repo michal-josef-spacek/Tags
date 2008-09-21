@@ -1,5 +1,3 @@
-# $Id: 06_preserve_from_constructor.t,v 1.5 2008-07-17 10:25:36 skim Exp $
-
 print "Testing: Preserving from constructor (sgml version).\n" if $debug;
 print "- CHILD1 preserving is off.\n" if $debug;
 my $obj = $class->new(

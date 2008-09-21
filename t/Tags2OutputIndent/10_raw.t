@@ -1,5 +1,3 @@
-# $Id: 10_raw.t,v 1.4 2008-07-17 10:58:46 skim Exp $
-
 print "Testing: Raw.\n" if $debug;
 my $obj = $class->new;
 $obj->put(

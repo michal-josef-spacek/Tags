@@ -1,5 +1,4 @@
 #!/usr/bin/perl
-# $Id: 04_tags2_output_libxml.t,v 1.1 2007-09-10 17:43:19 skim Exp $
 
 # Pragmas.
 use strict;

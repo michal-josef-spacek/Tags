@@ -1,5 +1,4 @@
 #!/usr/bin/perl
-# $Id: 06_tags2_process_id.t,v 1.1 2008-07-30 11:14:53 skim Exp $
 
 # Pragmas.
 use strict;

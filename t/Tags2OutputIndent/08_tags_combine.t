@@ -1,5 +1,3 @@
-# $Id: 08_tags_combine.t,v 1.1 2007-09-21 13:44:26 skim Exp $
-
 print "Testing: Tags combination.\n" if $debug;
 my $obj = $class->new;
 $obj->put(

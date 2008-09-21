@@ -1,5 +1,4 @@
 #!/usr/bin/perl
-# $Id: 07_tags2_process_validator.t,v 1.2 2008-08-16 19:35:01 skim Exp $
 
 # Pragmas.
 use strict;

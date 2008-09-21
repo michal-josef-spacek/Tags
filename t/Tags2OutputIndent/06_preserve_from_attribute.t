@@ -1,5 +1,3 @@
-# $Id: 06_preserve_from_attribute.t,v 1.1 2007-09-20 21:36:04 skim Exp $
-
 print "Testing: Preserving from attributes.\n" if $debug;
 print "- CHILD1 preserving is off.\n" if $debug;
 my $obj = $class->new;

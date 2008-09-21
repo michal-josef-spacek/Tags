@@ -1,5 +1,3 @@
-# $Id: 11_cdata.t,v 1.4 2008-07-17 10:30:09 skim Exp $
-
 print "Testing: CDATA.\n" if $debug;
 my $obj = $class->new;
 $obj->put(

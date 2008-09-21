@@ -1,5 +1,3 @@
-# $Id: 07_comment.t,v 1.5 2008-07-18 13:57:29 skim Exp $
-
 print "Testing: Comment.\n" if $debug;
 my $obj = $class->new(
 	'xml' => 1,

@@ -1,5 +1,3 @@
-# $Id: 02_comment.t,v 1.5 2007-09-21 13:44:21 skim Exp $
-
 print "Testing: Comment.\n" if $debug;
 my $obj = $class->new;
 $obj->put(

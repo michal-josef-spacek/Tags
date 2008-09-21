@@ -1,5 +1,3 @@
-# $Id: 12_error.t,v 1.1 2008-07-17 10:37:31 skim Exp $
-
 print "Testing: Errors.\n" if $debug;
 my $obj = $class->new(
 	'xml' => 1,

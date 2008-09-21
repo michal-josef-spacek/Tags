@@ -1,5 +1,3 @@
-# $Id: 03_check.t,v 1.1 2008-07-30 11:14:52 skim Exp $
-
 print "Testing: check() method.\n" if $debug;
 my $obj = $class->new;
 eval {

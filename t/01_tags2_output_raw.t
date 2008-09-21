@@ -1,5 +1,4 @@
 #!/usr/bin/perl
-# $Id: 01_tags2_output_raw.t,v 1.1 2007-09-10 17:43:18 skim Exp $
 
 # Pragmas.
 use strict;

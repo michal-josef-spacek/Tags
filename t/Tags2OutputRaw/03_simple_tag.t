@@ -1,5 +1,3 @@
-# $Id: 03_simple_tag.t,v 1.5 2008-07-18 13:57:28 skim Exp $
-
 print "Testing: Simple tag without parameters (sgml version).\n" if $debug;
 my $obj = $class->new(
 	'xml' => 0,

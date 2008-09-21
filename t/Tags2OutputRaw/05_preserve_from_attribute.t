@@ -1,5 +1,3 @@
-# $Id: 05_preserve_from_attribute.t,v 1.4 2008-07-17 10:31:57 skim Exp $
-
 print "Testing: Preserving from attributes (sgml version).\n" if $debug;
 print "- CHILD1 preserving is off.\n" if $debug;
 my $obj = $class->new(

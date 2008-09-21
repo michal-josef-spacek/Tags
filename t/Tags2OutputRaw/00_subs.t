@@ -1,5 +1,3 @@
-# $Id: 00_subs.t,v 1.1 2007-09-10 18:01:18 skim Exp $
-
 # Modules.
 use IO::Scalar;
 

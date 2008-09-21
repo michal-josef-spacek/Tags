@@ -1,5 +1,3 @@
-# $Id: 09_raw.t,v 1.3 2008-07-17 10:25:36 skim Exp $
-
 print "Testing: Raw.\n" if $debug;
 my $obj = $class->new(
 	'xml' => 1,

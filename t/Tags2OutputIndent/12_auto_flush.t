@@ -1,5 +1,3 @@
-# $Id: 12_auto_flush.t,v 1.3 2008-09-02 22:05:50 skim Exp $
-
 # Modules.
 use IO::Scalar;
 

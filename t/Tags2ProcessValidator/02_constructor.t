@@ -1,5 +1,3 @@
-# $Id: 02_constructor.t,v 1.2 2008-08-16 19:32:06 skim Exp $
-
 # Tests directory.
 my $test_dir = "$ENV{'PWD'}/t/Tags2ProcessValidator";
 

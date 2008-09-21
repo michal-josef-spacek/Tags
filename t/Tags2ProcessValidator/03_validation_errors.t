@@ -1,5 +1,3 @@
-# $Id: 03_validation_errors.t,v 1.7 2008-08-21 15:37:04 skim Exp $
-
 # Tests directory.
 my $test_dir = "$ENV{'PWD'}/t/Tags2ProcessValidator";
 
