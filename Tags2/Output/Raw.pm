@@ -379,7 +379,7 @@ sub _flush_tmp($$) {
 
 =item * B<attr_delimeter>
 
- String, that defines attribute delimeter 
+ String, that defines attribute delimeter.
  Default is '"'.
  Possible is '"' or "'".
 
@@ -394,7 +394,7 @@ sub _flush_tmp($$) {
 
 =item * B<auto_flush>
 
- TODO
+ Auto flush flag.
  Default is 0.
 
 =item * B<no-simple>
