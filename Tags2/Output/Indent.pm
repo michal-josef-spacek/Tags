@@ -534,46 +534,75 @@ sub _newline($) {
 
 =over 8
 
+=item * B<attr_delimeter>
+
+ String, that defines attribute delimeter.
+ Default is '"'.
+ Possible is '"' or "'".
+
+ Example:
+ Prints <tag attr='val' /> instead default <tag attr="val" />
+
+ my $t = Tags2::Output::Indent->new(
+   'attr_delimeter' => "'",
+ );
+ $t->put(['b', 'tag'], ['a', 'attr', 'val'], ['e', 'tag']);
+ $t->flush;
+
 =item * B<auto_flush>
 
- TODO
+ Auto flush flag.
+ Default is 0.
 
 =item * B<cdata_indent>
 
  Flag, that means indent CDATA section.
  Default value is no-indent (0).
 
-=item * B<output_handler>
+=item * B<line_size>
 
  TODO
-
-=item * B<no_simple>
-
- TODO
-
-=item * B<attr_delimeter>
-
- TODO
-
-=item * B<preserved>
-
- TODO
-
-=item * B<skip_bad_tags>
-
- TODO
+ Default value is 79.
 
 =item * B<next_indent>
 
  TODO
+ Default value is "  ".
+
+=item * B<no_simple>
+
+ Reference to array of tags, that can't by simple.
+ Default is [].
+
+ Example:
+ That's normal in html pages, web browsers has problem with <script /> tag.
+ Prints <script></script> instead <script />.
+
+ my $t = Tags2::Output::Raw->new(
+   'no_simple' => ['script'] 
+ );
+ $t->put(['b', 'script'], ['e', 'script']);
+ $t->flush;
+
+=item * B<output_handler>
+
+ Handler for print output strings.
+ Default is *STDOUT.
 
 =item * B<output_separator>
 
  TODO
+ Default value is newline (\n).
 
-=item * B<line_size>
+=item * B<preserved>
 
  TODO
+ Default is reference to blank array.
+
+=item * B<skip_bad_tags>
+
+ TODO
+ Default is 0.
 
 =back
 
