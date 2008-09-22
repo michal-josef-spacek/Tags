@@ -465,6 +465,31 @@ sub _flush_tmp($$) {
  In XML must be lowercase tag name.
  TODO
 
+=head1 EXAMPLE
+
+ # Pragmas.
+ use strict;
+ use warnings;
+
+ # Modules.
+ use Tags2::Output::Raw;
+
+ # Object.
+ my $tags = Tags2::Output::Raw->new;
+
+ # Put data.
+ $tags->put(
+         ['b', 'text'],
+	 ['d', 'data'],
+	 ['e', 'text'],
+ );
+
+ # Print.
+ print $tags->flush."\n";
+
+ # Output:
+ # <text>data</text>
+
 =head1 REQUIREMENTS
 
 L<Error::Simple::Multiple(3pm)>,
