@@ -5,6 +5,7 @@ print "Testing: 'auto_flush' parameter.\n" if $debug;
 my $obj = $class->new(
 	'auto_flush' => 1,
 	'output_handler' => \*STDOUT,
+	'xml' => 1,
 );
 my $ret;
 tie *STDOUT, 'IO::Scalar', \$ret;

@@ -1,5 +1,7 @@
 print "Testing: Comment.\n" if $debug;
-my $obj = $class->new;
+my $obj = $class->new(
+	'xml' => 1,
+);
 $obj->put(
 	['c', 'comment'],
 	['c', ' comment '],

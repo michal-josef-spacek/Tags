@@ -1,5 +1,7 @@
 print "Testing: Attributes.\n" if $debug;
-my $obj = $class->new;
+my $obj = $class->new(
+	'xml' => 1,
+);
 $obj->put(
 	['b', 'foo'],
 	['a', 'one', '...........................'],
