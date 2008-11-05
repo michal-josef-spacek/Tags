@@ -149,7 +149,11 @@ sub _detect_data($$) {
 			$self->{'doc'}->setDocumentElement($begin_node);
 			$self->{'first'} = 1;
 		} else {
-			$self->{'printed_tags'}->[0]->addChild($begin_node);
+			if (! $self->{'printed_tags'}->[0]) {
+				err "Second root tag '$data->[1]' is bad.";
+			} else {
+				$self->{'printed_tags'}->[0]->addChild($begin_node);
+			}
 		}
 		unshift @{$self->{'printed_tags'}}, $begin_node;
 
