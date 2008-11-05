@@ -256,8 +256,8 @@ sub _detect_data($$) {
 		}
 
 		# Tag can be simple.
-		if ((! grep { $_ eq $data->[1] } @{$self->{'no_simple'}})
-			&& $self->{'xml'}) {
+		if ($self->{'xml'} && (! grep { $_ eq $data->[1] } 
+			@{$self->{'no_simple'}})) {
 
 			if ($#{$self->{'tmp_code'}} > -1) {
 				if ($#{$self->{'tmp_comment_code'}} > -1
