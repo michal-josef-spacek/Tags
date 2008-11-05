@@ -52,6 +52,9 @@ sub new($@) {
 	# Indent CDATA section.
 	$self->{'cdata_indent'} = 0;
 
+	# XML output.
+	$self->{'xml'} = 0;
+
 	# Process params.
         while (@_) {
                 my $key = shift;
@@ -230,6 +233,9 @@ sub _detect_data($$) {
 		if ($#{$self->{'tmp_code'}} > -1) {
 			$self->_print_tag('>');
 		}
+		if ($self->{'xml'} && $data->[1] ne lc($data->[1])) {
+			err "In XML must be lowercase tag name.";
+		}
 		push @{$self->{'tmp_code'}}, "<$data->[1]";
 		unshift @{$self->{'printed_tags'}}, $data->[1];
 
@@ -285,13 +291,15 @@ sub _detect_data($$) {
 	# End of tag.
 	} elsif ($data->[0] eq 'e') {
 		my $printed = shift @{$self->{'printed_tags'}};
-		unless ($printed eq $data->[1]) {
+		if ($self->{'xml'} && $printed ne $data->[1]) {
 			err "Ending bad tag: '$data->[1]' in block of ".
 				"tag '$printed'.";
 		}
 
 		# Tag can be simple.
-		if (! grep { $_ eq $data->[1] } @{$self->{'no_simple'}}) {
+		if ($self->{'xml'} && ! grep { $_ eq $data->[1] } 
+			@{$self->{'no_simple'}}) {
+
 			my $pre = $self->{'preserve_obj'}->end($data->[1]);
 			if ($#{$self->{'tmp_code'}} > -1) {
 				if ($#{$self->{'tmp_comment_code'}} > -1
