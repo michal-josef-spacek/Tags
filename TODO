@@ -41,6 +41,7 @@ Tags2::Output::Raw opraveno.
 27. XML vystup muze byt pouze malymi pismeny.
 29. Pridat xml parameter.
 Tags2::Output::Raw je.
+Tags2::Output::Indent je.
 30.
 
 Applied
