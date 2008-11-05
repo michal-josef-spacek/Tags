@@ -39,7 +39,6 @@ Tags2::Output::Indent je hotov.
     Tags2::Output::Indent
 Tags2::Output::Raw opraveno.
 27. XML vystup muze byt pouze malymi pismeny.
-28. Chyba ve vykreslovani pomoci perl/MODULES/Tags2::MARC::Field/ex2.pl
 29.
 
 Applied
@@ -93,3 +92,6 @@ Pridany testy.
 Jeden error je vazan na tenhle xml parametr.
 no_simple pro sgml.
 OK [20080718] skim
+
+28. Chyba ve vykreslovani pomoci perl/MODULES/Tags2::MARC::Field/ex2.pl
+OK [20081105] skim
