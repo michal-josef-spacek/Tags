@@ -4,20 +4,27 @@ package Tags2::Output::Raw;
 
 # Pragmas.
 use strict;
+use warnings;
 
 # Modules.
 use Error::Simple::Multiple;
+use List::MoreUtils qw(none);
+use Readonly;
 use Tags2::Utils::Preserve;
+
+# Constants.
+Readonly::Scalar my $EMPTY => q{};
+Readonly::Scalar my $SPACE => q{ };
 
 # Version.
 our $VERSION = 0.05;
 
 #------------------------------------------------------------------------------
-sub new($@) {
+sub new {
 #------------------------------------------------------------------------------
 # Constructor.
 
-	my $class = shift;
+	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
 	# Auto-flush.
@@ -30,7 +37,7 @@ sub new($@) {
 	$self->{'no_simple'} = [];
 
 	# Set output handler.
-	$self->{'output_handler'} = '';
+	$self->{'output_handler'} = $EMPTY;
 
 	# Preserved tags.
 	$self->{'preserved'} = [];
@@ -42,23 +49,23 @@ sub new($@) {
 	$self->{'xml'} = 0;
 
 	# Process params.
-        while (@_) {
-                my $key = shift;
-                my $val = shift;
+        while (@params) {
+                my $key = shift @params;
+                my $val = shift @params;
                 err "Bad parameter '$key'." unless exists $self->{$key};
                 $self->{$key} = $val;
         }
 
 	# Check 'attr_delimeter'.
-	if ($self->{'attr_delimeter'} ne '"' 
-		&& $self->{'attr_delimeter'} ne "'") {
+	if ($self->{'attr_delimeter'} ne '"'
+		&& $self->{'attr_delimeter'} ne '\'') {
 
 		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
 	}
 
 	# Check auto-flush only with output handler.
-	if ($self->{'auto_flush'} && $self->{'output_handler'} eq '') {
-		err "Auto-flush can't use without output handler.";
+	if ($self->{'auto_flush'} && $self->{'output_handler'} eq $EMPTY) {
+		err 'Auto-flush can\'t use without output handler.';
 	}
 
 	# Reset.
@@ -69,7 +76,7 @@ sub new($@) {
 }
 
 #------------------------------------------------------------------------------
-sub finalize($) {
+sub finalize {
 #------------------------------------------------------------------------------
 # Finalize Tags output.
 
@@ -77,29 +84,34 @@ sub finalize($) {
 	while (@{$self->{'printed_tags'}}) {
 		$self->put(['e', $self->{'printed_tags'}->[0]]);
 	}
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub flush($$) {
+sub flush {
 #------------------------------------------------------------------------------
 # Flush tags in object.
 
 	my ($self, $reset_flag) = @_;
 	my $ouf = $self->{'output_handler'};
+	my $ret;
 	if ($ouf) {
-		print $ouf $self->{'flush_code'};
+		print {$ouf} $self->{'flush_code'};
 	} else {
-		return $self->{'flush_code'};
+		$ret = $self->{'flush_code'};
 	}
 
 	# Reset.
 	if ($reset_flag) {
 		$self->reset;
 	}
+
+	# Return value.
+	return $ret;
 }
 
 #------------------------------------------------------------------------------
-sub open_tags($) {
+sub open_tags {
 #------------------------------------------------------------------------------
 # Return array of opened tags.
 
@@ -108,7 +120,7 @@ sub open_tags($) {
 }
 
 #------------------------------------------------------------------------------
-sub put($@) {
+sub put {
 #------------------------------------------------------------------------------
 # Put tags code.
 
@@ -118,8 +130,8 @@ sub put($@) {
 	foreach my $dat (@data) {
 
 		# Bad data.
-		unless (ref $dat eq 'ARRAY') {
-			err "Bad data.";
+		if (ref $dat ne 'ARRAY') {
+			err 'Bad data.';
 		}
 
 		# Detect and process data.
@@ -129,12 +141,13 @@ sub put($@) {
 	# Auto-flush.
 	if ($self->{'auto_flush'}) {
 		$self->flush;
-		$self->{'flush_code'} = '';
+		$self->{'flush_code'} = $EMPTY;
 	}
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub reset($) {
+sub reset {
 #------------------------------------------------------------------------------
 # Resets internal variables.
 
@@ -144,7 +157,7 @@ sub reset($) {
 	$self->{'comment_flag'} = 0;
 
 	# Flush code.
-	$self->{'flush_code'} = '';
+	$self->{'flush_code'} = $EMPTY;
 
 	# Tmp code.
 	$self->{'tmp_code'} = [];
@@ -157,6 +170,8 @@ sub reset($) {
 	$self->{'preserve_obj'} = Tags2::Utils::Preserve->new(
 		'preserved' => $self->{'preserved'},
 	);
+
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -164,7 +179,7 @@ sub reset($) {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _detect_data($$) {
+sub _detect_data {
 #------------------------------------------------------------------------------
 # Detect and process data.
 
@@ -172,14 +187,14 @@ sub _detect_data($$) {
 
 	# Attributes.
 	if ($data->[0] eq 'a') {
-		unless ($#{$self->{'tmp_code'}} > -1) {
-			err "Bad tag type 'a'.";
+		if (! scalar @{$self->{'tmp_code'}}) {
+			err 'Bad tag type \'a\'.';
 		}
 		shift @{$data};
 		while (@{$data}) {
 			my $par = shift @{$data};
 			my $val = shift @{$data};
-			push @{$self->{'tmp_code'}}, ' ', $par.'='.
+			push @{$self->{'tmp_code'}}, $SPACE, $par.'='.
 				$self->{'attr_delimeter'}.$val.
 				$self->{'attr_delimeter'};
 			$self->{'comment_flag'} = 0;
@@ -187,11 +202,11 @@ sub _detect_data($$) {
 
 	# Begin of tag.
 	} elsif ($data->[0] eq 'b') {
-		if ($#{$self->{'tmp_code'}} > -1) {
+		if (scalar @{$self->{'tmp_code'}}) {
 			$self->_flush_tmp('>');
 		}
 		if ($self->{'xml'} && $data->[1] ne lc($data->[1])) {
-			err "In XML must be lowercase tag name.";
+			err 'In XML must be lowercase tag name.';
 		}
 		push @{$self->{'tmp_code'}}, "<$data->[1]";
 		unshift @{$self->{'printed_tags'}}, $data->[1];
@@ -204,16 +219,16 @@ sub _detect_data($$) {
 		shift @{$data};
 		my $comment_string = '<!--';
 		foreach my $d (@{$data}) {
-			$comment_string .= ref $d eq 'SCALAR' ? ${$d} 
+			$comment_string .= ref $d eq 'SCALAR' ? ${$d}
 				: $d;
 		}
 		if (substr($comment_string, -1) eq '-') {
-			$comment_string .= ' ';
+			$comment_string .= $SPACE;
 		}
 		$comment_string .= '-->';
 
 		# Process comment.
-		if ($#{$self->{'tmp_code'}} > -1) {
+		if (scalar @{$self->{'tmp_code'}}) {
 			push @{$self->{'tmp_comment_code'}}, $comment_string;
 
 			# Flag, that means comment is last.
@@ -224,7 +239,7 @@ sub _detect_data($$) {
 
 	# Cdata.
 	} elsif ($data->[0] eq 'cd') {
-		if ($#{$self->{'tmp_code'}} > -1) {
+		if (scalar @{$self->{'tmp_code'}}) {
 			$self->_flush_tmp('>');
 		}
 		shift @{$data};
@@ -233,17 +248,17 @@ sub _detect_data($$) {
 			$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d}
 				: $d;
 		}
-		err "Bad CDATA data." if $self->{'flush_code'} =~ /]]>$/;
+		err 'Bad CDATA data.' if $self->{'flush_code'} =~ /]]>$/ms;
 		$self->{'flush_code'} .= ']]>';
 
 	# Data.
 	} elsif ($data->[0] eq 'd') {
-		if ($#{$self->{'tmp_code'}} > -1) {
+		if (scalar @{$self->{'tmp_code'}}) {
 			$self->_flush_tmp('>');
 		}
 		shift @{$data};
 		foreach my $d (@{$data}) {
-			$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d} 
+			$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d}
 				: $d;
 		}
 
@@ -256,15 +271,15 @@ sub _detect_data($$) {
 		}
 
 		# Tag can be simple.
-		if ($self->{'xml'} && (! grep { $_ eq $data->[1] } 
+		if ($self->{'xml'} && (none { $_ eq $data->[1] }
 			@{$self->{'no_simple'}})) {
 
-			if ($#{$self->{'tmp_code'}} > -1) {
-				if ($#{$self->{'tmp_comment_code'}} > -1
+			if (scalar @{$self->{'tmp_code'}}) {
+				if (scalar @{$self->{'tmp_comment_code'}}
 					&& $self->{'comment_flag'} == 1) {
 
 					$self->_flush_tmp('>');
-					$self->{'flush_code'} 
+					$self->{'flush_code'}
 						.= "</$data->[1]>";
 				} else {
 					$self->_flush_tmp(' />');
@@ -275,7 +290,7 @@ sub _detect_data($$) {
 
 		# Tag cannot be simple.
 		} else {
-			if ($#{$self->{'tmp_code'}} > -1) {
+			if (scalar @{$self->{'tmp_code'}}) {
 				$self->_flush_tmp('>');
 			}
 			$self->{'flush_code'} .= "</$data->[1]>";
@@ -284,7 +299,7 @@ sub _detect_data($$) {
 
 	# Instruction.
 	} elsif ($data->[0] eq 'i') {
-		if ($#{$self->{'tmp_code'}} > -1) {
+		if (scalar @{$self->{'tmp_code'}}) {
 			$self->_flush_tmp('>');
 		}
 		shift @{$data};
@@ -299,7 +314,7 @@ sub _detect_data($$) {
 
 	# Raw data.
 	} elsif ($data->[0] eq 'r') {
-		if ($#{$self->{'tmp_code'}} > -1) {
+		if (scalar @{$self->{'tmp_code'}}) {
 			$self->_flush_tmp('>');
 		}
 		shift @{$data};
@@ -310,12 +325,14 @@ sub _detect_data($$) {
 
 	# Other.
 	} else {
-		err "Bad type of data." if $self->{'skip_bad_tags'};
+		err 'Bad type of data.' if $self->{'skip_bad_tags'};
 	}
+
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub _flush_tmp($$) {
+sub _flush_tmp {
 #------------------------------------------------------------------------------
 # Flush $self->{'tmp_code'}.
 
@@ -329,16 +346,16 @@ sub _flush_tmp($$) {
 	}
 
 	# Flush comment code before tag.
-	if ($self->{'comment_flag'} == 0 
-		&& $#{$self->{'tmp_comment_code'}} > -1) {
+	if ($self->{'comment_flag'} == 0
+		&& scalar @{$self->{'tmp_comment_code'}}) {
 
-		$self->{'flush_code'} .= join('',
-			@{$self->{'tmp_comment_code'}}, 
+		$self->{'flush_code'} .= join($EMPTY,
+			@{$self->{'tmp_comment_code'}},
 			@{$self->{'tmp_code'}});
 
 	# After tag.
 	} else {
-		$self->{'flush_code'} .= join('',
+		$self->{'flush_code'} .= join($EMPTY,
 			@{$self->{'tmp_code'}},
 			@{$self->{'tmp_comment_code'}});
 	}
@@ -346,11 +363,17 @@ sub _flush_tmp($$) {
 	# Resets tmp_codes.
 	$self->{'tmp_code'} = [];
 	$self->{'tmp_comment_code'} = [];
+
+	return;
 }
 
 1;
 
+__END__
+
 =pod
+
+=encoding utf8
 
 =head1 NAME
 
@@ -407,7 +430,7 @@ sub _flush_tmp($$) {
  Prints <script></script> instead <script />.
 
  my $t = Tags2::Output::Raw->new(
-   'no_simple' => ['script'] 
+   'no_simple' => ['script'
  );
  $t->put(['b', 'script'], ['e', 'script']);
  $t->flush;
@@ -490,7 +513,7 @@ sub _flush_tmp($$) {
  # Output:
  # <text>data</text>
 
-=head1 REQUIREMENTS
+=head1 DEPENDENCIES
 
 L<Error::Simple::Multiple(3pm)>,
 L<Tags2::Utils::Preserve(3pm)>.
@@ -507,6 +530,10 @@ L<Tags2::Output::SESIS(3pm)>.
 =head1 AUTHOR
 
  Michal Špaček L<tupinek@gmail.com>
+
+=head1 LICENSE AND COPYRIGHT
+
+ BSD license.
 
 =head1 VERSION
 
