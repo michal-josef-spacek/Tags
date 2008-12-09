@@ -10,4 +10,3 @@ $obj->put(
 my $ret = $obj->flush;
 my $right_ret = '<tag></tag>';
 ok($ret, $right_ret);
-
