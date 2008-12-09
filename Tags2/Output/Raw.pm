@@ -271,7 +271,8 @@ sub _detect_data {
 		}
 
 		# Tag can be simple.
-		if ($self->{'xml'} && (none { $_ eq $data->[1] }
+		if ($self->{'xml'} && (! scalar @{$self->{'no_simple'}}
+			|| none { $_ eq $data->[1] }
 			@{$self->{'no_simple'}})) {
 
 			if (scalar @{$self->{'tmp_code'}}) {
