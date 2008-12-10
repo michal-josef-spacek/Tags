@@ -4,28 +4,18 @@ package Tags2::Utils::SimpleOO;
 
 # Pragmas.
 use strict;
-
-# TODO Bad module.
-# Modules.
-use Tags2;
+use warnings;
 
 # Version.
 our $VERSION = 0.01;
-
-# TODO Bad module.
-# Inheritance.
-our @ISA = qw(Tags2);
 
 #------------------------------------------------------------------------------
 sub new {
 #------------------------------------------------------------------------------
 # Constructor.
 
-	my $class = shift;
-	my $self = bless $class->SUPER::new(@_), $class;
-
-	# Object.
-	return $self;
+	my (undef, $tags) = @_;
+	return $tags;
 }
 
 #------------------------------------------------------------------------------
@@ -33,8 +23,9 @@ sub put_c {
 #------------------------------------------------------------------------------
 # Put comment.
 
-	my $self = shift;
-	$self->put(['c', @_]);
+	my ($self, @data) = @_;
+	$self->put(['c', @data]);
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -42,8 +33,9 @@ sub put_b {
 #------------------------------------------------------------------------------
 # Put begin of tag.
 
-	my $self = shift;
-	$self->put(['b', @_]);
+	my ($self, @data) = @_;
+	$self->put(['b', @data]);
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -51,8 +43,9 @@ sub put_e {
 #------------------------------------------------------------------------------
 # Put end of tag.
 
-	my $self = shift;
-	$self->put(['e', @_]);
+	my ($self, @data) = @_;
+	$self->put(['e', @data]);
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -60,8 +53,9 @@ sub put_i {
 #------------------------------------------------------------------------------
 # Put instruction.
 
-	my $self = shift;
-	$self->put(['i', @_]);
+	my ($self, @data) = @_;
+	$self->put(['i', @data]);
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -69,8 +63,9 @@ sub put_d {
 #------------------------------------------------------------------------------
 # Put data.
 
-	my $self = shift;
-	$self->put(['d', @_]);
+	my ($self, @data) = @_;
+	$self->put(['d', @data]);
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -78,13 +73,18 @@ sub put_a {
 #------------------------------------------------------------------------------
 # Put attributes.
 
-	my $self = shift;
-	$self->put(['a', @_]);
+	my ($self, @data) = @_;
+	$self->put(['a', @data]);
+	return;
 }
 
 1;
 
+__END__
+
 =pod
+
+=encoding utf8
 
 =head1 NAME
 
@@ -124,13 +124,17 @@ sub put_a {
 
 =back
 
-=head1 REQUIREMENTS
+=head1 DEPENDENCIES
 
  TODO
 
 =head1 AUTHOR
 
- Michal Spacek L<tupinek@gmail.com>
+ Michal Špaček L<tupinek@gmail.com>
+
+=head1 LICENSE AND COPYRIGHT
+
+ BSD license.
 
 =head1 VERSION
 
