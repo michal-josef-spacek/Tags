@@ -4,9 +4,11 @@ package Tags2::Process::Validator;
 
 # Pragmas.
 use strict;
+use warnings;
 
 # Modules.
 use Error::Simple::Multiple;
+use List::MoreUtils qw(any none);
 use XML::DTDParser qw(ParseDTDFile);
 
 # Version.
@@ -17,29 +19,29 @@ our $VERSION = 0.01;
 # b) Overit, jestli jsou spravne data (simple tag, nebo tag s daty).
 
 #------------------------------------------------------------------------------
-sub new($@) {
+sub new {
 #------------------------------------------------------------------------------
 # Constructor.
 
-	my $class = shift;
+	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
 	# DTD structure.
 	$self->{'dtd'} = undef;
 
-	# DTD file. 
+	# DTD file.
 	$self->{'dtd_file'} = undef;
 
 	# Process params.
-        while (@_) {
-                my $key = shift;
-                my $val = shift;
+        while (@params) {
+                my $key = shift @params;
+                my $val = shift @params;
                 err "Bad parameter '$key'." if ! exists $self->{$key};
                 $self->{$key} = $val;
         }
 
 	# Is exists 'dtd_file' name.
-	err "Cannot read file with DTD defined by 'dtd_file' paremeter."
+	err 'Cannot read file with DTD defined by \'dtd_file\' paremeter.'
 		if ! $self->{'dtd_file'};
 
 	# Is 'dtd_file' readable.
@@ -59,7 +61,7 @@ sub new($@) {
 }
 
 #------------------------------------------------------------------------------
-sub check($@) {
+sub check {
 #------------------------------------------------------------------------------
 # Check structure opposite dtd struct.
 
@@ -67,10 +69,11 @@ sub check($@) {
 	foreach my $dat (@data) {
 		$self->check_one($dat);
 	}
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub check_one($$) {
+sub check_one {
 #------------------------------------------------------------------------------
 # Detect and process one tag.
 
@@ -84,7 +87,10 @@ sub check_one($$) {
 
 		# For each required attributes check.
 		foreach my $req ($self->_get_required_attr($tag)) {
-			if (! grep { $req eq $_ } @{$self->{'printed_attr'}}) {
+			if (scalar @{$self->{'printed_attr'}}
+				&& none { $req eq $_ }
+				@{$self->{'printed_attr'}}) {
+
 				err "Missing required attribute '$req' ".
 					"at tag '$tag'.";
 			}
@@ -111,9 +117,12 @@ sub check_one($$) {
 			my $val = shift @tmp_data;
 
 			# Check to duplicit attribute.
-			if (grep { $attr eq $_ } @{$self->{'printed_attr'}}) {
+			if (scalar @{$self->{'printed_attr'}}
+				&& any { $attr eq $_ }
+				@{$self->{'printed_attr'}}) {
+
 				err "Attribute '$attr' at tag '$tag' is ".
-					"duplicit.";
+					'duplicit.';
 			}
 
 			# Attributes of printed tag.
@@ -121,14 +130,19 @@ sub check_one($$) {
 				->{'attributes'}};
 
 			# Check to attribute exist.
-			if (! grep { $attr eq $_ } @tag_attributes) {
+			if (scalar @tag_attributes
+				&& none { $attr eq $_ } @tag_attributes) {
+
 				err "Bad attribute '$attr' at tag '$tag'.";
 			}
 
 			# Control default values.
 			if (ref $self->{'dtd'}->{$tag}->{'attributes'}
-				->{$attr}->[3] eq 'ARRAY' 
-				&& ! grep { $val eq $_ }
+				->{$attr}->[3] eq 'ARRAY'
+				&& scalar
+				@{$self->{'dtd'}->{$tag}->{'attributes'}
+				->{$attr}->[3]}
+				&& none { $val eq $_ }
 				@{$self->{'dtd'}->{$tag}->{'attributes'}
 				->{$attr}->[3]}) {
 
@@ -150,7 +164,7 @@ sub check_one($$) {
 		}
 
 		# First tag.
-		if ($#{$self->{'printed'}} == -1) {
+		if (! scalar @{$self->{'printed'}}) {
 
 			# Error with parent.
 			if (exists $self->{'dtd'}->{$tag}->{'parent'}) {
@@ -164,7 +178,8 @@ sub check_one($$) {
 			}
 
 			my $prev_tag = $self->{'printed'}->[0];
-			if (! grep { $prev_tag eq $_ } 
+			if (scalar @{$self->{'dtd'}->{$tag}->{'parent'}}
+				&& none { $prev_tag eq $_ }
 				@{$self->{'dtd'}->{$tag}->{'parent'}}) {
 
 				err "Tag '$tag' cannot be after tag ".
@@ -198,7 +213,7 @@ sub check_one($$) {
 
 	# Data.
 	} elsif ($data->[0] eq 'd') {
-		
+
 		# Actual tag.
 		my $tag = $self->{'printed'}->[0];
 
@@ -207,10 +222,12 @@ sub check_one($$) {
 			err "Bad data section in tag '$tag'.";
 		}
 	}
+
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub reset($) {
+sub reset {
 #------------------------------------------------------------------------------
 # Resets object.
 
@@ -227,6 +244,8 @@ sub reset($) {
 
 	# Tag attributes stack.
 	$self->{'printed_attr'} = [];
+
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -234,7 +253,7 @@ sub reset($) {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _check_missing($;$) {
+sub _check_missing {
 #------------------------------------------------------------------------------
 # Check to missing tags.
 
@@ -263,21 +282,27 @@ sub _check_missing($;$) {
 			->[$index];
 		err "Missing tag '$missing' at tag '$prev_tag'.";
 	}
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub _get_required_attr($$) {
+sub _get_required_attr {
 #------------------------------------------------------------------------------
 # Get required attributes.
 
 	my ($self, $tag) = @_;
 	my $attr = $self->{'dtd'}->{$tag}->{'attributes'};
-	return grep { $attr->{$_}->[1] eq '#REQUIRED' } keys %{$attr};
+	my @keys = keys %{$attr};
+	return grep { $attr->{$_}->[1] eq '#REQUIRED' } @keys;
 }
 
 1;
 
+__END__
+
 =pod
+
+=encoding utf8
 
 =head1 NAME
 
@@ -352,7 +377,7 @@ sub _get_required_attr($$) {
 
  TODO
 
-=head1 REQUIREMENTS
+=head1 DEPENDENCIES
 
  L<Error::Simple::Multiple(3pm)>.
 
@@ -364,7 +389,11 @@ sub _get_required_attr($$) {
 
  Michal Špaček L<tupinek@gmail.com>
 
-=head1 VERSION 
+=head1 LICENSE AND COPYRIGHT
+
+ BSD license.
+
+=head1 VERSION
 
  0.01
 
