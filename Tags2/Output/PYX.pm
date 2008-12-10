@@ -4,19 +4,24 @@ package Tags2::Output::PYX;
 
 # Pragmas.
 use strict;
+use warnings;
 
 # Modules.
 use Error::Simple::Multiple;
+use Readonly;
+
+# Constants.
+Readonly::Scalar my $EMPTY => q{};
 
 # Version.
 our $VERSION = 0.01;
 
 #------------------------------------------------------------------------------
-sub new($@) {
+sub new {
 #------------------------------------------------------------------------------
 # Constructor.
 
-	my $class = shift;
+	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
 	# Set output handler.
@@ -26,10 +31,10 @@ sub new($@) {
 	$self->{'skip_bad_tags'} = 0;
 
 	# Process params.
-        while (@_) {
-                my $key = shift;
-                my $val = shift;
-                err "Bad parameter '$key'." unless exists $self->{$key};
+        while (@params) {
+                my $key = shift @params;
+                my $val = shift @params;
+                err "Bad parameter '$key'." if ! exists $self->{$key};
                 $self->{$key} = $val;
         }
 
@@ -47,28 +52,30 @@ sub new($@) {
 }
 
 #------------------------------------------------------------------------------
-sub finalize($) {
+sub finalize {
 #------------------------------------------------------------------------------
 # Finalize Tags output.
 
 	my $self = shift;
-	while ($#{$self->{'printed_tags'}} != -1) {
+	while (scalar @{$self->{'printed_tags'}}) {
 		$self->put(['e', shift @{$self->{'printed_tags'}}]);
 	}
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub flush($) {
+sub flush {
 #------------------------------------------------------------------------------
 # Flush tags in object.
 
 	my $self = shift;
 	my $ouf = $self->{'output_handler'};
-	print $ouf join("\n", @{$self->{'flush_code'}});
+	print {$ouf} join("\n", @{$self->{'flush_code'}});
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub open_tags($) {
+sub open_tags {
 #------------------------------------------------------------------------------
 # Return array of opened tags.
 
@@ -77,34 +84,36 @@ sub open_tags($) {
 }
 
 #------------------------------------------------------------------------------
-sub put($@) {
+sub put {
 #------------------------------------------------------------------------------
 # Put tags code.
 
-	my $self = shift;
-	my @data = @_;
+	my ($self, @data) = @_;
 
 	# For every data.
 	foreach my $dat (@data) {
 
 		# Bad data.
 		unless (ref $dat eq 'ARRAY') {
-			err "Bad data.";
+			err 'Bad data.';
 		}
 
 		# Detect and process data.
 		$self->_detect_data($dat);
 	}
+
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub reset($) {
+sub reset {
 #------------------------------------------------------------------------------
 # Resets internal variables.
 
 	my $self = shift;
 	$self->{'printed_tags'} = [];
 	$self->{'flush_code'} = ();
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -112,7 +121,7 @@ sub reset($) {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _detect_data($$) {
+sub _detect_data {
 #------------------------------------------------------------------------------
 # Detect and process data.
 
@@ -135,17 +144,17 @@ sub _detect_data($$) {
 	# Data.
 	} elsif ($data->[0] eq 'd') {
 		shift @{$data};
-		my $tmp_data = '';
+		my $tmp_data = $EMPTY;
 		foreach my $d (@{$data}) {
 			$tmp_data .= ref $d eq 'SCALAR' ? ${$d} : $d;
 		}
-		push @{$self->{'flush_code'}}, 
+		push @{$self->{'flush_code'}},
 			'-'.$self->_encode_newline($tmp_data);
 
 	# End of tag.
 	} elsif ($data->[0] eq 'e') {
 		my $printed = shift @{$self->{'printed_tags'}};
-		unless ($printed eq $data->[1]) {
+		if ($printed ne $data->[1]) {
 			err "Ending bad tag: '$data->[1]' in block of ".
 				"tag '$printed'.";
 		}
@@ -155,33 +164,39 @@ sub _detect_data($$) {
 	} elsif ($data->[0] eq 'i') {
 		shift @{$data};
 		my $target = shift @{$data};
-		my $tmp_data = '';
+		my $tmp_data = $EMPTY;
 		while (@{$data}) {
 			my $data = shift @{$data};
 			$tmp_data .= " $data";
 		}
-		push @{$self->{'flush_code'}}, 
+		push @{$self->{'flush_code'}},
 			"?$target ".$self->_encode_newline($tmp_data);
 
 	# Other.
 	} else {
-		err "Bad type of data." unless $self->{'skip_bad_tags'};
+		err 'Bad type of data.' if ! $self->{'skip_bad_tags'};
 	}
+
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub _encode_newline($$) {
+sub _encode_newline {
 #------------------------------------------------------------------------------
 # Encode newline in data to '\n' in output.
 
 	my ($self, $string) = @_;
-	$string =~ s/\n/\\n/g;
+	$string =~ s/\n/\\n/gms;
 	return $string;
 }
 
 1;
 
+__END__
+
 =pod
+
+=encoding utf8
 
 =head1 NAME
 
@@ -247,9 +262,10 @@ sub _encode_newline($$) {
 
  TODO
 
-=head1 REQUIREMENTS
+=head1 DEPENDENCIES
 
-L<Error::Simple::Multiple(3pm)>.
+L<Error::Simple::Multiple(3pm)>,
+L<Readonly(3pm)>.
 
 =head1 SEE ALSO
 
@@ -262,7 +278,11 @@ L<Tags2::Output::SESIS(3pm)>.
 
 =head1 AUTHOR
 
- Michal Spacek L<tupinek@gmail.com>
+ Michal Špaček L<tupinek@gmail.com>
+
+=head1 LICENSE AND COPYRIGHT
+
+ BSD license.
 
 =head1 VERSION
 

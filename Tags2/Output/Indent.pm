@@ -4,35 +4,43 @@ package Tags2::Output::Indent;
 
 # Pragmas.
 use strict;
+use warnings;
 
 # Modules.
 use Error::Simple::Multiple;
 use Indent;
 use Indent::Word;
 use Indent::Block;
+use Readonly;
 use Tags2::Utils::Preserve;
+
+# Constants.
+Readonly::Scalar my $EMPTY => q{};
+Readonly::Scalar my $LAST_INDEX => -1;
+Readonly::Scalar my $LINE_SIZE => 79;
+Readonly::Scalar my $SPACE => q{ };
 
 # Version.
 our $VERSION = 0.05;
 
 #------------------------------------------------------------------------------
-sub new($@) {
+sub new {
 #------------------------------------------------------------------------------
 # Constructor.
 
-	my $class = shift;
+	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
 	# Auto-flush.
 	$self->{'auto_flush'} = 0;
 
 	# Indent params.
-	$self->{'next_indent'} = '  ';
-	$self->{'line_size'} = 79;
+	$self->{'next_indent'} = 2 x $SPACE;
+	$self->{'line_size'} = $LINE_SIZE;
 	$self->{'linebreak'} = "\n";
 
 	# Set output handler.
-	$self->{'output_handler'} = '';
+	$self->{'output_handler'} = $EMPTY;
 
 	# No simple tags.
 	$self->{'no_simple'} = [];
@@ -47,7 +55,7 @@ sub new($@) {
 	$self->{'skip_bad_tags'} = 0;
 
 	# Callback to instruction.
-	$self->{'instruction'} = '';
+	$self->{'instruction'} = $EMPTY;
 
 	# Indent CDATA section.
 	$self->{'cdata_indent'} = 0;
@@ -56,24 +64,24 @@ sub new($@) {
 	$self->{'xml'} = 0;
 
 	# Process params.
-        while (@_) {
-                my $key = shift;
-                my $val = shift;
+        while (@params) {
+                my $key = shift @params;
+                my $val = shift @params;
                 err "Bad parameter '$key'." if ! exists $self->{$key};
                 $self->{$key} = $val;
         }
 
 	# Check 'attr_delimeter'.
-	if ($self->{'attr_delimeter'} ne '"' 
-		&& $self->{'attr_delimeter'} ne "'") {
+	if ($self->{'attr_delimeter'} ne '"'
+		&& $self->{'attr_delimeter'} ne '\'') {
 
 		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
 	}
 
 	# Check auto-flush only with output handler.
-	if ($self->{'auto_flush'} && $self->{'output_handler'} eq '') {
-		err "'auto_flush' parameter can't use without ".
-			"'output_handler' parameter.";
+	if ($self->{'auto_flush'} && $self->{'output_handler'} eq $EMPTY) {
+		err '\'auto_flush\' parameter can\'t use without '.
+			'\'output_handler\' parameter.';
 	}
 
 	# Reset.
@@ -84,7 +92,7 @@ sub new($@) {
 }
 
 #------------------------------------------------------------------------------
-sub finalize($) {
+sub finalize {
 #------------------------------------------------------------------------------
 # Finalize Tags output.
 
@@ -92,30 +100,35 @@ sub finalize($) {
 	while (@{$self->{'printed_tags'}}) {
 		$self->put(['e', $self->{'printed_tags'}->[0]]);
 	}
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub flush($;$) {
+sub flush {
 #------------------------------------------------------------------------------
 # Flush tags in object.
 
 	my ($self, $reset_flag) = @_;
-	$reset_flag = 0 unless $reset_flag;
+	$reset_flag = 0 if ! $reset_flag;
 	my $ouf = $self->{'output_handler'};
+	my $ret;
 	if ($ouf) {
-		print $ouf $self->{'flush_code'};
+		print {$ouf} $self->{'flush_code'};
 	} else {
-		return $self->{'flush_code'};
+		$ret = $self->{'flush_code'};
 	}
 
 	# Reset.
 	if ($reset_flag) {
 		$self->reset;
 	}
+
+	# Return string.
+	return $ret;;
 }
 
 #------------------------------------------------------------------------------
-sub open_tags($) {
+sub open_tags {
 #------------------------------------------------------------------------------
 # Return array of opened tags.
 
@@ -124,7 +137,7 @@ sub open_tags($) {
 }
 
 #------------------------------------------------------------------------------
-sub put($@) {
+sub put {
 #------------------------------------------------------------------------------
 # Put tags code.
 
@@ -134,8 +147,8 @@ sub put($@) {
 	foreach my $dat (@data) {
 
 		# Bad data.
-		unless (ref $dat eq 'ARRAY') {
-			err "Bad data.";
+		if (ref $dat ne 'ARRAY') {
+			err 'Bad data.';
 		}
 
 		# Detect and process data.
@@ -145,12 +158,14 @@ sub put($@) {
 	# Auto-flush.
 	if ($self->{'auto_flush'}) {
 		$self->flush;
-		$self->{'flush_code'} = '';
+		$self->{'flush_code'} = $EMPTY;
 	}
+
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub reset($) {
+sub reset {
 #------------------------------------------------------------------------------
 # Resets internal variables.
 
@@ -167,7 +182,7 @@ sub reset($) {
 	# Indent::Word object.
 	$self->{'indent_word'} = Indent::Word->new(
 		'line_size' => $self->{'line_size'},
-		'next_indent' => '',
+		'next_indent' => $EMPTY,
 	);
 
 	# Indent::Block object.
@@ -178,7 +193,7 @@ sub reset($) {
 	);
 
 	# Flush code.
-	$self->{'flush_code'} = '';
+	$self->{'flush_code'} = $EMPTY;
 
 	# Tmp code.
 	$self->{'tmp_code'} = [];
@@ -200,6 +215,8 @@ sub reset($) {
 
 	# Process flag.
 	$self->{'process'} = 0;
+
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -207,7 +224,7 @@ sub reset($) {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _detect_data($$) {
+sub _detect_data {
 #------------------------------------------------------------------------------
 # Detect and process data.
 
@@ -215,14 +232,14 @@ sub _detect_data($$) {
 
 	# Attributes.
 	if ($data->[0] eq 'a') {
-		unless ($#{$self->{'tmp_code'}} > -1) {
-			err "Bad tag type 'a'.";
+		if (scalar @{$self->{'tmp_code'}}) {
+			err 'Bad tag type \'a\'.';
 		}
 		shift @{$data};
 		while (@{$data}) {
 			my $par = shift @{$data};
 			my $val = shift @{$data};
-			push @{$self->{'tmp_code'}}, ' ', $par, '=', 
+			push @{$self->{'tmp_code'}}, $SPACE, $par, '=',
 				$self->{'attr_delimeter'}.$val.
 				$self->{'attr_delimeter'};
 			$self->{'comment_flag'} = 0;
@@ -230,11 +247,11 @@ sub _detect_data($$) {
 
 	# Begin of tag.
 	} elsif ($data->[0] eq 'b') {
-		if ($#{$self->{'tmp_code'}} > -1) {
+		if (scalar @{$self->{'tmp_code'}}) {
 			$self->_print_tag('>');
 		}
 		if ($self->{'xml'} && $data->[1] ne lc($data->[1])) {
-			err "In XML must be lowercase tag name.";
+			err 'In XML must be lowercase tag name.';
 		}
 		push @{$self->{'tmp_code'}}, "<$data->[1]";
 		unshift @{$self->{'printed_tags'}}, $data->[1];
@@ -249,14 +266,14 @@ sub _detect_data($$) {
 		foreach my $d (@{$data}) {
 			push @comment, (ref $d eq 'SCALAR') ? ${$d} : $d;
 		}
-		if (substr($comment[-1], -1) eq '-') {
+		if (substr($comment[$LAST_INDEX], $LAST_INDEX) eq '-') {
 			push @comment, ' -->';
 		} else {
 			push @comment, '-->';
 		}
 
 		# Process comment.
-		if ($#{$self->{'tmp_code'}} > -1) {
+		if (scalar @{$self->{'tmp_code'}}) {
 			push @{$self->{'tmp_comment_code'}}, \@comment;
 
 			# Flag, that means comment is last.
@@ -271,7 +288,7 @@ sub _detect_data($$) {
 
 	# Data.
 	} elsif ($data->[0] eq 'd') {
-		if ($#{$self->{'tmp_code'}} > -1) {
+		if (scalar @{$self->{'tmp_code'}}) {
 			$self->_print_tag('>');
 		}
 		shift @{$data};
@@ -283,8 +300,8 @@ sub _detect_data($$) {
 		$self->{'preserve_obj'}->save_previous;
 		my $pre = $self->{'preserve_obj'}->get;
 		$self->_flush_code($self->{'indent_word'}->indent(
-			join('', @tmp_data),
-			$pre ? '' : $self->{'indent'}->get,
+			join($EMPTY, @tmp_data),
+			$pre ? $EMPTY : $self->{'indent'}->get,
 			$pre ? 1 : 0
 		));
 
@@ -297,12 +314,12 @@ sub _detect_data($$) {
 		}
 
 		# Tag can be simple.
-		if ($self->{'xml'} && ! grep { $_ eq $data->[1] } 
-			@{$self->{'no_simple'}}) {
+		if ($self->{'xml'} && scalar @{$self->{'no_simple'}}
+			&& none { $_ eq $data->[1]} @{$self->{'no_simple'}}) {
 
 			my $pre = $self->{'preserve_obj'}->end($data->[1]);
-			if ($#{$self->{'tmp_code'}} > -1) {
-				if ($#{$self->{'tmp_comment_code'}} > -1
+			if (scalar @{$self->{'tmp_code'}}) {
+				if (scalar @{$self->{'tmp_comment_code'}}
 					&& $self->{'comment_flag'} == 1) {
 
 					$self->_print_tag('>');
@@ -320,8 +337,8 @@ sub _detect_data($$) {
 
 		# Tag cannot be simple.
 		} else {
-			if ($#{$self->{'tmp_code'}} > -1) {
-				unshift @{$self->{'printed_tags'}}, 
+			if (scalar @{$self->{'tmp_code'}}) {
+				unshift @{$self->{'printed_tags'}},
 					$data->[1];
 				$self->_print_tag('>');
 				shift @{$self->{'printed_tags'}};
@@ -333,7 +350,7 @@ sub _detect_data($$) {
 
 	# Instruction.
 	} elsif ($data->[0] eq 'i') {
-		if ($#{$self->{'tmp_code'}} > -1) {
+		if (scalar @{$self->{'tmp_code'}}) {
 			$self->_print_tag('>');
 		}
 		shift @{$data};
@@ -345,14 +362,14 @@ sub _detect_data($$) {
 			$self->{'preserve_obj'}->save_previous;
 			$self->_flush_code($self->{'indent_block'}
 				->indent([
-				'<?'.$target, ' ', @{$data}, '?>',
+				'<?'.$target, $SPACE, @{$data}, '?>',
 				$self->{'indent'}->get,
 			]));
 		}
 
 	# Raw data.
 	} elsif ($data->[0] eq 'r') {
-		if ($#{$self->{'tmp_code'}} > -1) {
+		if (scalar @{$self->{'tmp_code'}}) {
 			$self->_print_tag('>');
 		}
 		shift @{$data};
@@ -364,7 +381,7 @@ sub _detect_data($$) {
 
 	# CData.
 	} elsif ($data->[0] eq 'cd') {
-		if ($#{$self->{'tmp_code'}} > -1) {
+		if (scalar @{$self->{'tmp_code'}}) {
 			$self->_print_tag('>');
 		}
 		shift @{$data};
@@ -372,7 +389,7 @@ sub _detect_data($$) {
 		foreach (@{$data}) {
 			push @cdata, $_;
 		}
-		err "Bad CDATA section." if join('', @cdata) =~ /]]>$/;
+		err 'Bad CDATA section.' if join($EMPTY, @cdata) =~ /]]>$/ms;
 		push @cdata, ']]>';
 		$self->_newline;
 		$self->{'preserve_obj'}->save_previous;
@@ -386,37 +403,39 @@ sub _detect_data($$) {
 
 	# Other.
 	} else {
-		err "Bad type of data." unless $self->{'skip_bad_tags'};
+		err 'Bad type of data.' if ! $self->{'skip_bad_tags'};
 	}
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub _flush_code($$) {
+sub _flush_code {
 #------------------------------------------------------------------------------
 # Helper for flush data.
 
 	my ($self, $code) = @_;
-	$self->{'process'} = 1 unless $self->{'process'};
+	$self->{'process'} = 1 if ! $self->{'process'};
 	$self->{'flush_code'} .= $code;
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub _print_tag($$) {
+sub _print_tag {
 #------------------------------------------------------------------------------
 # Print indented tag from @{$self->{'tmp_code'}}.
 
 	my ($self, $string) = @_;
 	if ($string) {
-		if ($string =~ /^\/>$/) {
-			push @{$self->{'tmp_code'}}, ' ';
+		if ($string =~ /^\/>$/ms) {
+			push @{$self->{'tmp_code'}}, $SPACE;
 		}
 		push @{$self->{'tmp_code'}}, $string;
 	}
 
 	# Flush comment code before tag.
 	# TODO Optimalization.
-	if ($self->{'comment_flag'} == 0 
-		&& $#{$self->{'tmp_comment_code'}} > -1) {
+	if ($self->{'comment_flag'} == 0
+		&& scalar @{$self->{'tmp_comment_code'}}) {
 
 		# Comment.
 		foreach (@{$self->{'tmp_comment_code'}}) {
@@ -471,10 +490,11 @@ sub _print_tag($$) {
 		}
 	}
 	$self->{'tmp_comment_code'} = [];
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub _print_end_tag($$) {
+sub _print_end_tag {
 #------------------------------------------------------------------------------
 # Print indented end of tag.
 
@@ -491,10 +511,11 @@ sub _print_end_tag($$) {
 	$self->_flush_code($self->{'indent_block'}->indent(
 		['</'.$string, '>'], $act_indent, $pre ? 1 : 0
 	));
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub _newline($) {
+sub _newline {
 #------------------------------------------------------------------------------
 # Print newline if need.
 
@@ -511,11 +532,16 @@ sub _newline($) {
 			$self->_flush_code("\n");
 		}
 	}
+	return;
 }
 
 1;
 
+__END__
+
 =pod
+
+=encoding utf8
 
 =head1 NAME
 
@@ -587,7 +613,7 @@ sub _newline($) {
  Prints <script></script> instead <script />.
 
  my $t = Tags2::Output::Raw->new(
-   'no_simple' => ['script'] 
+   'no_simple' => ['script']
  );
  $t->put(['b', 'script'], ['e', 'script']);
  $t->flush;
@@ -641,7 +667,7 @@ sub _newline($) {
 =back
 
 =head1 ERRORS
- 
+
  'auto_flush' parameter can't use without 'output_handler' parameter.
  Bad attribute delimeter '%s'.
  Bad CDATA section.
@@ -678,7 +704,7 @@ sub _newline($) {
  #   data
  # </text>
 
-=head1 REQUIREMENTS
+=head1 DEPENDENCIES
 
 L<Error::Simple::Multiple(3pm)>,
 L<Indent(3pm)>,
@@ -698,6 +724,10 @@ L<Tags2::Output::SESIS(3pm)>.
 =head1 AUTHOR
 
  Michal Špaček L<tupinek@gmail.com>
+
+=head1 LICENSE AND COPYRIGHT
+
+ BSD license.
 
 =head1 VERSION
 
