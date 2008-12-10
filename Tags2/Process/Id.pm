@@ -4,25 +4,31 @@ package Tags2::Process::Id;
 
 # Pragmas.
 use strict;
+use warnings;
 
 # Modules.
 use Error::Simple::Multiple;
+use List::MoreUtils qw(none);
+use Readonly;
+
+# Constants.
+Readonly::Scalar my $EMPTY => q{};
 
 # Version.
 our $VERSION = 0.01;
 
 #------------------------------------------------------------------------------
-sub new($@) {
+sub new {
 #------------------------------------------------------------------------------
 # Constructor.
 
-	my $class = shift;
+	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
 	# Process params.
-        while (@_) {
-                my $key = shift;
-                my $val = shift;
+        while (@params) {
+                my $key = shift @params;
+                my $val = shift @params;
                 err "Bad parameter '$key'." if ! exists $self->{$key};
                 $self->{$key} = $val;
         }
@@ -35,7 +41,7 @@ sub new($@) {
 }
 
 #------------------------------------------------------------------------------
-sub check($@) {
+sub check {
 #------------------------------------------------------------------------------
 # Check 'Tags2' structure opposit id attributes.
 
@@ -55,14 +61,15 @@ sub check($@) {
 
 		# End of tag.
 		} elsif ($data->[0] eq 'e') {
-			$self->{'actual_tag'} = '';
+			$self->{'actual_tag'} = $EMPTY;
 			$self->{'log'} = 0;
 		}
 	}
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub reset($) {
+sub reset {
 #------------------------------------------------------------------------------
 # Resets class id register.
 
@@ -76,6 +83,8 @@ sub reset($) {
 
 	# Log flag for id in current tag.
 	$self->{'log'} = 0;
+
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -83,34 +92,40 @@ sub reset($) {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _check_atributes_for_id($$) {
+sub _check_atributes_for_id {
 #------------------------------------------------------------------------------
 # Check attribute for bad ids.
 
 	my ($self, $data) = @_;
-	for (my $i = 0; $i <= $#{$data}; $i++) {
+	foreach my $i (0 .. $#{$data}) {
 		if ($i % 2 == 0 && $data->[$i] eq 'id') {
 			if ($self->{'log'} == 1) {
-				err "Other id attribute in tag ".
+				err 'Other id attribute in tag '.
 					"'$self->{'actual_tag'}'.";
-			} elsif (! grep { $_ eq $data->[$i + 1] }
+			} elsif (scalar @{$self->{'id_tags'}}
+				&& none { $_ eq $data->[$i + 1] }
 				@{$self->{'id_tags'}}) {
 
 				push @{$self->{'id_tags'}},
-					$data->[$i + 1];	
+					$data->[$i + 1];
 				$self->{'log'} = 1;
 			} else {
 				err "Id attribute '$data->[$i + 1]'".
 					" in tag '$self->{'actual_tag'}'".
-					" is duplicit over structure.";
+					' is duplicit over structure.';
 			}
 		}
 	}
+	return;
 }
 
 1;
 
+__END__
+
 =pod
+
+=encoding utf8
 
 =head1 NAME
 
@@ -202,9 +217,10 @@ sub _check_atributes_for_id($$) {
  # Output:
  # Tags2::Process::Id: Id attribute 'id1' in tag 'tag' is duplicit over structure.
 
-=head1 REQUIREMENTS
+=head1 DEPENDENCIES
 
- L<Error::Simple::Multiple(3pm)>.
+ L<Error::Simple::Multiple(3pm)>,
+ L<List::MoreUtils(3pm)>.
 
 =head1 SEE ALSO
 
@@ -213,6 +229,10 @@ sub _check_atributes_for_id($$) {
 =head1 AUTHOR
 
  Michal Špaček L<tupinek@gmail.com>
+
+=head1 LICENSE AND COPYRIGHT
+
+ BSD license.
 
 =head1 VERSION 
 

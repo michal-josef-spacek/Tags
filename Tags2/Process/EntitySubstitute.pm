@@ -3,21 +3,23 @@ package Tags2::Process::EntitySubstitute;
 #------------------------------------------------------------------------------
 
 # Pragmas.
-use strict;
 use encoding 'utf8';
+use strict;
+use warnings;
 
 # Modules.
 use Error::Simple::Multiple;
+use List::MoreUtils qw(any);
 
 # Version.
 our $VERSION = 0.01;
 
 #------------------------------------------------------------------------------
-sub new($@) {
+sub new {
 #------------------------------------------------------------------------------
 # Constructor.
 
-	my $class = shift;
+	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
 	# Entity structure. 
@@ -27,16 +29,16 @@ sub new($@) {
 	$self->{'entity_chars'} = [];
 
 	# Process params.
-        while (@_) {
-                my $key = shift;
-                my $val = shift;
+        while (@params) {
+                my $key = shift @params;
+                my $val = shift @params;
                 err "Bad parameter '$key'." if ! exists $self->{$key};
                 $self->{$key} = $val;
         }
 
 	# Check to hash reference in entity parameter.
 	if (ref $self->{'entity'} ne 'HASH') {
-		err "Bad 'entity' hash reference.";
+		err 'Bad \'entity\' hash reference.';
 	}
 
 	# Object.
@@ -44,12 +46,12 @@ sub new($@) {
 }
 
 #------------------------------------------------------------------------------
-sub encode($@) {
+sub encode {
 #------------------------------------------------------------------------------
 # Encode text strings in data to entity from dtd.
 
 	my ($self, @data) = @_;
-	for (my $i = 0; $i <= $#data; $i++) {
+	foreach my $i (0 .. $#data) {
 		$data[$i] = $self->_encode($data[$i]);
 	}
 
@@ -58,12 +60,12 @@ sub encode($@) {
 }
 
 #------------------------------------------------------------------------------
-sub decode($@) {
+sub decode {
 #------------------------------------------------------------------------------
 # Decode entity from dtd to text strings.
 
 	my ($self, @data) = @_;
-	for (my $i = 0; $i <= $#data; $i++) {
+	foreach my $i (0 .. $#data) {
 		$data[$i] = $self->_decode($data[$i]);
 	}
 
@@ -72,12 +74,12 @@ sub decode($@) {
 }
 
 #------------------------------------------------------------------------------
-sub encode_chars($@) {
+sub encode_chars {
 #------------------------------------------------------------------------------
 # Encode characters to '&#[0-9]+;' syntax.
 
 	my ($self, @data) = @_;
-	for (my $i = 0; $i <= $#data; $i++) {
+	foreach my $i (0 .. $#data) {
 		$data[$i] = $self->_encode_chars($data[$i]);
 	}
 
@@ -86,12 +88,12 @@ sub encode_chars($@) {
 }
 
 #------------------------------------------------------------------------------
-sub decode_chars($@) {
+sub decode_chars {
 #------------------------------------------------------------------------------
 # Decode characters from '&#[0-9]+;' syntax.
 
 	my ($self, @data) = @_;
-	for (my $i = 0; $i <= $#data; $i++) {
+	foreach my $i (0 .. $#data) {
 		$data[$i] = $self->_decode_chars($data[$i]);
 	}
 
@@ -104,36 +106,36 @@ sub decode_chars($@) {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _encode($$) {
+sub _encode {
 #------------------------------------------------------------------------------
 # Encode.
 
 	my ($self, $data) = @_;
 	$data = $self->_decode($data);
-	if (grep { $_ eq '&' } keys %{$self->{'entity'}}) {
-		$data =~ s/&/$self->{'entity'}->{'&'}/g;
+	if (any { $_ eq '&' } keys %{$self->{'entity'}}) {
+		$data =~ s/&/$self->{'entity'}->{'&'}/gms;
 		delete $self->{'entity'}->{'&'}
 	}
 	foreach my $ent (keys %{$self->{'entity'}}) {
-		$data =~ s/(?<!&)$ent/$self->{'entity'}->{$ent}/gx;
+		$data =~ s/(?<!&)$ent/$self->{'entity'}->{$ent}/gmsx;
 	}
 	return $data;
 }
 
 #------------------------------------------------------------------------------
-sub _decode($$) {
+sub _decode {
 #------------------------------------------------------------------------------
 # Decode.
 
 	my ($self, $data) = @_;
 	foreach my $ent (keys %{$self->{'entity'}}) {
-		$data =~ s/$self->{'entity'}->{$ent}/$ent/g;
+		$data =~ s/$self->{'entity'}->{$ent}/$ent/gmsx;
 	}
 	return $data;
 }
 
 #------------------------------------------------------------------------------
-sub _encode_chars($$) {
+sub _encode_chars {
 #------------------------------------------------------------------------------
 # Encode chars.
 
@@ -141,25 +143,29 @@ sub _encode_chars($$) {
 	$data = $self->_decode_chars($data);
 	foreach my $ent_char (@{$self->{'entity_chars'}}) {
 		my $tmp = '&#'.ord($ent_char).';';
-		$data =~ s/$ent_char/$tmp/g;
+		$data =~ s/$ent_char/$tmp/gms;
 	}
 	return $data;
 }
 
 #------------------------------------------------------------------------------
-sub _decode_chars($$) {
+sub _decode_chars {
 #------------------------------------------------------------------------------
 # Decode chars.
 
 	my ($self, $data) = @_;
-	$data =~ s/&#(\d+);/chr($1)/ge;
-	$data =~ s/&#x([\da-fA-F]+);/chr($1)/ge;
+	$data =~ s/&#(\d+);/chr($1)/egms;
+	$data =~ s/&#x([\da-fA-F]+);/chr($1)/egmsx;
 	return $data;
 }
 
 1;
 
+__END__
+
 =pod
+
+=encoding utf8
 
 =head1 NAME
 
@@ -213,13 +219,17 @@ sub _decode_chars($$) {
 
  TODO
 
-=head1 REQUIREMENTS
+=head1 DEPENDENCIES
 
  L<Error::Simple::Multiple(3pm)>
 
 =head1 AUTHOR
 
- Michal Spacek L<tupinek@gmail.com>
+ Michal Špaček L<tupinek@gmail.com>
+
+=head1 LICENSE AND COPYRIGHT
+
+ BSD license.
 
 =head1 VERSION 
 
