@@ -4,24 +4,29 @@ package Tags2::Output::LibXML;
 
 # Pragmas.
 use strict;
+use warnings;
 
 # Modules.
 use Error::Simple::Multiple;
+use Readonly;
 use XML::LibXML;
+
+# Constants.
+Readonly::Scalar my $EMPTY => q{};
 
 # Version.
 our $VERSION = 0.01;
 
 #------------------------------------------------------------------------------
-sub new($@) {
+sub new {
 #------------------------------------------------------------------------------
 # Constructor.
 
-	my $class = shift;
+	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
 	# Set output handler.
-	$self->{'output_handler'} = '';
+	$self->{'output_handler'} = $EMPTY;
 
 	# Set indent.
 	$self->{'set_indent'} = 0;
@@ -41,10 +46,10 @@ sub new($@) {
 	$self->{'skip_bad_tags'} = 0;
 
 	# Process params.
-        while (@_) {
-                my $key = shift;
-                my $val = shift;
-                err "Bad parameter '$key'." unless exists $self->{$key};
+        while (@params) {
+                my $key = shift @params;
+                my $val = shift @params;
+                err "Bad parameter '$key'." if ! exists $self->{$key};
                 $self->{$key} = $val;
         }
 
@@ -56,7 +61,7 @@ sub new($@) {
 }
 
 #------------------------------------------------------------------------------
-sub finalize($) {
+sub finalize {
 #------------------------------------------------------------------------------
 # Finalize Tags output.
 
@@ -64,18 +69,20 @@ sub finalize($) {
 	foreach (@{$self->{'printed_tags'}}) {
 		$self->put(['e', $_]);
 	}
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub flush($) {
+sub flush {
 #------------------------------------------------------------------------------
 # Flush tags in object.
 
 	my $self = shift;
 	my $ouf = $self->{'output_handler'};
 	if ($ouf) {
-		print $ouf $self->{'doc'}->toString(
+		print {$ouf} $self->{'doc'}->toString(
 			$self->{'set_indent'} ? 2 : 0);
+		return;
 	} else {
 		return $self->{'doc'}->toString(
 			$self->{'set_indent'} ? 2 : 0);
@@ -83,7 +90,7 @@ sub flush($) {
 }
 
 #------------------------------------------------------------------------------
-sub open_tags($) {
+sub open_tags {
 #------------------------------------------------------------------------------
 # Return array of opened tags.
 
@@ -93,33 +100,34 @@ sub open_tags($) {
 }
 
 #------------------------------------------------------------------------------
-sub put($@) {
+sub put {
 #------------------------------------------------------------------------------
 # Put tags code.
 
-	my $self = shift;
-	my @data = @_;
+	my ($self, @data) = @_;
 
 	# For every data.
 	foreach my $dat (@data) {
 
 		# Bad data.
-		unless (ref $dat eq 'ARRAY') {
-			err "Bad data.";
+		if (ref $dat ne 'ARRAY') {
+			err 'Bad data.';
 		}
 
 		# Detect and process data.
 		$self->_detect_data($dat);
 	}
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub reset($) {
+sub reset {
 #------------------------------------------------------------------------------
 # Resets internal variables.
 
 	my $self = shift;
 	$self->_init;
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -127,7 +135,7 @@ sub reset($) {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _detect_data($$) {
+sub _detect_data {
 #------------------------------------------------------------------------------
 # Detect and process data.
 
@@ -159,9 +167,9 @@ sub _detect_data($$) {
 
 	# Comment.
 	} elsif ($data->[0] eq 'c') {
-		my $tmp = '';
+		my $tmp = $EMPTY;
 		foreach my $d (@{$data}) {
-			$tmp .= ref $d eq 'SCALAR' ? ${$d} 
+			$tmp .= ref $d eq 'SCALAR' ? ${$d}
 				: $d;
 		}
 		my $comment_node = $self->{'doc'}->createComment($tmp);
@@ -169,9 +177,9 @@ sub _detect_data($$) {
 
 	# Cdata.
 	} elsif ($data->[0] eq 'cd') {
-		my $tmp = '';
+		my $tmp = $EMPTY;
 		foreach my $d (@{$data}) {
-			$tmp .= ref $d eq 'SCALAR' ? ${$d} 
+			$tmp .= ref $d eq 'SCALAR' ? ${$d}
 				: $d;
 		}
 		my $cdata_node = $self->{'doc'}->create($tmp);
@@ -179,10 +187,10 @@ sub _detect_data($$) {
 
 	# Data.
 	} elsif ($data->[0] eq 'd') {
-		my $tmp = '';
+		my $tmp = $EMPTY;
 		shift @{$data};
 		foreach my $d (@{$data}) {
-			$tmp .= ref $d eq 'SCALAR' ? ${$d} 
+			$tmp .= ref $d eq 'SCALAR' ? ${$d}
 				: $d;
 		}
 		my $data_node = $self->{'doc'}->createTextNode($tmp);
@@ -196,12 +204,12 @@ sub _detect_data($$) {
 	} elsif ($data->[0] eq 'i') {
 		shift @{$data};
 		my $target = shift @{$data};
-		my $tmp = '';
+		my $tmp = $EMPTY;
 		while (@{$data}) {
 			my $tmp_data = shift @{$data};
 			$tmp .= " $tmp_data";
 		}
-		my $instruction_node 
+		my $instruction_node
 			= $self->{'doc'}->createProcessingInstruction(
 			$target, $tmp);
 		if (! defined $self->{'printed_tags'}->[0]) {
@@ -220,13 +228,14 @@ sub _detect_data($$) {
 
 	# Other.
 	} else {
-		err "Bad type of data." if $self->{'skip_bad_tags'};
-
+		err 'Bad type of data.' if $self->{'skip_bad_tags'};
 	}
+
+	return;
 }
 
 #------------------------------------------------------------------------------
-sub _init($) {
+sub _init {
 #------------------------------------------------------------------------------
 # Incialization.
 
@@ -236,25 +245,31 @@ sub _init($) {
 	$self->{'printed_tags'} = [];
 
 	# Root node.
-	$self->{'doc'} = XML::LibXML::Document->new('1.1', 
+	$self->{'doc'} = XML::LibXML::Document->new('1.1',
 		$self->{'encoding'});
 
 	# First node = root node.
 	$self->{'first'} = 0;
+
+	return;
 }
 
 1;
 
+__END__
+
 =pod
+
+=encoding utf8
 
 =head1 NAME
 
- Tags2::Output::Raw - Raw printing 'Tags2' structure to tags code.
+ Tags2::Output::LibXML - Printing 'Tags2' structure by LibXML library.
 
 =head1 SYNOPSIS
 
- use Tags2::Output::Raw;
- my $t = Tags2::Output::Raw->new;
+ use Tags2::Output::LibXML;
+ my $t = Tags2::Output::LibXML->new;
  $t->put(['b', 'tag'], ['d', 'data']);
  $t->finalize;
  $t->flush;
@@ -319,9 +334,10 @@ sub _init($) {
 
 =back
 
-=head1 REQUIREMENTS
+=head1 DEPENDENCIES
 
 L<Error::Simple::Multiple(3pm)>,
+L<Readonly(3pm)>,
 L<XML::LibXML(3pm)>.
 
 =head1 SEE ALSO
@@ -335,7 +351,11 @@ L<Tags2::Output::SESIS(3pm)>.
 
 =head1 AUTHOR
 
- Michal Spacek L<tupinek@gmail.com>
+ Michal Špaček L<tupinek@gmail.com>
+
+=head1 LICENSE AND COPYRIGHT
+
+ BSD license.
 
 =head1 VERSION
 
