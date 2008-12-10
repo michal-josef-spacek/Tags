@@ -232,7 +232,7 @@ sub _detect_data {
 
 	# Attributes.
 	if ($data->[0] eq 'a') {
-		if (scalar @{$self->{'tmp_code'}}) {
+		if (! scalar @{$self->{'tmp_code'}}) {
 			err 'Bad tag type \'a\'.';
 		}
 		shift @{$data};
@@ -314,8 +314,8 @@ sub _detect_data {
 		}
 
 		# Tag can be simple.
-		if ($self->{'xml'} && scalar @{$self->{'no_simple'}}
-			&& none { $_ eq $data->[1]} @{$self->{'no_simple'}}) {
+		if ($self->{'xml'} && (! scalar @{$self->{'no_simple'}}
+			|| none { $_ eq $data->[1]} @{$self->{'no_simple'}})) {
 
 			my $pre = $self->{'preserve_obj'}->end($data->[1]);
 			if (scalar @{$self->{'tmp_code'}}) {
