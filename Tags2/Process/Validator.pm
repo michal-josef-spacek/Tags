@@ -87,8 +87,8 @@ sub check_one {
 
 		# For each required attributes check.
 		foreach my $req ($self->_get_required_attr($tag)) {
-			if (scalar @{$self->{'printed_attr'}}
-				&& none { $req eq $_ }
+			if (! scalar @{$self->{'printed_attr'}}
+				|| none { $req eq $_ }
 				@{$self->{'printed_attr'}}) {
 
 				err "Missing required attribute '$req' ".

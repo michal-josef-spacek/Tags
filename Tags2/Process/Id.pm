@@ -102,8 +102,8 @@ sub _check_atributes_for_id {
 			if ($self->{'log'} == 1) {
 				err 'Other id attribute in tag '.
 					"'$self->{'actual_tag'}'.";
-			} elsif (scalar @{$self->{'id_tags'}}
-				&& none { $_ eq $data->[$i + 1] }
+			} elsif (! scalar @{$self->{'id_tags'}}
+				|| none { $_ eq $data->[$i + 1] }
 				@{$self->{'id_tags'}}) {
 
 				push @{$self->{'id_tags'}},

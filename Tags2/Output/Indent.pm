@@ -35,7 +35,7 @@ sub new {
 	$self->{'auto_flush'} = 0;
 
 	# Indent params.
-	$self->{'next_indent'} = 2 x $SPACE;
+	$self->{'next_indent'} = $SPACE x 2;
 	$self->{'line_size'} = $LINE_SIZE;
 	$self->{'linebreak'} = "\n";
 
