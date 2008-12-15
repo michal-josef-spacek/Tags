@@ -6,7 +6,7 @@ package Tags2::Utils::Simple;
 use strict;
 
 # Modules.
-use Error::Simple::Multiple;
+use Error::Simple::Multiple qw(err);
 use Exporter;
 
 # Version.

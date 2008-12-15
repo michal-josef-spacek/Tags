@@ -7,7 +7,7 @@ use strict;
 use warnings;
 
 # Modules.
-use Error::Simple::Multiple;
+use Error::Simple::Multiple qw(err);
 use Indent;
 use Indent::Word;
 use Indent::Block;

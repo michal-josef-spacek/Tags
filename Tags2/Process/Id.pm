@@ -7,7 +7,7 @@ use strict;
 use warnings;
 
 # Modules.
-use Error::Simple::Multiple;
+use Error::Simple::Multiple qw(err);
 use List::MoreUtils qw(none);
 use Readonly;
 
