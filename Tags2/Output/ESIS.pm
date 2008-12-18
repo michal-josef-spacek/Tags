@@ -3,6 +3,7 @@ package Tags2::Output::ESIS;
 #------------------------------------------------------------------------------
 
 # Pragmas.
+use base qw(Tags2::Output::Core);
 use strict;
 use warnings;
 
@@ -38,29 +39,11 @@ sub new {
                 $self->{$key} = $val;
         }
 
-	# Flush code.
-	$self->{'flush_code'} = ();
-
-	# Tmp code.
-	$self->{'tmp_code'} = [];
-
-	# Printed tags.
-	$self->{'printed_tags'} = [];
+	# Reset.
+	$self->reset;
 
 	# Object.
 	return $self;
-}
-
-#------------------------------------------------------------------------------
-sub finalize {
-#------------------------------------------------------------------------------
-# Finalize Tags output.
-
-	my $self = shift;
-	while (scalar @{$self->{'printed_tags'}}) {
-		$self->put(['e', shift @{$self->{'printed_tags'}}]);
-	}
-	return;
 }
 
 #------------------------------------------------------------------------------
@@ -76,15 +59,6 @@ sub flush {
 	} else {
 		return join("\n", @{$self->{'flush_code'}});
 	}
-}
-
-#------------------------------------------------------------------------------
-sub open_tags {
-#------------------------------------------------------------------------------
-# Return array of opened tags.
-
-	my $self = shift;
-	return @{$self->{'printed_tags'}};
 }
 
 #------------------------------------------------------------------------------
@@ -114,8 +88,16 @@ sub reset {
 # Resets internal variables.
 
 	my $self = shift;
-	$self->{'printed_tags'} = [];
+
+	# Flush code.
 	$self->{'flush_code'} = ();
+
+	# Tmp code.
+	$self->{'tmp_code'} = [];
+
+	# Printed tags.
+	$self->{'printed_tags'} = [];
+
 	return;
 }
 
