@@ -39,14 +39,8 @@ sub new {
                 $self->{$key} = $val;
         }
 
-	# Flush code.
-	$self->{'flush_code'} = ();
-
-	# Tmp code.
-	$self->{'tmp_code'} = [];
-
-	# Printed tags.
-	$self->{'printed_tags'} = [];
+	# Initialization.
+	$self->reset;
 
 	# Object.
 	return $self;
@@ -94,8 +88,16 @@ sub reset {
 # Resets internal variables.
 
 	my $self = shift;
-	$self->{'printed_tags'} = [];
+
+	# Flush code.
 	$self->{'flush_code'} = ();
+
+	# Tmp code.
+	$self->{'tmp_code'} = [];
+
+	# Printed tags.
+	$self->{'printed_tags'} = [];
+
 	return;
 }
 
