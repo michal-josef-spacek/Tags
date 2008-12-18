@@ -39,7 +39,7 @@ sub new {
                 $self->{$key} = $val;
         }
 
-	# Reset.
+	# Initialization.
 	$self->reset;
 
 	# Object.
