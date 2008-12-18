@@ -3,6 +3,7 @@ package Tags2::Output::SESIS;
 #------------------------------------------------------------------------------
 
 # Pragmas.
+use base qw(Tags2::Output::Core);
 use strict;
 use warnings;
 
@@ -64,27 +65,6 @@ sub flush {
 	} else {
 		return join("\n", @{$self->{'flush_code'}});
 	}
-}
-
-#------------------------------------------------------------------------------
-sub open_tags {
-#------------------------------------------------------------------------------
-# Return array of opened tags.
-
-	my $self = shift;
-	return @{$self->{'printed_tags'}};
-}
-
-#------------------------------------------------------------------------------
-sub finalize {
-#------------------------------------------------------------------------------
-# Finalize Tags output.
-
-	my $self = shift;
-	while (scalar @{$self->{'printed_tags'}}) {
-		$self->put(['e', shift @{$self->{'printed_tags'}}]);
-	}
-	return;
 }
 
 #------------------------------------------------------------------------------
