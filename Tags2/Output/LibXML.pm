@@ -55,7 +55,7 @@ sub new {
         }
 
 	# Initialization.
-	$self->_init;
+	$self->reset;
 
 	# Object.
 	return $self;
@@ -105,7 +105,17 @@ sub reset {
 # Resets internal variables.
 
 	my $self = shift;
-	$self->_init;
+
+	# Printed tags.
+	$self->{'printed_tags'} = [];
+
+	# Root node.
+	$self->{'doc'} = XML::LibXML::Document->new('1.1',
+		$self->{'encoding'});
+
+	# First node = root node.
+	$self->{'first'} = 0;
+
 	return;
 }
 
@@ -209,26 +219,6 @@ sub _detect_data {
 	} else {
 		err 'Bad type of data.' if $self->{'skip_bad_tags'};
 	}
-
-	return;
-}
-
-#------------------------------------------------------------------------------
-sub _init {
-#------------------------------------------------------------------------------
-# Incialization.
-
-	my $self = shift;
-
-	# Printed tags.
-	$self->{'printed_tags'} = [];
-
-	# Root node.
-	$self->{'doc'} = XML::LibXML::Document->new('1.1',
-		$self->{'encoding'});
-
-	# First node = root node.
-	$self->{'first'} = 0;
 
 	return;
 }

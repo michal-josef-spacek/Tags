@@ -69,7 +69,7 @@ sub new {
 		err 'Auto-flush can\'t use without output handler.';
 	}
 
-	# Reset.
+	# Initialization.
 	$self->reset;
 
 	# Object.
