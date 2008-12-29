@@ -77,33 +77,6 @@ sub new {
 }
 
 #------------------------------------------------------------------------------
-sub put {
-#------------------------------------------------------------------------------
-# Put tags code.
-
-	my ($self, @data) = @_;
-
-	# For every data.
-	foreach my $dat (@data) {
-
-		# Bad data.
-		if (ref $dat ne 'ARRAY') {
-			err 'Bad data.';
-		}
-
-		# Detect and process data.
-		$self->_detect_data($dat);
-	}
-
-	# Auto-flush.
-	if ($self->{'auto_flush'}) {
-		$self->flush;
-		$self->{'flush_code'} = $EMPTY;
-	}
-	return;
-}
-
-#------------------------------------------------------------------------------
 sub reset {
 #------------------------------------------------------------------------------
 # Resets internal variables.
@@ -134,160 +107,6 @@ sub reset {
 #------------------------------------------------------------------------------
 # Private methods.
 #------------------------------------------------------------------------------
-
-#------------------------------------------------------------------------------
-sub _detect_data {
-#------------------------------------------------------------------------------
-# Detect and process data.
-
-	my ($self, $data) = @_;
-
-	# Attributes.
-	if ($data->[0] eq 'a') {
-		if (! scalar @{$self->{'tmp_code'}}) {
-			err 'Bad tag type \'a\'.';
-		}
-		shift @{$data};
-		while (@{$data}) {
-			my $par = shift @{$data};
-			my $val = shift @{$data};
-			push @{$self->{'tmp_code'}}, $SPACE, $par.'='.
-				$self->{'attr_delimeter'}.$val.
-				$self->{'attr_delimeter'};
-			$self->{'comment_flag'} = 0;
-		}
-
-	# Begin of tag.
-	} elsif ($data->[0] eq 'b') {
-		if (scalar @{$self->{'tmp_code'}}) {
-			$self->_flush_tmp('>');
-		}
-		if ($self->{'xml'} && $data->[1] ne lc($data->[1])) {
-			err 'In XML must be lowercase tag name.';
-		}
-		push @{$self->{'tmp_code'}}, "<$data->[1]";
-		unshift @{$self->{'printed_tags'}}, $data->[1];
-		$self->{'preserve_obj'}->begin($data->[1]);
-
-	# Comment.
-	} elsif ($data->[0] eq 'c') {
-
-		# Comment string.
-		shift @{$data};
-		my $comment_string = '<!--';
-		foreach my $d (@{$data}) {
-			$comment_string .= ref $d eq 'SCALAR' ? ${$d}
-				: $d;
-		}
-		if (substr($comment_string, -1) eq '-') {
-			$comment_string .= $SPACE;
-		}
-		$comment_string .= '-->';
-
-		# Process comment.
-		if (scalar @{$self->{'tmp_code'}}) {
-			push @{$self->{'tmp_comment_code'}}, $comment_string;
-
-			# Flag, that means comment is last.
-			$self->{'comment_flag'} = 1;
-		} else {
-			$self->{'flush_code'} .= $comment_string;
-		}
-
-	# Cdata.
-	} elsif ($data->[0] eq 'cd') {
-		if (scalar @{$self->{'tmp_code'}}) {
-			$self->_flush_tmp('>');
-		}
-		shift @{$data};
-		$self->{'flush_code'} .= '<![CDATA[';
-		foreach my $d (@{$data}) {
-			$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d}
-				: $d;
-		}
-		err 'Bad CDATA data.' if $self->{'flush_code'} =~ /]]>$/ms;
-		$self->{'flush_code'} .= ']]>';
-
-	# Data.
-	} elsif ($data->[0] eq 'd') {
-		if (scalar @{$self->{'tmp_code'}}) {
-			$self->_flush_tmp('>');
-		}
-		shift @{$data};
-		foreach my $d (@{$data}) {
-			$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d}
-				: $d;
-		}
-
-	# End of tag.
-	} elsif ($data->[0] eq 'e') {
-		my $printed = shift @{$self->{'printed_tags'}};
-		if ($self->{'xml'} && $printed ne $data->[1]) {
-			err "Ending bad tag: '$data->[1]' in block of ".
-				"tag '$printed'.";
-		}
-
-		# Tag can be simple.
-		if ($self->{'xml'} && (! scalar @{$self->{'no_simple'}}
-			|| none { $_ eq $data->[1] }
-			@{$self->{'no_simple'}})) {
-
-			if (scalar @{$self->{'tmp_code'}}) {
-				if (scalar @{$self->{'tmp_comment_code'}}
-					&& $self->{'comment_flag'} == 1) {
-
-					$self->_flush_tmp('>');
-					$self->{'flush_code'}
-						.= "</$data->[1]>";
-				} else {
-					$self->_flush_tmp(' />');
-				}
-			} else {
-				$self->{'flush_code'} .= "</$data->[1]>";
-			}
-
-		# Tag cannot be simple.
-		} else {
-			if (scalar @{$self->{'tmp_code'}}) {
-				$self->_flush_tmp('>');
-			}
-			$self->{'flush_code'} .= "</$data->[1]>";
-		}
-		$self->{'preserve_obj'}->end($data->[1]);
-
-	# Instruction.
-	} elsif ($data->[0] eq 'i') {
-		if (scalar @{$self->{'tmp_code'}}) {
-			$self->_flush_tmp('>');
-		}
-		shift @{$data};
-		$self->{'flush_code'} .= '<?';
-		my $target = shift @{$data};
-		$self->{'flush_code'} .= $target;
-		while (@{$data}) {
-			my $data = shift @{$data};
-			$self->{'flush_code'} .= " $data";
-		}
-		$self->{'flush_code'} .= '?>';
-
-	# Raw data.
-	} elsif ($data->[0] eq 'r') {
-		if (scalar @{$self->{'tmp_code'}}) {
-			$self->_flush_tmp('>');
-		}
-		shift @{$data};
-		while (@{$data}) {
-			my $data = shift @{$data};
-			$self->{'flush_code'} .= $data;
-		}
-
-	# Other.
-	} else {
-		err 'Bad type of data.' if $self->{'skip_bad_tags'};
-	}
-
-	return;
-}
 
 #------------------------------------------------------------------------------
 sub _flush_tmp {
@@ -323,6 +142,185 @@ sub _flush_tmp {
 	$self->{'tmp_comment_code'} = [];
 
 	return;
+}
+
+#------------------------------------------------------------------------------
+sub _put_attribute {
+#------------------------------------------------------------------------------
+# Attributes.
+
+	my ($self, $data) = @_;
+	if (! scalar @{$self->{'tmp_code'}}) {
+		err 'Bad tag type \'a\'.';
+	}
+	shift @{$data};
+	while (@{$data}) {
+		my $par = shift @{$data};
+		my $val = shift @{$data};
+		push @{$self->{'tmp_code'}}, $SPACE, $par.'='.
+			$self->{'attr_delimeter'}.$val.
+			$self->{'attr_delimeter'};
+		$self->{'comment_flag'} = 0;
+	}
+}
+
+#------------------------------------------------------------------------------
+sub _put_begin_of_tag {
+#------------------------------------------------------------------------------
+# Begin of tag.
+
+	my ($self, $data) = @_;
+	if (scalar @{$self->{'tmp_code'}}) {
+		$self->_flush_tmp('>');
+	}
+	if ($self->{'xml'} && $data->[1] ne lc($data->[1])) {
+		err 'In XML must be lowercase tag name.';
+	}
+	push @{$self->{'tmp_code'}}, "<$data->[1]";
+	unshift @{$self->{'printed_tags'}}, $data->[1];
+	$self->{'preserve_obj'}->begin($data->[1]);
+}
+
+#------------------------------------------------------------------------------
+sub _put_cdata {
+#------------------------------------------------------------------------------
+# CData.
+
+	my ($self, $data) = @_;
+	if (scalar @{$self->{'tmp_code'}}) {
+		$self->_flush_tmp('>');
+	}
+	shift @{$data};
+	$self->{'flush_code'} .= '<![CDATA[';
+	foreach my $d (@{$data}) {
+		$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d}
+			: $d;
+	}
+	err 'Bad CDATA data.' if $self->{'flush_code'} =~ /]]>$/ms;
+	$self->{'flush_code'} .= ']]>';
+}
+
+#------------------------------------------------------------------------------
+sub _put_comment {
+#------------------------------------------------------------------------------
+# Comment.
+
+	my ($self, $data) = @_;
+
+	# Comment string.
+	shift @{$data};
+	my $comment_string = '<!--';
+	foreach my $d (@{$data}) {
+		$comment_string .= ref $d eq 'SCALAR' ? ${$d}
+			: $d;
+	}
+	if (substr($comment_string, -1) eq '-') {
+		$comment_string .= $SPACE;
+	}
+	$comment_string .= '-->';
+
+	# Process comment.
+	if (scalar @{$self->{'tmp_code'}}) {
+		push @{$self->{'tmp_comment_code'}}, $comment_string;
+
+		# Flag, that means comment is last.
+		$self->{'comment_flag'} = 1;
+	} else {
+		$self->{'flush_code'} .= $comment_string;
+	}
+}
+
+#------------------------------------------------------------------------------
+sub _put_data {
+#------------------------------------------------------------------------------
+# Data.
+
+	my ($self, $data) = @_;
+	if (scalar @{$self->{'tmp_code'}}) {
+		$self->_flush_tmp('>');
+	}
+	shift @{$data};
+	foreach my $d (@{$data}) {
+		$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d}
+			: $d;
+	}
+}
+
+#------------------------------------------------------------------------------
+sub _put_end_of_tag {
+#------------------------------------------------------------------------------
+# End of tag.
+
+	my ($self, $data) = @_;
+	my $printed = shift @{$self->{'printed_tags'}};
+	if ($self->{'xml'} && $printed ne $data->[1]) {
+		err "Ending bad tag: '$data->[1]' in block of ".
+			"tag '$printed'.";
+	}
+
+	# Tag can be simple.
+	if ($self->{'xml'} && (! scalar @{$self->{'no_simple'}}
+		|| none { $_ eq $data->[1] }
+		@{$self->{'no_simple'}})) {
+
+		if (scalar @{$self->{'tmp_code'}}) {
+			if (scalar @{$self->{'tmp_comment_code'}}
+				&& $self->{'comment_flag'} == 1) {
+
+				$self->_flush_tmp('>');
+				$self->{'flush_code'}
+					.= "</$data->[1]>";
+			} else {
+				$self->_flush_tmp(' />');
+			}
+		} else {
+			$self->{'flush_code'} .= "</$data->[1]>";
+		}
+
+	# Tag cannot be simple.
+	} else {
+		if (scalar @{$self->{'tmp_code'}}) {
+			$self->_flush_tmp('>');
+		}
+		$self->{'flush_code'} .= "</$data->[1]>";
+	}
+	$self->{'preserve_obj'}->end($data->[1]);
+}
+
+#------------------------------------------------------------------------------
+sub _put_instruction {
+#------------------------------------------------------------------------------
+# Instruction.
+
+	my ($self, $data) = @_;
+	if (scalar @{$self->{'tmp_code'}}) {
+		$self->_flush_tmp('>');
+	}
+	shift @{$data};
+	$self->{'flush_code'} .= '<?';
+	my $target = shift @{$data};
+	$self->{'flush_code'} .= $target;
+	while (@{$data}) {
+		my $data = shift @{$data};
+		$self->{'flush_code'} .= " $data";
+	}
+	$self->{'flush_code'} .= '?>';
+}
+
+#------------------------------------------------------------------------------
+sub _put_raw {
+#------------------------------------------------------------------------------
+# Raw data.
+
+	my ($self, $data) = @_;
+	if (scalar @{$self->{'tmp_code'}}) {
+		$self->_flush_tmp('>');
+	}
+	shift @{$data};
+	while (@{$data}) {
+		my $data = shift @{$data};
+		$self->{'flush_code'} .= $data;
+	}
 }
 
 1;
