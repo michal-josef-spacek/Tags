@@ -26,7 +26,7 @@ sub new {
 	my $self = bless {}, $class;
 
 	# Set output handler.
-	$self->{'output_handler'} = *STDOUT;
+	$self->{'output_handler'} = $EMPTY;
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
@@ -44,17 +44,6 @@ sub new {
 
 	# Object.
 	return $self;
-}
-
-#------------------------------------------------------------------------------
-sub flush {
-#------------------------------------------------------------------------------
-# Flush tags in object.
-
-	my $self = shift;
-	my $ouf = $self->{'output_handler'};
-	print {$ouf} join("\n", @{$self->{'flush_code'}});
-	return;
 }
 
 #------------------------------------------------------------------------------
@@ -87,10 +76,7 @@ sub reset {
 	my $self = shift;
 
 	# Flush code.
-	$self->{'flush_code'} = ();
-
-	# Tmp code.
-	$self->{'tmp_code'} = [];
+	$self->{'flush_code'} = $EMPTY;
 
 	# Printed tags.
 	$self->{'printed_tags'} = [];
@@ -115,12 +101,12 @@ sub _detect_data {
 		while (@{$data}) {
 			my $par = shift @{$data};
 			my $val = shift @{$data};
-			push @{$self->{'flush_code'}}, "A$par $val";
+			$self->{'flush_code'} .= "A$par $val\n";
 		}
 
 	# Begin of tag.
 	} elsif ($data->[0] eq 'b') {
-		push @{$self->{'flush_code'}}, "($data->[1]";
+		$self->{'flush_code'} .= "($data->[1]\n";
 		unshift @{$self->{'printed_tags'}}, $data->[1];
 
 	# Data.
@@ -130,8 +116,8 @@ sub _detect_data {
 		foreach my $d (@{$data}) {
 			$tmp_data .= ref $d eq 'SCALAR' ? ${$d} : $d;
 		}
-		push @{$self->{'flush_code'}},
-			'-'.$self->_encode_newline($tmp_data);
+		$self->{'flush_code'} .= '-'.
+			$self->_encode_newline($tmp_data)."\n";
 
 	# End of tag.
 	} elsif ($data->[0] eq 'e') {
@@ -140,7 +126,7 @@ sub _detect_data {
 			err "Ending bad tag: '$data->[1]' in block of ".
 				"tag '$printed'.";
 		}
-		push @{$self->{'flush_code'}}, ")$data->[1]";
+		$self->{'flush_code'} .= ")$data->[1]\n";
 
 	# Instruction.
 	} elsif ($data->[0] eq 'i') {
@@ -151,8 +137,8 @@ sub _detect_data {
 			my $data = shift @{$data};
 			$tmp_data .= " $data";
 		}
-		push @{$self->{'flush_code'}},
-			"?$target ".$self->_encode_newline($tmp_data);
+		$self->{'flush_code'} .= "?$target ".
+			$self->_encode_newline($tmp_data)."\n";
 
 	# Other.
 	} else {
