@@ -31,7 +31,7 @@ sub register {
 # Register tags object to this module.
 
 	$tags_obj = shift;
-	unless ($tags_obj && $tags_obj->isa('Tags2')) {
+	if (! $tags_obj || ! $tags_obj->isa('Tags2')) {
 		err "Bad Tags2 object.\n";
 	}
 }

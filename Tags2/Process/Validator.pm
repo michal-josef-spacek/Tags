@@ -263,10 +263,10 @@ sub _check_missing {
 	my $prev_tag = $self->{'printed'}->[0];
 
 	# No previous tag.
-	return unless $prev_tag;
+	return if ! $prev_tag;
 
 	# Without children.
-	return unless exists $self->{'dtd'}->{$prev_tag}->{'children'};
+	return if ! exists $self->{'dtd'}->{$prev_tag}->{'children'};
 
 	# No other tags.
 	my $index = $self->{'children_tags'}->[0] + 1;

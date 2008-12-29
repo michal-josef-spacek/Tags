@@ -53,7 +53,7 @@ sub new {
         while (@params) {
                 my $key = shift @params;
                 my $val = shift @params;
-                err "Bad parameter '$key'." unless exists $self->{$key};
+                err "Bad parameter '$key'." if ! exists $self->{$key};
                 $self->{$key} = $val;
         }
 
