@@ -2,6 +2,8 @@
 
 =pod
 
+=encoding utf8
+
 =head1 NAME
 
  Tags2 - Overview about Tags2 classes.
@@ -28,8 +30,11 @@
 
 =head1 SEE ALSO
 
+L<Tags2::Output::Core(3pm)>,
+L<Tags2::Output::Debug(3pm)>,
 L<Tags2::Output::ESIS(3pm)>,
 L<Tags2::Output::Indent(3pm)>,
+L<Tags2::Output::Indent2(3pm)>,
 L<Tags2::Output::LibXML(3pm)>,
 L<Tags2::Output::PYX(3pm)>,
 L<Tags2::Output::Raw(3pm)>,
@@ -43,7 +48,7 @@ L<Tags2::Utils::SimpleOO(3pm)>.
 
 =head1 AUTHOR
 
- Michal Spacek L<tupinek@gmail.com>
+ Michal Špaček L<tupinek@gmail.com>
 
 =head1 VERSION 
 
