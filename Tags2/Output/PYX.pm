@@ -47,28 +47,6 @@ sub new {
 }
 
 #------------------------------------------------------------------------------
-sub put {
-#------------------------------------------------------------------------------
-# Put tags code.
-
-	my ($self, @data) = @_;
-
-	# For every data.
-	foreach my $dat (@data) {
-
-		# Bad data.
-		unless (ref $dat eq 'ARRAY') {
-			err 'Bad data.';
-		}
-
-		# Detect and process data.
-		$self->_detect_data($dat);
-	}
-
-	return;
-}
-
-#------------------------------------------------------------------------------
 sub reset {
 #------------------------------------------------------------------------------
 # Resets internal variables.
@@ -89,66 +67,6 @@ sub reset {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _detect_data {
-#------------------------------------------------------------------------------
-# Detect and process data.
-
-	my ($self, $data) = @_;
-
-	# Attributes.
-	if ($data->[0] eq 'a') {
-		shift @{$data};
-		while (@{$data}) {
-			my $par = shift @{$data};
-			my $val = shift @{$data};
-			$self->{'flush_code'} .= "A$par $val\n";
-		}
-
-	# Begin of tag.
-	} elsif ($data->[0] eq 'b') {
-		$self->{'flush_code'} .= "($data->[1]\n";
-		unshift @{$self->{'printed_tags'}}, $data->[1];
-
-	# Data.
-	} elsif ($data->[0] eq 'd') {
-		shift @{$data};
-		my $tmp_data = $EMPTY;
-		foreach my $d (@{$data}) {
-			$tmp_data .= ref $d eq 'SCALAR' ? ${$d} : $d;
-		}
-		$self->{'flush_code'} .= '-'.
-			$self->_encode_newline($tmp_data)."\n";
-
-	# End of tag.
-	} elsif ($data->[0] eq 'e') {
-		my $printed = shift @{$self->{'printed_tags'}};
-		if ($printed ne $data->[1]) {
-			err "Ending bad tag: '$data->[1]' in block of ".
-				"tag '$printed'.";
-		}
-		$self->{'flush_code'} .= ")$data->[1]\n";
-
-	# Instruction.
-	} elsif ($data->[0] eq 'i') {
-		shift @{$data};
-		my $target = shift @{$data};
-		my $tmp_data = $EMPTY;
-		while (@{$data}) {
-			my $data = shift @{$data};
-			$tmp_data .= " $data";
-		}
-		$self->{'flush_code'} .= "?$target ".
-			$self->_encode_newline($tmp_data)."\n";
-
-	# Other.
-	} else {
-		err 'Bad type of data.' if ! $self->{'skip_bad_tags'};
-	}
-
-	return;
-}
-
-#------------------------------------------------------------------------------
 sub _encode_newline {
 #------------------------------------------------------------------------------
 # Encode newline in data to '\n' in output.
@@ -156,6 +74,93 @@ sub _encode_newline {
 	my ($self, $string) = @_;
 	$string =~ s/\n/\\n/gms;
 	return $string;
+}
+
+#------------------------------------------------------------------------------
+sub _put_attribute {
+#------------------------------------------------------------------------------
+# Attributes.
+
+	my ($self, $data) = @_;
+	shift @{$data};
+	while (@{$data}) {
+		my $par = shift @{$data};
+		my $val = shift @{$data};
+		$self->{'flush_code'} .= "A$par $val\n";
+	}
+}
+
+#------------------------------------------------------------------------------
+sub _put_begin_of_tag {
+#------------------------------------------------------------------------------
+# Begin of tag.
+
+	my ($self, $data) = @_;
+	$self->{'flush_code'} .= "($data->[1]\n";
+	unshift @{$self->{'printed_tags'}}, $data->[1];
+}
+
+#------------------------------------------------------------------------------
+sub _put_cdata {
+#------------------------------------------------------------------------------
+# CData.
+
+	my ($self, $data) = @_;
+	# TODO?
+}
+
+#------------------------------------------------------------------------------
+sub _put_comment {
+#------------------------------------------------------------------------------
+# Comment.
+
+	my ($self, $data) = @_;
+}
+
+#------------------------------------------------------------------------------
+sub _put_data {
+#------------------------------------------------------------------------------
+# Data.
+
+	my ($self, $data) = @_;
+	shift @{$data};
+	my $tmp_data = $EMPTY;
+	foreach my $d (@{$data}) {
+		$tmp_data .= ref $d eq 'SCALAR' ? ${$d} : $d;
+	}
+	$self->{'flush_code'} .= '-'.
+		$self->_encode_newline($tmp_data)."\n";
+}
+
+#------------------------------------------------------------------------------
+sub _put_end_of_tag {
+#------------------------------------------------------------------------------
+# End of tag.
+
+	my ($self, $data) = @_;
+	my $printed = shift @{$self->{'printed_tags'}};
+	if ($printed ne $data->[1]) {
+		err "Ending bad tag: '$data->[1]' in block of ".
+			"tag '$printed'.";
+	}
+	$self->{'flush_code'} .= ")$data->[1]\n";
+}
+
+#------------------------------------------------------------------------------
+sub _put_instruction {
+#------------------------------------------------------------------------------
+# Instruction.
+
+	my ($self, $data) = @_;
+	shift @{$data};
+	my $target = shift @{$data};
+	my $tmp_data = $EMPTY;
+	while (@{$data}) {
+		my $data = shift @{$data};
+		$tmp_data .= " $data";
+	}
+	$self->{'flush_code'} .= "?$target".
+		$self->_encode_newline($tmp_data)."\n";
 }
 
 1;
