@@ -236,7 +236,7 @@ __END__
 
  TODO
 
-=head1 SESIS LINE CHARS
+=head1 ESIS LINE CHARS
 
  _  - Comment data.
  ?  - Instruction.
@@ -249,7 +249,7 @@ __END__
 
 =over 8
 
-=item B<new()>
+=item B<new(%parameters)>
 
  TODO
 
@@ -295,12 +295,16 @@ __END__
 
 =head1 DEPENDENCIES
 
-L<Error::Simple::Multiple(3pm)>.
+L<Error::Simple::Multiple(3pm)>,
+L<Readonly(3pm)>.
 
 =head1 SEE ALSO
 
 L<Tags2(3pm)>,
+L<Tags2::Output::Core(3pm)>,
+L<Tags2::Output::Debug(3pm)>,
 L<Tags2::Output::Indent(3pm)>,
+L<Tags2::Output::Indent2(3pm)>,
 L<Tags2::Output::LibXML(3pm)>,
 L<Tags2::Output::PYX(3pm)>,
 L<Tags2::Output::Raw(3pm)>,
