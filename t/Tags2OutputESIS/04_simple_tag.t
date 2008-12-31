@@ -21,8 +21,8 @@ $obj->put(
 );
 $ret = $obj->flush;
 $right_ret = <<'END';
-(MAIN
 Aid id_value
+(MAIN
 )MAIN
 END
 chomp $right_ret;
@@ -40,11 +40,11 @@ $obj->put(
 );
 $ret = $obj->flush;
 $right_ret = <<'END';
-(MAIN
 Aid id_value
-)MAIN
 (MAIN
+)MAIN
 Aid id_value2
+(MAIN
 )MAIN
 END
 chomp $right_ret;
@@ -73,8 +73,8 @@ $obj->put(
 );
 $ret = $obj->flush;
 $right_ret = <<'END';
-(main
 Aid id_value
+(main
 )main
 END
 chomp $right_ret;
@@ -92,11 +92,11 @@ $obj->put(
 );
 $ret = $obj->flush;
 $right_ret = <<'END';
-(main
 Aid id_value
-)main
 (main
+)main
 Aid id_value2
+(main
 )main
 END
 chomp $right_ret;

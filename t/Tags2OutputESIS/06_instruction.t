@@ -9,4 +9,5 @@ my $right_ret = <<'END';
 ?perl
 ?perl print "1";
 END
+chomp $right_ret;
 ok($ret, $right_ret);

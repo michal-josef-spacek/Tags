@@ -24,8 +24,8 @@ $obj->put(
 );
 $ret = $obj->flush;
 $right_ret = <<'END';
-(MAIN
 Aid id_value
+(MAIN
 -data
 )MAIN
 END
@@ -46,12 +46,12 @@ $obj->put(
 );
 $ret = $obj->flush;
 $right_ret = <<'END';
-(MAIN
 Aid id_value
+(MAIN
 -data
 )MAIN
-(MAIN
 Aid id_value2
+(MAIN
 -data
 )MAIN
 END
