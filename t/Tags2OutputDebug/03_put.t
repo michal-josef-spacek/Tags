@@ -21,4 +21,5 @@ End of tag
 Instruction
 Raw data
 END
+chomp $right_ret;
 ok($ret, $right_ret);
