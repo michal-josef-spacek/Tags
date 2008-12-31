@@ -25,8 +25,11 @@ sub new {
 	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
-	# Set output handler.
+	# Output handler.
 	$self->{'output_handler'} = $EMPTY;
+
+	# Output separator.
+	$self->{'output_sep'} = "\n";
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
@@ -47,21 +50,6 @@ sub new {
 }
 
 #------------------------------------------------------------------------------
-sub flush {
-#------------------------------------------------------------------------------
-# Flush tags in object.
-
-	my $self = shift;
-	my $ouf = $self->{'output_handler'};
-	if ($ouf) {
-		print {$ouf} join("\n", @{$self->{'flush_code'}});
-		return;
-	} else {
-		return join("\n", @{$self->{'flush_code'}});
-	}
-}
-
-#------------------------------------------------------------------------------
 sub reset {
 #------------------------------------------------------------------------------
 # Resets internal variables.
@@ -69,7 +57,7 @@ sub reset {
 	my $self = shift;
 
 	# Flush code.
-	$self->{'flush_code'} = ();
+	$self->{'flush_code'} = [];
 
 	# Tmp code.
 	$self->{'tmp_code'} = [];
