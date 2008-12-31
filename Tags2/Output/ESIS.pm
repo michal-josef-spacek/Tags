@@ -195,7 +195,7 @@ sub _put_instruction {
 		$tmp_data .= " $tmp";
 	}
 	push @{$self->{'flush_code'}},
-		"?$target ".$self->_encode_newline($tmp_data);
+		"?$target".$self->_encode_newline($tmp_data);
 	return;
 }
 
