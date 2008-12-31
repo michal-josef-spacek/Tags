@@ -37,10 +37,17 @@ sub flush {
 	my ($self, $reset_flag) = @_;
 	my $ouf = $self->{'output_handler'};
 	my $ret;
-	if ($ouf) {
-		print {$ouf} $self->{'flush_code'};
+	if (ref $self->{'flush_code'} eq 'ARRAY') {
+		my $output_sep = $self->{'output_sep'} 
+			? $self->{'output_sep'}
+			: "\n";
+		$ret = join($output_sep, @{$self->{'flush_code'}});
 	} else {
 		$ret = $self->{'flush_code'};
+	}
+	if ($ouf) {
+		print {$ouf} $ret;
+		undef $ret;
 	}
 
 	# Reset.
