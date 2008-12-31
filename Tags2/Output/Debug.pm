@@ -21,6 +21,9 @@ sub new {
 	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
+	# Output separator.
+	$self->{'output_sep'} = "\n";
+
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
 
@@ -32,8 +35,24 @@ sub new {
                 $self->{$key} = $val;
         }
 
+	# Initialization.
+	$self->reset;
+
 	# Object.
 	return $self;
+}
+
+#------------------------------------------------------------------------------
+sub reset {
+#------------------------------------------------------------------------------
+# Reset.
+
+	my $self = shift;
+
+	# Flush code.
+	$self->{'flush_code'} = [];
+
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -46,7 +65,7 @@ sub _put_attribute {
 # Attributes.
 
 	my ($self, $data) = @_;
-	$self->{'flush_code'} .= "Attribute\n";
+	push @{$self->{'flush_code'}}, 'Attribute';
 	return;
 }
 
@@ -56,7 +75,7 @@ sub _put_begin_of_tag {
 # Begin of tag.
 
 	my ($self, $data) = @_;
-	$self->{'flush_code'} .= "Begin of tag\n";
+	push @{$self->{'flush_code'}}, 'Begin of tag';
 	return;
 }
 
@@ -66,7 +85,7 @@ sub _put_cdata {
 # CData.
 
 	my ($self, $data) = @_;
-	$self->{'flush_code'} .= "CData\n";
+	push @{$self->{'flush_code'}}, 'CData';
 	return;
 }
 
@@ -76,7 +95,7 @@ sub _put_comment {
 # Comment.
 
 	my ($self, $data) = @_;
-	$self->{'flush_code'} .= "Comment\n";
+	push @{$self->{'flush_code'}}, 'Comment';
 	return;
 }
 
@@ -86,7 +105,7 @@ sub _put_data {
 # Data.
 
 	my ($self, $data) = @_;
-	$self->{'flush_code'} .= "Data\n";
+	push @{$self->{'flush_code'}}, 'Data';
 	return;
 }
 
@@ -96,7 +115,7 @@ sub _put_end_of_tag {
 # End of tag.
 
 	my ($self, $data) = @_;
-	$self->{'flush_code'} .= "End of tag\n";
+	push @{$self->{'flush_code'}}, 'End of tag';
 	return;
 }
 
@@ -106,7 +125,7 @@ sub _put_instruction {
 # Instruction.
 
 	my ($self, $data) = @_;
-	$self->{'flush_code'} .= "Instruction\n";
+	push @{$self->{'flush_code'}}, 'Instruction';
 	return;
 }
 
@@ -116,7 +135,7 @@ sub _put_raw {
 # Raw data.
 
 	my ($self, $data) = @_;
-	$self->{'flush_code'} .= "Raw data\n";
+	push @{$self->{'flush_code'}}, 'Raw data';
 	return;
 }
 
