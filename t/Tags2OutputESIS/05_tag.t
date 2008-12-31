@@ -11,6 +11,7 @@ my $right_ret = <<'END';
 -data
 )MAIN
 END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 print "Testing: Normal tag with parameters.\n" if $debug;
@@ -28,6 +29,7 @@ Aid id_value
 -data
 )MAIN
 END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 print "Testing: Normal tag after normal tag.\n" if $debug;
@@ -53,4 +55,5 @@ Aid id_value2
 -data
 )MAIN
 END
+chomp $right_ret;
 ok($ret, $right_ret);
