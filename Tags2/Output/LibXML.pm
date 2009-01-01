@@ -107,11 +107,10 @@ sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
 
-	my ($self, $data_ref) = @_;
-	shift @{$data_ref};
-	while (@{$data_ref}) {
-		my $par = shift @{$data_ref};
-		my $val = shift @{$data_ref};
+	my ($self, @pairs) = @_;
+	while (@pairs) {
+		my $par = shift @pairs;
+		my $val = shift @pairs;
 		$self->{'printed_tags'}->[0]->setAttribute($par, $val);
 	}
 	return;
@@ -122,14 +121,14 @@ sub _put_begin_of_tag {
 #------------------------------------------------------------------------------
 # Begin of tag.
 
-	my ($self, $data_ref) = @_;
-	my $begin_node = $self->{'doc'}->createElement($data_ref->[1]);
+	my ($self, $tag) = @_;
+	my $begin_node = $self->{'doc'}->createElement($tag);
 	if ($self->{'first'} == 0) {
 		$self->{'doc'}->setDocumentElement($begin_node);
 		$self->{'first'} = 1;
 	} else {
 		if (! $self->{'printed_tags'}->[0]) {
-			err "Second root tag '$data_ref->[1]' is bad.";
+			err "Second root tag '$tag' is bad.";
 		} else {
 			$self->{'printed_tags'}->[0]->addChild($begin_node);
 		}
@@ -143,12 +142,9 @@ sub _put_cdata {
 #------------------------------------------------------------------------------
 # CData.
 
-	my ($self, $data_ref) = @_;
-	my $tmp = $EMPTY;
-	foreach my $d (@{$data_ref}) {
-		$tmp .= ref $d eq 'SCALAR' ? ${$d} : $d;
-	}
-	my $cdata_node = $self->{'doc'}->create($tmp);
+	my ($self, @cdata) = @_;
+	my $cdata = join($EMPTY, @cdata);
+	my $cdata_node = $self->{'doc'}->create($cdata);
 	$self->{'printed_tags'}->[0]->addChild($cdata_node);
 	return;
 }
@@ -158,12 +154,9 @@ sub _put_comment {
 #------------------------------------------------------------------------------
 # Comment.
 
-	my ($self, $data_ref) = @_;
-	my $tmp = $EMPTY;
-	foreach my $d (@{$data_ref}) {
-		$tmp .= ref $d eq 'SCALAR' ? ${$d} : $d;
-	}
-	my $comment_node = $self->{'doc'}->createComment($tmp);
+	my ($self, @comments) = @_;
+	my $comment = join($EMPTY, @comments);
+	my $comment_node = $self->{'doc'}->createComment($comment);
 	$self->{'printed_tags'}->[0]->addChild($comment_node);
 	return;
 }
@@ -173,13 +166,9 @@ sub _put_data {
 #------------------------------------------------------------------------------
 # Data.
 
-	my ($self, $data_ref) = @_;
-	my $tmp = $EMPTY;
-	shift @{$data_ref};
-	foreach my $d (@{$data_ref}) {
-		$tmp .= ref $d eq 'SCALAR' ? ${$d} : $d;
-	}
-	my $data_node = $self->{'doc'}->createTextNode($tmp);
+	my ($self, @data) = @_;
+	my $data = join($EMPTY, @data);
+	my $data_node = $self->{'doc'}->createTextNode($data);
 	$self->{'printed_tags'}->[0]->addChild($data_node);
 	return;
 }
@@ -189,7 +178,7 @@ sub _put_end_of_tag {
 #------------------------------------------------------------------------------
 # End of tag.
 
-	my ($self, $data_ref) = @_;
+	my ($self, $tag) = @_;
 	shift @{$self->{'printed_tags'}};
 	return;
 }
@@ -199,17 +188,10 @@ sub _put_instruction {
 #------------------------------------------------------------------------------
 # Instruction.
 
-	my ($self, $data_ref) = @_;
-	shift @{$data_ref};
-	my $target = shift @{$data_ref};
-	my $tmp = $EMPTY;
-	while (@{$data_ref}) {
-		my $tmp_data = shift @{$data_ref};
-		$tmp .= " $tmp_data";
-	}
-	my $instruction_node
-		= $self->{'doc'}->createProcessingInstruction(
-		$target, $tmp);
+	my ($self, $target, $code) = @_;
+	my $instruction_node = $self->{'doc'}->createProcessingInstruction(
+		$target, $code,
+	);
 	if (! defined $self->{'printed_tags'}->[0]) {
 		$self->{'doc'}->appendChild($instruction_node);
 	} else {
@@ -223,7 +205,7 @@ sub _put_raw {
 #------------------------------------------------------------------------------
 # Raw data.
 
-	my ($self, $data_ref) = @_;
+	my ($self, @raw_data) = @_;
 	return;
 }
 

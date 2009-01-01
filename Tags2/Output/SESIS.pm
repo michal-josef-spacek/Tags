@@ -84,11 +84,10 @@ sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
 
-	my ($self, $data_ref) = @_;
-	shift @{$data_ref};
-	while (@{$data_ref}) {
-		my $par = shift @{$data_ref};
-		my $val = shift @{$data_ref};
+	my ($self, @pairs) = @_;
+	while (@pairs) {
+		my $par = shift @pairs;
+		my $val = shift @pairs;
 		push @{$self->{'flush_code'}}, "A$par $val";
 	}
 	return;
@@ -99,9 +98,9 @@ sub _put_begin_of_tag {
 #------------------------------------------------------------------------------
 # Begin of tag.
 
-	my ($self, $data_ref) = @_;
-	push @{$self->{'flush_code'}}, "($data_ref->[1]";
-	unshift @{$self->{'printed_tags'}}, $data_ref->[1];
+	my ($self, $tag) = @_;
+	push @{$self->{'flush_code'}}, "($tag";
+	unshift @{$self->{'printed_tags'}}, $tag;
 	return;
 }
 
@@ -110,14 +109,9 @@ sub _put_cdata {
 #------------------------------------------------------------------------------
 # CData.
 
-	my ($self, $data_ref) = @_;
-	shift @{$data_ref};
-	my $tmp_data = $EMPTY;
-	foreach my $d (@{$data_ref}) {
-		$tmp_data .= ref $d eq 'SCALAR' ? ${$d} : $d;
-	}
-	push @{$self->{'flush_code'}},
-		'CD'.$self->_encode_newline($tmp_data);
+	my ($self, @cdata) = @_;
+	my $cdata = join($EMPTY, @cdata);
+	push @{$self->{'flush_code'}}, 'CD'.$self->_encode_newline($cdata);
 	return;
 }
 
@@ -126,14 +120,9 @@ sub _put_comment {
 #------------------------------------------------------------------------------
 # Comment.
 
-	my ($self, $data_ref) = @_;
-	shift @{$data_ref};
-	my $tmp_data = $EMPTY;
-	foreach my $d (@{$data_ref}) {
-		$tmp_data .= ref $d eq 'SCALAR' ? ${$d} : $d;
-	}
-	push @{$self->{'flush_code'}},
-		'_'.$self->_encode_newline($tmp_data);
+	my ($self, @comments) = @_;
+	my $comment = join($EMPTY, @comments);
+	push @{$self->{'flush_code'}}, '_'.$self->_encode_newline($comment);
 	return;
 }
 
@@ -142,14 +131,9 @@ sub _put_data {
 #------------------------------------------------------------------------------
 # Data.
 
-	my ($self, $data_ref) = @_;
-	shift @{$data_ref};
-	my $tmp_data = $EMPTY;
-	foreach my $d (@{$data_ref}) {
-		$tmp_data .= ref $d eq 'SCALAR' ? ${$d} : $d;
-	}
-	push @{$self->{'flush_code'}},
-		'-'.$self->_encode_newline($tmp_data);
+	my ($self, @data) = @_;
+	my $data = join($EMPTY, @data);
+	push @{$self->{'flush_code'}}, '-'.$self->_encode_newline($data);
 	return;
 }
 
@@ -158,13 +142,13 @@ sub _put_end_of_tag {
 #------------------------------------------------------------------------------
 # End of tag.
 
-	my ($self, $data_ref) = @_;
+	my ($self, $tag) = @_;
 	my $printed = shift @{$self->{'printed_tags'}};
-	if ($printed ne $data_ref->[1]) {
-		err "Ending bad tag: '$data_ref->[1]' in block of ".
+	if ($printed ne $tag) {
+		err "Ending bad tag: '$tag' in block of ".
 			"tag '$printed'.";
 	}
-	push @{$self->{'flush_code'}}, ")$data_ref->[1]";
+	push @{$self->{'flush_code'}}, ")$tag";
 	return;
 }
 
@@ -173,16 +157,12 @@ sub _put_instruction {
 #------------------------------------------------------------------------------
 # Instruction.
 
-	my ($self, $data_ref) = @_;
-	shift @{$data_ref};
-	my $target = shift @{$data_ref};
-	my $tmp_data = $EMPTY;
-	while (@{$data_ref}) {
-		my $tmp = shift @{$data_ref};
-		$tmp_data .= " $tmp";
-	}
-	push @{$self->{'flush_code'}},
-		"?$target".$self->_encode_newline($tmp_data);
+	my ($self, $target, $code) = @_;
+
+	# Create instruction line.
+	my $instruction = '?'.$target;
+	$instruction .= ' '.$code if $code;
+	push @{$self->{'flush_code'}}, $self->_encode_newline($instruction);
 	return;
 }
 
@@ -191,15 +171,9 @@ sub _put_raw {
 #------------------------------------------------------------------------------
 # Raw data.
 
-	my ($self, $data_ref) = @_;
-	shift @{$data_ref};
-	my $tmp_data = $EMPTY;
-	while (@{$data_ref}) {
-		my $data = shift @{$data_ref};
-		$tmp_data .= $data_ref;
-	}
-	push @{$self->{'flush_code'}},
-		'R'.$self->_encode_newline($tmp_data);
+	my ($self, @raw_data) = @_;
+	my $raw_data = join($EMPTY, @raw_data);
+	push @{$self->{'flush_code'}}, 'R'.$self->_encode_newline($raw_data);
 	return;
 }
 
