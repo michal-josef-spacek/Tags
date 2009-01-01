@@ -76,44 +76,47 @@ sub put {
 	my ($self, @data) = @_;
 
 	# For every data.
-	foreach my $dat (@data) {
+	foreach my $tags_structure_ref (@data) {
 
 		# Bad data.
-		if (ref $dat ne 'ARRAY') {
+		if (ref $tags_structure_ref ne 'ARRAY') {
 			err 'Bad data.';
 		}
 
+		# Split to flag and main tags structure.
+		my ($flag, @tags_struct) = @{$tags_structure_ref};
+
 		# Attributes.
-		if ($dat->[0] eq 'a') {
-			$self->_put_attribute($dat);
+		if ($flag eq 'a') {
+			$self->_put_attribute(@tags_struct);
 
 		# Begin of tag.
-		} elsif ($dat->[0] eq 'b') {
-			$self->_put_begin_of_tag($dat);
-
-		# Comment.
-		} elsif ($dat->[0] eq 'c') {
-			$self->_put_comment($dat);
-
-		# Data.
-		} elsif ($dat->[0] eq 'd') {
-			$self->_put_data($dat);
-
-		# End of tag.
-		} elsif ($dat->[0] eq 'e') {
-			$self->_put_end_of_tag($dat);
-
-		# Instruction.
-		} elsif ($dat->[0] eq 'i') {
-			$self->_put_instruction($dat);
-
-		# Raw data.
-		} elsif ($dat->[0] eq 'r') {
-			$self->_put_raw($dat);
+		} elsif ($flag eq 'b') {
+			$self->_put_begin_of_tag(@tags_struct);
 
 		# CData.
-		} elsif ($dat->[0] eq 'cd') {
-			$self->_put_cdata($dat);
+		} elsif ($flag eq 'cd') {
+			$self->_put_cdata(@tags_struct);
+
+		# Comment.
+		} elsif ($flag eq 'c') {
+			$self->_put_comment(@tags_struct);
+
+		# Data.
+		} elsif ($flag eq 'd') {
+			$self->_put_data(@tags_struct);
+
+		# End of tag.
+		} elsif ($flag eq 'e') {
+			$self->_put_end_of_tag(@tags_struct);
+
+		# Instruction.
+		} elsif ($flag eq 'i') {
+			$self->_put_instruction(@tags_struct);
+
+		# Raw data.
+		} elsif ($flag eq 'r') {
+			$self->_put_raw(@tags_struct);
 
 		# Other.
 		} else {
@@ -139,7 +142,7 @@ sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
 
-	my ($self, $data_ref) = @_;
+	my ($self, @pairs) = @_;
 	return;
 }
 
@@ -148,7 +151,7 @@ sub _put_begin_of_tag {
 #------------------------------------------------------------------------------
 # Begin of tag.
 
-	my ($self, $data_ref) = @_;
+	my ($self, $tag) = @_;
 	return;
 }
 
@@ -157,7 +160,7 @@ sub _put_cdata {
 #------------------------------------------------------------------------------
 # CData.
 
-	my ($self, $data_ref) = @_;
+	my ($self, @cdata) = @_;
 	return;
 }
 
@@ -166,7 +169,7 @@ sub _put_comment {
 #------------------------------------------------------------------------------
 # Comment.
 
-	my ($self, $data_ref) = @_;
+	my ($self, @comments) = @_;
 	return;
 }
 
@@ -175,7 +178,7 @@ sub _put_data {
 #------------------------------------------------------------------------------
 # Data.
 
-	my ($self, $data_ref) = @_;
+	my ($self, @data) = @_;
 	return;
 }
 
@@ -184,7 +187,7 @@ sub _put_end_of_tag {
 #------------------------------------------------------------------------------
 # End of tag.
 
-	my ($self, $data_ref) = @_;
+	my ($self, $tag) = @_;
 	return;
 }
 
@@ -193,7 +196,7 @@ sub _put_instruction {
 #------------------------------------------------------------------------------
 # Instruction.
 
-	my ($self, $data_ref) = @_;
+	my ($self, $target, $code) = @_;
 	return;
 }
 
@@ -202,7 +205,7 @@ sub _put_raw {
 #------------------------------------------------------------------------------
 # Raw data.
 
-	my ($self, $data_ref) = @_;
+	my ($self, @raw_data) = @_;
 	return;
 }
 
