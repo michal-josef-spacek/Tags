@@ -55,7 +55,7 @@ sub reset {
 	my $self = shift;
 
 	# Flush code.
-	$self->{'flush_code'} = $EMPTY;
+	$self->{'flush_code'} = [];
 
 	# Printed tags.
 	$self->{'printed_tags'} = [];
@@ -76,7 +76,7 @@ sub _put_attribute {
 	while (@pairs) {
 		my $par = shift @pairs;
 		my $val = shift @pairs;
-		$self->{'flush_code'} .= "A$par $val\n";
+		push @{$self->{'flush_code'}}, "A$par $val";
 	}
 	return;
 }
@@ -87,7 +87,7 @@ sub _put_begin_of_tag {
 # Begin of tag.
 
 	my ($self, $tag) = @_;
-	$self->{'flush_code'} .= "($tag\n";
+	push @{$self->{'flush_code'}}, "($tag";
 	unshift @{$self->{'printed_tags'}}, $tag;
 	return;
 }
@@ -118,7 +118,7 @@ sub _put_data {
 
 	my ($self, @data) = @_;
 	my $data = join($EMPTY, @data);
-	$self->{'flush_code'} .= '-'.encode_newline($data)."\n";
+	push @{$self->{'flush_code'}}, '-'.encode_newline($data);
 	return;
 }
 
@@ -132,7 +132,7 @@ sub _put_end_of_tag {
 	if ($printed ne $tag) {
 		err "Ending bad tag: '$tag' in block of tag '$printed'.";
 	}
-	$self->{'flush_code'} .= ")$tag\n";
+	push @{$self->{'flush_code'}}, ")$tag";
 	return;
 }
 
@@ -148,7 +148,7 @@ sub _put_instruction {
 	$instruction .= ' '.$code if $code;
 
 	# To flush code.
-	$self->{'flush_code'} .= encode_newline($instruction)."\n";
+	push @{$self->{'flush_code'}}, encode_newline($instruction);
 
 	return;
 }
