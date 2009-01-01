@@ -490,7 +490,7 @@ sub _put_raw {
 	shift @{$data_ref};
 	while (@{$data_ref}) {
 		my $data = shift @{$data_ref};
-		$self->_flush_code($data_ref);
+		$self->_flush_code($data);
 	}
 	$self->{'raw_tag'} = 1;
 	return;
