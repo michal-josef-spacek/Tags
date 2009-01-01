@@ -6,7 +6,13 @@ $obj->put(
 	['e', 'MAIN'],
 );
 my $ret = $obj->flush;
-ok($ret, "<MAIN>\n  data\n</MAIN>");
+my $right_ret = <<'END';
+<MAIN>
+  data
+</MAIN>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
 
 print "Testing: Normal tag with parameters.\n" if $debug;
 $obj = $class->new;
@@ -17,7 +23,13 @@ $obj->put(
 	['e', 'MAIN'],
 );
 $ret = $obj->flush;
-ok($ret, "<MAIN id=\"id_value\">\n  data\n</MAIN>");
+$right_ret = <<'END';
+<MAIN id="id_value">
+  data
+</MAIN>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
 
 print "Testing: Normal tag after normal tag.\n" if $debug;
 $obj = $class->new;
@@ -32,4 +44,13 @@ $obj->put(
 	['e', 'MAIN'],
 );
 $ret = $obj->flush;
-ok($ret, "<MAIN id=\"id_value\">\n  data\n</MAIN>\n<MAIN id=\"id_value2\">\n  data\n</MAIN>");
+$right_ret = <<'END';
+<MAIN id="id_value">
+  data
+</MAIN>
+<MAIN id="id_value2">
+  data
+</MAIN>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
