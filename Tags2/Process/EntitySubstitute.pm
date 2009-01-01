@@ -29,12 +29,12 @@ sub new {
 	$self->{'entity_chars'} = [];
 
 	# Process params.
-        while (@params) {
-                my $key = shift @params;
-                my $val = shift @params;
-                err "Bad parameter '$key'." if ! exists $self->{$key};
-                $self->{$key} = $val;
-        }
+	while (@params) {
+		my $key = shift @params;
+		my $val = shift @params;
+		err "Bad parameter '$key'." if ! exists $self->{$key};
+		$self->{$key} = $val;
+	}
 
 	# Check to hash reference in entity parameter.
 	if (ref $self->{'entity'} ne 'HASH') {

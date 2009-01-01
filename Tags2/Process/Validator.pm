@@ -33,12 +33,12 @@ sub new {
 	$self->{'dtd_file'} = undef;
 
 	# Process params.
-        while (@params) {
-                my $key = shift @params;
-                my $val = shift @params;
-                err "Bad parameter '$key'." if ! exists $self->{$key};
-                $self->{$key} = $val;
-        }
+	while (@params) {
+		my $key = shift @params;
+		my $val = shift @params;
+		err "Bad parameter '$key'." if ! exists $self->{$key};
+		$self->{$key} = $val;
+	}
 
 	# Is exists 'dtd_file' name.
 	err 'Cannot read file with DTD defined by \'dtd_file\' paremeter.'

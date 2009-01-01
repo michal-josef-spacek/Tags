@@ -35,12 +35,12 @@ sub new {
 	$self->{'skip_bad_tags'} = 0;
 
 	# Process params.
-        while (@params) {
-                my $key = shift @params;
-                my $val = shift @params;
-                err "Bad parameter '$key'." if ! exists $self->{$key};
-                $self->{$key} = $val;
-        }
+	while (@params) {
+		my $key = shift @params;
+		my $val = shift @params;
+		err "Bad parameter '$key'." if ! exists $self->{$key};
+		$self->{$key} = $val;
+	}
 
 	# Initialization.
 	$self->reset;

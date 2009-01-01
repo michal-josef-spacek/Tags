@@ -65,12 +65,12 @@ sub new {
 	$self->{'xml'} = 0;
 
 	# Process params.
-        while (@params) {
-                my $key = shift @params;
-                my $val = shift @params;
-                err "Bad parameter '$key'." if ! exists $self->{$key};
-                $self->{$key} = $val;
-        }
+	while (@params) {
+		my $key = shift @params;
+		my $val = shift @params;
+		err "Bad parameter '$key'." if ! exists $self->{$key};
+		$self->{$key} = $val;
+	}
 
 	# Check 'attr_delimeter'.
 	if ($self->{'attr_delimeter'} ne '"'
@@ -426,7 +426,7 @@ sub _put_end_of_tag {
 
 				$self->_print_tag('>');
 # XXX					$self->{'preserve_obj'}->end(
-# 					$data_ref->[1]);
+#					$data_ref->[1]);
 				$self->_print_end_tag($data_ref->[1]);
 			} else {
 				$self->_print_tag('/>');

@@ -29,12 +29,12 @@ sub new {
 	$self->{'preserved'} = [];
 
 	# Process params.
-        while (@params) {
-                my $key = shift @params;
-                my $val = shift @params;
-                err "Bad parameter '$key'." if ! exists $self->{$key};
-                $self->{$key} = $val;
-        }
+	while (@params) {
+		my $key = shift @params;
+		my $val = shift @params;
+		err "Bad parameter '$key'." if ! exists $self->{$key};
+		$self->{$key} = $val;
+	}
 
 	# Reset.
 	$self->reset;
