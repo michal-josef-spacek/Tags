@@ -15,6 +15,7 @@ use Tags2::Utils::Preserve;
 
 # Constants.
 Readonly::Scalar my $EMPTY => q{};
+Readonly::Scalar my $LAST_INDEX => -1;
 Readonly::Scalar my $SPACE => q{ };
 
 # Version.
@@ -115,18 +116,20 @@ sub _flush_tmp {
 
 	my ($self, $string) = @_;
 
-	# Get tmp_code.
+	# Added string.
 	push @{$self->{'tmp_code'}}, $string if $string;
+
+	# Detect preserve mode.
 	my ($pre, $pre_pre) = $self->{'preserve_obj'}->get;
 	if ($pre && ! $pre_pre) {
 		push @{$self->{'tmp_code'}}, "\n";
 	}
 
 	# Flush comment code before tag.
-	if ($self->{'comment_flag'} == 0
+	if ($self->{'comment_flag'} == 0 
 		&& scalar @{$self->{'tmp_comment_code'}}) {
 
-		$self->{'flush_code'} .= join($EMPTY,
+		$self->{'flush_code'} .= join($EMPTY, 
 			@{$self->{'tmp_comment_code'}},
 			@{$self->{'tmp_code'}});
 
@@ -149,14 +152,13 @@ sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
 
-	my ($self, $data) = @_;
+	my ($self, @pairs) = @_;
 	if (! scalar @{$self->{'tmp_code'}}) {
 		err 'Bad tag type \'a\'.';
 	}
-	shift @{$data};
-	while (@{$data}) {
-		my $par = shift @{$data};
-		my $val = shift @{$data};
+	while (@pairs) {
+		my $par = shift @pairs;
+		my $val = shift @pairs;
 		push @{$self->{'tmp_code'}}, $SPACE, $par.'='.
 			$self->{'attr_delimeter'}.$val.
 			$self->{'attr_delimeter'};
@@ -169,16 +171,21 @@ sub _put_begin_of_tag {
 #------------------------------------------------------------------------------
 # Begin of tag.
 
-	my ($self, $data) = @_;
+	my ($self, $tag) = @_;
+
+	# Flush tmp code.
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_flush_tmp('>');
 	}
-	if ($self->{'xml'} && $data->[1] ne lc($data->[1])) {
+
+	if ($self->{'xml'} && $tag ne lc($tag)) {
 		err 'In XML must be lowercase tag name.';
 	}
-	push @{$self->{'tmp_code'}}, "<$data->[1]";
-	unshift @{$self->{'printed_tags'}}, $data->[1];
-	$self->{'preserve_obj'}->begin($data->[1]);
+	push @{$self->{'tmp_code'}}, "<$tag";
+	unshift @{$self->{'printed_tags'}}, $tag;
+	$self->{'preserve_obj'}->begin($tag);
+
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -186,18 +193,28 @@ sub _put_cdata {
 #------------------------------------------------------------------------------
 # CData.
 
-	my ($self, $data) = @_;
+	my ($self, @cdata) = @_;
+
+	# Flush tmp code.
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_flush_tmp('>');
 	}
-	shift @{$data};
-	$self->{'flush_code'} .= '<![CDATA[';
-	foreach my $d (@{$data}) {
-		$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d}
-			: $d;
+
+	# Added begin of cdata section.
+	unshift @cdata, '<![CDATA[';
+
+	# Check to bad cdata.
+	if (join($EMPTY, @cdata) =~ /]]>$/ms) {
+		err 'Bad CDATA data.'
 	}
-	err 'Bad CDATA data.' if $self->{'flush_code'} =~ /]]>$/ms;
-	$self->{'flush_code'} .= ']]>';
+
+	# Added end of cdata section.
+	push @cdata, ']]>';
+
+	# To flush code.
+	$self->{'flush_code'} .= join($EMPTY, @cdata);
+
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -205,29 +222,28 @@ sub _put_comment {
 #------------------------------------------------------------------------------
 # Comment.
 
-	my ($self, $data) = @_;
+	my ($self, @comments) = @_;
 
 	# Comment string.
-	shift @{$data};
-	my $comment_string = '<!--';
-	foreach my $d (@{$data}) {
-		$comment_string .= ref $d eq 'SCALAR' ? ${$d}
-			: $d;
+	unshift @comments, '<!--';
+	if (substr($comments[$LAST_INDEX], $LAST_INDEX) eq '-') {
+		push @comments, ' -->';
+	} else {
+		push @comments, '-->';
 	}
-	if (substr($comment_string, -1) eq '-') {
-		$comment_string .= $SPACE;
-	}
-	$comment_string .= '-->';
 
 	# Process comment.
+	my $comment = join($EMPTY, @comments);
 	if (scalar @{$self->{'tmp_code'}}) {
-		push @{$self->{'tmp_comment_code'}}, $comment_string;
+		push @{$self->{'tmp_comment_code'}}, $comment;
 
 		# Flag, that means comment is last.
 		$self->{'comment_flag'} = 1;
 	} else {
-		$self->{'flush_code'} .= $comment_string;
+		$self->{'flush_code'} .= $comment;
 	}
+
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -235,15 +251,17 @@ sub _put_data {
 #------------------------------------------------------------------------------
 # Data.
 
-	my ($self, $data) = @_;
+	my ($self, @data) = @_;
+
+	# Flush tmp code.
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_flush_tmp('>');
 	}
-	shift @{$data};
-	foreach my $d (@{$data}) {
-		$self->{'flush_code'} .= ref $d eq 'SCALAR' ? ${$d}
-			: $d;
-	}
+
+	# To flush code.
+	$self->{'flush_code'} .= join($EMPTY, @data);
+
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -251,30 +269,28 @@ sub _put_end_of_tag {
 #------------------------------------------------------------------------------
 # End of tag.
 
-	my ($self, $data) = @_;
+	my ($self, $tag) = @_;
 	my $printed = shift @{$self->{'printed_tags'}};
-	if ($self->{'xml'} && $printed ne $data->[1]) {
-		err "Ending bad tag: '$data->[1]' in block of ".
+	if ($self->{'xml'} && $printed ne $tag) {
+		err "Ending bad tag: '$tag' in block of ".
 			"tag '$printed'.";
 	}
 
 	# Tag can be simple.
 	if ($self->{'xml'} && (! scalar @{$self->{'no_simple'}}
-		|| none { $_ eq $data->[1] }
-		@{$self->{'no_simple'}})) {
+		|| none { $_ eq $tag } @{$self->{'no_simple'}})) {
 
 		if (scalar @{$self->{'tmp_code'}}) {
 			if (scalar @{$self->{'tmp_comment_code'}}
 				&& $self->{'comment_flag'} == 1) {
 
 				$self->_flush_tmp('>');
-				$self->{'flush_code'}
-					.= "</$data->[1]>";
+				$self->{'flush_code'} .= "</$tag>";
 			} else {
 				$self->_flush_tmp(' />');
 			}
 		} else {
-			$self->{'flush_code'} .= "</$data->[1]>";
+			$self->{'flush_code'} .= "</$tag>";
 		}
 
 	# Tag cannot be simple.
@@ -282,9 +298,11 @@ sub _put_end_of_tag {
 		if (scalar @{$self->{'tmp_code'}}) {
 			$self->_flush_tmp('>');
 		}
-		$self->{'flush_code'} .= "</$data->[1]>";
+		$self->{'flush_code'} .= "</$tag>";
 	}
-	$self->{'preserve_obj'}->end($data->[1]);
+	$self->{'preserve_obj'}->end($tag);
+
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -292,19 +310,19 @@ sub _put_instruction {
 #------------------------------------------------------------------------------
 # Instruction.
 
-	my ($self, $data) = @_;
+	my ($self, $target, $code) = @_;
+
+	# Flush tmp code.
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_flush_tmp('>');
 	}
-	shift @{$data};
-	$self->{'flush_code'} .= '<?';
-	my $target = shift @{$data};
-	$self->{'flush_code'} .= $target;
-	while (@{$data}) {
-		my $data = shift @{$data};
-		$self->{'flush_code'} .= " $data";
-	}
+
+	# To flush code.
+	$self->{'flush_code'} .= '<?'.$target;
+	$self->{'flush_code'} .= ' '.$code if $code;
 	$self->{'flush_code'} .= '?>';
+
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -312,15 +330,19 @@ sub _put_raw {
 #------------------------------------------------------------------------------
 # Raw data.
 
-	my ($self, $data) = @_;
+	my ($self, @raw_data) = @_;
+
+	# Flush tmp code.
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_flush_tmp('>');
 	}
-	shift @{$data};
-	while (@{$data}) {
-		my $data = shift @{$data};
+	
+	# To flush code.
+	foreach my $data (@raw_data) {
 		$self->{'flush_code'} .= $data;
 	}
+
+	return;
 }
 
 1;
