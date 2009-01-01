@@ -283,14 +283,16 @@ sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
 
-	my ($self, $data_ref) = @_;
+	my ($self, @pairs) = @_;
 	if (! scalar @{$self->{'tmp_code'}}) {
 		err 'Bad tag type \'a\'.';
 	}
-	shift @{$data_ref};
-	while (@{$data_ref}) {
-		my $par = shift @{$data_ref};
-		my $val = shift @{$data_ref};
+
+	# TODO Check to pairs.
+
+	while (@pairs) {
+		my $par = shift @pairs;
+		my $val = shift @pairs;
 		push @{$self->{'tmp_code'}}, $SPACE, $par, '=',
 			$self->{'attr_delimeter'}.$val.
 			$self->{'attr_delimeter'};
@@ -304,15 +306,18 @@ sub _put_begin_of_tag {
 #------------------------------------------------------------------------------
 # Begin of tag.
 
-	my ($self, $data_ref) = @_;
+	my ($self, $tag) = @_;
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_print_tag('>');
 	}
-	if ($self->{'xml'} && $data_ref->[1] ne lc($data_ref->[1])) {
+
+	# XML check for uppercase names.
+	if ($self->{'xml'} && $tag ne lc($tag)) {
 		err 'In XML must be lowercase tag name.';
 	}
-	push @{$self->{'tmp_code'}}, "<$data_ref->[1]";
-	unshift @{$self->{'printed_tags'}}, $data_ref->[1];
+
+	push @{$self->{'tmp_code'}}, "<$tag";
+	unshift @{$self->{'printed_tags'}}, $tag;
 	return;
 }
 
@@ -321,16 +326,14 @@ sub _put_cdata {
 #------------------------------------------------------------------------------
 # CData.
 
-	my ($self, $data_ref) = @_;
+	my ($self, @cdata) = @_;
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_print_tag('>');
 	}
-	shift @{$data_ref};
-	my @cdata = ('<![CDATA[');
-	foreach (@{$data_ref}) {
-		push @cdata, $_;
+	unshift @cdata, '<![CDATA[';
+	if (join($EMPTY, @cdata) =~ /]]>$/ms) {
+		err 'Bad CDATA section.' 
 	}
-	err 'Bad CDATA section.' if join($EMPTY, @cdata) =~ /]]>$/ms;
 	push @cdata, ']]>';
 	$self->_newline;
 	$self->{'preserve_obj'}->save_previous;
@@ -349,29 +352,24 @@ sub _put_comment {
 #------------------------------------------------------------------------------
 # Comment.
 
-	my ($self, $data_ref) = @_;
-	shift @{$data_ref};
-	my @comment = ();
-	push @comment, '<!--';
-	foreach my $d (@{$data_ref}) {
-		push @comment, (ref $d eq 'SCALAR') ? ${$d} : $d;
-	}
-	if (substr($comment[$LAST_INDEX], $LAST_INDEX) eq '-') {
-		push @comment, ' -->';
+	my ($self, @comments) = @_;
+	unshift @comments, '<!--';
+	if (substr($comments[$LAST_INDEX], $LAST_INDEX) eq '-') {
+		push @comments, ' -->';
 	} else {
-		push @comment, '-->';
+		push @comments, '-->';
 	}
 
 	# Process comment.
 	if (scalar @{$self->{'tmp_code'}}) {
-		push @{$self->{'tmp_comment_code'}}, \@comment;
+		push @{$self->{'tmp_comment_code'}}, \@comments;
 
 		# Flag, that means comment is last.
 		$self->{'comment_flag'} = 1;
 	} else {
 		$self->_newline;
 		$self->_flush_code($self->{'indent_block'}->indent(
-			\@comment,
+			\@comments,
 			$self->{'indent'}->get,
 		));
 	}
@@ -383,20 +381,15 @@ sub _put_data {
 #------------------------------------------------------------------------------
 # Data.
 
-	my ($self, $data_ref) = @_;
+	my ($self, @data) = @_;
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_print_tag('>');
-	}
-	shift @{$data_ref};
-	my @tmp_data;
-	foreach my $d (@{$data_ref}) {
-		push @tmp_data, (ref $d eq 'SCALAR') ? ${$d} : $d;
 	}
 	$self->_newline;
 	$self->{'preserve_obj'}->save_previous;
 	my $pre = $self->{'preserve_obj'}->get;
 	$self->_flush_code($self->{'indent_word'}->indent(
-		join($EMPTY, @tmp_data),
+		join($EMPTY, @data),
 		$pre ? $EMPTY : $self->{'indent'}->get,
 		$pre ? 1 : 0
 	));
@@ -408,26 +401,24 @@ sub _put_end_of_tag {
 #------------------------------------------------------------------------------
 # End of tag.
 
-	my ($self, $data_ref) = @_;
+	my ($self, $tag) = @_;
 	my $printed = shift @{$self->{'printed_tags'}};
-	if ($self->{'xml'} && $printed ne $data_ref->[1]) {
-		err "Ending bad tag: '$data_ref->[1]' in block of ".
-			"tag '$printed'.";
+	if ($self->{'xml'} && $printed ne $tag) {
+		err "Ending bad tag: '$tag' in block of tag '$printed'.";
 	}
 
 	# Tag can be simple.
 	if ($self->{'xml'} && (! scalar @{$self->{'no_simple'}}
-		|| none { $_ eq $data_ref->[1]} @{$self->{'no_simple'}})) {
+		|| none { $_ eq $tag} @{$self->{'no_simple'}})) {
 
-		my $pre = $self->{'preserve_obj'}->end($data_ref->[1]);
+		my $pre = $self->{'preserve_obj'}->end($tag);
 		if (scalar @{$self->{'tmp_code'}}) {
 			if (scalar @{$self->{'tmp_comment_code'}}
 				&& $self->{'comment_flag'} == 1) {
 
 				$self->_print_tag('>');
-# XXX					$self->{'preserve_obj'}->end(
-#					$data_ref->[1]);
-				$self->_print_end_tag($data_ref->[1]);
+# XXX				$self->{'preserve_obj'}->end($tag);
+				$self->_print_end_tag($tag);
 			} else {
 				$self->_print_tag('/>');
 				if (! $self->{'non_indent'} && ! $pre) {
@@ -435,20 +426,19 @@ sub _put_end_of_tag {
 				}
 			}
 		} else {
-			$self->_print_end_tag($data_ref->[1]);
+			$self->_print_end_tag($tag);
 		}
 
 	# Tag cannot be simple.
 	} else {
 		if (scalar @{$self->{'tmp_code'}}) {
-			unshift @{$self->{'printed_tags'}},
-				$data_ref->[1];
+			unshift @{$self->{'printed_tags'}}, $tag;
 			$self->_print_tag('>');
 			shift @{$self->{'printed_tags'}};
 # XXX				$self->_newline;
 		}
-		$self->{'preserve_obj'}->end($data_ref->[1]);
-		$self->_print_end_tag($data_ref->[1]);
+		$self->{'preserve_obj'}->end($tag);
+		$self->_print_end_tag($tag);
 	}
 	return;
 }
@@ -458,20 +448,18 @@ sub _put_instruction {
 #------------------------------------------------------------------------------
 # Instruction.
 
-	my ($self, $data_ref) = @_;
+	my ($self, $target, $code) = @_;
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_print_tag('>');
 	}
-	shift @{$data_ref};
-	my $target = shift @{$data_ref};
 	if (ref $self->{'instruction'} eq 'CODE') {
-		$self->{'instruction'}->($self, $target, @{$data_ref});
+		$self->{'instruction'}->($self, $target, $code);
 	} else {
 		$self->_newline;
 		$self->{'preserve_obj'}->save_previous;
 		$self->_flush_code($self->{'indent_block'}
 			->indent([
-			'<?'.$target, $SPACE, @{$data_ref}, '?>',
+			'<?'.$target, $SPACE, $code, '?>',
 			$self->{'indent'}->get,
 		]));
 	}
@@ -483,13 +471,11 @@ sub _put_raw {
 #------------------------------------------------------------------------------
 # Raw data.
 
-	my ($self, $data_ref) = @_;
+	my ($self, @raw_data) = @_;
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_print_tag('>');
 	}
-	shift @{$data_ref};
-	while (@{$data_ref}) {
-		my $data = shift @{$data_ref};
+	foreach my $data (@raw_data) {
 		$self->_flush_code($data);
 	}
 	$self->{'raw_tag'} = 1;
