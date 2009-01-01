@@ -33,7 +33,8 @@ Tags2::Output::Raw je.
 Tags2::Output::Indent je.
 30. Do Tags2::Output::LibXML jsem pridal detekci druheho root tagu a k tomu
     patricny error. Tohle by melo byt i v ostatnich vystupech v xml modu.
-31.
+31. V Tags2::Output::Raw prepsat 'flush_code' na pole, namisto skalaru.
+32.
 
 Applied
 =======
