@@ -152,6 +152,17 @@ sub reset {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
+sub _flush_code {
+#------------------------------------------------------------------------------
+# Helper for flush data.
+
+	my ($self, $code) = @_;
+	$self->{'process'} = 1 if ! $self->{'process'};
+	$self->{'flush_code'} .= $code;
+	return;
+}
+
+#------------------------------------------------------------------------------
 sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
@@ -220,6 +231,10 @@ sub _put_raw {
 # Raw data.
 
 	my ($self, @raw_data) = @_;
+	foreach my $data (@raw_data) {
+		$self->_flush_code($data);
+	}
+	$self->{'raw_tag'} = 1;
 	return;
 }
 
@@ -237,8 +252,8 @@ __END__
 
 =head1 SYNOPSIS
 
- use Tags2::Output::Indent(%params);
- my $t = Tags2::Output::Indent->new;
+ use Tags2::Output::Indent2(%params);
+ my $t = Tags2::Output::Indent2->new;
  $t->put(['b', 'tag']);
  $t->finalize;
  $t->flush;
@@ -372,10 +387,10 @@ __END__
  use warnings;
 
  # Modules.
- use Tags2::Output::Indent;
+ use Tags2::Output::Indent2;
 
  # Object.
- my $tags = Tags2::Output::Indent->new;
+ my $tags = Tags2::Output::Indent2->new;
 
  # Put data.
  $tags->put(
@@ -388,9 +403,7 @@ __END__
  print $tags->flush."\n";
 
  # Output:
- # <text>
- #   data
- # </text>
+ # <text>data</text>
 
 =head1 DEPENDENCIES
 
@@ -403,11 +416,13 @@ L<Tags2::Utils::Preserve(3pm)>.
 =head1 SEE ALSO
 
 L<Tags2(3pm)>,
-L<Tags2::Output::Raw(3pm)>,
+L<Tags2::Output::Core(3pm)>,
+L<Tags2::Output::Debug(3pm)>,
+L<Tags2::Output::ESIS(3pm)>,
 L<Tags2::Output::Indent(3pm)>,
 L<Tags2::Output::LibXML(3pm)>,
-L<Tags2::Output::ESIS(3pm)>,
 L<Tags2::Output::PYX(3pm)>,
+L<Tags2::Output::Raw(3pm)>,
 L<Tags2::Output::SESIS(3pm)>.
 
 =head1 AUTHOR
