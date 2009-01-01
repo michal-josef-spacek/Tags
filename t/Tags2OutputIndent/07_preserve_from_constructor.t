@@ -9,7 +9,13 @@ $obj->put(
 	['e', 'CHILD1'],
 );
 my $ret = $obj->flush;
-ok($ret, "<CHILD1>\n  DATA\n</CHILD1>");
+my $right_ret = <<'END';
+<CHILD1>
+  DATA
+</CHILD1>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
 
 $obj = $class->new(
 	'preserved' => [],
@@ -28,7 +34,17 @@ $obj->put(
 	['e', 'MAIN'],
 );
 $ret = $obj->flush;
-my $right_ret = "<MAIN>\n  <CHILD1 xml:space=\"default\">\n    $text\n  </CHILD1>\n</MAIN>";
+$right_ret = <<'END';
+<MAIN>
+  <CHILD1 xml:space="default">
+      text
+     text
+	text
+
+  </CHILD1>
+</MAIN>
+END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 print "- CHILD1 preserving is on.\n" if $debug;
@@ -41,7 +57,12 @@ $obj->put(
 	['e', 'CHILD1'],
 );
 $ret = $obj->flush;
-ok($ret, "<CHILD1>\nDATA</CHILD1>");
+$right_ret = <<'END';
+<CHILD1>
+DATA</CHILD1>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
 
 $obj = $class->new(
 	'preserved' => ['CHILD1'],
@@ -54,7 +75,16 @@ $obj->put(
 	['e', 'MAIN']
 );
 $ret = $obj->flush;
-$right_ret = "<MAIN>\n  <CHILD1>\n$text</CHILD1>\n</MAIN>";
+$right_ret = <<'END';
+<MAIN>
+  <CHILD1>
+  text
+     text
+	text
+</CHILD1>
+</MAIN>
+END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 # TODO Pridat vnorene testy.
