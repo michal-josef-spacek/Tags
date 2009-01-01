@@ -81,13 +81,13 @@ sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
 
-	my ($self, $data) = @_;
-	shift @{$data};
-	while (@{$data}) {
-		my $par = shift @{$data};
-		my $val = shift @{$data};
+	my ($self, @pairs) = @_;
+	while (@pairs) {
+		my $par = shift @pairs;
+		my $val = shift @pairs;
 		$self->{'flush_code'} .= "A$par $val\n";
 	}
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -95,9 +95,10 @@ sub _put_begin_of_tag {
 #------------------------------------------------------------------------------
 # Begin of tag.
 
-	my ($self, $data) = @_;
-	$self->{'flush_code'} .= "($data->[1]\n";
-	unshift @{$self->{'printed_tags'}}, $data->[1];
+	my ($self, $tag) = @_;
+	$self->{'flush_code'} .= "($tag\n";
+	unshift @{$self->{'printed_tags'}}, $tag;
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -105,8 +106,9 @@ sub _put_cdata {
 #------------------------------------------------------------------------------
 # CData.
 
-	my ($self, $data) = @_;
+	my ($self, @cdata) = @_;
 	# TODO?
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -114,7 +116,8 @@ sub _put_comment {
 #------------------------------------------------------------------------------
 # Comment.
 
-	my ($self, $data) = @_;
+	my ($self, $comments) = @_;
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -122,14 +125,10 @@ sub _put_data {
 #------------------------------------------------------------------------------
 # Data.
 
-	my ($self, $data) = @_;
-	shift @{$data};
-	my $tmp_data = $EMPTY;
-	foreach my $d (@{$data}) {
-		$tmp_data .= ref $d eq 'SCALAR' ? ${$d} : $d;
-	}
-	$self->{'flush_code'} .= '-'.
-		$self->_encode_newline($tmp_data)."\n";
+	my ($self, @data) = @_;
+	my $data = join($EMPTY, @data);
+	$self->{'flush_code'} .= '-'.$self->_encode_newline($data)."\n";
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -137,13 +136,13 @@ sub _put_end_of_tag {
 #------------------------------------------------------------------------------
 # End of tag.
 
-	my ($self, $data) = @_;
+	my ($self, $tag) = @_;
 	my $printed = shift @{$self->{'printed_tags'}};
-	if ($printed ne $data->[1]) {
-		err "Ending bad tag: '$data->[1]' in block of ".
-			"tag '$printed'.";
+	if ($printed ne $tag) {
+		err "Ending bad tag: '$tag' in block of tag '$printed'.";
 	}
-	$self->{'flush_code'} .= ")$data->[1]\n";
+	$self->{'flush_code'} .= ")$tag\n";
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -151,16 +150,25 @@ sub _put_instruction {
 #------------------------------------------------------------------------------
 # Instruction.
 
-	my ($self, $data) = @_;
-	shift @{$data};
-	my $target = shift @{$data};
-	my $tmp_data = $EMPTY;
-	while (@{$data}) {
-		my $data = shift @{$data};
-		$tmp_data .= " $data";
-	}
-	$self->{'flush_code'} .= "?$target".
-		$self->_encode_newline($tmp_data)."\n";
+	my ($self, $target, $code) = @_;
+
+	# Construct instruction line.
+	my $instruction = '?'.$target;
+	$instruction .= ' '.$code if $code;
+
+	# To flush code.
+	$self->{'flush_code'} .= $self->_encode_newline($instruction)."\n";
+
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _put_raw {
+#------------------------------------------------------------------------------
+# Raw data.
+
+	my ($self, @raw_data) = @_;
+	return;
 }
 
 1;
