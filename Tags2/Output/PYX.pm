@@ -10,6 +10,7 @@ use warnings;
 # Modules.
 use Error::Simple::Multiple qw(err);
 use Readonly;
+use Tags2::Utils qw(encode_newline);
 
 # Constants.
 Readonly::Scalar my $EMPTY => q{};
@@ -67,16 +68,6 @@ sub reset {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _encode_newline {
-#------------------------------------------------------------------------------
-# Encode newline in data to '\n' in output.
-
-	my ($self, $string) = @_;
-	$string =~ s/\n/\\n/gms;
-	return $string;
-}
-
-#------------------------------------------------------------------------------
 sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
@@ -127,7 +118,7 @@ sub _put_data {
 
 	my ($self, @data) = @_;
 	my $data = join($EMPTY, @data);
-	$self->{'flush_code'} .= '-'.$self->_encode_newline($data)."\n";
+	$self->{'flush_code'} .= '-'.encode_newline($self, $data)."\n";
 	return;
 }
 
@@ -157,7 +148,7 @@ sub _put_instruction {
 	$instruction .= ' '.$code if $code;
 
 	# To flush code.
-	$self->{'flush_code'} .= $self->_encode_newline($instruction)."\n";
+	$self->{'flush_code'} .= encode_newline($self, $instruction)."\n";
 
 	return;
 }

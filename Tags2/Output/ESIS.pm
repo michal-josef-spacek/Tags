@@ -10,6 +10,7 @@ use warnings;
 # Modules.
 use Error::Simple::Multiple qw(err);
 use Readonly;
+use Tags2::Utils qw(encode_newline);
 
 # Constants.
 Readonly::Scalar my $EMPTY => q{};
@@ -73,16 +74,6 @@ sub reset {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _encode_newline {
-#------------------------------------------------------------------------------
-# Encode newline in data to '\n' in output.
-
-	my ($self, $string) = @_;
-	$string =~ s/\n/\\n/gms;
-	return $string;
-}
-
-#------------------------------------------------------------------------------
 sub _flush_tmp {
 #------------------------------------------------------------------------------
 # Flush tmp.
@@ -138,7 +129,7 @@ sub _put_comment {
 	my ($self, @comments) = @_;
 	$self->_flush_tmp;
 	my $comment = join($EMPTY, @comments);
-	push @{$self->{'flush_code'}}, '_'.$self->_encode_newline($comment);
+	push @{$self->{'flush_code'}}, '_'.encode_newline($self, $comment);
 	return;
 }
 
@@ -150,7 +141,7 @@ sub _put_data {
 	my ($self, @data) = @_;
 	$self->_flush_tmp;
 	my $data = join($EMPTY, @data);
-	push @{$self->{'flush_code'}}, '-'.$self->_encode_newline($data);
+	push @{$self->{'flush_code'}}, '-'.encode_newline($self, $data);
 	return;
 }
 
@@ -178,7 +169,7 @@ sub _put_instruction {
 	$self->_flush_tmp;
 	my $instruction = '?'.$target;
 	$instruction .= ' '.$code if $code;
-	push @{$self->{'flush_code'}}, $self->_encode_newline($instruction);
+	push @{$self->{'flush_code'}}, encode_newline($self, $instruction);
 	return;
 }
 
