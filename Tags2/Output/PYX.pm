@@ -118,7 +118,7 @@ sub _put_data {
 
 	my ($self, @data) = @_;
 	my $data = join($EMPTY, @data);
-	$self->{'flush_code'} .= '-'.encode_newline($self, $data)."\n";
+	$self->{'flush_code'} .= '-'.encode_newline($data)."\n";
 	return;
 }
 
@@ -148,7 +148,7 @@ sub _put_instruction {
 	$instruction .= ' '.$code if $code;
 
 	# To flush code.
-	$self->{'flush_code'} .= encode_newline($self, $instruction)."\n";
+	$self->{'flush_code'} .= encode_newline($instruction)."\n";
 
 	return;
 }

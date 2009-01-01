@@ -102,7 +102,7 @@ sub _put_cdata {
 
 	my ($self, @cdata) = @_;
 	my $cdata = join($EMPTY, @cdata);
-	push @{$self->{'flush_code'}}, 'CD'.encode_newline($self, $cdata);
+	push @{$self->{'flush_code'}}, 'CD'.encode_newline($cdata);
 	return;
 }
 
@@ -113,7 +113,7 @@ sub _put_comment {
 
 	my ($self, @comments) = @_;
 	my $comment = join($EMPTY, @comments);
-	push @{$self->{'flush_code'}}, '_'.encode_newline($self, $comment);
+	push @{$self->{'flush_code'}}, '_'.encode_newline($comment);
 	return;
 }
 
@@ -124,7 +124,7 @@ sub _put_data {
 
 	my ($self, @data) = @_;
 	my $data = join($EMPTY, @data);
-	push @{$self->{'flush_code'}}, '-'.encode_newline($self, $data);
+	push @{$self->{'flush_code'}}, '-'.encode_newline($data);
 	return;
 }
 
@@ -153,7 +153,7 @@ sub _put_instruction {
 	# Create instruction line.
 	my $instruction = '?'.$target;
 	$instruction .= ' '.$code if $code;
-	push @{$self->{'flush_code'}}, encode_newline($self, $instruction);
+	push @{$self->{'flush_code'}}, encode_newline($instruction);
 	return;
 }
 
@@ -164,7 +164,7 @@ sub _put_raw {
 
 	my ($self, @raw_data) = @_;
 	my $raw_data = join($EMPTY, @raw_data);
-	push @{$self->{'flush_code'}}, 'R'.encode_newline($self, $raw_data);
+	push @{$self->{'flush_code'}}, 'R'.encode_newline($raw_data);
 	return;
 }
 

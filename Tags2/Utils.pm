@@ -22,7 +22,7 @@ sub encode_newline {
 #------------------------------------------------------------------------------
 # Encode newline in data to '\n' in output.
 
-	my ($self, $string) = @_;
+	my $string = shift;
 	$string =~ s/\n/\\n/gms;
 	return $string;
 }

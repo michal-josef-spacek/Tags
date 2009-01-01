@@ -129,7 +129,7 @@ sub _put_comment {
 	my ($self, @comments) = @_;
 	$self->_flush_tmp;
 	my $comment = join($EMPTY, @comments);
-	push @{$self->{'flush_code'}}, '_'.encode_newline($self, $comment);
+	push @{$self->{'flush_code'}}, '_'.encode_newline($comment);
 	return;
 }
 
@@ -141,7 +141,7 @@ sub _put_data {
 	my ($self, @data) = @_;
 	$self->_flush_tmp;
 	my $data = join($EMPTY, @data);
-	push @{$self->{'flush_code'}}, '-'.encode_newline($self, $data);
+	push @{$self->{'flush_code'}}, '-'.encode_newline($data);
 	return;
 }
 
@@ -169,7 +169,7 @@ sub _put_instruction {
 	$self->_flush_tmp;
 	my $instruction = '?'.$target;
 	$instruction .= ' '.$code if $code;
-	push @{$self->{'flush_code'}}, encode_newline($self, $instruction);
+	push @{$self->{'flush_code'}}, encode_newline($instruction);
 	return;
 }
 
