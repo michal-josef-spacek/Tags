@@ -64,7 +64,7 @@ sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
 
-	my ($self, $data) = @_;
+	my ($self, @pairs) = @_;
 	push @{$self->{'flush_code'}}, 'Attribute';
 	return;
 }
@@ -74,7 +74,7 @@ sub _put_begin_of_tag {
 #------------------------------------------------------------------------------
 # Begin of tag.
 
-	my ($self, $data) = @_;
+	my ($self, $tag) = @_;
 	push @{$self->{'flush_code'}}, 'Begin of tag';
 	return;
 }
@@ -84,7 +84,7 @@ sub _put_cdata {
 #------------------------------------------------------------------------------
 # CData.
 
-	my ($self, $data) = @_;
+	my ($self, @cdata) = @_;
 	push @{$self->{'flush_code'}}, 'CData';
 	return;
 }
@@ -94,7 +94,7 @@ sub _put_comment {
 #------------------------------------------------------------------------------
 # Comment.
 
-	my ($self, $data) = @_;
+	my ($self, @comments) = @_;
 	push @{$self->{'flush_code'}}, 'Comment';
 	return;
 }
@@ -104,7 +104,7 @@ sub _put_data {
 #------------------------------------------------------------------------------
 # Data.
 
-	my ($self, $data) = @_;
+	my ($self, @data) = @_;
 	push @{$self->{'flush_code'}}, 'Data';
 	return;
 }
@@ -114,7 +114,7 @@ sub _put_end_of_tag {
 #------------------------------------------------------------------------------
 # End of tag.
 
-	my ($self, $data) = @_;
+	my ($self, $tag) = @_;
 	push @{$self->{'flush_code'}}, 'End of tag';
 	return;
 }
@@ -124,7 +124,7 @@ sub _put_instruction {
 #------------------------------------------------------------------------------
 # Instruction.
 
-	my ($self, $data) = @_;
+	my ($self, $target, $code) = @_;
 	push @{$self->{'flush_code'}}, 'Instruction';
 	return;
 }
@@ -134,7 +134,7 @@ sub _put_raw {
 #------------------------------------------------------------------------------
 # Raw data.
 
-	my ($self, $data) = @_;
+	my ($self, @raw_data) = @_;
 	push @{$self->{'flush_code'}}, 'Raw data';
 	return;
 }
