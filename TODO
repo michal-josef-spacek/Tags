@@ -9,11 +9,6 @@ TODO
     [Struktura] -> Validator(jenom co muze byt za cim) -> Entitator? 
     -> Kontrola xml? -> Indenter
 15. Testy.
-17. Tags2::Output::Raw a jine by mely byt dohromady s dtd, protoze treba
-    xml:space FIXED znamena, ze je preserved, ale neni to krome dtd nikde videt.
-Tohle by slo resit tak:
-1) S validatorem (mel by dtd), predal by seznam preserved veci z dtd.
-2) Bez validatoru. Rucne bych pridal seznam preserved veci, ktere jsou v dtd.
 18. Predelat testy tak, aby se nemuselo pouzivat IO::Scalar pro prebirani
     vystupu ze stdout. Udelat test na stdout.
 21. Docela neprakticke je dat komentar mezi zacatek tagu a atribut. Pak je
@@ -101,3 +96,10 @@ OK [20090101] skim
 
 19. Implementovat do vsech Tags2::Output::* parametr instruction.
 OK [20090101] skim
+
+17. Tags2::Output::Raw a jine by mely byt dohromady s dtd, protoze treba
+    xml:space FIXED znamena, ze je preserved, ale neni to krome dtd nikde videt.
+Tohle by slo resit tak:
+1) S validatorem (mel by dtd), predal by seznam preserved veci z dtd.
+2) Bez validatoru. Rucne bych pridal seznam preserved veci, ktere jsou v dtd.
+NONE [20090101] skim
