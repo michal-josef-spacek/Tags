@@ -79,27 +79,6 @@ sub flush {
 }
 
 #------------------------------------------------------------------------------
-sub put {
-#------------------------------------------------------------------------------
-# Put tags code.
-
-	my ($self, @data) = @_;
-
-	# For every data.
-	foreach my $dat (@data) {
-
-		# Bad data.
-		if (ref $dat ne 'ARRAY') {
-			err 'Bad data.';
-		}
-
-		# Detect and process data.
-		$self->_detect_data($dat);
-	}
-	return;
-}
-
-#------------------------------------------------------------------------------
 sub reset {
 #------------------------------------------------------------------------------
 # Resets internal variables.
@@ -124,102 +103,127 @@ sub reset {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _detect_data {
+sub _put_attribute {
 #------------------------------------------------------------------------------
-# Detect and process data.
+# Attributes.
 
-	my ($self, $data) = @_;
-
-	# Attributes.
-	if ($data->[0] eq 'a') {
-		shift @{$data};
-		while (@{$data}) {
-			my $par = shift @{$data};
-			my $val = shift @{$data};
-			$self->{'printed_tags'}->[0]->setAttribute($par, $val);
-		}
-
-	# Begin of tag.
-	} elsif ($data->[0] eq 'b') {
-		my $begin_node = $self->{'doc'}->createElement($data->[1]);
-		if ($self->{'first'} == 0) {
-			$self->{'doc'}->setDocumentElement($begin_node);
-			$self->{'first'} = 1;
-		} else {
-			if (! $self->{'printed_tags'}->[0]) {
-				err "Second root tag '$data->[1]' is bad.";
-			} else {
-				$self->{'printed_tags'}->[0]->addChild($begin_node);
-			}
-		}
-		unshift @{$self->{'printed_tags'}}, $begin_node;
-
-	# Comment.
-	} elsif ($data->[0] eq 'c') {
-		my $tmp = $EMPTY;
-		foreach my $d (@{$data}) {
-			$tmp .= ref $d eq 'SCALAR' ? ${$d}
-				: $d;
-		}
-		my $comment_node = $self->{'doc'}->createComment($tmp);
-		$self->{'printed_tags'}->[0]->addChild($comment_node);
-
-	# Cdata.
-	} elsif ($data->[0] eq 'cd') {
-		my $tmp = $EMPTY;
-		foreach my $d (@{$data}) {
-			$tmp .= ref $d eq 'SCALAR' ? ${$d}
-				: $d;
-		}
-		my $cdata_node = $self->{'doc'}->create($tmp);
-		$self->{'printed_tags'}->[0]->addChild($cdata_node);
-
-	# Data.
-	} elsif ($data->[0] eq 'd') {
-		my $tmp = $EMPTY;
-		shift @{$data};
-		foreach my $d (@{$data}) {
-			$tmp .= ref $d eq 'SCALAR' ? ${$d}
-				: $d;
-		}
-		my $data_node = $self->{'doc'}->createTextNode($tmp);
-		$self->{'printed_tags'}->[0]->addChild($data_node);
-
-	# End of tag.
-	} elsif ($data->[0] eq 'e') {
-		shift @{$self->{'printed_tags'}};
-
-	# Instruction.
-	} elsif ($data->[0] eq 'i') {
-		shift @{$data};
-		my $target = shift @{$data};
-		my $tmp = $EMPTY;
-		while (@{$data}) {
-			my $tmp_data = shift @{$data};
-			$tmp .= " $tmp_data";
-		}
-		my $instruction_node
-			= $self->{'doc'}->createProcessingInstruction(
-			$target, $tmp);
-		if (! defined $self->{'printed_tags'}->[0]) {
-			$self->{'doc'}->appendChild($instruction_node);
-		} else {
-			$self->{'printed_tags'}->[0]->addChild($instruction_node);
-		}
-
-	# Raw data.
-	} elsif ($data->[0] eq 'r') {
-#		shift @{$data};
-#		while (@{$data}) {
-#			my $data = shift @{$data};
-#			$self->{'flush_code'} .= $data;
-#		}
-
-	# Other.
-	} else {
-		err 'Bad type of data.' if $self->{'skip_bad_tags'};
+	my ($self, $data_ref) = @_;
+	shift @{$data_ref};
+	while (@{$data_ref}) {
+		my $par = shift @{$data_ref};
+		my $val = shift @{$data_ref};
+		$self->{'printed_tags'}->[0]->setAttribute($par, $val);
 	}
+	return;
+}
 
+#------------------------------------------------------------------------------
+sub _put_begin_of_tag {
+#------------------------------------------------------------------------------
+# Begin of tag.
+
+	my ($self, $data_ref) = @_;
+	my $begin_node = $self->{'doc'}->createElement($data_ref->[1]);
+	if ($self->{'first'} == 0) {
+		$self->{'doc'}->setDocumentElement($begin_node);
+		$self->{'first'} = 1;
+	} else {
+		if (! $self->{'printed_tags'}->[0]) {
+			err "Second root tag '$data_ref->[1]' is bad.";
+		} else {
+			$self->{'printed_tags'}->[0]->addChild($begin_node);
+		}
+	}
+	unshift @{$self->{'printed_tags'}}, $begin_node;
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _put_cdata {
+#------------------------------------------------------------------------------
+# CData.
+
+	my ($self, $data_ref) = @_;
+	my $tmp = $EMPTY;
+	foreach my $d (@{$data_ref}) {
+		$tmp .= ref $d eq 'SCALAR' ? ${$d} : $d;
+	}
+	my $cdata_node = $self->{'doc'}->create($tmp);
+	$self->{'printed_tags'}->[0]->addChild($cdata_node);
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _put_comment {
+#------------------------------------------------------------------------------
+# Comment.
+
+	my ($self, $data_ref) = @_;
+	my $tmp = $EMPTY;
+	foreach my $d (@{$data_ref}) {
+		$tmp .= ref $d eq 'SCALAR' ? ${$d} : $d;
+	}
+	my $comment_node = $self->{'doc'}->createComment($tmp);
+	$self->{'printed_tags'}->[0]->addChild($comment_node);
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _put_data {
+#------------------------------------------------------------------------------
+# Data.
+
+	my ($self, $data_ref) = @_;
+	my $tmp = $EMPTY;
+	shift @{$data_ref};
+	foreach my $d (@{$data_ref}) {
+		$tmp .= ref $d eq 'SCALAR' ? ${$d} : $d;
+	}
+	my $data_node = $self->{'doc'}->createTextNode($tmp);
+	$self->{'printed_tags'}->[0]->addChild($data_node);
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _put_end_of_tag {
+#------------------------------------------------------------------------------
+# End of tag.
+
+	my ($self, $data_ref) = @_;
+	shift @{$self->{'printed_tags'}};
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _put_instruction {
+#------------------------------------------------------------------------------
+# Instruction.
+
+	my ($self, $data_ref) = @_;
+	shift @{$data_ref};
+	my $target = shift @{$data_ref};
+	my $tmp = $EMPTY;
+	while (@{$data_ref}) {
+		my $tmp_data = shift @{$data_ref};
+		$tmp .= " $tmp_data";
+	}
+	my $instruction_node
+		= $self->{'doc'}->createProcessingInstruction(
+		$target, $tmp);
+	if (! defined $self->{'printed_tags'}->[0]) {
+		$self->{'doc'}->appendChild($instruction_node);
+	} else {
+		$self->{'printed_tags'}->[0]->addChild($instruction_node);
+	}
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _put_raw {
+#------------------------------------------------------------------------------
+# Raw data.
+
+	my ($self, $data_ref) = @_;
 	return;
 }
 
@@ -312,8 +316,11 @@ L<XML::LibXML(3pm)>.
 =head1 SEE ALSO
 
 L<Tags2(3pm)>,
+L<Tags2::Output::Core(3pm)>,
+L<Tags2::Output::Debug(3pm)>,
 L<Tags2::Output::ESIS(3pm)>,
 L<Tags2::Output::Indent(3pm)>,
+L<Tags2::Output::Indent2(3pm)>,
 L<Tags2::Output::PYX(3pm)>,
 L<Tags2::Output::Raw(3pm)>,
 L<Tags2::Output::SESIS(3pm)>.
