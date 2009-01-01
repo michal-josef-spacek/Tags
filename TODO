@@ -16,8 +16,6 @@ Tohle by slo resit tak:
 2) Bez validatoru. Rucne bych pridal seznam preserved veci, ktere jsou v dtd.
 18. Predelat testy tak, aby se nemuselo pouzivat IO::Scalar pro prebirani
     vystupu ze stdout. Udelat test na stdout.
-19. Implementovat do vsech Tags2::Output::* parametr instruction.
-Tags2::Output::Indent je hotov.
 21. Docela neprakticke je dat komentar mezi zacatek tagu a atribut. Pak je
     error. Bylo by dobre to presunout za/pred tag.
 Tags2::Output::Raw je hotov.
@@ -99,4 +97,7 @@ OK [20081105] skim
 
 20. Predelat ve vsech Tags2::Output::* reset. Reset se vola v konstruktoru.
     A metode reset bude vsechno, co jde resetovat.
+OK [20090101] skim
+
+19. Implementovat do vsech Tags2::Output::* parametr instruction.
 OK [20090101] skim
