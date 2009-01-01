@@ -35,7 +35,6 @@ Tags2::Output::Indent je.
     patricny error. Tohle by melo byt i v ostatnich vystupech v xml modu.
 31. V Tags2::Output::Raw prepsat 'flush_code' na pole, namisto skalaru.
 32. V Tags2::Output::PYX prepsat 'flush_code' na pole, namisto skaralu.
-33. Metodu _encode_newline do Utils.
 34.
 
 Applied
@@ -106,3 +105,6 @@ Tohle by slo resit tak:
 1) S validatorem (mel by dtd), predal by seznam preserved veci z dtd.
 2) Bez validatoru. Rucne bych pridal seznam preserved veci, ktere jsou v dtd.
 NONE [20090101] skim
+
+33. Metodu _encode_newline do Utils.
+OK [20090102] skim
