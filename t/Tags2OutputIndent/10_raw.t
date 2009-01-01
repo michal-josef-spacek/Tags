@@ -8,9 +8,13 @@ $obj->put(
 	['e', 'tag'],
 );
 my $ret = $obj->flush;
-my $right_ret = "<tag>\n  <![CDATA[bla]]>\n</tag>";
-# TODO
-#ok($ret, $right_ret);
+my $right_ret = <<'END';
+<tag>
+  <![CDATA[bla]]>
+</tag>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
 
 $obj->reset;
 $obj->put(
@@ -22,9 +26,13 @@ $obj->put(
 	['e', 'tag'],
 );
 $ret = $obj->flush;
-$right_ret = "<tag key=\"val\">\n  <![CDATA[bla]]>\n</tag>";
-# TODO
-#ok($ret, $right_ret);
+$right_ret = <<'END';
+<tag key="val">
+  <![CDATA[bla]]>
+</tag>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
 
 $obj->reset;
 $obj->put(
@@ -38,6 +46,10 @@ $obj->put(
 	['e', 'tag'],
 );
 $ret = $obj->flush;
-$right_ret = "<tag key=\"val\">\n  <![CDATA[<other>bla</other>]]>\n</tag>";
-# TODO
-#ok($ret, $right_ret);
+$right_ret = <<'END';
+<tag key="val">
+  <![CDATA[<other>bla</other>]]>
+</tag>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
