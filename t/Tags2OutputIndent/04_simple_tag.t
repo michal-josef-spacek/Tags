@@ -7,7 +7,12 @@ $obj->put(
 	['e', 'MAIN'],
 );
 my $ret = $obj->flush;
-ok($ret, "<MAIN>\n</MAIN>");
+my $right_ret = <<'END';
+<MAIN>
+</MAIN>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
 
 print "Testing: Simple tag with parameters (sgml version).\n" if $debug;
 $obj->reset;
@@ -17,7 +22,12 @@ $obj->put(
 	['e', 'MAIN'],
 );
 $ret = $obj->flush;
-ok($ret, "<MAIN id=\"id_value\">\n</MAIN>");
+$right_ret = <<'END';
+<MAIN id="id_value">
+</MAIN>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
 
 print "Testing: Simple tag after simple tag (sgml version).\n" if $debug;
 $obj->reset;
@@ -30,7 +40,14 @@ $obj->put(
 	['e', 'MAIN']
 );
 $ret = $obj->flush;
-ok($ret, "<MAIN id=\"id_value\">\n</MAIN>\n<MAIN id=\"id_value2\">\n</MAIN>");
+$right_ret = <<'END';
+<MAIN id="id_value">
+</MAIN>
+<MAIN id="id_value2">
+</MAIN>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
 
 print "Testing: Simple tag without parameters (xml version).\n" if $debug;
 $obj = $class->new(
@@ -64,4 +81,9 @@ $obj->put(
 	['e', 'main'],
 );
 $ret = $obj->flush;
-ok($ret, "<main id=\"id_value\" />\n<main id=\"id_value2\" />");
+$right_ret = <<'END';
+<main id="id_value" />
+<main id="id_value2" />
+END
+chomp $right_ret;
+ok($ret, $right_ret);

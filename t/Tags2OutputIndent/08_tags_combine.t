@@ -9,5 +9,13 @@ $obj->put(
 	['e', 'MAIN'],
 );
 my $ret = $obj->flush;
-my $right_ret = "<MAIN>\n  <!-- COMMENT -->\n</MAIN>\n<MAIN>\n  DATA\n</MAIN>";
+my $right_ret = <<'END';
+<MAIN>
+  <!-- COMMENT -->
+</MAIN>
+<MAIN>
+  DATA
+</MAIN>
+END
+chomp $right_ret;
 ok($ret, $right_ret);

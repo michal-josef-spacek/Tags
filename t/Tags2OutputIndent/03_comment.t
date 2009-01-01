@@ -7,7 +7,11 @@ $obj->put(
 	['c', ' comment '],
 );
 my $ret = $obj->flush;
-my $right_ret = "<!--comment-->\n<!-- comment -->";
+my $right_ret = <<'END';
+<!--comment-->
+<!-- comment -->
+END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 $obj->reset;
@@ -33,7 +37,12 @@ $obj->put(
 	['e', 'tag'],
 );
 $ret = $obj->flush;
-$right_ret = "<tag>\n  <!--<tag>comment</tag>-->\n</tag>";
+$right_ret = <<'END';
+<tag>
+  <!--<tag>comment</tag>-->
+</tag>
+END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 $obj->reset;
@@ -44,7 +53,12 @@ $obj->put(
 	['e', 'tag'],
 );
 $ret = $obj->flush;
-$right_ret = '<tag par="val">'."\n  <!--<tag>comment</tag>-->\n</tag>";
+$right_ret = <<'END';
+<tag par="val">
+  <!--<tag>comment</tag>-->
+</tag>
+END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 $obj->reset;
@@ -56,7 +70,13 @@ $obj->put(
 	['e', 'tag'],
 );
 $ret = $obj->flush;
-$right_ret = "<!--<tag>comment</tag>-->\n<tag par=\"val\">\n  data\n</tag>";
+$right_ret = <<'END';
+<!--<tag>comment</tag>-->
+<tag par="val">
+  data
+</tag>
+END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 $obj->reset;
@@ -70,8 +90,15 @@ $obj->put(
 	['e', 'oo'],
 );
 $ret = $obj->flush;
-$right_ret = "<oo>\n  <!--<tag>comment</tag>-->\n  <tag par=\"val\">\n    ".
-	"data\n  </tag>\n</oo>";
+$right_ret = <<'END';
+<oo>
+  <!--<tag>comment</tag>-->
+  <tag par="val">
+    data
+  </tag>
+</oo>
+END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 $obj->reset;
@@ -83,7 +110,13 @@ $obj->put(
 	['e', 'tag'],
 );
 $ret = $obj->flush;
-$right_ret = "<!--<tag>comment</tag>-->\n<tag par=\"val\">\n  <![CDATA[data]]>\n</tag>";
+$right_ret = <<'END';
+<!--<tag>comment</tag>-->
+<tag par="val">
+  <![CDATA[data]]>
+</tag>
+END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 $obj->reset;
@@ -94,7 +127,11 @@ $obj->put(
 	['e', 'tag'],
 );
 $ret = $obj->flush;
-$right_ret = "<!--<tag>comment</tag>-->\n<tag par=\"val\" />";
+$right_ret = <<'END';
+<!--<tag>comment</tag>-->
+<tag par="val" />
+END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 $obj->reset;
@@ -106,5 +143,12 @@ $obj->put(
 	['e', 'tag1'],
 );
 $ret = $obj->flush;
-$right_ret = "<tag1>\n  <tag2>\n    <!-- comment -->\n  </tag2>\n</tag1>";
+$right_ret = <<'END';
+<tag1>
+  <tag2>
+    <!-- comment -->
+  </tag2>
+</tag1>
+END
+chomp $right_ret;
 ok($ret, $right_ret);

@@ -7,6 +7,9 @@ $obj->put(
 	['e', 'tag'],
 );
 my $ret = $obj->flush;
-my $right_ret = "<tag>\n</tag>";
+my $right_ret = <<'END';
+<tag>
+</tag>
+END
+chomp $right_ret;
 ok($ret, $right_ret);
-
