@@ -9,6 +9,7 @@ my $right_ret = <<'END';
 (MAIN
 )MAIN
 END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 print "Testing: Simple tag with parameters (sgml version).\n" if $debug;
@@ -24,6 +25,7 @@ $right_ret = <<'END';
 Aid id_value
 )MAIN
 END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 print "Testing: Simple tag after simple tag (sgml version).\n" if $debug;
@@ -45,6 +47,7 @@ Aid id_value
 Aid id_value2
 )MAIN
 END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 print "Testing: Simple tag without parameters (xml version).\n" if $debug;
@@ -58,6 +61,7 @@ $right_ret = <<'END';
 (main
 )main
 END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 print "Testing: Simple tag with parameters (xml version).\n" if $debug;
@@ -73,6 +77,7 @@ $right_ret = <<'END';
 Aid id_value
 )main
 END
+chomp $right_ret;
 ok($ret, $right_ret);
 
 print "Testing: Simple tag after simple tag (xml version).\n" if $debug;
@@ -94,4 +99,5 @@ Aid id_value
 Aid id_value2
 )main
 END
+chomp $right_ret;
 ok($ret, $right_ret);
