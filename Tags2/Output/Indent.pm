@@ -179,7 +179,7 @@ sub _newline {
 	} else {
 		my (undef, $pre_pre) = $self->{'preserve_obj'}->get;
 		if ($self->{'process'} && $pre_pre == 0) {
-			$self->_flush_code("\n");
+			$self->_flush_code($self->{'output_sep'});
 		}
 	}
 	return;
