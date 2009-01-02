@@ -8,7 +8,6 @@ TODO
 14. Pokud bude tolik procesnich trid, nebude lepsi to pak nejak prepsat?
     [Struktura] -> Validator(jenom co muze byt za cim) -> Entitator? 
     -> Kontrola xml? -> Indenter
-15. Testy.
 18. Predelat testy tak, aby se nemuselo pouzivat IO::Scalar pro prebirani
     vystupu ze stdout. Udelat test na stdout.
 21. Docela neprakticke je dat komentar mezi zacatek tagu a atribut. Pak je
@@ -116,3 +115,7 @@ OK [20090102] skim
 U tohohle modulu a u Tags2::Output::Indent a Tags2::Output::Indent2 to jit
 nemuze. Dostaneme se do problemu s raw kodem. Uz by nebyl raw, ale raw+"\n".
 NONE [20090102] skim
+
+15. Testy.
+Z velke vetsiny hotovy.
+OK [20090102] skim
