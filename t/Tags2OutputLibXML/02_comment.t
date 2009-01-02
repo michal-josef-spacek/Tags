@@ -1,7 +1,3 @@
-# TODO TODO TODO
-# Odzkouset pomoci XML::LibXML::Document samotny dokument s komentarem. Pripadne
-# dva root tagy apod.
-
 print "Testing: Comment.\n" if $debug;
 my $obj = $class->new;
 $obj->put(
