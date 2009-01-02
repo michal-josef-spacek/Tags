@@ -46,6 +46,9 @@ sub new {
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
 
+	# XML version.
+	$self->{'xml_version'} = '1.1';
+
 	# Process params.
 	while (@params) {
 		my $key = shift @params;
@@ -89,8 +92,10 @@ sub reset {
 	$self->{'printed_tags'} = [];
 
 	# Root node.
-	$self->{'doc'} = XML::LibXML::Document->new('1.1',
-		$self->{'encoding'});
+	$self->{'doc'} = XML::LibXML::Document->new(
+		$self->{'xml_version'},
+		$self->{'encoding'},
+	);
 
 	# First node = root node.
 	$self->{'first'} = 0;
