@@ -12,6 +12,7 @@ t/08_tags2_output_pyx.t
 t/09_tags2_output_indent2.t
 t/10_tags2_output_core.t
 t/11_tags2_output_debug.t
+t/12_tags2_utils.t
 t/Tags2OutputCore/01_version.t
 t/Tags2OutputDebug/01_version.t
 t/Tags2OutputDebug/02_constructor.t
@@ -54,6 +55,8 @@ t/Tags2OutputIndent2/13_attributes.t
 t/Tags2OutputIndent2/14_instruction.t
 t/Tags2OutputLibXML/01_version.t
 t/Tags2OutputLibXML/02_comment.t
+t/Tags2OutputLibXML/02_constructor.t
+t/Tags2OutputLibXML/03_comment.t
 t/Tags2OutputPYX/01_version.t
 t/Tags2OutputPYX/02_constructor.t
 t/Tags2OutputPYX/03_comment.t
@@ -100,6 +103,8 @@ t/Tags2ProcessValidator/DTD/test6.dtd
 t/Tags2ProcessValidator/DTD/test7.dtd
 t/Tags2ProcessValidator/DTD/test8.dtd
 t/Tags2ProcessValidator/DTD/test9.dtd
+t/Tags2Utils/01_version.t
+t/Tags2Utils/02_encode_newline.t
 Tags2.pm
 Tags2/Output/Core.pm
 Tags2/Output/Debug.pm
@@ -113,6 +118,7 @@ Tags2/Output/SESIS.pm
 Tags2/Process/EntitySubstitute.pm
 Tags2/Process/Id.pm
 Tags2/Process/Validator.pm
+Tags2/Utils.pm
 Tags2/Utils/Preserve.pm
 Tags2/Utils/Simple.pm
 Tags2/Utils/SimpleOO.pm
