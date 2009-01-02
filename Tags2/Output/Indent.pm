@@ -38,10 +38,12 @@ sub new {
 	# Indent params.
 	$self->{'next_indent'} = $SPACE x 2;
 	$self->{'line_size'} = $LINE_SIZE;
-	$self->{'linebreak'} = "\n";
 
-	# Set output handler.
+	# Output handler.
 	$self->{'output_handler'} = $EMPTY;
+
+	# Output separator.
+	$self->{'output_sep'} = "\n";
 
 	# No simple tags.
 	$self->{'no_simple'} = [];
