@@ -144,7 +144,7 @@ sub _put_cdata {
 
 	my ($self, @cdata) = @_;
 	my $cdata = join($EMPTY, @cdata);
-	my $cdata_node = $self->{'doc'}->create($cdata);
+	my $cdata_node = $self->{'doc'}->createCDATASection($cdata);
 	$self->{'printed_tags'}->[0]->addChild($cdata_node);
 	return;
 }
@@ -157,7 +157,11 @@ sub _put_comment {
 	my ($self, @comments) = @_;
 	my $comment = join($EMPTY, @comments);
 	my $comment_node = $self->{'doc'}->createComment($comment);
-	$self->{'printed_tags'}->[0]->addChild($comment_node);
+	if (! defined $self->{'printed_tags'}->[0]) {
+		$self->{'doc'}->appendChild($comment_node);
+	} else {
+		$self->{'printed_tags'}->[0]->addChild($comment_node);
+	}
 	return;
 }
 
