@@ -57,6 +57,12 @@ t/Tags2OutputLibXML/01_version.t
 t/Tags2OutputLibXML/02_comment.t
 t/Tags2OutputLibXML/02_constructor.t
 t/Tags2OutputLibXML/03_comment.t
+t/Tags2OutputLibXML/04_simple_tag.t
+t/Tags2OutputLibXML/05_tag.t
+t/Tags2OutputLibXML/06_preserve_from_attribute.t
+t/Tags2OutputLibXML/07_cdata.t
+t/Tags2OutputLibXML/08_attributes.t
+t/Tags2OutputLibXML/09_instruction.t
 t/Tags2OutputPYX/01_version.t
 t/Tags2OutputPYX/02_constructor.t
 t/Tags2OutputPYX/03_comment.t
