@@ -38,8 +38,11 @@ sub new {
 	# No simple tags.
 	$self->{'no_simple'} = [];
 
-	# Set output handler.
+	# Output handler.
 	$self->{'output_handler'} = $EMPTY;
+
+	# Output separator.
+	$self->{'output_sep'} = '';
 
 	# Preserved tags.
 	$self->{'preserved'} = [];
