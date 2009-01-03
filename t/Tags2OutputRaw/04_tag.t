@@ -56,3 +56,32 @@ $obj->put(['b', 'main'], ['a', 'id', 'id_value'], ['d', 'data'],
 	['d', 'data'], ['e', 'main']);
 $ret = $obj->flush;
 ok($ret, '<main id="id_value">data</main><main id="id_value2">data</main>');
+
+print "Testing: Normal tag with long data.\n" if $debug;
+my $long_data = 'a' x 1000;
+$obj = $class->new;
+$obj->put(
+	['b', 'MAIN'],
+	['d', $long_data],
+	['e', 'MAIN'],
+);
+$ret = $obj->flush;
+$right_ret = <<"END";
+<MAIN>$long_data</MAIN>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
+
+$long_data = 'aaaa ' x 1000;
+$obj = $class->new;
+$obj->put(
+	['b', 'MAIN'],
+	['d', $long_data],
+	['e', 'MAIN'],
+);
+$ret = $obj->flush;
+$right_ret = <<"END";
+<MAIN>$long_data</MAIN>
+END
+chomp $right_ret;
+ok($ret, $right_ret);

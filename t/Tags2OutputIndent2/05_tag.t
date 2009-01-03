@@ -46,3 +46,36 @@ $right_ret = <<'END';
 END
 chomp $right_ret;
 ok($ret, $right_ret);
+
+print "Testing: Normal tag with long data.\n" if $debug;
+my $long_data = 'a' x 1000;
+$obj = $class->new;
+$obj->put(
+	['b', 'MAIN'],
+	['d', $long_data],
+	['e', 'MAIN'],
+);
+$ret = $obj->flush;
+$right_ret = <<"END";
+<MAIN>
+  $long_data
+</MAIN>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
+
+$long_data = 'aaaa ' x 1000;
+$obj = $class->new;
+$obj->put(
+	['b', 'MAIN'],
+	['d', $long_data],
+	['e', 'MAIN'],
+);
+$ret = $obj->flush;
+$right_ret = <<"END";
+<MAIN>
+  $long_data
+</MAIN>
+END
+chomp $right_ret;
+ok($ret, $right_ret);

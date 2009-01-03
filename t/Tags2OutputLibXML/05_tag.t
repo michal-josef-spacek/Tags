@@ -26,3 +26,32 @@ $right_ret = <<'END';
 <MAIN id="id_value">data</MAIN>
 END
 ok($ret, $right_ret);
+
+print "Testing: Normal tag with long data.\n" if $debug;
+my $long_data = 'a' x 1000;
+$obj = $class->new;
+$obj->put(
+	['b', 'MAIN'],
+	['d', $long_data],
+	['e', 'MAIN'],
+);
+$ret = $obj->flush;
+$right_ret = <<"END";
+<?xml version="1.1" encoding="UTF-8"?>
+<MAIN>$long_data</MAIN>
+END
+ok($ret, $right_ret);
+
+$long_data = 'aaaa ' x 1000;
+$obj = $class->new;
+$obj->put(
+	['b', 'MAIN'],
+	['d', $long_data],
+	['e', 'MAIN'],
+);
+$ret = $obj->flush;
+$right_ret = <<"END";
+<?xml version="1.1" encoding="UTF-8"?>
+<MAIN>$long_data</MAIN>
+END
+ok($ret, $right_ret);
