@@ -32,7 +32,10 @@ Tags2::Output::Indent je.
     patricny error. Tohle by melo byt i v ostatnich vystupech v xml modu.
 34. Podobne jako v Tags2::Output::LibXML resit i v ostatnich cdata sekci s
     ']]>'.
-35.
+35. Prozkoumat v Tags2::Output::Indent volani 'indent_block'. Mohla by tam byt
+    stejna chyba jako u 'indent_word', ze se bere pole misto skalaru.
+    Mozna by bylo dobre vubec zvazit uziti vraceni skalaru z indent funkci.
+36.
 
 Applied
 =======
