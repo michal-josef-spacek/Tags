@@ -410,8 +410,8 @@ sub _put_end_of_tag {
 	}
 
 	# Tag can be simple.
-	if ($self->{'xml'} && (! scalar @{$self->{'no_simple'}}
-		|| none { $_ eq $tag} @{$self->{'no_simple'}})) {
+	if ($self->{'xml'} && (scalar @{$self->{'no_simple'}}
+		|| none { $_ eq $tag } @{$self->{'no_simple'}})) {
 
 		my $pre = $self->{'preserve_obj'}->end($tag);
 		if (scalar @{$self->{'tmp_code'}}) {
