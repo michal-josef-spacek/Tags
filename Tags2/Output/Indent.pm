@@ -391,11 +391,12 @@ sub _put_data {
 	$self->_newline;
 	$self->{'preserve_obj'}->save_previous;
 	my $pre = $self->{'preserve_obj'}->get;
-	$self->_flush_code($self->{'indent_word'}->indent(
+	my $indent_data = $self->{'indent_word'}->indent(
 		join($EMPTY, @data),
 		$pre ? $EMPTY : $self->{'indent'}->get,
 		$pre ? 1 : 0
-	));
+	);
+	$self->_flush_code($indent_data);
 	return;
 }
 
