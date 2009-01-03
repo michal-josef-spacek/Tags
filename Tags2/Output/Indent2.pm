@@ -222,6 +222,17 @@ sub _put_instruction {
 # Instruction.
 
 	my ($self, $target, $code) = @_;
+	if (ref $self->{'instruction'} eq 'CODE') {
+		$self->{'instruction'}->($self, $target, $code);
+	} else {
+		$self->_newline;
+		$self->{'preserve_obj'}->save_previous;
+		$self->_flush_code($self->{'indent_block'}
+			->indent([
+			'<?'.$target, $SPACE, $code, '?>',
+			$self->{'indent'}->get,
+		]));
+	}
 	return;
 }
 
