@@ -12,6 +12,7 @@ use Error::Simple::Multiple qw(err);
 use Indent;
 use Indent::Word;
 use Indent::Block;
+use List::MoreUtils qw(none);
 use Readonly;
 use Tags2::Utils::Preserve;
 
@@ -410,7 +411,7 @@ sub _put_end_of_tag {
 	}
 
 	# Tag can be simple.
-	if ($self->{'xml'} && (scalar @{$self->{'no_simple'}}
+	if ($self->{'xml'} && (! scalar @{$self->{'no_simple'}}
 		|| none { $_ eq $tag } @{$self->{'no_simple'}})) {
 
 		my $pre = $self->{'preserve_obj'}->end($tag);
