@@ -9,7 +9,7 @@ use warnings;
 # Modules.
 use Readonly;
 
-# Version.
+# Constants.
 Readonly::Scalar our $VERSION => 0.01;
 
 #------------------------------------------------------------------------------
