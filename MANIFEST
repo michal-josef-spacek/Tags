@@ -24,10 +24,8 @@ t/Tags2OutputESIS/04_simple_tag.t
 t/Tags2OutputESIS/05_tag.t
 t/Tags2OutputESIS/06_instruction.t
 t/Tags2OutputIndent/01_version.t
-t/Tags2OutputIndent/02_comment.t
 t/Tags2OutputIndent/02_constructor.t
 t/Tags2OutputIndent/03_comment.t
-t/Tags2OutputIndent/03_constructor.t
 t/Tags2OutputIndent/04_simple_tag.t
 t/Tags2OutputIndent/05_tag.t
 t/Tags2OutputIndent/06_preserve_from_attribute.t
@@ -54,7 +52,6 @@ t/Tags2OutputIndent2/12_auto_flush.t
 t/Tags2OutputIndent2/13_attributes.t
 t/Tags2OutputIndent2/14_instruction.t
 t/Tags2OutputLibXML/01_version.t
-t/Tags2OutputLibXML/02_comment.t
 t/Tags2OutputLibXML/02_constructor.t
 t/Tags2OutputLibXML/03_comment.t
 t/Tags2OutputLibXML/04_simple_tag.t
