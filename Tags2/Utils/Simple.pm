@@ -9,12 +9,13 @@ use warnings;
 
 # Modules.
 use Error::Simple::Multiple qw(err);
+use Readonly;
 
-# Version.
-our $VERSION = 0.01;
+# Constants.
+Readonly::Scalar our $VERSION => 0.01;
 
 # Global variables.
-use vars qw($tags_obj);
+our $tags_obj;
 
 # Export.
 our @EXPORT = qw(register);
