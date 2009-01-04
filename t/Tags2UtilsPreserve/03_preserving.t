@@ -1,4 +1,4 @@
-print "Testing: Preserving.\n" if $debug;
+print "Testing: Preserving (begin(), end() and get() methods).\n" if $debug;
 my $obj = $class->new;
 my ($pre, $pre_pre) = $obj->get;
 is($pre, 0);
@@ -51,7 +51,7 @@ is($pre, 0);
 $pre = $obj->end('other_tag');
 is($pre, 0);
 
-print "Testing: Reseting.\n" if $debug;
+print "Testing: reset() method.\n" if $debug;
 $obj->reset;
 $obj->begin('other_tag');
 $obj->begin('tag');
@@ -63,3 +63,14 @@ $obj->reset;
 ($pre, $pre_pre) = $obj->get;
 is($pre, 0);
 is($pre_pre, 0);
+
+print "Testing: save_previous() method.\n" if $debug;
+$obj->reset;
+$obj->begin('other_tag');
+($pre, $pre_pre) = $obj->begin('tag');
+is($pre, 1);
+is($pre_pre, 0);
+$obj->save_previous;
+($pre, $pre_pre) = $obj->get;
+is($pre, 1);
+is($pre_pre, 1);
