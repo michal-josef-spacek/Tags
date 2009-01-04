@@ -1,0 +1,65 @@
+print "Testing: Preserving.\n" if $debug;
+my $obj = $class->new;
+my ($pre, $pre_pre) = $obj->get;
+is($pre, 0);
+is($pre_pre, 0);
+($pre, $pre_pre) = $obj->begin('tag');
+is($pre, 0);
+is($pre_pre, 0);
+($pre, $pre_pre) = $obj->end('tag');
+is($pre_pre, 0);
+is($pre, 0);
+
+$obj = $class->new(
+	'preserved' => ['tag'],
+);
+($pre, $pre_pre) = $obj->get;
+is($pre, 0);
+is($pre_pre, 0);
+($pre, $pre_pre) = $obj->begin('other_tag');
+is($pre, 0);
+is($pre_pre, 0);
+($pre, $pre_pre) = $obj->begin('tag');
+is($pre, 1);
+is($pre_pre, 0);
+($pre, $pre_pre) = $obj->begin('other_tag2');
+is($pre, 1);
+is($pre_pre, 1);
+($pre, $pre_pre) = $obj->end('other_tag2');
+is($pre, 1);
+is($pre_pre, 1);
+($pre, $pre_pre) = $obj->end('tag');
+is($pre, 0);
+is($pre_pre, 1);
+($pre, $pre_pre) = $obj->end('other_tag');
+is($pre, 0);
+is($pre_pre, 0);
+
+$obj->reset;
+$pre = $obj->get;
+is($pre, 0);
+$pre = $obj->begin('other_tag');
+is($pre, 0);
+$pre = $obj->begin('tag');
+is($pre, 1);
+$pre = $obj->begin('other_tag2');
+is($pre, 1);
+$pre = $obj->end('other_tag2');
+is($pre, 1);
+$pre = $obj->end('tag');
+is($pre, 0);
+$pre = $obj->end('other_tag');
+is($pre, 0);
+
+print "Testing: Reseting.\n" if $debug;
+$obj->reset;
+$obj->begin('other_tag');
+$obj->begin('tag');
+$obj->begin('other_tag2');
+($pre, $pre_pre) = $obj->get;
+is($pre, 1);
+is($pre_pre, 1);
+$obj->reset;
+($pre, $pre_pre) = $obj->get;
+is($pre, 0);
+is($pre_pre, 0);
