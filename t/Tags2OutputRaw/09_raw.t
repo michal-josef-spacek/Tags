@@ -3,14 +3,70 @@ my $obj = $class->new(
 	'xml' => 1,
 );
 $obj->put(
+	['r', '<?xml version="1.1">'],
+);
+my $ret = $obj->flush;
+my $right_ret = <<'END';
+<?xml version="1.1">
+END
+chomp $right_ret;
+ok($ret, $right_ret);
+
+$obj->reset;
+$obj->put(
+	['b', 'tag'],
+	['r', 'raw'],
+	['e', 'tag'],
+);
+$ret = $obj->flush;
+$right_ret = <<'END';
+<tag>raw</tag>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
+
+$obj->reset;
+$obj->put(
+	['b', 'tag'],
+	['b', 'other'],
+	['r', 'raw'],
+	['e', 'other'],
+	['e', 'tag'],
+);
+$ret = $obj->flush;
+$right_ret = <<'END';
+<tag><other>raw</other></tag>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
+
+$obj->reset;
+$obj->put(
+	['b', 'tag'],
+	['b', 'other'],
+	['b', 'xxx'],
+	['r', 'raw'],
+	['e', 'xxx'],
+	['e', 'other'],
+	['e', 'tag'],
+);
+$ret = $obj->flush;
+$right_ret = <<'END';
+<tag><other><xxx>raw</xxx></other></tag>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
+
+$obj->reset;
+$obj->put(
 	['b', 'tag'],
 	['r', '<![CDATA['],
 	['d', 'bla'],
 	['r', ']]>'],
 	['e', 'tag'],
 );
-my $ret = $obj->flush;
-my $right_ret = '<tag><![CDATA[bla]]></tag>';
+$ret = $obj->flush;
+$right_ret = '<tag><![CDATA[bla]]></tag>';
 ok($ret, $right_ret);
 
 $obj->reset;
