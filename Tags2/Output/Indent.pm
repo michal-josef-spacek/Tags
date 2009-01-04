@@ -285,12 +285,18 @@ sub _put_attribute {
 # Attributes.
 
 	my ($self, @pairs) = @_;
+
+	# Flush tmp code.
 	if (! scalar @{$self->{'tmp_code'}}) {
 		err 'Bad tag type \'a\'.';
 	}
 
-	# TODO Check to pairs.
+	# Check to pairs.
+	if (scalar @pairs % 2) {
+		err 'Attributes doesn\'t in pairs.';
+	}
 
+	# Process attributes.
 	while (@pairs) {
 		my $par = shift @pairs;
 		my $val = shift @pairs;
@@ -299,6 +305,7 @@ sub _put_attribute {
 			$self->{'attr_delimeter'};
 		$self->{'comment_flag'} = 0;
 	}
+
 	return;
 }
 
@@ -308,6 +315,8 @@ sub _put_begin_of_tag {
 # Begin of tag.
 
 	my ($self, $tag) = @_;
+
+	# Flush tmp code.
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_print_tag('>');
 	}
@@ -328,9 +337,12 @@ sub _put_cdata {
 # CData.
 
 	my ($self, @cdata) = @_;
+
+	# Flush tmp code.
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_print_tag('>');
 	}
+
 	unshift @cdata, '<![CDATA[';
 	if (join($EMPTY, @cdata) =~ /]]>$/ms) {
 		err 'Bad CDATA section.' 
@@ -383,9 +395,12 @@ sub _put_data {
 # Data.
 
 	my ($self, @data) = @_;
+
+	# Flush tmp code.
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_print_tag('>');
 	}
+
 	$self->_newline;
 	$self->{'preserve_obj'}->save_previous;
 	my $pre = $self->{'preserve_obj'}->get;
@@ -451,9 +466,12 @@ sub _put_instruction {
 # Instruction.
 
 	my ($self, $target, $code) = @_;
+
+	# Flush tmp code.
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_print_tag('>');
 	}
+
 	if (ref $self->{'instruction'} eq 'CODE') {
 		$self->{'instruction'}->($self, $target, $code);
 	} else {
@@ -474,9 +492,12 @@ sub _put_raw {
 # Raw data.
 
 	my ($self, @raw_data) = @_;
+
+	# Flush tmp code.
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_print_tag('>');
 	}
+
 	foreach my $data (@raw_data) {
 		$self->_flush_code($data);
 	}
