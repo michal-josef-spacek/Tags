@@ -34,4 +34,3 @@ foreach (@list) {
 	do $_;
 	print $@;
 }
-
