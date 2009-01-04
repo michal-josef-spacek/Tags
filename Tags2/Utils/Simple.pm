@@ -3,20 +3,18 @@ package Tags2::Utils::Simple;
 #------------------------------------------------------------------------------
 
 # Pragmas.
+use base qw(Exporter);
 use strict;
+use warnings;
 
 # Modules.
 use Error::Simple::Multiple qw(err);
-use Exporter;
 
 # Version.
 our $VERSION = 0.01;
 
 # Global variables.
 use vars qw($tags_obj);
-
-# Inheritance.
-our @ISA = qw(Exporter);
 
 # Export.
 our @EXPORT = qw(register);
