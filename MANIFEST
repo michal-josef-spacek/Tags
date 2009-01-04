@@ -112,6 +112,8 @@ t/Tags2ProcessValidator/DTD/test9.dtd
 t/Tags2Utils/01_version.t
 t/Tags2Utils/02_encode_newline.t
 t/Tags2UtilsPreserve/01_version.t
+t/Tags2UtilsPreserve/02_constructor.t
+t/Tags2UtilsPreserve/03_preserving.t
 Tags2.pm
 Tags2/Output/Core.pm
 Tags2/Output/Debug.pm
