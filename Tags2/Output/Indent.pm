@@ -659,6 +659,8 @@ L<Error::Simple::Multiple(3pm)>,
 L<Indent(3pm)>,
 L<Indent::Word(3pm)>,
 L<Indent::Block(3pm)>,
+L<List::MoreUtils(3pm)>,
+L<Readonly(3pm)>,
 L<Tags2::Utils::Preserve(3pm)>.
 
 =head1 SEE ALSO

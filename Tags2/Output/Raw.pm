@@ -495,6 +495,8 @@ __END__
 =head1 DEPENDENCIES
 
 L<Error::Simple::Multiple(3pm)>,
+L<List::MoreUtils(3pm)>,
+L<Readonly(3pm)>,
 L<Tags2::Utils::Preserve(3pm)>.
 
 =head1 SEE ALSO
