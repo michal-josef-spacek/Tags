@@ -181,6 +181,7 @@ sub _newline {
 			$self->_flush_code($self->{'output_sep'});
 		}
 	}
+
 	return;
 }
 
@@ -326,8 +327,12 @@ sub _put_begin_of_tag {
 		err 'In XML must be lowercase tag name.';
 	}
 
+	# Push begin of tag to tmp code.
 	push @{$self->{'tmp_code'}}, "<$tag";
+
+	# Added tag to printed tags.
 	unshift @{$self->{'printed_tags'}}, $tag;
+
 	return;
 }
 
@@ -343,11 +348,17 @@ sub _put_cdata {
 		$self->_print_tag('>');
 	}
 
+	# Added begin of cdata section.
 	unshift @cdata, '<![CDATA[';
+
+	# Check to bad cdata.
 	if (join($EMPTY, @cdata) =~ /]]>$/ms) {
 		err 'Bad CDATA section.' 
 	}
+
+	# Added end of cdata section.
 	push @cdata, ']]>';
+
 	$self->_newline;
 	$self->{'preserve_obj'}->save_previous;
 
@@ -356,7 +367,10 @@ sub _put_cdata {
 		\@cdata, $self->{'indent'}->get,
 		$self->{'cdata_indent'} == 1 ? 0 : 1,
 	);
+
+	# To flush code.
 	$self->_flush_code($tmp);
+
 	return;
 }
 
@@ -366,6 +380,8 @@ sub _put_comment {
 # Comment.
 
 	my ($self, @comments) = @_;
+
+	# Comment string.
 	unshift @comments, '<!--';
 	if (substr($comments[$LAST_INDEX], $LAST_INDEX) eq '-') {
 		push @comments, ' -->';
@@ -472,8 +488,11 @@ sub _put_instruction {
 		$self->_print_tag('>');
 	}
 
+	# Process instruction code.
 	if (ref $self->{'instruction'} eq 'CODE') {
 		$self->{'instruction'}->($self, $target, $code);
+
+	# Print instruction.
 	} else {
 		$self->_newline;
 		$self->{'preserve_obj'}->save_previous;
@@ -483,6 +502,7 @@ sub _put_instruction {
 			$self->{'indent'}->get,
 		]));
 	}
+
 	return;
 }
 
@@ -498,10 +518,14 @@ sub _put_raw {
 		$self->_print_tag('>');
 	}
 
+	# Added raw data to flush code.
 	foreach my $data (@raw_data) {
 		$self->_flush_code($data);
 	}
+
+	# Set raw flag.
 	$self->{'raw_tag'} = 1;
+
 	return;
 }
 

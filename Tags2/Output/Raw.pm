@@ -179,11 +179,18 @@ sub _put_begin_of_tag {
 		$self->_flush_tmp('>');
 	}
 
+	# XXX Is really?
+	# Check to lowercased chars for XML.
 	if ($self->{'xml'} && $tag ne lc($tag)) {
 		err 'In XML must be lowercase tag name.';
 	}
+
+	# Push begin of tag to tmp code.
 	push @{$self->{'tmp_code'}}, "<$tag";
+
+	# Added tag to printed tags.
 	unshift @{$self->{'printed_tags'}}, $tag;
+
 	$self->{'preserve_obj'}->begin($tag);
 
 	return;
