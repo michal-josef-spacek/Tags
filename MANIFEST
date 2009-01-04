@@ -13,6 +13,8 @@ t/09_tags2_output_indent2.t
 t/10_tags2_output_core.t
 t/11_tags2_output_debug.t
 t/12_tags2_utils.t
+t/13_tags2_utils_preserve.t
+t/14_tags2_process_entity_substitute.t
 t/Tags2OutputCore/01_version.t
 t/Tags2OutputDebug/01_version.t
 t/Tags2OutputDebug/02_constructor.t
@@ -86,6 +88,7 @@ t/Tags2OutputSESIS/03_comment.t
 t/Tags2OutputSESIS/04_simple_tag.t
 t/Tags2OutputSESIS/05_tag.t
 t/Tags2OutputSESIS/06_instruction.t
+t/Tags2ProcessEntitySubstitute/01_version.t
 t/Tags2ProcessId/01_version.t
 t/Tags2ProcessId/02_constructor.t
 t/Tags2ProcessId/03_check.t
@@ -108,6 +111,7 @@ t/Tags2ProcessValidator/DTD/test8.dtd
 t/Tags2ProcessValidator/DTD/test9.dtd
 t/Tags2Utils/01_version.t
 t/Tags2Utils/02_encode_newline.t
+t/Tags2UtilsPreserve/01_version.t
 Tags2.pm
 Tags2/Output/Core.pm
 Tags2/Output/Debug.pm
