@@ -13,9 +13,7 @@ use Readonly;
 
 # Constants.
 Readonly::Scalar my $EMPTY => q{};
-
-# Version.
-our $VERSION = 0.02;
+Readonly::Scalar our $VERSION => 0.02;
 
 #------------------------------------------------------------------------------
 sub finalize {

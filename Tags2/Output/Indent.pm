@@ -21,9 +21,7 @@ Readonly::Scalar my $EMPTY => q{};
 Readonly::Scalar my $LAST_INDEX => -1;
 Readonly::Scalar my $LINE_SIZE => 79;
 Readonly::Scalar my $SPACE => q{ };
-
-# Version.
-our $VERSION = 0.05;
+Readonly::Scalar our $VERSION => 0.05;
 
 #------------------------------------------------------------------------------
 sub new {

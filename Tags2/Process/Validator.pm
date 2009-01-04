@@ -10,9 +10,10 @@ use warnings;
 use Error::Simple::Multiple qw(err);
 use List::MoreUtils qw(any none);
 use XML::DTDParser qw(ParseDTDFile);
+use Readonly;
 
-# Version.
-our $VERSION = 0.01;
+# Constants.
+Readonly::Scalar our $VERSION => 0.01;
 
 # TODO
 # a) Overit, jestli jsou #REQUIRED atributy pouzity.

@@ -6,8 +6,11 @@ package Tags2::Utils::SimpleOO;
 use strict;
 use warnings;
 
+# Modules.
+use Readonly;
+
 # Version.
-our $VERSION = 0.01;
+Readonly::Scalar our $VERSION => 0.01;
 
 #------------------------------------------------------------------------------
 sub new {
@@ -126,7 +129,7 @@ __END__
 
 =head1 DEPENDENCIES
 
- TODO
+ Readonly(3pm).
 
 =head1 AUTHOR
 
