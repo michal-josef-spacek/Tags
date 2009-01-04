@@ -17,11 +17,11 @@ BEGIN {
 	$dir =~ s/:://g;
 
 	my $tests = `egrep -r \"^[[:space:]]*ok\\(\" t/$dir/*.t | wc -l`;
-        chomp $tests;
-        plan('tests' => $tests);
+	chomp $tests;
+	plan('tests' => $tests);
 
-        # Debug.
-        $debug = 1;
+	# Debug.
+	$debug = 1;
 }
 
 # Prints debug information about class.
@@ -30,7 +30,7 @@ print "\nClass '$class'\n" if $debug;
 # For every test for this Class.
 my @list = `ls t/$dir/*.t`;
 foreach (@list) {
-        chomp;
-        do $_;
+	chomp;
+	do $_;
 	print $@;
 }
