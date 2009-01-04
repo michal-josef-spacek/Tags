@@ -34,7 +34,7 @@ sub new {
 		$self->{$key} = $val;
 	}
 
-	# Reset.
+	# Initialization.
 	$self->reset;
 
 	# Object.
@@ -112,7 +112,7 @@ sub reset {
 #------------------------------------------------------------------------------
 sub save_previous {
 #------------------------------------------------------------------------------
-# Save previsou stay.
+# Save previous stay.
 
 	my $self = shift;
 	$self->{'prev_preserved_flag'} = $self->{'preserved_flag'};
