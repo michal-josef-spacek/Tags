@@ -13,6 +13,57 @@ ok($ret, $right_ret);
 $obj->reset;
 $obj->put(
 	['b', 'tag'],
+	['r', 'raw'],
+	['e', 'tag'],
+);
+$ret = $obj->flush;
+$right_ret = <<'END';
+<tag>raw</tag>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
+
+$obj->reset;
+$obj->put(
+	['b', 'tag'],
+	['b', 'other'],
+	['r', 'raw'],
+	['e', 'other'],
+	['e', 'tag'],
+);
+$ret = $obj->flush;
+$right_ret = <<'END';
+<tag>
+  <other>raw</other>
+</tag>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
+
+$obj->reset;
+$obj->put(
+	['b', 'tag'],
+	['b', 'other'],
+	['b', 'xxx'],
+	['r', 'raw'],
+	['e', 'xxx'],
+	['e', 'other'],
+	['e', 'tag'],
+);
+$ret = $obj->flush;
+$right_ret = <<'END';
+<tag>
+  <other>
+    <xxx>raw</xxx>
+  </other>
+</tag>
+END
+chomp $right_ret;
+ok($ret, $right_ret);
+
+$obj->reset;
+$obj->put(
+	['b', 'tag'],
 	['r', '<![CDATA['],
 	['d', 'bla'],
 	['r', ']]>'],
