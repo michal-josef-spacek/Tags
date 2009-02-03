@@ -28,7 +28,8 @@ Tags2::Output::Indent je.
 35. Prozkoumat v Tags2::Output::Indent volani 'indent_block'. Mohla by tam byt
     stejna chyba jako u 'indent_word', ze se bere pole misto skalaru.
     Mozna by bylo dobre vubec zvazit uziti vraceni skalaru z indent funkci.
-36.
+36. Data callback (vhodne pro prekodovani do utf8).
+37.
 
 Applied
 =======
