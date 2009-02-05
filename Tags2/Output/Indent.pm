@@ -23,7 +23,7 @@ Readonly::Scalar my $LINE_SIZE => 79;
 Readonly::Scalar my $SPACE => q{ };
 
 # Version.
-our $VERSION = 0.05;
+our $VERSION = 0.06;
 
 #------------------------------------------------------------------------------
 sub new {
@@ -41,6 +41,9 @@ sub new {
 
 	# Indent CDATA section.
 	$self->{'cdata_indent'} = 0;
+
+	# Data callback.
+	$self->{'data_callback'} = undef;
 
 	# Callback to instruction.
 	$self->{'instruction'} = $EMPTY_STR;
@@ -363,6 +366,9 @@ sub _put_cdata {
 	# Added end of cdata section.
 	push @cdata, ']]>';
 
+	# Process data callback.
+	$self->_process_data_callback(\@cdata);
+
 	$self->_newline;
 	$self->{'preserve_obj'}->save_previous;
 
@@ -420,6 +426,9 @@ sub _put_data {
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_print_tag('>');
 	}
+
+	# Process data callback.
+	$self->_process_data_callback(\@data);
 
 	$self->_newline;
 	$self->{'preserve_obj'}->save_previous;
@@ -522,6 +531,9 @@ sub _put_raw {
 		$self->_print_tag('>');
 	}
 
+	# Process data callback.
+	$self->_process_data_callback(\@raw_data);
+
 	# Added raw data to flush code.
 	foreach my $data (@raw_data) {
 		$self->_flush_code($data);
@@ -590,6 +602,22 @@ __END__
 
  Flag, that means indent CDATA section.
  Default value is no-indent (0).
+
+=item * B<data_callback>
+
+ Subroutine for output processing of data, cdata and raw data.
+ Input argument is reference to array.
+ Default value is undef.
+
+ Example:
+ 'data_callback' => sub {
+         my $data_arr_ref = shift;
+	 foreach my $data (@{$data_arr_ref}) {
+
+	         # Some process.
+	         $data =~ s/^\s*//ms;
+	 }
+ }
 
 =item * B<line_size>
 
@@ -731,6 +759,6 @@ L<Tags2::Output::SESIS(3pm)>.
 
 =head1 VERSION
 
- 0.05
+ 0.06
 
 =cut
