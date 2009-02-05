@@ -14,7 +14,7 @@ use Readonly;
 use Tags2::Utils::Preserve;
 
 # Constants.
-Readonly::Scalar my $EMPTY => q{};
+Readonly::Scalar my $EMPTY_STR => q{};
 Readonly::Scalar my $LAST_INDEX => -1;
 Readonly::Scalar my $SPACE => q{ };
 
@@ -42,10 +42,10 @@ sub new {
 	$self->{'no_simple'} = [];
 
 	# Output handler.
-	$self->{'output_handler'} = $EMPTY;
+	$self->{'output_handler'} = $EMPTY_STR;
 
 	# Output separator.
-	$self->{'output_sep'} = $EMPTY;
+	$self->{'output_sep'} = $EMPTY_STR;
 
 	# Preserved tags.
 	$self->{'preserved'} = [];
@@ -72,7 +72,7 @@ sub new {
 	}
 
 	# Check auto-flush only with output handler.
-	if ($self->{'auto_flush'} && $self->{'output_handler'} eq $EMPTY) {
+	if ($self->{'auto_flush'} && $self->{'output_handler'} eq $EMPTY_STR) {
 		err 'Auto-flush can\'t use without output handler.';
 	}
 
@@ -94,7 +94,7 @@ sub reset {
 	$self->{'comment_flag'} = 0;
 
 	# Flush code.
-	$self->{'flush_code'} = $EMPTY;
+	$self->{'flush_code'} = $EMPTY_STR;
 
 	# Tmp code.
 	$self->{'tmp_code'} = [];
@@ -135,13 +135,13 @@ sub _flush_tmp {
 	if ($self->{'comment_flag'} == 0
 		&& scalar @{$self->{'tmp_comment_code'}}) {
 
-		$self->{'flush_code'} .= join($EMPTY,
+		$self->{'flush_code'} .= join($EMPTY_STR,
 			@{$self->{'tmp_comment_code'}},
 			@{$self->{'tmp_code'}});
 
 	# After tag.
 	} else {
-		$self->{'flush_code'} .= join($EMPTY,
+		$self->{'flush_code'} .= join($EMPTY_STR,
 			@{$self->{'tmp_code'}},
 			@{$self->{'tmp_comment_code'}});
 	}
@@ -235,7 +235,7 @@ sub _put_cdata {
 	unshift @cdata, '<![CDATA[';
 
 	# Check to bad cdata.
-	if (join($EMPTY, @cdata) =~ /]]>$/ms) {
+	if (join($EMPTY_STR, @cdata) =~ /]]>$/ms) {
 		err 'Bad CDATA data.'
 	}
 
@@ -246,7 +246,7 @@ sub _put_cdata {
 	$self->_process_data_callback(\@cdata);
 
 	# To flush code.
-	$self->{'flush_code'} .= join($EMPTY, @cdata);
+	$self->{'flush_code'} .= join($EMPTY_STR, @cdata);
 
 	return;
 }
@@ -267,7 +267,7 @@ sub _put_comment {
 	}
 
 	# Process comment.
-	my $comment = join($EMPTY, @comments);
+	my $comment = join($EMPTY_STR, @comments);
 	if (scalar @{$self->{'tmp_code'}}) {
 		push @{$self->{'tmp_comment_code'}}, $comment;
 
@@ -296,7 +296,7 @@ sub _put_data {
 	$self->_process_data_callback(\@data);
 
 	# To flush code.
-	$self->{'flush_code'} .= join($EMPTY, @data);
+	$self->{'flush_code'} .= join($EMPTY_STR, @data);
 
 	return;
 }
@@ -378,7 +378,7 @@ sub _put_raw {
 	$self->_process_data_callback(\@raw_data);
 
 	# To flush code.
-	$self->{'flush_code'} .= join($EMPTY, @raw_data);
+	$self->{'flush_code'} .= join($EMPTY_STR, @raw_data);
 
 	return;
 }

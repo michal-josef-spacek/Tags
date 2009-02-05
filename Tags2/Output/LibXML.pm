@@ -13,7 +13,7 @@ use Readonly;
 use XML::LibXML;
 
 # Constants.
-Readonly::Scalar my $EMPTY => q{};
+Readonly::Scalar my $EMPTY_STR => q{};
 Readonly::Scalar our $VERSION => 0.01;
 
 #------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ sub new {
 	my $self = bless {}, $class;
 
 	# Set output handler.
-	$self->{'output_handler'} = $EMPTY;
+	$self->{'output_handler'} = $EMPTY_STR;
 
 	# Set indent.
 	$self->{'set_indent'} = 0;
@@ -147,7 +147,7 @@ sub _put_cdata {
 # CData.
 
 	my ($self, @cdata) = @_;
-	my $cdata = join($EMPTY, @cdata);
+	my $cdata = join($EMPTY_STR, @cdata);
 	my $cdata_node = $self->{'doc'}->createCDATASection($cdata);
 	$self->{'printed_tags'}->[0]->addChild($cdata_node);
 	return;
@@ -159,7 +159,7 @@ sub _put_comment {
 # Comment.
 
 	my ($self, @comments) = @_;
-	my $comment = join($EMPTY, @comments);
+	my $comment = join($EMPTY_STR, @comments);
 	my $comment_node = $self->{'doc'}->createComment($comment);
 	if (! defined $self->{'printed_tags'}->[0]) {
 		$self->{'doc'}->appendChild($comment_node);
@@ -175,7 +175,7 @@ sub _put_data {
 # Data.
 
 	my ($self, @data) = @_;
-	my $data = join($EMPTY, @data);
+	my $data = join($EMPTY_STR, @data);
 	my $data_node = $self->{'doc'}->createTextNode($data);
 	$self->{'printed_tags'}->[0]->addChild($data_node);
 	return;
