@@ -356,7 +356,7 @@ sub _put_instruction {
 
 	# To flush code.
 	$self->{'flush_code'} .= '<?'.$target;
-	$self->{'flush_code'} .= $EMPTY.$code if $code;
+	$self->{'flush_code'} .= $SPACE.$code if $code;
 	$self->{'flush_code'} .= '?>';
 
 	return;
