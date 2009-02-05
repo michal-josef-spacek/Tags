@@ -14,7 +14,9 @@ use XML::LibXML;
 
 # Constants.
 Readonly::Scalar my $EMPTY_STR => q{};
-Readonly::Scalar our $VERSION => 0.01;
+
+# Version.
+our $VERSION = 0.01;
 
 #------------------------------------------------------------------------------
 sub new {
