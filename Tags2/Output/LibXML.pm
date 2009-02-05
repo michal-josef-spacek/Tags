@@ -71,7 +71,8 @@ sub flush {
 	my $ouf = $self->{'output_handler'};
 	if ($ouf) {
 		print {$ouf} $self->{'doc'}->toString(
-			$self->{'set_indent'} ? 2 : 0);
+			$self->{'set_indent'} ? 2 : 0)
+			|| err 'Cannot write to output handler.';;
 		return;
 	} else {
 		return $self->{'doc'}->toString(
