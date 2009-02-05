@@ -16,7 +16,7 @@ use XML::LibXML;
 Readonly::Scalar my $EMPTY_STR => q{};
 
 # Version.
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 #------------------------------------------------------------------------------
 sub new {
@@ -25,6 +25,9 @@ sub new {
 
 	my ($class, @params) = @_;
 	my $self = bless {}, $class;
+
+	# Data callback.
+	$self->{'data_callback'} = undef;
 
 	# Document encoding.
 	$self->{'encoding'} = 'UTF-8';
@@ -149,6 +152,7 @@ sub _put_cdata {
 # CData.
 
 	my ($self, @cdata) = @_;
+	$self->_process_data_callback(\@cdata);
 	my $cdata = join($EMPTY_STR, @cdata);
 	my $cdata_node = $self->{'doc'}->createCDATASection($cdata);
 	$self->{'printed_tags'}->[0]->addChild($cdata_node);
@@ -177,6 +181,7 @@ sub _put_data {
 # Data.
 
 	my ($self, @data) = @_;
+	$self->_process_data_callback(\@data);
 	my $data = join($EMPTY_STR, @data);
 	my $data_node = $self->{'doc'}->createTextNode($data);
 	$self->{'printed_tags'}->[0]->addChild($data_node);
@@ -258,6 +263,21 @@ __END__
 
 =over 8
 
+=item * B<data_callback>
+
+ Subroutine for output processing of data, cdata and raw data.
+ Input argument is reference to array.
+
+ Example:
+ 'data_callback' => sub {
+         my $data_arr_ref = shift;
+	 foreach my $data (@{$data_arr_ref}) {
+
+	         # Some process.
+	         $data =~ s/^\s*//ms;
+	 }
+ }
+
 =item B<output_handler>
 
  Handler for print output strings.
@@ -327,6 +347,6 @@ L<Tags2::Output::SESIS(3pm)>.
 
 =head1 VERSION
 
- 0.01
+ 0.02
 
 =cut
