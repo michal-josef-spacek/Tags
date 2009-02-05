@@ -33,12 +33,26 @@ sub new {
 	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
+	# Attribute delimeter.
+	$self->{'attr_delimeter'} = '"';
+
 	# Auto-flush.
 	$self->{'auto_flush'} = 0;
 
-	# Indent params.
-	$self->{'next_indent'} = $SPACE x 2;
+	# Indent CDATA section.
+	$self->{'cdata_indent'} = 0;
+
+	# Callback to instruction.
+	$self->{'instruction'} = $EMPTY_STR;
+
+	# Indent line size.
 	$self->{'line_size'} = $LINE_SIZE;
+
+	# Next indent string.
+	$self->{'next_indent'} = $SPACE x 2;
+
+	# No simple tags.
+	$self->{'no_simple'} = [];
 
 	# Output handler.
 	$self->{'output_handler'} = $EMPTY_STR;
@@ -46,23 +60,11 @@ sub new {
 	# Output separator.
 	$self->{'output_sep'} = "\n";
 
-	# No simple tags.
-	$self->{'no_simple'} = [];
-
 	# Preserved tags.
 	$self->{'preserved'} = [];
 
-	# Attribute delimeter.
-	$self->{'attr_delimeter'} = '"';
-
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
-
-	# Callback to instruction.
-	$self->{'instruction'} = $EMPTY_STR;
-
-	# Indent CDATA section.
-	$self->{'cdata_indent'} = 0;
 
 	# XML output.
 	$self->{'xml'} = 0;
