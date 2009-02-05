@@ -12,7 +12,7 @@ use List::MoreUtils qw(none);
 use Readonly;
 
 # Constants.
-Readonly::Scalar my $EMPTY => q{};
+Readonly::Scalar my $EMPTY_STR => q{};
 
 # Version.
 our $VERSION = 0.01;
@@ -61,7 +61,7 @@ sub check {
 
 		# End of tag.
 		} elsif ($data->[0] eq 'e') {
-			$self->{'actual_tag'} = $EMPTY;
+			$self->{'actual_tag'} = $EMPTY_STR;
 			$self->{'log'} = 0;
 		}
 	}
