@@ -2,7 +2,10 @@ print "Testing: Raw.\n" if $debug;
 my $obj = $class->new;
 $obj->put(
 	['b', 'tag'],
+
+	# Ignore for this module.
 	['r', 'Raw'],
+
 	['e', 'tag'],
 );
 my $ret = $obj->flush;
