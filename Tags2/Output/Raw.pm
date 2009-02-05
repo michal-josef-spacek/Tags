@@ -17,7 +17,9 @@ use Tags2::Utils::Preserve;
 Readonly::Scalar my $EMPTY => q{};
 Readonly::Scalar my $LAST_INDEX => -1;
 Readonly::Scalar my $SPACE => q{ };
-Readonly::Scalar our $VERSION => 0.05;
+
+# Version.
+our $VERSION = 0.06;
 
 #------------------------------------------------------------------------------
 sub new {
@@ -33,6 +35,9 @@ sub new {
 	# Attribute delimeter.
 	$self->{'attr_delimeter'} = '"';
 
+	# Data callback.
+	$self->{'data_callback'} = undef;
+
 	# No simple tags.
 	$self->{'no_simple'} = [];
 
@@ -40,7 +45,7 @@ sub new {
 	$self->{'output_handler'} = $EMPTY;
 
 	# Output separator.
-	$self->{'output_sep'} = '';
+	$self->{'output_sep'} = $EMPTY;
 
 	# Preserved tags.
 	$self->{'preserved'} = [];
@@ -127,10 +132,10 @@ sub _flush_tmp {
 	}
 
 	# Flush comment code before tag.
-	if ($self->{'comment_flag'} == 0 
+	if ($self->{'comment_flag'} == 0
 		&& scalar @{$self->{'tmp_comment_code'}}) {
 
-		$self->{'flush_code'} .= join($EMPTY, 
+		$self->{'flush_code'} .= join($EMPTY,
 			@{$self->{'tmp_comment_code'}},
 			@{$self->{'tmp_code'}});
 
@@ -144,6 +149,23 @@ sub _flush_tmp {
 	# Resets tmp_codes.
 	$self->{'tmp_code'} = [];
 	$self->{'tmp_comment_code'} = [];
+
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _process_data_callback {
+#------------------------------------------------------------------------------
+# Process dala callback.
+
+	my ($self, $data_array_ref) = @_;
+
+	# Process data callback.
+	if (defined $self->{'data_callback'}
+		&& ref $self->{'data_callback'} eq 'CODE') {
+
+		$self->{'data_callback'}->($data_array_ref);
+	}
 
 	return;
 }
@@ -165,6 +187,7 @@ sub _put_attribute {
 			$self->{'attr_delimeter'};
 		$self->{'comment_flag'} = 0;
 	}
+	return;
 }
 
 #------------------------------------------------------------------------------
@@ -219,6 +242,9 @@ sub _put_cdata {
 	# Added end of cdata section.
 	push @cdata, ']]>';
 
+	# Process data callback.
+	$self->_process_data_callback(\@cdata);
+
 	# To flush code.
 	$self->{'flush_code'} .= join($EMPTY, @cdata);
 
@@ -265,6 +291,9 @@ sub _put_data {
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_flush_tmp('>');
 	}
+
+	# Process data callback.
+	$self->_process_data_callback(\@data);
 
 	# To flush code.
 	$self->{'flush_code'} .= join($EMPTY, @data);
@@ -327,7 +356,7 @@ sub _put_instruction {
 
 	# To flush code.
 	$self->{'flush_code'} .= '<?'.$target;
-	$self->{'flush_code'} .= ' '.$code if $code;
+	$self->{'flush_code'} .= $EMPTY.$code if $code;
 	$self->{'flush_code'} .= '?>';
 
 	return;
@@ -344,11 +373,12 @@ sub _put_raw {
 	if (scalar @{$self->{'tmp_code'}}) {
 		$self->_flush_tmp('>');
 	}
-	
+
+	# Process data callback.
+	$self->_process_data_callback(\@raw_data);
+
 	# To flush code.
-	foreach my $data (@raw_data) {
-		$self->{'flush_code'} .= $data;
-	}
+	$self->{'flush_code'} .= join($EMPTY, @raw_data);
 
 	return;
 }
@@ -396,7 +426,7 @@ __END__
  Prints <tag attr='val' /> instead default <tag attr="val" />
 
  my $t = Tags2::Output::Raw->new(
-   'attr_delimeter' => "'",
+         'attr_delimeter' => "'",
  );
  $t->put(['b', 'tag'], ['a', 'attr', 'val'], ['e', 'tag']);
  $t->flush;
@@ -405,6 +435,21 @@ __END__
 
  Auto flush flag.
  Default is 0.
+
+=item * B<data_callback>
+
+ Subroutine for output processing of data, cdata and raw data.
+ Input argument is reference to array.
+
+ Example:
+ 'data_callback' => sub {
+         my $data_arr_ref = shift;
+	 foreach my $data (@{$data_arr_ref}) {
+
+	         # Some process.
+	         $data =~ s/^\s*//ms;
+	 }
+ }
 
 =item * B<no-simple>
 
@@ -416,7 +461,7 @@ __END__
  Prints <script></script> instead <script />.
 
  my $t = Tags2::Output::Raw->new(
-   'no_simple' => ['script'
+         'no_simple' => ['script'],
  );
  $t->put(['b', 'script'], ['e', 'script']);
  $t->flush;
@@ -474,7 +519,7 @@ __END__
  In XML must be lowercase tag name.
  TODO
 
-=head1 EXAMPLE
+=head1 EXAMPLE1
 
  # Pragmas.
  use strict;
@@ -498,6 +543,42 @@ __END__
 
  # Output:
  # <text>data</text>
+
+=head1 EXAMPLE2
+
+ # Pragmas.
+ use strict;
+ use warnings;
+
+ # Modules.
+ use Encode;
+ use Tags2::Output::Raw;
+
+ # Object.
+ my $tags = Tags2::Output::Raw->new(
+         'data_callback' => sub {
+	         my $data_arr_ref = shift;
+		 foreach my $data (@{$data_arr_ref}) {
+		         $data = encode_utf8($data);
+		 }
+	 },
+ );
+
+ # Data in characters.
+ my $data = decode_utf8('řčěšřšč');
+
+ # Put data.
+ $tags->put(
+         ['b', 'text'],
+	 ['d', $data],
+	 ['e', 'text'],
+ );
+
+ # Print.
+ print $tags->flush."\n";
+
+ # Output:
+ # <text>řčěšřšč</text>
 
 =head1 DEPENDENCIES
 
@@ -525,6 +606,6 @@ L<Tags2::Output::SESIS(3pm)>.
 
 =head1 VERSION
 
- 0.05
+ 0.06
 
 =cut
