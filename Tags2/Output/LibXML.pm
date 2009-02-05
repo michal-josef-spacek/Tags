@@ -26,22 +26,22 @@ sub new {
 	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
-	# Set output handler.
-	$self->{'output_handler'} = $EMPTY_STR;
-
-	# Set indent.
-	$self->{'set_indent'} = 0;
-
 	# Document encoding.
 	$self->{'encoding'} = 'UTF-8';
+
+	# No simple tags.
+	# TODO not implemented.
+	$self->{'no_simple'} = [];
+
+	# Set output handler.
+	$self->{'output_handler'} = $EMPTY_STR;
 
 	# Preserved tags.
 	# TODO not implemented.
 	$self->{'preserved'} = [];
 
-	# No simple tags.
-	# TODO not implemented.
-	$self->{'no_simple'} = [];
+	# Set indent.
+	$self->{'set_indent'} = 0;
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
