@@ -278,16 +278,16 @@ __END__
 	 }
  }
 
+=item B<encoding>
+
+ TODO
+
 =item B<output_handler>
 
  Handler for print output strings.
  Default is *STDOUT.
 
 =item B<set_indent>
-
- TODO
-
-=item B<encoding>
 
  TODO
 
