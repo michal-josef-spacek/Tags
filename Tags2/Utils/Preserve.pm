@@ -13,7 +13,9 @@ use Readonly;
 
 # Constants.
 Readonly::Scalar my $LAST_INDEX => -1;
-Readonly::Scalar our $VERSION => 0.01;
+
+# Version.
+our $VERSION = 0.01;
 
 #------------------------------------------------------------------------------
 sub new {

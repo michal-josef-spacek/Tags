@@ -14,7 +14,9 @@ use Tags2::Utils qw(encode_newline);
 
 # Constants.
 Readonly::Scalar my $EMPTY_STR => q{};
-Readonly::Scalar our $VERSION => 0.02;
+
+# Version.
+our $VERSION = 0.02;
 
 #------------------------------------------------------------------------------
 sub new {

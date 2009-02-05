@@ -6,11 +6,8 @@ package Tags2::Utils::SimpleOO;
 use strict;
 use warnings;
 
-# Modules.
-use Readonly;
-
-# Constants.
-Readonly::Scalar our $VERSION => 0.01;
+# Version.
+our $VERSION = 0.01;
 
 #------------------------------------------------------------------------------
 sub new {

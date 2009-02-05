@@ -9,10 +9,9 @@ use warnings;
 
 # Modules.
 use Error::Simple::Multiple qw(err);
-use Readonly;
 
-# Constants.
-Readonly::Scalar our $VERSION => 0.01;
+# Version.
+our $VERSION = 0.01;
 
 #------------------------------------------------------------------------------
 sub new {
