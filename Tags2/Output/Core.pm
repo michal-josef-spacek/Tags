@@ -36,7 +36,7 @@ sub flush {
 	my $ouf = $self->{'output_handler'};
 	my $ret;
 	if (ref $self->{'flush_code'} eq 'ARRAY') {
-		my $output_sep = $self->{'output_sep'} 
+		my $output_sep = $self->{'output_sep'}
 			? $self->{'output_sep'}
 			: "\n";
 		$ret = join($output_sep, @{$self->{'flush_code'}});
@@ -44,7 +44,7 @@ sub flush {
 		$ret = $self->{'flush_code'};
 	}
 	if ($ouf) {
-		print {$ouf} $ret;
+		print {$ouf} $ret || err 'Cannot write to output handler.';
 		undef $ret;
 	}
 
