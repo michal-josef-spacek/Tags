@@ -11,9 +11,10 @@ use warnings;
 use Readonly;
 
 # Constants.
-Readonly::Scalar my $EMPTY => q{};
 Readonly::Array our @EXPORT_OK => qw(encode_newline);
-Readonly::Scalar our $VERSION => 0.01;
+
+# Version.
+our $VERSION = 0.01;
 
 #------------------------------------------------------------------------------
 sub encode_newline {
