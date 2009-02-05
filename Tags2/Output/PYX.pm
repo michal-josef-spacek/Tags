@@ -13,7 +13,7 @@ use Readonly;
 use Tags2::Utils qw(encode_newline);
 
 # Constants.
-Readonly::Scalar my $EMPTY => q{};
+Readonly::Scalar my $EMPTY_STR => q{};
 Readonly::Scalar our $VERSION => 0.01;
 
 #------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ sub new {
 	my $self = bless {}, $class;
 
 	# Set output handler.
-	$self->{'output_handler'} = $EMPTY;
+	$self->{'output_handler'} = $EMPTY_STR;
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
@@ -115,7 +115,7 @@ sub _put_data {
 # Data.
 
 	my ($self, @data) = @_;
-	my $data = join($EMPTY, @data);
+	my $data = join($EMPTY_STR, @data);
 	push @{$self->{'flush_code'}}, '-'.encode_newline($data);
 	return;
 }

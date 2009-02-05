@@ -13,7 +13,7 @@ use Readonly;
 use Tags2::Utils qw(encode_newline);
 
 # Constants.
-Readonly::Scalar my $EMPTY => q{};
+Readonly::Scalar my $EMPTY_STR => q{};
 Readonly::Scalar our $VERSION => 0.02;
 
 #------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ sub new {
 	my $self = bless {}, $class;
 
 	# Set output handler.
-	$self->{'output_handler'} = $EMPTY;
+	$self->{'output_handler'} = $EMPTY_STR;
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
@@ -99,7 +99,7 @@ sub _put_cdata {
 # CData.
 
 	my ($self, @cdata) = @_;
-	my $cdata = join($EMPTY, @cdata);
+	my $cdata = join($EMPTY_STR, @cdata);
 	push @{$self->{'flush_code'}}, 'CD'.encode_newline($cdata);
 	return;
 }
@@ -110,7 +110,7 @@ sub _put_comment {
 # Comment.
 
 	my ($self, @comments) = @_;
-	my $comment = join($EMPTY, @comments);
+	my $comment = join($EMPTY_STR, @comments);
 	push @{$self->{'flush_code'}}, '_'.encode_newline($comment);
 	return;
 }
@@ -121,7 +121,7 @@ sub _put_data {
 # Data.
 
 	my ($self, @data) = @_;
-	my $data = join($EMPTY, @data);
+	my $data = join($EMPTY_STR, @data);
 	push @{$self->{'flush_code'}}, '-'.encode_newline($data);
 	return;
 }
@@ -161,7 +161,7 @@ sub _put_raw {
 # Raw data.
 
 	my ($self, @raw_data) = @_;
-	my $raw_data = join($EMPTY, @raw_data);
+	my $raw_data = join($EMPTY_STR, @raw_data);
 	push @{$self->{'flush_code'}}, 'R'.encode_newline($raw_data);
 	return;
 }

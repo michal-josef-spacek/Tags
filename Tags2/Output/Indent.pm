@@ -17,7 +17,7 @@ use Readonly;
 use Tags2::Utils::Preserve;
 
 # Constants.
-Readonly::Scalar my $EMPTY => q{};
+Readonly::Scalar my $EMPTY_STR => q{};
 Readonly::Scalar my $LAST_INDEX => -1;
 Readonly::Scalar my $LINE_SIZE => 79;
 Readonly::Scalar my $SPACE => q{ };
@@ -39,7 +39,7 @@ sub new {
 	$self->{'line_size'} = $LINE_SIZE;
 
 	# Output handler.
-	$self->{'output_handler'} = $EMPTY;
+	$self->{'output_handler'} = $EMPTY_STR;
 
 	# Output separator.
 	$self->{'output_sep'} = "\n";
@@ -57,7 +57,7 @@ sub new {
 	$self->{'skip_bad_tags'} = 0;
 
 	# Callback to instruction.
-	$self->{'instruction'} = $EMPTY;
+	$self->{'instruction'} = $EMPTY_STR;
 
 	# Indent CDATA section.
 	$self->{'cdata_indent'} = 0;
@@ -81,7 +81,7 @@ sub new {
 	}
 
 	# Check auto-flush only with output handler.
-	if ($self->{'auto_flush'} && $self->{'output_handler'} eq $EMPTY) {
+	if ($self->{'auto_flush'} && $self->{'output_handler'} eq $EMPTY_STR) {
 		err '\'auto_flush\' parameter can\'t use without '.
 			'\'output_handler\' parameter.';
 	}
@@ -111,7 +111,7 @@ sub reset {
 	# Indent::Word object.
 	$self->{'indent_word'} = Indent::Word->new(
 		'line_size' => $self->{'line_size'},
-		'next_indent' => $EMPTY,
+		'next_indent' => $EMPTY_STR,
 	);
 
 	# Indent::Block object.
@@ -122,7 +122,7 @@ sub reset {
 	);
 
 	# Flush code.
-	$self->{'flush_code'} = $EMPTY;
+	$self->{'flush_code'} = $EMPTY_STR;
 
 	# Tmp code.
 	$self->{'tmp_code'} = [];
@@ -352,7 +352,7 @@ sub _put_cdata {
 	unshift @cdata, '<![CDATA[';
 
 	# Check to bad cdata.
-	if (join($EMPTY, @cdata) =~ /]]>$/ms) {
+	if (join($EMPTY_STR, @cdata) =~ /]]>$/ms) {
 		err 'Bad CDATA section.' 
 	}
 
@@ -421,8 +421,8 @@ sub _put_data {
 	$self->{'preserve_obj'}->save_previous;
 	my $pre = $self->{'preserve_obj'}->get;
 	my $indent_data = $self->{'indent_word'}->indent(
-		join($EMPTY, @data),
-		$pre ? $EMPTY : $self->{'indent'}->get,
+		join($EMPTY_STR, @data),
+		$pre ? $EMPTY_STR : $self->{'indent'}->get,
 		$pre ? 1 : 0
 	);
 	$self->_flush_code($indent_data);

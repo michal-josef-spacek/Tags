@@ -13,7 +13,7 @@ use Readonly;
 use Tags2::Utils qw(encode_newline);
 
 # Constants.
-Readonly::Scalar my $EMPTY => q{};
+Readonly::Scalar my $EMPTY_STR => q{};
 Readonly::Scalar our $VERSION => 0.02;
 
 #------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ sub new {
 	my $self = bless {}, $class;
 
 	# Output handler.
-	$self->{'output_handler'} = $EMPTY;
+	$self->{'output_handler'} = $EMPTY_STR;
 
 	# Output separator.
 	$self->{'output_sep'} = "\n";
@@ -126,7 +126,7 @@ sub _put_comment {
 
 	my ($self, @comments) = @_;
 	$self->_flush_tmp;
-	my $comment = join($EMPTY, @comments);
+	my $comment = join($EMPTY_STR, @comments);
 	push @{$self->{'flush_code'}}, '_'.encode_newline($comment);
 	return;
 }
@@ -138,7 +138,7 @@ sub _put_data {
 
 	my ($self, @data) = @_;
 	$self->_flush_tmp;
-	my $data = join($EMPTY, @data);
+	my $data = join($EMPTY_STR, @data);
 	push @{$self->{'flush_code'}}, '-'.encode_newline($data);
 	return;
 }
