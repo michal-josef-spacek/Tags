@@ -280,7 +280,8 @@ __END__
 
 =item B<encoding>
 
- TODO
+ Encoding for XML header.
+ Default is 'UTF-8'.
 
 =item B<no_simple>
 
@@ -298,6 +299,7 @@ __END__
 =item B<set_indent>
 
  TODO
+ Default is 0.
 
 =item B<skip_bad_tags>
 
@@ -305,7 +307,8 @@ __END__
 
 =item B<xml_version>
 
- TODO
+ XML version for XML header.
+ Default is "1.1".
 
 =back
 
