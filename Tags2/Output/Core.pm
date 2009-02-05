@@ -12,8 +12,10 @@ use Error::Simple::Multiple qw(err);
 use Readonly;
 
 # Constants.
-Readonly::Scalar my $EMPTY => q{};
-Readonly::Scalar our $VERSION => 0.02;
+Readonly::Scalar my $EMPTY_STR => q{};
+
+# Version.
+our $VERSION = 0.02;
 
 #------------------------------------------------------------------------------
 sub finalize {
@@ -125,7 +127,7 @@ sub put {
 	# Auto-flush.
 	if ($self->{'auto_flush'}) {
 		$self->flush;
-		$self->{'flush_code'} = $EMPTY;
+		$self->{'flush_code'} = $EMPTY_STR;
 	}
 
 	return;
