@@ -282,16 +282,28 @@ __END__
 
  TODO
 
+=item B<no_simple>
+
+ TODO
+
 =item B<output_handler>
 
  Handler for print output strings.
  Default is *STDOUT.
+
+=item B<preserved>
+
+ TODO
 
 =item B<set_indent>
 
  TODO
 
 =item B<skip_bad_tags>
+
+ TODO
+
+=item B<xml_version>
 
  TODO
 
