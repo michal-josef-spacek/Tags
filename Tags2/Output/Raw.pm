@@ -423,6 +423,7 @@ __END__
 
  Subroutine for output processing of data, cdata and raw data.
  Input argument is reference to array.
+ Default value is undef.
 
  Example:
  'data_callback' => sub {
