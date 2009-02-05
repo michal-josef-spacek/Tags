@@ -9,27 +9,36 @@ use warnings;
 
 # Modules.
 use Error::Simple::Multiple qw(err);
+use Readonly;
 
-# Version.
-our $VERSION = 0.01;
+# Constants.
+Readonly::Array our @EXPORT_OK => qw(put_a put_b put_c put_d put_e put_i 
+	register);
+Readonly::Hash our %EXPORT_TAGS => (
+	all => [qw(put_a put_b put_c put_d put_e put_i register)],
+);
 
 # Global variables.
 our $TAGS_OBJ;
 
-# Export.
-our @EXPORT = qw(register);
-our @EXPORT_OK = qw(put_a put_b put_c put_d put_e put_i);
-our %EXPORT_TAGS = (
-	all => [qw(put_a put_b put_c put_d put_e put_i)],
-);
+# Version.
+our $VERSION = 0.01;
 
 #------------------------------------------------------------------------------
 sub register {
 #------------------------------------------------------------------------------
 # Register tags object to this module.
 
-	$tags_obj = shift;
-	if (! $tags_obj || ! $tags_obj->isa('Tags2')) {
+	my $tags_obj = shift;
+	if (! $tags_obj || (! $tags_obj->isa('Tags2::Output::Debug')
+		&& ! $tags_obj->isa('Tags2::Output::ESIS')
+		&& ! $tags_obj->isa('Tags2::Output::Indent')
+		&& ! $tags_obj->isa('Tags2::Output::Indent2')
+		&& ! $tags_obj->isa('Tags2::Output::LibXML')
+		&& ! $tags_obj->isa('Tags2::Output::PYX')
+		&& ! $tags_obj->isa('Tags2::Output::Raw')
+		&& ! $tags_obj->isa('Tags2::Output::SESIS'))) {
+
 		err "Bad Tags2 object.\n";
 	}
 	$TAGS_OBJ = $tags_obj;
