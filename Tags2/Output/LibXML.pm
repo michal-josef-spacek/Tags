@@ -181,7 +181,7 @@ sub _put_data {
 # Data.
 
 	my ($self, @data) = @_;
-	$self->_process_data_callback(\@data);
+	$self->_process_callback(\@data, 'data_callback');
 	my $data = join($EMPTY_STR, @data);
 	my $data_node = $self->{'doc'}->createTextNode($data);
 	$self->{'printed_tags'}->[0]->addChild($data_node);
