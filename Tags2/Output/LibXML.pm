@@ -26,6 +26,9 @@ sub new {
 	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
+	# CDATA callback.
+	$self->{'cdata_callback'} = undef;
+
 	# Data callback.
 	$self->{'data_callback'} = undef;
 
@@ -152,7 +155,7 @@ sub _put_cdata {
 # CData.
 
 	my ($self, @cdata) = @_;
-	$self->_process_data_callback(\@cdata);
+	$self->_process_callback(\@cdata, 'cdata_callback');
 	my $cdata = join($EMPTY_STR, @cdata);
 	my $cdata_node = $self->{'doc'}->createCDATASection($cdata);
 	$self->{'printed_tags'}->[0]->addChild($cdata_node);
@@ -262,6 +265,13 @@ __END__
 =head1 PARAMETERS
 
 =over 8
+
+=item * B<cdata_callback>
+
+ Subroutine for output processing of cdata.
+ Input argument is reference to array.
+ Default value is undef.
+ Example is similar as 'data_callback'.
 
 =item * B<data_callback>
 
