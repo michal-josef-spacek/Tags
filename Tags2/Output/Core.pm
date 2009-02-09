@@ -138,17 +138,17 @@ sub put {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _process_data_callback {
+sub _process_callback {
 #------------------------------------------------------------------------------
 # Process dala callback.
 
-	my ($self, $data_array_ref) = @_;
+	my ($self, $data_array_ref, $callback_type) = @_;
 
 	# Process data callback.
-	if (defined $self->{'data_callback'}
-		&& ref $self->{'data_callback'} eq 'CODE') {
+	if (defined $self->{$callback_type}
+		&& ref $self->{$callback_type} eq 'CODE') {
 
-		$self->{'data_callback'}->($data_array_ref);
+		$self->{$callback_type}->($data_array_ref);
 	}
 
 	return;

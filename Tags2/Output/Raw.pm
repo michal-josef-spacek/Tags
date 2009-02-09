@@ -36,8 +36,11 @@ sub new {
 	# Attribute delimeter.
 	$self->{'attr_delimeter'} = '"';
 
+	# CDATA callback.
+	$self->{'cdata_callback'} = undef;
+
 	# Data callback.
-	$self->{'data_callback'} = &encode_base_entities;
+	$self->{'data_callback'} = \&encode_base_entities;
 
 	# No simple tags.
 	$self->{'no_simple'} = [];
@@ -50,6 +53,9 @@ sub new {
 
 	# Preserved tags.
 	$self->{'preserved'} = [];
+
+	# Raw data callback.
+	$self->{'raw_callback'} = undef;
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
@@ -227,7 +233,7 @@ sub _put_cdata {
 	push @cdata, ']]>';
 
 	# Process data callback.
-	$self->_process_data_callback(\@cdata);
+	$self->_process_callback(\@cdata, 'cdata_callback');
 
 	# To flush code.
 	$self->{'flush_code'} .= join($EMPTY_STR, @cdata);
@@ -277,7 +283,7 @@ sub _put_data {
 	}
 
 	# Process data callback.
-	$self->_process_data_callback(\@data);
+	$self->_process_callback(\@data, 'data_callback');
 
 	# To flush code.
 	$self->{'flush_code'} .= join($EMPTY_STR, @data);
@@ -359,7 +365,7 @@ sub _put_raw {
 	}
 
 	# Process data callback.
-	$self->_process_data_callback(\@raw_data);
+	$self->_process_callback(\@raw_data, 'raw_callback');
 
 	# To flush code.
 	$self->{'flush_code'} .= join($EMPTY_STR, @raw_data);
@@ -420,6 +426,13 @@ __END__
  Auto flush flag.
  Default is 0.
 
+=item * B<cdata_callback>
+
+ Subroutine for output processing of cdata.
+ Input argument is reference to array.
+ Default value is undef.
+ Example is similar as 'data_callback'.
+
 =item * B<data_callback>
 
  Subroutine for output processing of data, cdata and raw data.
@@ -460,6 +473,13 @@ __END__
 
  TODO
  Default is reference to blank array.
+
+=item * B<raw_callback>
+
+ Subroutine for output processing of raw data.
+ Input argument is reference to array.
+ Default value is undef.
+ Example is similar as 'data_callback'.
 
 =item * B<skip_bad_tags>
 

@@ -43,8 +43,11 @@ sub new {
 	# Indent CDATA section.
 	$self->{'cdata_indent'} = 0;
 
+	# CDATA callback.
+	$self->{'cdata_callback'} = undef;
+
 	# Data callback.
-	$self->{'data_callback'} = &encode_base_entities;
+	$self->{'data_callback'} = \&encode_base_entities;
 
 	# Callback to instruction.
 	$self->{'instruction'} = $EMPTY_STR;
@@ -66,6 +69,9 @@ sub new {
 
 	# Preserved tags.
 	$self->{'preserved'} = [];
+
+	# Raw data callback.
+	$self->{'raw_callback'} = undef;
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
@@ -368,7 +374,7 @@ sub _put_cdata {
 	push @cdata, ']]>';
 
 	# Process data callback.
-	$self->_process_data_callback(\@cdata);
+	$self->_process_callback(\@cdata, 'cdata_callback');
 
 	$self->_newline;
 	$self->{'preserve_obj'}->save_previous;
@@ -429,7 +435,7 @@ sub _put_data {
 	}
 
 	# Process data callback.
-	$self->_process_data_callback(\@data);
+	$self->_process_callback(\@data, 'data_callback');
 
 	$self->_newline;
 	$self->{'preserve_obj'}->save_previous;
@@ -533,7 +539,7 @@ sub _put_raw {
 	}
 
 	# Process data callback.
-	$self->_process_data_callback(\@raw_data);
+	$self->_process_callback(\@raw_data, 'raw_callback');
 
 	# Added raw data to flush code.
 	$self->_flush_code(join($EMPTY_STR, @raw_data));
@@ -602,9 +608,16 @@ __END__
  Flag, that means indent CDATA section.
  Default value is no-indent (0).
 
+=item * B<cdata_callback>
+
+ Subroutine for output processing of cdata.
+ Input argument is reference to array.
+ Default value is undef.
+ Example is similar as 'data_callback'.
+
 =item * B<data_callback>
 
- Subroutine for output processing of data, cdata and raw data.
+ Subroutine for output processing of data.
  Input argument is reference to array.
  Default value is &Tags2::Utils::encode_base_entities.
 
@@ -657,6 +670,13 @@ __END__
 
  TODO
  Default is reference to blank array.
+
+=item * B<raw_callback>
+
+ Subroutine for output processing of raw data.
+ Input argument is reference to array.
+ Default value is undef.
+ Example is similar as 'data_callback'.
 
 =item * B<skip_bad_tags>
 
