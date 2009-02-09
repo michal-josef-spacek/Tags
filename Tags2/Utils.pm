@@ -36,6 +36,10 @@ sub encode_base_entities {
 	if (ref $data eq 'SCALAR') {
 		${$data} = encode_entities(${$data}, '<>&');
 		return;
+	} elsif (ref $data eq 'ARRAY') {
+		foreach my $one_data (@{$data}) {
+			encode_base_entities(\$one_data);
+		}
 	} else {
 		return encode_entities($data, '<>&');
 	}
