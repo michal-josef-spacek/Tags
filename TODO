@@ -33,7 +33,8 @@ Tags2::Output::Indent hotovo.
 Tags2::Output::LibXML hotovo.
 Tags2::Output::Raw hotovo.
 37. Proc nefunguje perl t/03_.... ? Nedojde do konce.
-38.
+38. Attribute callback (vhodne pro prekodovani do utf a nahradu uvozovek).
+39.
 
 Applied
 =======
