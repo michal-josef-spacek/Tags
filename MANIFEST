@@ -39,6 +39,7 @@ t/Tags2OutputIndent/11_cdata.t
 t/Tags2OutputIndent/12_auto_flush.t
 t/Tags2OutputIndent/13_attributes.t
 t/Tags2OutputIndent/14_instruction.t
+t/Tags2OutputIndent/15_data_callback.t
 t/Tags2OutputIndent2/01_version.t
 t/Tags2OutputIndent2/02_constructor.t
 t/Tags2OutputIndent2/03_comment.t
@@ -62,6 +63,8 @@ t/Tags2OutputLibXML/06_preserve_from_attribute.t
 t/Tags2OutputLibXML/07_cdata.t
 t/Tags2OutputLibXML/08_attributes.t
 t/Tags2OutputLibXML/09_instruction.t
+t/Tags2OutputLibXML/10_raw.t
+t/Tags2OutputLibXML/11_data_callback.t
 t/Tags2OutputPYX/01_version.t
 t/Tags2OutputPYX/02_constructor.t
 t/Tags2OutputPYX/03_comment.t
@@ -82,6 +85,7 @@ t/Tags2OutputRaw/10_cdata.t
 t/Tags2OutputRaw/11_output_handler.t
 t/Tags2OutputRaw/12_error.t
 t/Tags2OutputRaw/13_instruction.t
+t/Tags2OutputRaw/14_data_callback.t
 t/Tags2OutputSESIS/01_version.t
 t/Tags2OutputSESIS/02_constructor.t
 t/Tags2OutputSESIS/03_comment.t
@@ -111,6 +115,7 @@ t/Tags2ProcessValidator/DTD/test8.dtd
 t/Tags2ProcessValidator/DTD/test9.dtd
 t/Tags2Utils/01_version.t
 t/Tags2Utils/02_encode_newline.t
+t/Tags2Utils/03_encode_base_entities.t
 t/Tags2UtilsPreserve/01_version.t
 t/Tags2UtilsPreserve/02_constructor.t
 t/Tags2UtilsPreserve/03_preserving.t
