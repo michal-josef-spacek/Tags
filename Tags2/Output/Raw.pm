@@ -12,6 +12,7 @@ use Error::Simple::Multiple qw(err);
 use List::MoreUtils qw(none);
 use Readonly;
 use Tags2::Utils::Preserve;
+use Tags2::Utils qw(encode_base_entities);
 
 # Constants.
 Readonly::Scalar my $EMPTY_STR => q{};
@@ -36,7 +37,7 @@ sub new {
 	$self->{'attr_delimeter'} = '"';
 
 	# Data callback.
-	$self->{'data_callback'} = undef;
+	$self->{'data_callback'} = &encode_base_entities;
 
 	# No simple tags.
 	$self->{'no_simple'} = [];
@@ -423,7 +424,7 @@ __END__
 
  Subroutine for output processing of data, cdata and raw data.
  Input argument is reference to array.
- Default value is undef.
+ Default value is &Tags2::Utils::encode_base_entities.
 
  Example:
  'data_callback' => sub {

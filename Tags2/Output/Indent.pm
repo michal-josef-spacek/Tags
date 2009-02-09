@@ -14,6 +14,7 @@ use Indent::Word;
 use Indent::Block;
 use List::MoreUtils qw(none);
 use Readonly;
+use Tags2::Utils qw(encode_base_entities);
 use Tags2::Utils::Preserve;
 
 # Constants.
@@ -43,7 +44,7 @@ sub new {
 	$self->{'cdata_indent'} = 0;
 
 	# Data callback.
-	$self->{'data_callback'} = undef;
+	$self->{'data_callback'} = &encode_base_entities;
 
 	# Callback to instruction.
 	$self->{'instruction'} = $EMPTY_STR;
@@ -605,7 +606,7 @@ __END__
 
  Subroutine for output processing of data, cdata and raw data.
  Input argument is reference to array.
- Default value is undef.
+ Default value is &Tags2::Utils::encode_base_entities.
 
  Example:
  'data_callback' => sub {
