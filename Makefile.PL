@@ -5,7 +5,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
 	'NAME' => 'Tags2',
 	'PREREQ_PM' => {
-		'Error::Simple::Multiple' => 0.04,
+		'Error::Simple::Multiple' => 0.05,
 		'List::MoreUtils' => 0,
 		'Readonly' => 0,
 	},
