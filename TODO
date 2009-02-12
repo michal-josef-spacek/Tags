@@ -39,7 +39,15 @@ Tags2::Output::Raw hotovo.
     Pridat testy.
 Tags2::Output::Raw hotovo.
 Tags2::Output::Indent hotovo.
-40.
+40. encode_base_entities v Tags2::Utils patri jeste proverit.
+    Vzhledem k tomu, ze potrebujeme menit ruzne entity, bylo by dobre udelat
+    nejakou skupinu procedur.
+    - attributy: klic    : Zacina nejakym znakem a uvnitr muzou byt nejake
+                           znaky.
+               : hodnota : Nesmi obsahovat <& a uvozovku, v ktere je to
+                           obsazeno.
+    - text: Nesmi obsahovat <&
+41.
 
 Applied
 =======
