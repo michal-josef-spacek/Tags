@@ -3,7 +3,6 @@ package Tags2::Output::Core;
 #------------------------------------------------------------------------------
 
 # Pragmas.
-use base qw(Tags2::Output::Core);
 use strict;
 use warnings;
 
