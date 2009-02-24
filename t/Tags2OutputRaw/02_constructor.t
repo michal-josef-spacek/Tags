@@ -23,6 +23,12 @@ eval {
 };
 ok($@, 'Auto-flush can\'t use without output handler.'."\n");
 
+print "Testing: new('output_handler' = '') bad constructor.\n" if $debug;
+eval {
+	$obj = $class->new('output_handler' => '');
+};
+ok($@, 'Output handler is bad file handler.'."\n");
+
 print "Testing: new() right constructor.\n" if $debug;
 eval {
 	$obj = $class->new;
