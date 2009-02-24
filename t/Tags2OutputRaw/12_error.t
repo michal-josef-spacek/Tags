@@ -12,3 +12,9 @@ eval {
 	$obj->put(['b', 'tag'], ['b', 'tag2'], ['e', 'tag']);
 };
 ok($@, "Ending bad tag: 'tag' in block of tag 'tag2'.\n");
+
+$obj->reset;
+eval {
+	$obj->put(['a', 'key', 'val']);
+};
+ok($@, 'Bad tag type \'a\'.'."\n");
