@@ -119,7 +119,9 @@ sub put {
 
 		# Other.
 		} else {
-			err 'Bad type of data.' if ! $self->{'skip_bad_tags'};
+			if (! $self->{'skip_bad_tags'}) {
+				err 'Bad type of data.';
+			}
 		}
 	}
 
