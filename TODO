@@ -47,7 +47,8 @@ Tags2::Output::Indent hotovo.
                : hodnota : Nesmi obsahovat <& a uvozovku, v ktere je to
                            obsazeno.
     - text: Nesmi obsahovat <&
-41.
+41. Cover testing.
+42.
 
 Applied
 =======
