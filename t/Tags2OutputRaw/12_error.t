@@ -18,3 +18,15 @@ eval {
 	$obj->put(['a', 'key', 'val']);
 };
 ok($@, 'Bad tag type \'a\'.'."\n");
+
+$obj->reset;
+eval {
+	$obj->put(['q', 'key', 'val']);
+};
+ok($@, 'Bad type of data.'."\n");
+
+$obj->reset;
+eval {
+	$obj->put('q');
+};
+ok($@, 'Bad data.'."\n");
