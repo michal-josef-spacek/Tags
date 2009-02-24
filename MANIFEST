@@ -85,6 +85,8 @@ t/Tags2OutputRaw/11_output_handler.t
 t/Tags2OutputRaw/12_error.t
 t/Tags2OutputRaw/13_instruction.t
 t/Tags2OutputRaw/14_data_callback.t
+t/Tags2OutputRaw/15_finalize.t
+t/Tags2OutputRaw/16_open_tags.t
 t/Tags2OutputSESIS/01_version.t
 t/Tags2OutputSESIS/02_constructor.t
 t/Tags2OutputSESIS/03_comment.t
