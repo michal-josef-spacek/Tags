@@ -279,7 +279,7 @@ sub _put_data {
 #------------------------------------------------------------------------------
 # Data.
 
-	my ($self, @data) = @_;
+	my ($self, @character_data) = @_;
 
 	# Flush tmp code.
 	if (scalar @{$self->{'tmp_code'}}) {
@@ -287,10 +287,10 @@ sub _put_data {
 	}
 
 	# Process data callback.
-	$self->_process_callback(\@data, 'data_callback');
+	$self->_process_callback(\@character_data, 'data_callback');
 
 	# To flush code.
-	$self->{'flush_code'} .= join $EMPTY_STR, @data;
+	$self->{'flush_code'} .= join $EMPTY_STR, @character_data;
 
 	return;
 }
