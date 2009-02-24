@@ -4,11 +4,14 @@ $obj->put(
 	['i', 'perl', 'print "1\n";'],
 );
 my $ret = $obj->flush;
-my $right_ret = <<'END';
-<?perl print "1\n";?>
-END
-chomp $right_ret;
-ok($ret, $right_ret);
+ok($ret, '<?perl print "1\n";?>');
+
+$obj->reset;
+$obj->put(
+	['i', 'perl'],
+);
+$ret = $obj->flush;
+ok($ret, '<?perl?>');
 
 $obj->reset;
 $obj->put(
@@ -17,8 +20,4 @@ $obj->put(
 	['e', 'tag'],
 );
 $ret = $obj->flush;
-$right_ret = <<'END';
-<tag><?perl print "1\n";?></tag>
-END
-chomp $right_ret;
-ok($ret, $right_ret);
+ok($ret, '<tag><?perl print "1\n";?></tag>');
