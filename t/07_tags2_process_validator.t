@@ -33,3 +33,4 @@ foreach (@list) {
 	chomp;
 	do $_;
 	print $@;
+}
