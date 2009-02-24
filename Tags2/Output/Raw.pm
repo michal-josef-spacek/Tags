@@ -67,13 +67,15 @@ sub new {
 	while (@params) {
 		my $key = shift @params;
 		my $val = shift @params;
-		err "Bad parameter '$key'." if ! exists $self->{$key};
+		if (! exists $self->{$key}) {
+			err "Bad parameter '$key'.";
+		}
 		$self->{$key} = $val;
 	}
 
 	# Check 'attr_delimeter'.
-	if ($self->{'attr_delimeter'} ne '"'
-		&& $self->{'attr_delimeter'} ne '\'') {
+	if ($self->{'attr_delimeter'} ne q{"}
+		&& $self->{'attr_delimeter'} ne q{'}) {
 
 		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
 	}
@@ -130,7 +132,9 @@ sub _flush_tmp {
 	my ($self, $string) = @_;
 
 	# Added string.
-	push @{$self->{'tmp_code'}}, $string if $string;
+	if ($string) {
+		push @{$self->{'tmp_code'}}, $string;
+	}
 
 	# Detect preserve mode.
 	my ($pre, $pre_pre) = $self->{'preserve_obj'}->get;
@@ -346,7 +350,9 @@ sub _put_instruction {
 
 	# To flush code.
 	$self->{'flush_code'} .= '<?'.$target;
-	$self->{'flush_code'} .= $SPACE.$code if $code;
+	if ($code) {
+		$self->{'flush_code'} .= $SPACE.$code;
+	}
 	$self->{'flush_code'} .= '?>';
 
 	return;
