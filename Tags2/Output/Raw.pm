@@ -46,7 +46,7 @@ sub new {
 	$self->{'no_simple'} = [];
 
 	# Output handler.
-	$self->{'output_handler'} = $EMPTY_STR;
+	$self->{'output_handler'} = undef;
 
 	# Output separator.
 	$self->{'output_sep'} = $EMPTY_STR;
@@ -80,8 +80,15 @@ sub new {
 		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
 	}
 
+	# Check to output handler.
+	if (defined $self->{'output_handler'} 
+		&& ref $self->{'output_handler'} ne 'GLOB') {
+
+		err 'Output handler is bad file handler.';
+	}
+
 	# Check auto-flush only with output handler.
-	if ($self->{'auto_flush'} && $self->{'output_handler'} eq $EMPTY_STR) {
+	if ($self->{'auto_flush'} && ! defined $self->{'output_handler'}) {
 		err 'Auto-flush can\'t use without output handler.';
 	}
 
@@ -471,7 +478,7 @@ __END__
 =item * B<output_handler>
 
  Handler for print output strings.
- Default is *STDOUT.
+ Default is undef.
 
 =item * B<preserved>
 
@@ -525,6 +532,7 @@ __END__
 
 =head1 ERRORS
 
+ Output handler is bad file handler.
  In XML must be lowercase tag name.
  TODO
 
