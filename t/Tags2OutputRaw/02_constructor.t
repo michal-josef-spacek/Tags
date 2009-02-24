@@ -17,6 +17,12 @@ eval {
 };
 ok($@, "Bad attribute delimeter '-'.\n");
 
+print "Testing: new('auto_flush' => 1) bad constructor.\n" if $debug;
+eval {
+	$obj = $class->new('auto_flush' => 1);
+};
+ok($@, 'Auto-flush can\'t use without output handler.'."\n");
+
 print "Testing: new() right constructor.\n" if $debug;
 eval {
 	$obj = $class->new;
