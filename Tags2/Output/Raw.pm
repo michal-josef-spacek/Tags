@@ -146,15 +146,15 @@ sub _flush_tmp {
 	if ($self->{'comment_flag'} == 0
 		&& scalar @{$self->{'tmp_comment_code'}}) {
 
-		$self->{'flush_code'} .= join($EMPTY_STR,
+		$self->{'flush_code'} .= join $EMPTY_STR,
 			@{$self->{'tmp_comment_code'}},
-			@{$self->{'tmp_code'}});
+			@{$self->{'tmp_code'}};
 
 	# After tag.
 	} else {
-		$self->{'flush_code'} .= join($EMPTY_STR,
+		$self->{'flush_code'} .= join $EMPTY_STR,
 			@{$self->{'tmp_code'}},
-			@{$self->{'tmp_comment_code'}});
+			@{$self->{'tmp_comment_code'}};
 	}
 
 	# Resets tmp_codes.
@@ -198,7 +198,7 @@ sub _put_begin_of_tag {
 
 	# XXX Is really?
 	# Check to lowercased chars for XML.
-	if ($self->{'xml'} && $tag ne lc($tag)) {
+	if ($self->{'xml'} && $tag ne lc $tag) {
 		err 'In XML must be lowercase tag name.';
 	}
 
@@ -240,7 +240,7 @@ sub _put_cdata {
 	$self->_process_callback(\@cdata, 'cdata_callback');
 
 	# To flush code.
-	$self->{'flush_code'} .= join($EMPTY_STR, @cdata);
+	$self->{'flush_code'} .= join $EMPTY_STR, @cdata;
 
 	return;
 }
@@ -261,7 +261,7 @@ sub _put_comment {
 	}
 
 	# Process comment.
-	my $comment = join($EMPTY_STR, @comments);
+	my $comment = join $EMPTY_STR, @comments;
 	if (scalar @{$self->{'tmp_code'}}) {
 		push @{$self->{'tmp_comment_code'}}, $comment;
 
@@ -290,7 +290,7 @@ sub _put_data {
 	$self->_process_callback(\@data, 'data_callback');
 
 	# To flush code.
-	$self->{'flush_code'} .= join($EMPTY_STR, @data);
+	$self->{'flush_code'} .= join $EMPTY_STR, @data;
 
 	return;
 }
@@ -374,7 +374,7 @@ sub _put_raw {
 	$self->_process_callback(\@raw_data, 'raw_callback');
 
 	# To flush code.
-	$self->{'flush_code'} .= join($EMPTY_STR, @raw_data);
+	$self->{'flush_code'} .= join $EMPTY_STR, @raw_data;
 
 	return;
 }
