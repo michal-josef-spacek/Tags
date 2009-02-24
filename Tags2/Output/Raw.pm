@@ -132,9 +132,7 @@ sub _flush_tmp {
 	my ($self, $string) = @_;
 
 	# Added string.
-	if ($string) {
-		push @{$self->{'tmp_code'}}, $string;
-	}
+	push @{$self->{'tmp_code'}}, $string;
 
 	# Detect preserve mode.
 	my ($pre, $pre_pre) = $self->{'preserve_obj'}->get;
