@@ -34,7 +34,7 @@ sub new {
 	$self->{'auto_flush'} = 0;
 
 	# Attribute delimeter.
-	$self->{'attr_delimeter'} = '"';
+	$self->{'attr_delimeter'} = q{"};
 
 	# CDATA callback.
 	$self->{'cdata_callback'} = undef;
@@ -176,7 +176,7 @@ sub _put_attribute {
 	while (@pairs) {
 		my $par = shift @pairs;
 		my $val = shift @pairs;
-		push @{$self->{'tmp_code'}}, $SPACE, $par.'='.
+		push @{$self->{'tmp_code'}}, $SPACE, $par.q{=}.
 			$self->{'attr_delimeter'}.$val.
 			$self->{'attr_delimeter'};
 		$self->{'comment_flag'} = 0;
@@ -254,7 +254,7 @@ sub _put_comment {
 
 	# Comment string.
 	unshift @comments, '<!--';
-	if (substr($comments[$LAST_INDEX], $LAST_INDEX) eq '-') {
+	if (substr($comments[$LAST_INDEX], $LAST_INDEX) eq q{-}) {
 		push @comments, ' -->';
 	} else {
 		push @comments, '-->';
