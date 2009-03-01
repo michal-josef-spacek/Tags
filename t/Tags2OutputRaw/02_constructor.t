@@ -35,4 +35,3 @@ eval {
 };
 ok(defined $obj, 1);
 ok($obj->isa($class), 1);
-ok($obj, qr/$class/);
