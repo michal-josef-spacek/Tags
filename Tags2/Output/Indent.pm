@@ -180,7 +180,9 @@ sub _flush_code {
 # Helper for flush data.
 
 	my ($self, $code) = @_;
-	$self->{'process'} = 1 if ! $self->{'process'};
+	if (! $self->{'process'}) {
+		$self->{'process'} = 1;
+	}
 	$self->{'flush_code'} .= $code;
 	return;
 }
@@ -225,12 +227,12 @@ sub _print_tag {
 	if ($self->{'comment_flag'} == 0
 		&& scalar @{$self->{'tmp_comment_code'}}) {
 
-		# Comment.
-		foreach (@{$self->{'tmp_comment_code'}}) {
+		# Comment from tmp place.
+		foreach my $tmp_comment (@{$self->{'tmp_comment_code'}}) {
 			$self->_newline;
-			$self->_flush_code($self->{'indent_block'}->indent(
-				$_, $self->{'indent'}->get,
-			));
+			my $indent_tmp_comment = $self->{'indent_block'}
+				->indent($tmp_comment, $self->{'indent'}->get);
+			$self->_flush_code($indent_tmp_comment);
 		}
 
 		my $pre = $self->{'preserve_obj'}->get;
@@ -240,10 +242,11 @@ sub _print_tag {
 		}
 		$self->_newline;
 
-		# TODO Pravdepodobna chyba jako dole.
-		$self->_flush_code($self->{'indent_block'}->indent(
-			$self->{'tmp_code'}, $act_indent, $pre ? 1 : 0
-		));
+		# Get indent string and put to flush.
+		my $tmp = $self->{'indent_block'}->indent(
+			$self->{'tmp_code'}, $act_indent, $pre ? 1 : 0,
+		);
+		$self->_flush_code($tmp);
 
 		$self->{'tmp_code'} = [];
 		if (! $self->{'non_indent'} && ! $pre) {
@@ -258,7 +261,7 @@ sub _print_tag {
 		}
 		$self->_newline;
 
-		# TODO Proc tohle nejde volat primo?
+		# Get indent string and put to flush.
 		my $tmp = $self->{'indent_block'}->indent(
 			$self->{'tmp_code'}, $act_indent, $pre ? 1 : 0
 		);
@@ -270,11 +273,12 @@ sub _print_tag {
 		}
 		$self->{'preserve_obj'}->begin($self->{'printed_tags'}->[0]);
 
-		foreach (@{$self->{'tmp_comment_code'}}) {
+		# Comment from tmp place.
+		foreach my $tmp_comment (@{$self->{'tmp_comment_code'}}) {
 			$self->_newline;
-			$self->_flush_code($self->{'indent_block'}->indent(
-				$_, $self->{'indent'}->get,
-			));
+			my $indent_tmp_comment = $self->{'indent_block'}
+				->indent($tmp_comment, $self->{'indent'}->get);
+			$self->_flush_code($indent_tmp_comment);
 		}
 	}
 	$self->{'tmp_comment_code'} = [];
@@ -296,9 +300,10 @@ sub _print_end_tag {
 		}
 	}
 	$self->_newline;
-	$self->_flush_code($self->{'indent_block'}->indent(
-		['</'.$string, '>'], $act_indent, $pre ? 1 : 0
-	));
+	my $indent_end = $self->{'indent_block'}->indent(
+		['</'.$string, '>'], $act_indent, $pre ? 1 : 0,
+	);
+	$self->_flush_code($indent_end);
 	return;
 }
 
@@ -422,10 +427,10 @@ sub _put_comment {
 		$self->{'comment_flag'} = 1;
 	} else {
 		$self->_newline;
-		$self->_flush_code($self->{'indent_block'}->indent(
-			\@comments,
-			$self->{'indent'}->get,
-		));
+		my $indent_comment = $self->{'indent_block'}->indent(
+			\@comments, $self->{'indent'}->get,
+		);
+		$self->_flush_code($indent_comment);
 	}
 	return;
 }
@@ -524,11 +529,11 @@ sub _put_instruction {
 	} else {
 		$self->_newline;
 		$self->{'preserve_obj'}->save_previous;
-		$self->_flush_code($self->{'indent_block'}
-			->indent([
-			'<?'.$target, $SPACE, $code, '?>',
-			$self->{'indent'}->get,
-		]));
+		my $indent_instr = $self->{'indent_block'}->indent(
+			['<?'.$target, $SPACE, $code, '?>',
+			$self->{'indent'}->get],
+		);
+		$self->_flush_code($indent_instr);
 	}
 
 	return;
