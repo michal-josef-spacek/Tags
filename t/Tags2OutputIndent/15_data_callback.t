@@ -33,8 +33,8 @@ $obj->put(
 	['e', 'tag'],
 	['r', 'ananas'],
 );
-my $ret = $obj->flush;
-my $right_ret = <<'END';
+$ret = $obj->flush;
+$right_ret = <<'END';
 <tag>
   n.n.n.
   <![CDATA[n.n]]>
