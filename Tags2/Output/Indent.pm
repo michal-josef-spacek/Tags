@@ -94,6 +94,13 @@ sub new {
 		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
 	}
 
+	# Check to output handler.
+	if (defined $self->{'output_handler'} 
+		&& ref $self->{'output_handler'} ne 'GLOB') {
+
+		err 'Output handler is bad file handler.';
+	}
+
 	# Check auto-flush only with output handler.
 	if ($self->{'auto_flush'} && $self->{'output_handler'} eq $EMPTY_STR) {
 		err '\'auto_flush\' parameter can\'t use without '.
