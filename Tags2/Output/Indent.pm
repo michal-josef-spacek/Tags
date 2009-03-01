@@ -83,7 +83,9 @@ sub new {
 	while (@params) {
 		my $key = shift @params;
 		my $val = shift @params;
-		err "Bad parameter '$key'." if ! exists $self->{$key};
+		if (! exists $self->{$key}) {
+			err "Bad parameter '$key'.";
+		}
 		$self->{$key} = $val;
 	}
 
@@ -102,9 +104,8 @@ sub new {
 	}
 
 	# Check auto-flush only with output handler.
-	if ($self->{'auto_flush'} && $self->{'output_handler'} eq $EMPTY_STR) {
-		err '\'auto_flush\' parameter can\'t use without '.
-			'\'output_handler\' parameter.';
+	if ($self->{'auto_flush'} && ! defined $self->{'output_handler'}) {
+		err 'Auto-flush can\'t use without output handler.';
 	}
 
 	# Reset.
