@@ -48,8 +48,8 @@ Tags2::Output::Indent hotovo.
                            obsazeno.
     - text: Nesmi obsahovat <&
 41. Cover testing.
-42. ex10 v perl/MODULES/Tags2::Output::Indent
-43.
+43. ex10.pl v perl/MODUELS/Tags2::Output::Indent do testu.
+44.
 
 Applied
 =======
@@ -144,3 +144,6 @@ NONE [20090102] skim
     Pr: ['b', 'tag'], ['r', 'raw'], ['e', 'tag']: Melo by vykreslit
     <tag>raw</tag>
 OK [20090104] skim
+
+42. ex10.pl v perl/MODULES/Tags2::Output::Indent
+OK [20090301] skim
