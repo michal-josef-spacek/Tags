@@ -62,7 +62,7 @@ sub new {
 	$self->{'no_simple'} = [];
 
 	# Output handler.
-	$self->{'output_handler'} = $EMPTY_STR;
+	$self->{'output_handler'} = undef;
 
 	# Output separator.
 	$self->{'output_sep'} = "\n";
