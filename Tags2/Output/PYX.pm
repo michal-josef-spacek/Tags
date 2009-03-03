@@ -194,8 +194,6 @@ __END__
 
  TODO
 
-=head2 PARAMETERS
-
 =over 8
 
 =item B<output_handler>

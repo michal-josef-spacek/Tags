@@ -183,8 +183,6 @@ __END__
 
  Constructor.
 
-=head2 PARAMETERS
-
 =over 8
 
 =item B<entity>

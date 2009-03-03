@@ -262,8 +262,6 @@ __END__
 
  Constructor.
 
-=head1 PARAMETERS
-
 =over 8
 
 =item * B<cdata_callback>
@@ -289,34 +287,34 @@ __END__
 	 }
  }
 
-=item B<encoding>
+=item * B<encoding>
 
  Encoding for XML header.
  Default is 'UTF-8'.
 
-=item B<no_simple>
+=item * B<no_simple>
 
  TODO
 
-=item B<output_handler>
+=item * B<output_handler>
 
  Handler for print output strings.
  Default is *STDOUT.
 
-=item B<preserved>
+=item * B<preserved>
 
  TODO
 
-=item B<set_indent>
+=item * B<set_indent>
 
  TODO
  Default is 0.
 
-=item B<skip_bad_tags>
+=item * B<skip_bad_tags>
 
  TODO
 
-=item B<xml_version>
+=item * B<xml_version>
 
  XML version for XML header.
  Default is "1.1".

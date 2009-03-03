@@ -203,8 +203,6 @@ __END__
 
  TODO
 
-=head2 PARAMETERS
-
 =over 8
 
  TODO

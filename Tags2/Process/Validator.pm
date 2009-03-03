@@ -341,7 +341,7 @@ __END__
 
  TODO
 
-=item B<check($data)>
+=item B<check_one($data)>
 
  TODO
 
