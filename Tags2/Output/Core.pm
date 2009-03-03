@@ -228,3 +228,73 @@ sub _put_raw {
 }
 
 1;
+
+__END__
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+ Tags2::Output::Core - Base class for Tags2::Output::*.
+
+=head1 SYNOPSIS
+
+ TODO
+
+=head1 METHODS
+
+=over 8
+
+=item B<finalize()>
+
+ TODO
+
+=item B<flush($reset_flag)>
+
+ TODO
+
+=item B<open_tags()>
+
+ TODO
+
+=item B<put(@data)>
+
+ TODO
+
+=back
+
+=head1 ERRORS
+
+ TODO
+
+=head1 DEPENDENCIES
+
+L<Error::Simple::Multiple(3pm)>,
+L<Readonly(3pm)>.
+
+=head1 SEE ALSO
+
+L<Tags2(3pm)>,
+L<Tags2::Output::ESIS(3pm)>,
+L<Tags2::Output::Indent(3pm)>,
+L<Tags2::Output::Indent2(3pm)>,
+L<Tags2::Output::LibXML(3pm)>,
+L<Tags2::Output::PYX(3pm)>,
+L<Tags2::Output::Raw(3pm)>,
+L<Tags2::Output::SESIS(3pm)>.
+
+=head1 AUTHOR
+
+ Michal Špaček L<tupinek@gmail.com>
+
+=head1 LICENSE AND COPYRIGHT
+
+ BSD license.
+
+=head1 VERSION
+
+ 0.02
+
+=cut

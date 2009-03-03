@@ -140,3 +140,104 @@ sub _put_raw {
 }
 
 1;
+
+__END__
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+ Tags2::Output::Debug - Debug 'Tags2' output class.
+
+=head1 SYNOPSIS
+
+ use Tags2::Output::Debug;
+ my $t = Tags2::Output::Debug->new(%params);
+ TODO 
+
+=head1 METHODS
+
+=over 8
+
+=item B<new(%params)>
+
+ Constructor.
+
+=over 8
+
+=item * B<output_sep>
+
+ TODO
+
+=item * B<skip_bad_tags>
+
+ TODO
+ Default is 0.
+
+=back
+
+=item B<finalize()>
+
+ Finalize Tags output.
+ Automaticly puts end of all opened tags.
+
+=item B<flush($reset_flag)>
+
+ Flush tags in object.
+ If defined 'output_handler' flush to its.
+ Or return code.
+ If enabled $reset_flag, then resets internal variables via reset method.
+
+=item B<open_tags()>
+
+ Return array of opened tags.
+
+=item B<put(@data)>
+
+ Put tags code in tags2 format.
+
+=item B<reset()>
+
+ Resets internal variables.
+
+=back
+
+=head1 ERRORS
+
+ TODO
+
+=head1 EXAMPLE
+
+ TODO
+
+=head1 DEPENDENCIES
+
+L<Error::Simple::Multiple(3pm)>.
+
+=head1 SEE ALSO
+
+L<Tags2(3pm)>,
+L<Tags2::Output::Core(3pm)>,
+L<Tags2::Output::ESIS(3pm)>,
+L<Tags2::Output::Indent(3pm)>,
+L<Tags2::Output::Indent2(3pm)>,
+L<Tags2::Output::LibXML(3pm)>,
+L<Tags2::Output::PYX(3pm)>,
+L<Tags2::Output::Raw(3pm)>,
+L<Tags2::Output::SESIS(3pm)>.
+
+=head1 AUTHOR
+
+ Michal Špaček L<tupinek@gmail.com>
+
+=head1 LICENSE AND COPYRIGHT
+
+ BSD license.
+
+=head1 VERSION
+
+ 0.01
+
+=cut

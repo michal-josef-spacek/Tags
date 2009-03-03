@@ -127,3 +127,96 @@ sub save_previous {
 }
 
 1;
+
+__END__
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+ Tags2::Utils::Preserve - TODO
+
+=head1 SYNOPSIS
+
+ use Tags2::Utils::Preserve;
+ my $t = Tags2::Utils::Preserve->new(%params);
+ # TODO
+
+=head1 METHODS
+
+=over 8
+
+=item B<new(%params)>
+
+ Constructor.
+
+=over 8
+
+=item * B<preserved>
+
+ TODO
+
+=back
+
+=item B<begin()>
+
+ TODO
+
+=item B<end()>
+
+ TODO
+
+=item B<get()>
+
+ TODO
+
+=item B<reset()>
+
+ TODO
+
+=item B<save_previous()>
+
+ TODO
+
+=back
+
+=head1 ERRORS
+
+ TODO
+
+=head1 EXAMPLE
+
+ TODO
+
+=head1 DEPENDENCIES
+
+L<Error::Simple::Multiple(3pm)>,
+L<List::MoreUtils(3pm)>,
+L<Readonly(3pm)>.
+
+=head1 SEE ALSO
+
+L<Tags2(3pm)>,
+L<Tags2::Output::Core(3pm)>,
+L<Tags2::Output::ESIS(3pm)>,
+L<Tags2::Output::Indent(3pm)>,
+L<Tags2::Output::LibXML(3pm)>,
+L<Tags2::Output::PYX(3pm)>,
+L<Tags2::Output::Raw(3pm)>,
+L<Tags2::Output::SESIS(3pm)>.
+
+=head1 AUTHOR
+
+ Michal Špaček L<tupinek@gmail.com>
+
+=head1 LICENSE AND COPYRIGHT
+
+ BSD license.
+
+=head1 VERSION
+
+ 0.01
+
+=cut
