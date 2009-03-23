@@ -1,4 +1,5 @@
 # Modules.
+use English qw(-no_match_vars);
 use IO::Scalar;
 
 #------------------------------------------------------------------------------
@@ -6,16 +7,15 @@ sub get_stdout {
 #------------------------------------------------------------------------------
 # Helper function to print.
 
-	my $class = shift;
-	my $val = shift;
+	my ($class, $val, @tags) = @_;
 
 	my $stdout;
 	tie *STDOUT, 'IO::Scalar', \$stdout;
 	eval {
-		$class->put(@_);
+		$class->put(@tags);
 		$class->flush;
 	};
-	my $stderr = $@;
+	my $stderr = $EVAL_ERROR;
 	untie *STDOUT;
 
 	# Output.
