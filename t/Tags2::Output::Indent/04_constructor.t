@@ -7,13 +7,13 @@ my $obj;
 eval {
 	$obj = Tags2::Output::Indent->new('');
 };
-is($@, "Bad parameter ''.\n");
+is($@, "Unknown parameter ''.\n");
 
 print "Testing: new('something' => 'value') bad constructor.\n";
 eval {
 	$obj = Tags2::Output::Indent->new('something' => 'value');
 };
-is($@, "Bad parameter 'something'.\n");
+is($@, "Unknown parameter 'something'.\n");
 
 print "Testing: new('attr_delimeter' => '-') bad constructor.\n";
 eval {

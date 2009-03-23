@@ -84,7 +84,7 @@ sub new {
 		my $key = shift @params;
 		my $val = shift @params;
 		if (! exists $self->{$key}) {
-			err "Bad parameter '$key'.";
+			err "Unknown parameter '$key'.";
 		}
 		$self->{$key} = $val;
 	}
