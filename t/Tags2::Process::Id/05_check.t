@@ -1,4 +1,5 @@
 # Modules.
+use English qw(-no_match_vars);
 use Tags2::Process::Id;
 use Test::More 'tests' => 4;
 
@@ -11,7 +12,7 @@ eval {
 		['e', 'tag'],
 	);
 };
-is($@, '');
+is($EVAL_ERROR, '');
 
 $obj->reset;
 eval {
@@ -22,7 +23,7 @@ eval {
 		['e', 'tag'],
 	);
 };
-is($@, "Other id attribute in tag 'tag'.\n");
+is($EVAL_ERROR, "Other id attribute in tag 'tag'.\n");
 
 $obj->reset;
 eval {
@@ -32,7 +33,7 @@ eval {
 		['e', 'tag'],
 	);
 };
-is($@, "Other id attribute in tag 'tag'.\n");
+is($EVAL_ERROR, "Other id attribute in tag 'tag'.\n");
 
 $obj->reset;
 eval {
@@ -45,4 +46,4 @@ eval {
 		['e', 'tag'],
 	);
 };
-is($@, "Id attribute 'value' in tag 'tag' is duplicit over structure.\n");
+is($EVAL_ERROR, "Id attribute 'value' in tag 'tag' is duplicit over structure.\n");

@@ -1,4 +1,5 @@
 # Modules.
+use English qw(-no_match_vars);
 use Tags2::Utils::Preserve;
 use Test::More 'tests' => 4;
 
@@ -7,13 +8,13 @@ my $obj;
 eval {
 	$obj = Tags2::Utils::Preserve->new('');
 };
-is($@, "Bad parameter ''.\n");
+is($EVAL_ERROR, "Bad parameter ''.\n");
 
 print "Testing: new('something' => 'value') bad constructor.\n";
 eval {
 	$obj = Tags2::Utils::Preserve->new('something' => 'value');
 };
-is($@, "Bad parameter 'something'.\n");
+is($EVAL_ERROR, "Bad parameter 'something'.\n");
 
 print "Testing: new() right constructor.\n";
 eval {

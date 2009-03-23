@@ -1,4 +1,5 @@
 # Modules.
+use English qw(-no_match_vars);
 use Tags2::Output::Indent;
 use Test::More 'tests' => 4;
 
@@ -58,4 +59,4 @@ eval {
 		['e', 'tag'],
 	);
 };
-is($@, "Bad CDATA section.\n");
+is($EVAL_ERROR, "Bad CDATA section.\n");

@@ -2,6 +2,7 @@
 my $test_dir = "$ENV{'PWD'}/t/Tags2::Process::Validator";
 
 # Modules.
+use English qw(-no_match_vars);
 use Tags2::Process::Validator;
 use Test::More 'tests' => 6;
 
@@ -10,19 +11,19 @@ my $obj;
 eval {
 	$obj = Tags2::Process::Validator->new('');
 };
-is($@, "Bad parameter ''.\n");
+is($EVAL_ERROR, "Bad parameter ''.\n");
 
 print "Testing: new('something' => 'value') bad constructor.\n";
 eval {
 	$obj = Tags2::Process::Validator->new('something' => 'value');
 };
-is($@, "Bad parameter 'something'.\n");
+is($EVAL_ERROR, "Bad parameter 'something'.\n");
 
 print "Testing: new() bad constructor.\n";
 eval {
 	$obj = Tags2::Process::Validator->new;
 };
-is($@, "Cannot read file with DTD defined by 'dtd_file' paremeter.\n");
+is($EVAL_ERROR, "Cannot read file with DTD defined by 'dtd_file' paremeter.\n");
 
 print "Testing: new('dtd_file' => '$test_dir/DTD/non_exist_file.dtd')\n";
 eval {
@@ -30,7 +31,7 @@ eval {
 		'dtd_file' => "$test_dir/DTD/non_exist_file.dtd"
 	);
 };
-is($@, "Cannot read file '$test_dir/DTD/non_exist_file.dtd' with DTD.\n");
+is($EVAL_ERROR, "Cannot read file '$test_dir/DTD/non_exist_file.dtd' with DTD.\n");
 
 print "Testing: new('dtd_file' => '$test_dir/DTD/fake.dtd') ".
 	"right constructor - with fake readable dtd file.\n";
