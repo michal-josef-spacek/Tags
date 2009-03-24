@@ -49,7 +49,9 @@ Tags2::Output::Indent hotovo.
     - text: Nesmi obsahovat <&
 41. Cover testing.
 43. ex10.pl v perl/MODUELS/Tags2::Output::Indent do testu.
-44.
+44. Validni vystup pro SGML je <input ... readonly>. To stejne je 
+    <input ... readonly="readonly">. Prvni pripad asi nedovedu vykreslit, ze?
+45.
 
 Applied
 =======
