@@ -110,7 +110,11 @@ sub put_r {
 
 1;
 
+__END__
+
 =pod
+
+=encoding utf8
 
 =head1 NAME
 
@@ -162,17 +166,17 @@ sub put_r {
 
 =back
 
-=head1 REQUIREMENTS
+=head1 DEPENDENCIES
 
- L<Error::Simple::Multiple(3pm)>
- L<Exporter(3pm)>
+L<Error::Simple::Multiple(3pm)>,
+L<Exporter(3pm)>.
 
 =head1 AUTHOR
 
- Michal Spacek L<tupinek@gmail.com>
+Michal Špaček L<tupinek@gmail.com>
 
 =head1 VERSION
 
- 0.01
+0.01
 
 =cut

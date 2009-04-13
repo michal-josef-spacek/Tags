@@ -379,22 +379,22 @@ __END__
 
 =head1 DEPENDENCIES
 
- L<Error::Simple::Multiple(3pm)>.
+L<Error::Simple::Multiple(3pm)>.
 
 =head1 SEE ALSO
 
- L<Tags2(3pm)>.
+L<Tags2(3pm)>.
 
 =head1 AUTHOR
 
- Michal Špaček L<tupinek@gmail.com>
+Michal Špaček L<tupinek@gmail.com>
 
 =head1 LICENSE AND COPYRIGHT
 
- BSD license.
+BSD license.
 
 =head1 VERSION
 
- 0.01
+0.01
 
 =cut

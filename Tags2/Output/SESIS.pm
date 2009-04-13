@@ -255,14 +255,14 @@ L<Tags2::Output::Raw(3pm)>.
 
 =head1 AUTHOR
 
- Michal Špaček L<tupinek@gmail.com>
+Michal Špaček L<tupinek@gmail.com>
 
 =head1 LICENSE AND COPYRIGHT
 
- BSD license.
+BSD license.
 
 =head1 VERSION
 
- 0.01
+0.01
 
 =cut
