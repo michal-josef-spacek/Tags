@@ -8,13 +8,13 @@ my $obj;
 eval {
 	$obj = Tags2::Output::PYX->new('');
 };
-is($EVAL_ERROR, "Bad parameter ''.\n");
+is($EVAL_ERROR, "Unknown parameter ''.\n");
 
 print "Testing: new('something' => 'value') bad constructor.\n";
 eval {
 	$obj = Tags2::Output::PYX->new('something' => 'value');
 };
-is($EVAL_ERROR, "Bad parameter 'something'.\n");
+is($EVAL_ERROR, "Unknown parameter 'something'.\n");
 
 print "Testing: new() right constructor.\n";
 $obj = Tags2::Output::PYX->new;
