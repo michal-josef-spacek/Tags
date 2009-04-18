@@ -28,7 +28,7 @@ sub new {
 	my $self = bless {}, $class;
 
 	# Set output handler.
-	$self->{'output_handler'} = $EMPTY_STR;
+	$self->{'output_handler'} = undef;
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
@@ -41,6 +41,13 @@ sub new {
 			err "Unknown parameter '$key'.";
 		}
 		$self->{$key} = $val;
+	}
+
+	# Check to output handler.
+	if (defined $self->{'output_handler'} 
+		&& ref $self->{'output_handler'} ne 'GLOB') {
+
+		err 'Output handler is bad file handler.';
 	}
 
 	# Initialization.
