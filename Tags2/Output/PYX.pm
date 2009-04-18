@@ -27,6 +27,9 @@ sub new {
 	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
+	# Auto-flush.
+	$self->{'auto_flush'} = 0;
+
 	# Set output handler.
 	$self->{'output_handler'} = undef;
 
@@ -207,11 +210,16 @@ __END__
 
 =over 8
 
-=item B<output_handler>
+=item * B<auto_flush>
+
+ Auto flush flag.
+ Default is 0.
+
+=item * B<output_handler>
 
  TODO
 
-=item B<skip_bad_data>
+=item * B<skip_bad_data>
 
  TODO
 
