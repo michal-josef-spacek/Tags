@@ -38,7 +38,7 @@ sub new {
 		my $key = shift @params;
 		my $val = shift @params;
 		if (! exists $self->{$key}) {
-			err "Bad parameter '$key'.";
+			err "Unknown parameter '$key'.";
 		}
 		$self->{$key} = $val;
 	}
@@ -228,6 +228,11 @@ __END__
  TODO
 
 =back
+
+=head1 ERRORS
+
+ Ending bad tag: '%s' in block of tag '%s'.
+ Unknown parameter '%s'.
 
 =head1 EXAMPLE
 
