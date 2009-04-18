@@ -39,7 +39,9 @@ sub new {
 	while (@params) {
 		my $key = shift @params;
 		my $val = shift @params;
-		err "Bad parameter '$key'." if ! exists $self->{$key};
+		if (! exists $self->{$key}) {
+			err "Bad parameter '$key'.";
+		}
 		$self->{$key} = $val;
 	}
 
@@ -171,7 +173,9 @@ sub _put_instruction {
 	my ($self, $target, $code) = @_;
 	$self->_flush_tmp;
 	my $instruction = '?'.$target;
-	$instruction .= ' '.$code if $code;
+	if ($code) {
+		$instruction .= ' '.$code;
+	}
 	push @{$self->{'flush_code'}}, encode_newline($instruction);
 	return;
 }

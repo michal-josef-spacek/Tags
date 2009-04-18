@@ -36,17 +36,22 @@ sub new {
 	while (@params) {
 		my $key = shift @params;
 		my $val = shift @params;
-		err "Bad parameter '$key'." if ! exists $self->{$key};
+		if (! exists $self->{$key}) {
+			err "Bad parameter '$key'.";
+		}
 		$self->{$key} = $val;
 	}
 
 	# Is exists 'dtd_file' name.
-	err 'Cannot read file with DTD defined by \'dtd_file\' paremeter.'
-		if ! $self->{'dtd_file'};
+	if (! $self->{'dtd_file'}) {
+		err 'Cannot read file with DTD defined by \'dtd_file\' '.
+			'parameter.';
+	}
 
 	# Is 'dtd_file' readable.
- 	err "Cannot read file '$self->{'dtd_file'}' with DTD."
-		if ! -r $self->{'dtd_file'};
+	if (! -r $self->{'dtd_file'}) {
+	 	err "Cannot read file '$self->{'dtd_file'}' with DTD.";
+	}
 
 	# DTD structure.
 	if (! $self->{'dtd'}) {
@@ -263,14 +268,20 @@ sub _check_missing {
 	my $prev_tag = $self->{'printed'}->[0];
 
 	# No previous tag.
-	return if ! $prev_tag;
+	if (! $prev_tag) {
+		return;
+	}
 
 	# Without children.
-	return if ! exists $self->{'dtd'}->{$prev_tag}->{'children'};
+	if (! exists $self->{'dtd'}->{$prev_tag}->{'children'}) {
+		return;
+	}
 
 	# No other tags.
 	my $index = $self->{'children_tags'}->[0] + 1;
-	return if $index > $#{$self->{'dtd'}->{$prev_tag}->{'childrenARR'}};
+	if ($index > $#{$self->{'dtd'}->{$prev_tag}->{'childrenARR'}}) {
+		return;
+	}
 
 	# Check to missing tags.
 	if ($tag && $self->{'dtd'}->{$prev_tag}->{'childrenARR'}
