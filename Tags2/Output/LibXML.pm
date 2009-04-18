@@ -59,7 +59,9 @@ sub new {
 	while (@params) {
 		my $key = shift @params;
 		my $val = shift @params;
-		err "Bad parameter '$key'." if ! exists $self->{$key};
+		if (! exists $self->{$key}) {
+			err "Bad parameter '$key'.";
+		}
 		$self->{$key} = $val;
 	}
 
@@ -80,7 +82,7 @@ sub flush {
 	if ($ouf) {
 		print {$ouf} $self->{'doc'}->toString(
 			$self->{'set_indent'} ? 2 : 0)
-			|| err 'Cannot write to output handler.';;
+			|| err 'Cannot write to output handler.';
 		return;
 	} else {
 		return $self->{'doc'}->toString(
