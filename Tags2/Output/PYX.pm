@@ -47,7 +47,7 @@ sub new {
 	}
 
 	# Check to output handler.
-	if (defined $self->{'output_handler'} 
+	if (defined $self->{'output_handler'}
 		&& ref $self->{'output_handler'} ne 'GLOB') {
 
 		err 'Output handler is bad file handler.';
