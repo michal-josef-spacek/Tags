@@ -267,7 +267,9 @@ __END__
 
 =head1 ERRORS
 
- TODO
+ Bad data.
+ Bad type of data.
+ Cannot write to output handler.
 
 =head1 DEPENDENCIES
 
