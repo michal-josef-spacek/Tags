@@ -174,18 +174,29 @@ sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
 
-	my ($self, @pairs) = @_;
+	my ($self, $attr, $value) = @_;
+
+	# Check to 'tmp_code'.
 	if (! scalar @{$self->{'tmp_code'}}) {
 		err 'Bad tag type \'a\'.';
 	}
-	while (@pairs) {
-		my $par = shift @pairs;
-		my $val = shift @pairs;
-		push @{$self->{'tmp_code'}}, $SPACE, $par.q{=}.
-			$self->{'attr_delimeter'}.$val.
-			$self->{'attr_delimeter'};
-		$self->{'comment_flag'} = 0;
+
+	# Check to pairs in XML mode.
+	if ($self->{'xml'} && ! $value) {
+		err 'In XML mode must be a attribute value.';
 	}
+
+	# Process attribute.
+	my $full_attr = $attr;
+	if ($value) {
+		$full_attr .= q{=}.$self->{'attr_delimeter'}.
+			$value.$self->{'attr_delimeter'};
+	}	
+	push @{$self->{'tmp_code'}}, $SPACE, $full_attr;
+
+	# Reset comment flag.
+	$self->{'comment_flag'} = 0;
+
 	return;
 }
 
@@ -533,6 +544,7 @@ __END__
 =head1 ERRORS
 
  Output handler is bad file handler.
+ In XML mode must be a attribute value.
  In XML must be lowercase tag name.
  TODO
 

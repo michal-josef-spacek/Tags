@@ -64,7 +64,7 @@ sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
 
-	my ($self, @pairs) = @_;
+	my ($self, $attr, $value) = @_;
 	push @{$self->{'flush_code'}}, 'Attribute';
 	return;
 }

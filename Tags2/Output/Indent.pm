@@ -312,27 +312,27 @@ sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
 
-	my ($self, @pairs) = @_;
+	my ($self, $attr, $value) = @_;
 
-	# Flush tmp code.
+	# Check to 'tmp_code'.
 	if (! scalar @{$self->{'tmp_code'}}) {
 		err 'Bad tag type \'a\'.';
 	}
 
-	# Check to pairs.
-	if (scalar @pairs % 2) {
-		err 'Attributes doesn\'t in pairs.';
+	# Check to pairs in XML mode.
+	if ($self->{'xml'} && ! $value) {
+		err 'In XML mode must be a attribute value.';
 	}
 
-	# Process attributes.
-	while (@pairs) {
-		my $par = shift @pairs;
-		my $val = shift @pairs;
-		push @{$self->{'tmp_code'}}, $SPACE, $par, '=',
-			$self->{'attr_delimeter'}.$val.
-			$self->{'attr_delimeter'};
-		$self->{'comment_flag'} = 0;
+	# Process attribute.
+	push @{$self->{'tmp_code'}}, $SPACE, $attr;
+	if ($value) {
+		push @{$self->{'tmp_code'}}, q{=}, $self->{'attr_delimeter'}.
+			$value.$self->{'attr_delimeter'};
 	}
+
+	# Reset comment flag.
+	$self->{'comment_flag'} = 0;
 
 	return;
 }
@@ -734,6 +734,7 @@ __END__
  Bad tag type 'a'.
  Bad type of data.
  Ending bad tag: '%s' in block of tag '%s'.
+ In XML mode must be a attribute value.
 
 =head1 EXAMPLE
 

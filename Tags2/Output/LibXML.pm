@@ -119,12 +119,8 @@ sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
 
-	my ($self, @pairs) = @_;
-	while (@pairs) {
-		my $par = shift @pairs;
-		my $val = shift @pairs;
-		$self->{'printed_tags'}->[0]->setAttribute($par, $val);
-	}
+	my ($self, $attr, $value) = @_;
+	$self->{'printed_tags'}->[0]->setAttribute($attr, $value);
 	return;
 }
 
