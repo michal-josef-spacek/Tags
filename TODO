@@ -49,9 +49,8 @@ Tags2::Output::Indent hotovo.
     - text: Nesmi obsahovat <&
 41. Cover testing.
 43. ex10.pl v perl/MODUELS/Tags2::Output::Indent do testu.
-44. Validni vystup pro SGML je <input ... readonly>. To stejne je 
-    <input ... readonly="readonly">. Prvni pripad asi nedovedu vykreslit, ze?
-45.
+45. Predelat testovani. Idealni by bylo mit na jednom miste vstupni data. 
+46.
 
 Applied
 =======
@@ -149,3 +148,10 @@ OK [20090104] skim
 
 42. ex10.pl v perl/MODULES/Tags2::Output::Indent
 OK [20090301] skim
+
+44. Validni vystup pro SGML je <input ... readonly>. To stejne je 
+    <input ... readonly="readonly">. Prvni pripad asi nedovedu vykreslit, ze?
+Dovedu. Predelal jsem _put_attributes pro brani argumentu ($attr, $value).
+Tudiz jenom jeden argument. Pro sgml mod se vykresli <tag readonly>, pro xml mod
+se vyhodi error.
+OK [20090418] skim
