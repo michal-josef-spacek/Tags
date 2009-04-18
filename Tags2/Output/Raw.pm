@@ -30,11 +30,11 @@ sub new {
 	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
-	# Auto-flush.
-	$self->{'auto_flush'} = 0;
-
 	# Attribute delimeter.
 	$self->{'attr_delimeter'} = q{"};
+
+	# Auto-flush.
+	$self->{'auto_flush'} = 0;
 
 	# CDATA callback.
 	$self->{'cdata_callback'} = undef;
