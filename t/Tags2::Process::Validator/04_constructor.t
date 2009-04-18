@@ -23,7 +23,7 @@ print "Testing: new() bad constructor.\n";
 eval {
 	$obj = Tags2::Process::Validator->new;
 };
-is($EVAL_ERROR, "Cannot read file with DTD defined by 'dtd_file' paremeter.\n");
+is($EVAL_ERROR, "Cannot read file with DTD defined by 'dtd_file' parameter.\n");
 
 print "Testing: new('dtd_file' => '$test_dir/DTD/non_exist_file.dtd')\n";
 eval {
