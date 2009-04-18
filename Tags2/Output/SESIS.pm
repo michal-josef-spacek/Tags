@@ -14,6 +14,7 @@ use Tags2::Utils qw(encode_newline);
 
 # Constants.
 Readonly::Scalar my $EMPTY_STR => q{};
+Readonly::Scalar my $SPACE => q{ };
 
 # Version.
 our $VERSION = 0.02;
@@ -151,7 +152,7 @@ sub _put_instruction {
 	# Create instruction line.
 	my $instruction = '?'.$target;
 	if ($code) {
-		$instruction .= ' '.$code;
+		$instruction .= $SPACE.$code;
 	}
 	push @{$self->{'flush_code'}}, encode_newline($instruction);
 	return;
