@@ -1,6 +1,7 @@
 # Modules.
+use English qw(-no_match_vars);
 use Tags2::Output::PYX;
-use Test::More 'tests' => 5;
+use Test::More 'tests' => 6;
 
 print "Testing: Normal tag without parameters.\n";
 my $obj = Tags2::Output::PYX->new;
@@ -94,3 +95,13 @@ $right_ret = <<"END";
 END
 chomp $right_ret;
 is($ret, $right_ret);
+
+print "Testing: Bad ending tag.\n";
+$obj = Tags2::Output::PYX->new;
+eval {
+	$obj->put(
+		['b', 'MAIN'],
+		['e', 'MAIN2'],
+	);
+};
+is($EVAL_ERROR, "Ending bad tag: 'MAIN2' in block of tag 'MAIN'.\n");
