@@ -1,6 +1,6 @@
 # Modules.
 use Tags2::Output::Raw;
-use Test::More 'tests' => 9;
+use Test::More 'tests' => 10;
 
 print "Testing: Normal tag without parameters (sgml version).\n";
 my $obj = Tags2::Output::Raw->new(
@@ -23,6 +23,19 @@ $obj->put(['b', 'MAIN'], ['a', 'id', 'id_value'], ['d', 'data'],
 	['e', 'MAIN']);
 $ret = $obj->flush;
 is($ret, '<MAIN id="id_value">data</MAIN>');
+
+print "Testing: Normal tag with simple parameters (sgml version).\n";
+$obj = Tags2::Output::Raw->new(
+	'xml' => 0,
+);
+$obj->put(
+	['b', 'MAIN'],
+	['a', 'disabled'],
+	['d', 'data'],
+	['e', 'MAIN'],
+);
+$ret = $obj->flush;
+is($ret, '<MAIN disabled>data</MAIN>');
 
 print "Testing: Normal tag after normal tag (sgml version).\n";
 $obj = Tags2::Output::Raw->new(
