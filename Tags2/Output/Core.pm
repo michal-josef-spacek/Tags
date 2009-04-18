@@ -87,10 +87,12 @@ sub put {
 
 		# Attributes.
 		if ($flag eq 'a') {
+			$self->_check_arguments(\@tags_struct, 1, 2);
 			$self->_put_attribute(@tags_struct);
 
 		# Begin of tag.
 		} elsif ($flag eq 'b') {
+			$self->_check_arguments(\@tags_struct, 1, 1);
 			$self->_put_begin_of_tag(@tags_struct);
 
 		# CData.
@@ -107,10 +109,12 @@ sub put {
 
 		# End of tag.
 		} elsif ($flag eq 'e') {
+			$self->_check_arguments(\@tags_struct, 1, 1);
 			$self->_put_end_of_tag(@tags_struct);
 
 		# Instruction.
 		} elsif ($flag eq 'i') {
+			$self->_check_arguments(\@tags_struct, 1, 2);
 			$self->_put_instruction(@tags_struct);
 
 		# Raw data.
@@ -137,6 +141,19 @@ sub put {
 #------------------------------------------------------------------------------
 # Private methods.
 #------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+sub _check_arguments {
+#------------------------------------------------------------------------------
+# Check arguments.
+
+	my ($self, $tags_struct_ar, $min_arg_num, $max_arg_num) = @_;
+	my $arg_num = length @{$tags_struct_ar};
+	if ($arg_num < $min_arg_num || $arg_num > $max_arg_num) {
+		err 'Bad number of arguments.';
+	}
+	return;
+}
 
 #------------------------------------------------------------------------------
 sub _process_callback {
@@ -268,6 +285,7 @@ __END__
 =head1 ERRORS
 
  Bad data.
+ Bad number of arguments.
  Bad type of data.
  Cannot write to output handler.
 
