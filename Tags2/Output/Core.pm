@@ -17,6 +17,37 @@ Readonly::Scalar my $EMPTY_STR => q{};
 our $VERSION = 0.02;
 
 #------------------------------------------------------------------------------
+sub new {
+#------------------------------------------------------------------------------
+# Constructor.
+
+	my ($class, @params) = @_;
+	my $self = bless {}, $class;
+
+	# Output separator.
+	$self->{'output_sep'} = "\n";
+
+	# Skip bad tags.
+	$self->{'skip_bad_tags'} = 0;
+
+	# Process params.
+	while (@params) {
+		my $key = shift @params;
+		my $val = shift @params;
+		if (! exists $self->{$key}) {
+			err "Unknown parameter '$key'.";
+		}
+		$self->{$key} = $val;
+	}
+
+	# Initialization.
+	$self->reset;
+
+	# Object.
+	return $self;
+}
+
+#------------------------------------------------------------------------------
 sub finalize {
 #------------------------------------------------------------------------------
 # Finalize Tags output.
@@ -139,6 +170,19 @@ sub put {
 }
 
 #------------------------------------------------------------------------------
+sub reset {
+#------------------------------------------------------------------------------
+# Reset.
+
+	my $self = shift;
+
+	# Flush code.
+	$self->{'flush_code'} = [];
+
+	return;
+}
+
+#------------------------------------------------------------------------------
 # Private methods.
 #------------------------------------------------------------------------------
 
@@ -178,6 +222,7 @@ sub _put_attribute {
 # Attributes.
 
 	my ($self, $attr, $value) = @_;
+	push @{$self->{'flush_code'}}, 'Attribute';
 	return;
 }
 
@@ -187,6 +232,7 @@ sub _put_begin_of_tag {
 # Begin of tag.
 
 	my ($self, $tag) = @_;
+	push @{$self->{'flush_code'}}, 'Begin of tag';
 	return;
 }
 
@@ -196,6 +242,7 @@ sub _put_cdata {
 # CData.
 
 	my ($self, @cdata) = @_;
+	push @{$self->{'flush_code'}}, 'CData';
 	return;
 }
 
@@ -205,6 +252,7 @@ sub _put_comment {
 # Comment.
 
 	my ($self, @comments) = @_;
+	push @{$self->{'flush_code'}}, 'Comment';
 	return;
 }
 
@@ -214,6 +262,7 @@ sub _put_data {
 # Data.
 
 	my ($self, @data) = @_;
+	push @{$self->{'flush_code'}}, 'Data';
 	return;
 }
 
@@ -223,6 +272,7 @@ sub _put_end_of_tag {
 # End of tag.
 
 	my ($self, $tag) = @_;
+	push @{$self->{'flush_code'}}, 'End of tag';
 	return;
 }
 
@@ -232,6 +282,7 @@ sub _put_instruction {
 # Instruction.
 
 	my ($self, $target, $code) = @_;
+	push @{$self->{'flush_code'}}, 'Instruction';
 	return;
 }
 
@@ -241,6 +292,7 @@ sub _put_raw {
 # Raw data.
 
 	my ($self, @raw_data) = @_;
+	push @{$self->{'flush_code'}}, 'Raw data';
 	return;
 }
 
@@ -264,6 +316,20 @@ __END__
 
 =over 8
 
+=item B<new(%parameters)>
+
+=over 8
+
+=item * B<output_sep>
+
+ TODO
+
+=item * B<skip_bad_tags>
+
+ TODO
+
+=back
+
 =item B<finalize()>
 
  TODO
@@ -280,6 +346,10 @@ __END__
 
  TODO
 
+=item B<reset($reset_flag)>
+
+ TODO
+
 =back
 
 =head1 ERRORS
@@ -288,6 +358,7 @@ __END__
  Bad number of arguments.
  Bad type of data.
  Cannot write to output handler.
+ Unknown parameter '%s'.
 
 =head1 DEPENDENCIES
 

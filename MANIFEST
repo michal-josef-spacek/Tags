@@ -5,12 +5,8 @@ t/Tags2::Output::Core/00_use.t
 t/Tags2::Output::Core/01_version.t
 t/Tags2::Output::Core/02_pod_coverage.t
 t/Tags2::Output::Core/03_pod.t
-t/Tags2::Output::Debug/00_use.t
-t/Tags2::Output::Debug/01_version.t
-t/Tags2::Output::Debug/02_pod_coverage.t
-t/Tags2::Output::Debug/03_pod.t
-t/Tags2::Output::Debug/04_constructor.t
-t/Tags2::Output::Debug/05_put.t
+t/Tags2::Output::Core/04_constructor.t
+t/Tags2::Output::Core/05_put.t
 t/Tags2::Output::ESIS/00_use.t
 t/Tags2::Output::ESIS/01_version.t
 t/Tags2::Output::ESIS/02_pod_coverage.t

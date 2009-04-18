@@ -51,7 +51,6 @@ Tags2::Output::Indent hotovo.
 43. ex10.pl v perl/MODUELS/Tags2::Output::Indent do testu.
 45. Predelat testovani. Idealni by bylo mit na jednom miste vstupni data. 
 46. Ma v SESIS smysl CD a R? V tom vystupu by to melo byt normalne jako '-'.
-47. Predelat jednotlive funkce v Core na funkce z Debug? A zrusit Debug?
 48.
 
 Applied
@@ -156,4 +155,7 @@ OK [20090301] skim
 Dovedu. Predelal jsem _put_attributes pro brani argumentu ($attr, $value).
 Tudiz jenom jeden argument. Pro sgml mod se vykresli <tag readonly>, pro xml mod
 se vyhodi error.
+OK [20090418] skim
+
+47. Predelat jednotlive funkce v Core na funkce z Debug? A zrusit Debug?
 OK [20090418] skim

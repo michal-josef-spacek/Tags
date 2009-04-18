@@ -1,9 +1,9 @@
 # Modules.
-use Tags2::Output::Debug;
+use Tags2::Output::Core;
 use Test::More 'tests' => 1;
 
 print "Testing: put() method.\n";
-my $obj = Tags2::Output::Debug->new;
+my $obj = Tags2::Output::Core->new;
 $obj->put(
 	['a', 'key', 'val'],
 	['b', 'tag'],
