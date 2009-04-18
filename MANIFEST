@@ -80,6 +80,7 @@ t/Tags2::Output::PYX/07_tag.t
 t/Tags2::Output::PYX/08_instruction.t
 t/Tags2::Output::PYX/09_cdata.t
 t/Tags2::Output::PYX/10_raw.t
+t/Tags2::Output::PYX/11_output_handler.t
 t/Tags2::Output::Raw/00_use.t
 t/Tags2::Output::Raw/01_version.t
 t/Tags2::Output::Raw/02_pod_coverage.t
