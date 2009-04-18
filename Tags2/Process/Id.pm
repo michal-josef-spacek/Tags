@@ -234,7 +234,7 @@ Michal Špaček L<tupinek@gmail.com>
 
 BSD license.
 
-=head1 VERSION 
+=head1 VERSION
 
 0.01
 

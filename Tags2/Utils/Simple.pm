@@ -12,7 +12,7 @@ use Error::Simple::Multiple qw(err);
 use Readonly;
 
 # Constants.
-Readonly::Array our @EXPORT_OK => qw(put_a put_b put_c put_d put_e put_i 
+Readonly::Array our @EXPORT_OK => qw(put_a put_b put_c put_d put_e put_i
 	register);
 Readonly::Hash our %EXPORT_TAGS => (
 	all => [qw(put_a put_b put_c put_d put_e put_i register)],

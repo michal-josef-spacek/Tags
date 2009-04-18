@@ -97,7 +97,7 @@ sub new {
 	}
 
 	# Check to output handler.
-	if (defined $self->{'output_handler'} 
+	if (defined $self->{'output_handler'}
 		&& ref $self->{'output_handler'} ne 'GLOB') {
 
 		err 'Output handler is bad file handler.';
@@ -380,7 +380,7 @@ sub _put_cdata {
 
 	# Check to bad cdata.
 	if (join($EMPTY_STR, @cdata) =~ /]]>$/ms) {
-		err 'Bad CDATA section.' 
+		err 'Bad CDATA section.';
 	}
 
 	# Added end of cdata section.

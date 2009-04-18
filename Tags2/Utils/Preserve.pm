@@ -58,8 +58,8 @@ sub begin {
 	}
 
 	# Return preserved flags.
-	return wantarray 
-		? ($self->{'preserved_flag'}, $self->{'prev_preserved_flag'}) 
+	return wantarray
+		? ($self->{'preserved_flag'}, $self->{'prev_preserved_flag'})
 		: $self->{'preserved_flag'};
 }
 
@@ -79,8 +79,8 @@ sub end {
 	}
 
 	# Return preserved flags.
-	return wantarray 
-		? ($self->{'preserved_flag'}, $self->{'prev_preserved_flag'}) 
+	return wantarray
+		? ($self->{'preserved_flag'}, $self->{'prev_preserved_flag'})
 		: $self->{'preserved_flag'};
 }
 
@@ -92,8 +92,8 @@ sub get {
 	my $self = shift;
 
 	# Return preserved flags.
-	return wantarray 
-		? ($self->{'preserved_flag'}, $self->{'prev_preserved_flag'}) 
+	return wantarray
+		? ($self->{'preserved_flag'}, $self->{'prev_preserved_flag'})
 		: $self->{'preserved_flag'};
 }
 

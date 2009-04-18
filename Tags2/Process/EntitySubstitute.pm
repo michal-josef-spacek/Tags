@@ -22,7 +22,7 @@ sub new {
 	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
-	# Entity structure. 
+	# Entity structure.
 	$self->{'entity'} = {};
 
 	# Entity characters to encode/decode.
@@ -229,7 +229,7 @@ Michal Špaček L<tupinek@gmail.com>
 
 BSD license.
 
-=head1 VERSION 
+=head1 VERSION
 
 0.01
 
