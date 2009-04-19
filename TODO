@@ -32,7 +32,6 @@ Tags2::Output::Indent je.
 Tags2::Output::Indent hotovo.
 Tags2::Output::LibXML hotovo.
 Tags2::Output::Raw hotovo.
-37. Proc nefunguje perl t/03_.... ? Nedojde do konce.
 38. Attribute callback (vhodne pro prekodovani do utf a nahradu uvozovek).
 39. K data callbacku pridano defaultni encode_base_entities().
     Pridat cdata_callback a raw_callback.
@@ -159,3 +158,7 @@ OK [20090418] skim
 
 47. Predelat jednotlive funkce v Core na funkce z Debug? A zrusit Debug?
 OK [20090418] skim
+
+37. Proc nefunguje perl t/03_.... ? Nedojde do konce.
+Nic takoveho uz po prepisu testu neni.
+NONE [20090419] skim
