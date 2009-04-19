@@ -192,7 +192,7 @@ sub _check_arguments {
 # Check arguments.
 
 	my ($self, $tags_struct_ar, $min_arg_num, $max_arg_num) = @_;
-	my $arg_num = length @{$tags_struct_ar};
+	my $arg_num = scalar @{$tags_struct_ar};
 	if ($arg_num < $min_arg_num || $arg_num > $max_arg_num) {
 		err 'Bad number of arguments.';
 	}
