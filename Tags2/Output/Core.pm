@@ -71,12 +71,12 @@ sub flush {
 		my $output_sep = $self->{'output_sep'}
 			? $self->{'output_sep'}
 			: "\n";
-		$ret = join($output_sep, @{$self->{'flush_code'}});
+		$ret = join $output_sep, @{$self->{'flush_code'}};
 	} else {
 		$ret = $self->{'flush_code'};
 	}
 	if ($ouf) {
-		print {$ouf} $ret || err 'Cannot write to output handler.';
+		print {$ouf} $ret or err 'Cannot write to output handler.';
 		undef $ret;
 	}
 
