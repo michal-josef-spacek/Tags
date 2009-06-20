@@ -14,9 +14,6 @@
 
  Reference to array.
  [type, data]
- data are:
- - normal scalar.
- - reference to scalar.
 
  Types:
  a  - Tag attribute.
@@ -27,6 +24,16 @@
  e  - End of tag.
  i  - Instruction section.
  r  - Raw section.
+
+ Data:
+ a - $attr, $value
+ b - $element
+ c - @comment
+ cd - @cdata
+ d - @data
+ e - $element
+ i - $target, $code
+ r - @raw_data
 
 =head1 SEE ALSO
 
