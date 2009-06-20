@@ -52,7 +52,9 @@ Tags2::Output::Indent hotovo.
 46. Ma v SESIS smysl CD a R? V tom vystupu by to melo byt normalne jako '-'.
 48. Zalozit nejaky module Tags2::*::Multi? Ktery by dostal pole objektu a
     postupne by je volal a provadel celou funkcnost.
-49.
+49. Podminku >>Check to 'tmp_code'.<< presunout do vlastni funkce. Slo by
+    zoptimalizavat tak, aby to bylo v Core?
+50.
 
 Applied
 =======
