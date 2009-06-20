@@ -127,7 +127,7 @@ sub reset {
 
 	# Indent object.
 	$self->{'indent'} = Indent->new(
-		'next_indent' => $self->{'next_indent'}
+		'next_indent' => $self->{'next_indent'},
 	);
 
 	# Indent::Word object.
