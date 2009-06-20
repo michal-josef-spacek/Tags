@@ -113,43 +113,43 @@ sub put {
 			err 'Bad data.';
 		}
 
-		# Split to flag and main tags structure.
-		my ($flag, @tags_struct) = @{$tags_structure_ar};
+		# Split to type and main tags structure.
+		my ($type, @tags_struct) = @{$tags_structure_ar};
 
 		# Attributes.
-		if ($flag eq 'a') {
+		if ($type eq 'a') {
 			$self->_check_arguments(\@tags_struct, 1, 2);
 			$self->_put_attribute(@tags_struct);
 
 		# Begin of tag.
-		} elsif ($flag eq 'b') {
+		} elsif ($type eq 'b') {
 			$self->_check_arguments(\@tags_struct, 1, 1);
 			$self->_put_begin_of_tag(@tags_struct);
 
 		# CData.
-		} elsif ($flag eq 'cd') {
+		} elsif ($type eq 'cd') {
 			$self->_put_cdata(@tags_struct);
 
 		# Comment.
-		} elsif ($flag eq 'c') {
+		} elsif ($type eq 'c') {
 			$self->_put_comment(@tags_struct);
 
 		# Data.
-		} elsif ($flag eq 'd') {
+		} elsif ($type eq 'd') {
 			$self->_put_data(@tags_struct);
 
 		# End of tag.
-		} elsif ($flag eq 'e') {
+		} elsif ($type eq 'e') {
 			$self->_check_arguments(\@tags_struct, 1, 1);
 			$self->_put_end_of_tag(@tags_struct);
 
 		# Instruction.
-		} elsif ($flag eq 'i') {
+		} elsif ($type eq 'i') {
 			$self->_check_arguments(\@tags_struct, 1, 2);
 			$self->_put_instruction(@tags_struct);
 
 		# Raw data.
-		} elsif ($flag eq 'r') {
+		} elsif ($type eq 'r') {
 			$self->_put_raw(@tags_struct);
 
 		# Other.
