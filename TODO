@@ -50,7 +50,9 @@ Tags2::Output::Indent hotovo.
 43. ex10.pl v perl/MODUELS/Tags2::Output::Indent do testu.
 45. Predelat testovani. Idealni by bylo mit na jednom miste vstupni data. 
 46. Ma v SESIS smysl CD a R? V tom vystupu by to melo byt normalne jako '-'.
-48.
+48. Zalozit nejaky module Tags2::*::Multi? Ktery by dostal pole objektu a
+    postupne by je volal a provadel celou funkcnost.
+49.
 
 Applied
 =======
