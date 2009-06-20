@@ -106,15 +106,15 @@ sub put {
 	my ($self, @data) = @_;
 
 	# For every data.
-	foreach my $tags_structure_ref (@data) {
+	foreach my $tags_structure_ar (@data) {
 
 		# Bad data.
-		if (ref $tags_structure_ref ne 'ARRAY') {
+		if (ref $tags_structure_ar ne 'ARRAY') {
 			err 'Bad data.';
 		}
 
 		# Split to flag and main tags structure.
-		my ($flag, @tags_struct) = @{$tags_structure_ref};
+		my ($flag, @tags_struct) = @{$tags_structure_ar};
 
 		# Attributes.
 		if ($flag eq 'a') {
