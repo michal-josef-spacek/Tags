@@ -8,10 +8,6 @@ use warnings;
 
 # Modules.
 use Error::Simple::Multiple qw(err);
-use Readonly;
-
-# Constants.
-Readonly::Scalar my $EMPTY_STR => q{};
 
 # Version.
 our $VERSION = 0.02;
@@ -163,7 +159,7 @@ sub put {
 	# Auto-flush.
 	if ($self->{'auto_flush'}) {
 		$self->flush;
-		$self->{'flush_code'} = $EMPTY_STR;
+		$self->{'flush_code'} = [];
 	}
 
 	return;
@@ -364,7 +360,6 @@ __END__
 =head1 DEPENDENCIES
 
 L<Error::Simple::Multiple(3pm)>,
-L<Readonly(3pm)>.
 
 =head1 SEE ALSO
 
