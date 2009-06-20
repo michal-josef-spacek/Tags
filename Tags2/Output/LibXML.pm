@@ -40,7 +40,7 @@ sub new {
 	$self->{'no_simple'} = [];
 
 	# Set output handler.
-	$self->{'output_handler'} = $EMPTY_STR;
+	$self->{'output_handler'} = undef;
 
 	# Preserved tags.
 	# TODO not implemented.
@@ -240,12 +240,14 @@ __END__
 =head1 SYNOPSIS
 
  use Tags2::Output::LibXML;
- my $t = Tags2::Output::LibXML->new;
- $t->put(['b', 'tag'], ['d', 'data']);
- $t->finalize;
- $t->flush;
- $t->reset;
- $t->put(['b', 'tag'], ['d', 'data']);
+ my $tags = Tags2::Output::LibXML->new(%parameters);
+ $t->put(
+	['b', 'tag'],
+	['d', 'data'],
+ );
+ $tags->finalize;
+ $tags->flush;
+ $tags->reset;
  my @open_tags = $t->open_tags;
 
 =head1 DESCRIPTION
@@ -297,7 +299,8 @@ __END__
 =item * B<output_handler>
 
  Handler for print output strings.
- Default is *STDOUT.
+ Must be a GLOB.
+ Default is undef.
 
 =item * B<preserved>
 

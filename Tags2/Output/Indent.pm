@@ -672,6 +672,7 @@ __END__
 =item * B<output_handler>
 
  Handler for print output strings.
+ Must be a GLOB.
  Default is *STDOUT.
 
 =item * B<output_separator>

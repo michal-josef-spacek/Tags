@@ -41,7 +41,7 @@ sub new {
 	$self->{'linebreak'} = "\n";
 
 	# Set output handler.
-	$self->{'output_handler'} = $EMPTY_STR;
+	$self->{'output_handler'} = undef;
 
 	# No simple tags.
 	$self->{'no_simple'} = [];
@@ -339,7 +339,8 @@ __END__
 =item * B<output_handler>
 
  Handler for print output strings.
- Default is *STDOUT.
+ Must be a GLOB.
+ Default is undef.
 
 =item * B<output_separator>
 

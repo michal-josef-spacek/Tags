@@ -489,6 +489,7 @@ __END__
 =item * B<output_handler>
 
  Handler for print output strings.
+ Must be a GLOB.
  Default is undef.
 
 =item * B<preserved>
