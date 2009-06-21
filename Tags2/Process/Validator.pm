@@ -9,6 +9,7 @@ use warnings;
 # Modules.
 use Error::Simple::Multiple qw(err);
 use List::MoreUtils qw(any none);
+use Tags2::Utils qw(set_params);
 use XML::DTDParser qw(ParseDTDFile);
 
 # Version.
@@ -33,14 +34,7 @@ sub new {
 	$self->{'dtd_file'} = undef;
 
 	# Process params.
-	while (@params) {
-		my $key = shift @params;
-		my $val = shift @params;
-		if (! exists $self->{$key}) {
-			err "Bad parameter '$key'.";
-		}
-		$self->{$key} = $val;
-	}
+	set_params($self, @params);
 
 	# Is exists 'dtd_file' name.
 	if (! $self->{'dtd_file'}) {
@@ -364,18 +358,21 @@ __END__
 
 =head1 ERRORS
 
- Attribute '%s' at tag '%s' is duplicit.
- Bad attribute '%s' at tag '%s'.
- Bad data section in tag '%s'.
- Bad parameter '%s'.
- Bad value '%s' of attribute '%s' at tag '%s'.
- Cannot read file '%s' with DTD.
- Cannot read file with DTD defined by 'dtd_file' paremeter.
- Missing required attribute '%s' at tag '%s'.
- Tag '%s' cannot be first.
- Tag '%s' cannot be after other tag.
- Tag '%s' cannot be after tag '%s'.
- Tag '%s' doesn't exist in dtd.
+ Mine:
+   Attribute '%s' at tag '%s' is duplicit.
+   Bad attribute '%s' at tag '%s'.
+   Bad data section in tag '%s'.
+   Bad value '%s' of attribute '%s' at tag '%s'.
+   Cannot read file '%s' with DTD.
+   Cannot read file with DTD defined by 'dtd_file' paremeter.
+   Missing required attribute '%s' at tag '%s'.
+   Tag '%s' cannot be first.
+   Tag '%s' cannot be after other tag.
+   Tag '%s' cannot be after tag '%s'.
+   Tag '%s' doesn't exist in dtd.
+
+ From Tags2::Utils:
+   Unknown parameter '%s'.
 
 =head1 EXAMPLE
 

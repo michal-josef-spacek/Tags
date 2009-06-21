@@ -10,6 +10,7 @@ use warnings;
 # Modules.
 use Error::Simple::Multiple qw(err);
 use List::MoreUtils qw(any);
+use Tags2::Utils qw(set_params);
 
 # Version.
 our $VERSION = 0.01;
@@ -29,12 +30,7 @@ sub new {
 	$self->{'entity_chars'} = [];
 
 	# Process params.
-	while (@params) {
-		my $key = shift @params;
-		my $val = shift @params;
-		err "Bad parameter '$key'." if ! exists $self->{$key};
-		$self->{$key} = $val;
-	}
+	set_params($self, @params);
 
 	# Check to hash reference in entity parameter.
 	if (ref $self->{'entity'} ne 'HASH') {
@@ -216,6 +212,14 @@ __END__
 =head1 EXAMPLE
 
  TODO
+
+=head1 ERRORS
+
+ Mine:
+   Bad 'entity' hash reference.
+
+ From Tags2::Utils:
+   Unknown parameter '%s'.
 
 =head1 DEPENDENCIES
 

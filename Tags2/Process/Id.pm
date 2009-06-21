@@ -10,6 +10,7 @@ use warnings;
 use Error::Simple::Multiple qw(err);
 use List::MoreUtils qw(none);
 use Readonly;
+use Tags2::Utils qw(set_params);
 
 # Constants.
 Readonly::Scalar my $EMPTY_STR => q{};
@@ -26,12 +27,7 @@ sub new {
 	my $self = bless {}, $class;
 
 	# Process params.
-	while (@params) {
-		my $key = shift @params;
-		my $val = shift @params;
-		err "Bad parameter '$key'." if ! exists $self->{$key};
-		$self->{$key} = $val;
-	}
+	set_params($self, @params);
 
 	# Initialization.
 	$self->reset;
@@ -166,9 +162,12 @@ __END__
 
 =head1 ERRORS
 
- Bad parameter '%s'.
- Id attribute '%s' in tag '%s' is duplicit over structure.
- Other id attribute in tag '%s'.
+ Mine:
+   Id attribute '%s' in tag '%s' is duplicit over structure.
+   Other id attribute in tag '%s'.
+
+ From Tags2::Utils:
+   Unknown parameter '%s'.
 
 =head1 EXAMPLE1
 
