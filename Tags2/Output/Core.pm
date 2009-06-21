@@ -19,16 +19,18 @@ sub new {
 # Constructor.
 
 	my ($class, @params) = @_;
+
+	# Create object.
 	my $self = bless {}, $class;
 
-	# Output separator.
-	$self->{'output_sep'} = "\n";
-
-	# Skip bad tags.
-	$self->{'skip_bad_tags'} = 0;
+	# Get default parameters.
+	$self->_default_parameters;
 
 	# Process params.
 	set_params($self, @params);
+
+	# Check parameters to right values.
+	$self->_check_params;
 
 	# Initialization.
 	$self->reset;
@@ -187,6 +189,34 @@ sub _check_arguments {
 		err 'Bad number of arguments.', 
 			'\'Tags2\' structure', join ', ', @{$tags_struct_ar};
 	}
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _check_params {
+#------------------------------------------------------------------------------
+# Check parameters to rigth values.
+
+        my $self = shift;
+
+	# Nope.
+
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _default_parameters {
+#------------------------------------------------------------------------------
+# Default parameters.
+
+	my $self = shift;
+
+	# Output separator.
+	$self->{'output_sep'} = "\n";
+
+	# Skip bad tags.
+	$self->{'skip_bad_tags'} = 0;
+
 	return;
 }
 
