@@ -53,7 +53,9 @@ Tags2::Output::Indent hotovo.
     postupne by je volal a provadel celou funkcnost.
 49. Podminku >>Check to 'tmp_code'.<< presunout do vlastni funkce. Slo by
     zoptimalizavat tak, aby to bylo v Core?
-50.
+50. Predelat system podobne jako CSS::Structure na lepsi tvoreni objektu.
+    _default_parameters apod.
+52.
 
 Applied
 =======
