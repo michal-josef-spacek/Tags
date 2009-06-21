@@ -49,7 +49,6 @@ Tags2::Output::Indent hotovo.
 41. Cover testing.
 43. ex10.pl v perl/MODUELS/Tags2::Output::Indent do testu.
 45. Predelat testovani. Idealni by bylo mit na jednom miste vstupni data. 
-46. Ma v SESIS smysl CD a R? V tom vystupu by to melo byt normalne jako '-'.
 48. Zalozit nejaky module Tags2::*::Multi? Ktery by dostal pole objektu a
     postupne by je volal a provadel celou funkcnost.
 49. Podminku >>Check to 'tmp_code'.<< presunout do vlastni funkce. Slo by
@@ -166,3 +165,7 @@ OK [20090418] skim
 37. Proc nefunguje perl t/03_.... ? Nedojde do konce.
 Nic takoveho uz po prepisu testu neni.
 NONE [20090419] skim
+
+46. Ma v SESIS smysl CD a R? V tom vystupu by to melo byt normalne jako '-'.
+Ma to smysl, kdyz to chci rucne odlisit.
+NONE [20090622] skim
