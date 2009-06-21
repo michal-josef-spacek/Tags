@@ -8,8 +8,9 @@ use strict;
 use warnings;
 
 # Modules.
-use Readonly;
+use Error::Simple::Multiple qw(err);
 use HTML::Entities;
+use Readonly;
 
 # Constants.
 Readonly::Array our @EXPORT_OK => qw(encode_newline encode_base_entities
@@ -120,8 +121,9 @@ __END__
 
 =head1 DEPENDENCIES
 
-L<Readonly(3pm)>,
-L<HTML::Entities(3pm)>.
+L<HTML::Entities(3pm)>,
+L<Error::Simple::Multiple(3pm)>,
+L<Readonly(3pm)>.
 
 =head1 SEE ALSO
 
