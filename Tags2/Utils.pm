@@ -12,7 +12,8 @@ use Readonly;
 use HTML::Entities;
 
 # Constants.
-Readonly::Array our @EXPORT_OK => qw(encode_newline encode_base_entities);
+Readonly::Array our @EXPORT_OK => qw(encode_newline encode_base_entities
+	set_params);
 
 # Version.
 our $VERSION = 0.01;
@@ -46,6 +47,23 @@ sub encode_base_entities {
 	}
 }
 
+#------------------------------------------------------------------------------
+sub set_params {
+#------------------------------------------------------------------------------
+# Set parameters to user values.
+
+	my ($self, @params) = @_;
+	while (@params) {
+		my $key = shift @params;
+		my $val = shift @params;
+		if (! exists $self->{$key}) {
+			err "Unknown parameter '$key'.";
+		}
+		$self->{$key} = $val;
+	}
+	return;
+}
+
 1;
 
 __END__
@@ -75,11 +93,19 @@ __END__
 
  TODO
 
+=item B<set_params($self, @params)>
+
+ Sets object parameters to user values.
+ If setted key doesn't exist in $self object, turn fatal error.
+ $self - Object or hash reference.
+ @params - Key, value pairs.
+
 =back
 
 =head1 ERRORS
 
- No errors.
+ set_params()
+   Unknown parameter '%s'.
 
 =head1 EXAMPLE
 
