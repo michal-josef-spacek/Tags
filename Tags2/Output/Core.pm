@@ -8,6 +8,7 @@ use warnings;
 
 # Modules.
 use Error::Simple::Multiple qw(err);
+use Tags2::Utils qw(set_params);
 
 # Version.
 our $VERSION = 0.02;
@@ -27,14 +28,7 @@ sub new {
 	$self->{'skip_bad_tags'} = 0;
 
 	# Process params.
-	while (@params) {
-		my $key = shift @params;
-		my $val = shift @params;
-		if (! exists $self->{$key}) {
-			err "Unknown parameter '$key'.";
-		}
-		$self->{$key} = $val;
-	}
+	set_params($self, @params);
 
 	# Initialization.
 	$self->reset;
@@ -351,15 +345,19 @@ __END__
 
 =head1 ERRORS
 
- Bad data.
- Bad number of arguments.
- Bad type of data.
- Cannot write to output handler.
- Unknown parameter '%s'.
+ Mine:
+   Bad data.
+   Bad number of arguments.
+   Bad type of data.
+   Cannot write to output handler.
+
+ From Tags2::Utils:
+   Unknown parameter '%s'.
 
 =head1 DEPENDENCIES
 
 L<Error::Simple::Multiple(3pm)>,
+L<Tags2::Utils(3pm)>.
 
 =head1 SEE ALSO
 
