@@ -249,8 +249,9 @@ __END__
 
 =head1 ERRORS
 
- Ending bad tag: '%s' in block of tag '%s'.
- Unknown parameter '%s'.
+ Mine:
+   Ending bad tag: '%s' in block of tag '%s'.
+   Unknown parameter '%s'.
 
 =head1 EXAMPLE
 
