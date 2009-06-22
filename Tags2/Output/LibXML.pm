@@ -97,9 +97,6 @@ sub reset {
 
 	my $self = shift;
 
-	# Printed tags.
-	$self->{'printed_tags'} = [];
-
 	# Root node.
 	$self->{'doc'} = XML::LibXML::Document->new(
 		$self->{'xml_version'},
@@ -108,6 +105,9 @@ sub reset {
 
 	# First node = root node.
 	$self->{'first'} = 0;
+
+	# Printed tags.
+	$self->{'printed_tags'} = [];
 
 	return;
 }
