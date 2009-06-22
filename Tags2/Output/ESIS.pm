@@ -79,9 +79,7 @@ sub _put_cdata {
 # CData.
 
 	my ($self, @cdata) = @_;
-	$self->_flush_tmp;
-	my $data = join $EMPTY_STR, @cdata;
-	push @{$self->{'flush_code'}}, '-'.encode_newline($data);
+	$self->_put_data(@cdata);
 	return;
 }
 
@@ -105,7 +103,7 @@ sub _put_data {
 	my ($self, @data) = @_;
 	$self->_flush_tmp;
 	my $data = join $EMPTY_STR, @data;
-	push @{$self->{'flush_code'}}, '-'.encode_newline($data);
+	push @{$self->{'flush_code'}}, q{-}.encode_newline($data);
 	return;
 }
 
@@ -131,7 +129,7 @@ sub _put_instruction {
 
 	my ($self, $target, $code) = @_;
 	$self->_flush_tmp;
-	my $instruction = '?'.$target;
+	my $instruction = q{?}.$target;
 	if ($code) {
 		$instruction .= $SPACE.$code;
 	}
@@ -145,9 +143,7 @@ sub _put_raw {
 # Raw data.
 
 	my ($self, @raw_data) = @_;
-	$self->_flush_tmp;
-	my $data = join $EMPTY_STR, @raw_data;
-	push @{$self->{'flush_code'}}, '-'.encode_newline($data);
+	$self->_put_data(@raw_data);
 	return;
 }
 
