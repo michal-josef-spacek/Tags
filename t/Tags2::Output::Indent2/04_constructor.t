@@ -8,13 +8,13 @@ my $obj;
 eval {
 	$obj = Tags2::Output::Indent2->new('');
 };
-is($EVAL_ERROR, "Bad parameter ''.\n");
+is($EVAL_ERROR, "Unknown parameter ''.\n");
 
 print "Testing: new('something' => 'value') bad constructor.\n";
 eval {
 	$obj = Tags2::Output::Indent2->new('something' => 'value');
 };
-is($EVAL_ERROR, "Bad parameter 'something'.\n");
+is($EVAL_ERROR, "Unknown parameter 'something'.\n");
 
 print "Testing: new('attr_delimeter' => '-') bad constructor.\n";
 eval {
