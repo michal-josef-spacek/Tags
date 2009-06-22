@@ -66,14 +66,11 @@ sub reset {
 
 	my $self = shift;
 
-	# Flush code.
-	$self->{'flush_code'} = [];
+	# Reset from SUPER.
+	$self->SUPER::reset();
 
 	# Tmp code.
 	$self->{'tmp_code'} = [];
-
-	# Printed tags.
-	$self->{'printed_tags'} = [];
 
 	return;
 }
