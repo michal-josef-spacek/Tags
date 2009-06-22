@@ -65,6 +65,7 @@ sub flush {
 		$ret = $self->{'flush_code'};
 	}
 	if ($ouf) {
+		no warnings;
 		print {$ouf} $ret or err 'Cannot write to output handler.';
 		undef $ret;
 	}
