@@ -202,7 +202,12 @@ sub _check_params {
 
         my $self = shift;
 
-	# Nope.
+	# Check to output handler.
+	if (defined $self->{'output_handler'}
+		&& ref $self->{'output_handler'} ne 'GLOB') {
+
+		err 'Output handler is bad file handler.';
+	}
 
 	return;
 }
@@ -213,6 +218,12 @@ sub _default_parameters {
 # Default parameters.
 
 	my $self = shift;
+
+	# Auto-flush.
+	$self->{'auto_flush'} = 0;
+
+	# Set output handler.
+	$self->{'output_handler'} = undef;
 
 	# Output separator.
 	$self->{'output_sep'} = "\n";
@@ -343,6 +354,14 @@ __END__
 =item B<new(%parameters)>
 
 =over 8
+
+=item * B<auto_flush>
+
+ TODO
+
+=item * B<output_handler>
+
+ TODO
 
 =item * B<output_sep>
 
