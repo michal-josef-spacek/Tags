@@ -39,45 +39,6 @@ sub reset {
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _check_params {
-#------------------------------------------------------------------------------
-# Check parameters to rigth values.
-
-        my $self = shift;
-
-	# Check to output handler.
-	if (defined $self->{'output_handler'}
-		&& ref $self->{'output_handler'} ne 'GLOB') {
-
-		err 'Output handler is bad file handler.';
-	}
-
-	return;
-}
-
-#------------------------------------------------------------------------------
-sub _default_parameters {
-#------------------------------------------------------------------------------
-# Default parameters.
-
-	my $self = shift;
-
-	# Auto-flush.
-	$self->{'auto_flush'} = 0;
-
-	# Set output handler.
-	$self->{'output_handler'} = undef;
-
-	# Output separator.
-	$self->{'output_sep'} = "\n";
-
-	# Skip bad tags.
-	$self->{'skip_bad_tags'} = 0;
-
-	return;
-}
-
-#------------------------------------------------------------------------------
 sub _flush_tmp {
 #------------------------------------------------------------------------------
 # Flush tmp.

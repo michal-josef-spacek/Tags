@@ -20,44 +20,6 @@ Readonly::Scalar my $SPACE => q{ };
 our $VERSION = 0.02;
 
 #------------------------------------------------------------------------------
-sub new {
-#------------------------------------------------------------------------------
-# Constructor.
-
-	my ($class, @params) = @_;
-	my $self = bless {}, $class;
-
-	# Set output handler.
-	$self->{'output_handler'} = undef;
-
-	# Skip bad tags.
-	$self->{'skip_bad_tags'} = 0;
-
-	# Process params.
-	while (@params) {
-		my $key = shift @params;
-		my $val = shift @params;
-		if (! exists $self->{$key}) {
-			err "Bad parameter '$key'.";
-		}
-		$self->{$key} = $val;
-	}
-
-	# Check to output handler.
-	if (defined $self->{'output_handler'}
-		&& ref $self->{'output_handler'} ne 'GLOB') {
-
-		err 'Output handler is bad file handler.';
-	}
-
-	# Initialization.
-	$self->reset;
-
-	# Object.
-	return $self;
-}
-
-#------------------------------------------------------------------------------
 sub reset {
 #------------------------------------------------------------------------------
 # Resets internal variables.

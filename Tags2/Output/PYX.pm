@@ -24,42 +24,6 @@ our $VERSION = 0.01;
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-sub _check_params {
-#------------------------------------------------------------------------------
-# Check parameters to rigth values.
-
-        my $self = shift;
-
-	# Check to output handler.
-	if (defined $self->{'output_handler'}
-		&& ref $self->{'output_handler'} ne 'GLOB') {
-
-		err 'Output handler is bad file handler.';
-	}
-
-	return;
-}
-
-#------------------------------------------------------------------------------
-sub _default_parameters {
-#------------------------------------------------------------------------------
-# Default parameters.
-
-	my $self = shift;
-
-	# Auto-flush.
-	$self->{'auto_flush'} = 0;
-
-	# Set output handler.
-	$self->{'output_handler'} = undef;
-
-	# Skip bad tags.
-	$self->{'skip_bad_tags'} = 0;
-
-	return;
-}
-
-#------------------------------------------------------------------------------
 sub _put_attribute {
 #------------------------------------------------------------------------------
 # Attributes.
@@ -195,6 +159,10 @@ __END__
  Default is 0.
 
 =item * B<output_handler>
+
+ TODO
+
+=item * B<output_sep>
 
  TODO
 
