@@ -50,8 +50,7 @@ sub _put_cdata {
 # CData.
 
 	my ($self, @cdata) = @_;
-	my $cdata = join($EMPTY_STR, @cdata);
-	push @{$self->{'flush_code'}}, '-'.encode_newline($cdata);
+	$self->_put_data(@cdata);
 	return;
 }
 
@@ -114,8 +113,7 @@ sub _put_raw {
 # Raw data.
 
 	my ($self, @raw_data) = @_;
-	my $raw_data = join($EMPTY_STR, @raw_data);
-	push @{$self->{'flush_code'}}, '-'.encode_newline($raw_data);
+	$self->_put_data(@raw_data);
 	return;
 }
 
