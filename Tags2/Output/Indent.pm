@@ -292,7 +292,7 @@ sub _put_attribute {
 	my ($self, $attr, $value) = @_;
 
 	# Check to 'tmp_code'.
-	if (! scalar @{$self->{'tmp_code'}}) {
+	if (! @{$self->{'tmp_code'}}) {
 		err 'Bad tag type \'a\'.';
 	}
 
