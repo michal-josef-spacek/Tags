@@ -231,7 +231,8 @@ L<Tags2::Output::Indent2(3pm)>,
 L<Tags2::Output::LibXML(3pm)>,
 L<Tags2::Output::PYX(3pm)>,
 L<Tags2::Output::Raw(3pm)>,
-L<Tags2::Output::SESIS(3pm)>.
+L<Tags2::Output::SESIS(3pm)>,
+L<Tags2::Utils(3pm)>.
 
 =head1 AUTHOR
 
