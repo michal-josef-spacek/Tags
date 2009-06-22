@@ -153,7 +153,6 @@ t/Tags2::Utils::Preserve/04_constructor.t
 t/Tags2::Utils::Preserve/05_preserving.t
 Tags2.pm
 Tags2/Output/Core.pm
-Tags2/Output/Debug.pm
 Tags2/Output/ESIS.pm
 Tags2/Output/Indent.pm
 Tags2/Output/Indent2.pm
