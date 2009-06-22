@@ -9,4 +9,9 @@ $obj->put(
 	['c', ' comment '],
 );
 my $ret = $obj->flush;
-is($ret, '');
+my $right_ret = <<'END';
+-<!--comment-->
+-<!-- comment -->
+END
+chomp $right_ret;
+is($ret, $right_ret);
