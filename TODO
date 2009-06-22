@@ -53,8 +53,6 @@ Tags2::Output::Indent hotovo.
     postupne by je volal a provadel celou funkcnost.
 49. Podminku >>Check to 'tmp_code'.<< presunout do vlastni funkce. Slo by
     zoptimalizavat tak, aby to bylo v Core?
-50. Predelat system podobne jako CSS::Structure na lepsi tvoreni objektu.
-    _default_parameters apod.
 52.
 
 Applied
@@ -171,3 +169,7 @@ NONE [20090419] skim
 46. Ma v SESIS smysl CD a R? V tom vystupu by to melo byt normalne jako '-'.
 Ma to smysl, kdyz to chci rucne odlisit.
 NONE [20090622] skim
+
+50. Predelat system podobne jako CSS::Structure na lepsi tvoreni objektu.
+    _default_parameters apod.
+OK [20090622] skim
