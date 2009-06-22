@@ -51,8 +51,6 @@ Tags2::Output::Indent hotovo.
 45. Predelat testovani. Idealni by bylo mit na jednom miste vstupni data. 
 48. Zalozit nejaky module Tags2::*::Multi? Ktery by dostal pole objektu a
     postupne by je volal a provadel celou funkcnost.
-49. Podminku >>Check to 'tmp_code'.<< presunout do vlastni funkce. Slo by
-    zoptimalizavat tak, aby to bylo v Core?
 52.
 
 Applied
@@ -173,3 +171,9 @@ NONE [20090622] skim
 50. Predelat system podobne jako CSS::Structure na lepsi tvoreni objektu.
     _default_parameters apod.
 OK [20090622] skim
+
+49. Podminku >>Check to 'tmp_code'.<< presunout do vlastni funkce. Slo by
+    zoptimalizavat tak, aby to bylo v Core?
+Tohle je problematicke. Mozna by bylo dobre mit nejakou tridu ObjectUtils, kde
+tyto veci budou.
+NONE [20090622] skim
