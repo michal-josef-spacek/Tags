@@ -23,83 +23,6 @@ Readonly::Scalar my $SPACE => q{ };
 our $VERSION = 0.06;
 
 #------------------------------------------------------------------------------
-sub new {
-#------------------------------------------------------------------------------
-# Constructor.
-
-	my ($class, @params) = @_;
-	my $self = bless {}, $class;
-
-	# Attribute delimeter.
-	$self->{'attr_delimeter'} = q{"};
-
-	# Auto-flush.
-	$self->{'auto_flush'} = 0;
-
-	# CDATA callback.
-	$self->{'cdata_callback'} = undef;
-
-	# Data callback.
-	$self->{'data_callback'} = \&encode_base_entities;
-
-	# No simple tags.
-	$self->{'no_simple'} = [];
-
-	# Output handler.
-	$self->{'output_handler'} = undef;
-
-	# Output separator.
-	$self->{'output_sep'} = $EMPTY_STR;
-
-	# Preserved tags.
-	$self->{'preserved'} = [];
-
-	# Raw data callback.
-	$self->{'raw_callback'} = undef;
-
-	# Skip bad tags.
-	$self->{'skip_bad_tags'} = 0;
-
-	# XML output.
-	$self->{'xml'} = 0;
-
-	# Process params.
-	while (@params) {
-		my $key = shift @params;
-		my $val = shift @params;
-		if (! exists $self->{$key}) {
-			err "Unknown parameter '$key'.";
-		}
-		$self->{$key} = $val;
-	}
-
-	# Check 'attr_delimeter'.
-	if ($self->{'attr_delimeter'} ne q{"}
-		&& $self->{'attr_delimeter'} ne q{'}) {
-
-		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
-	}
-
-	# Check to output handler.
-	if (defined $self->{'output_handler'}
-		&& ref $self->{'output_handler'} ne 'GLOB') {
-
-		err 'Output handler is bad file handler.';
-	}
-
-	# Check auto-flush only with output handler.
-	if ($self->{'auto_flush'} && ! defined $self->{'output_handler'}) {
-		err 'Auto-flush can\'t use without output handler.';
-	}
-
-	# Initialization.
-	$self->reset;
-
-	# Object.
-	return $self;
-}
-
-#------------------------------------------------------------------------------
 sub reset {
 #------------------------------------------------------------------------------
 # Resets internal variables.
@@ -130,6 +53,63 @@ sub reset {
 #------------------------------------------------------------------------------
 # Private methods.
 #------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+sub _check_params {
+#------------------------------------------------------------------------------
+# Check parameters to rigth values.
+
+        my $self = shift;
+
+	# Check params from SUPER.
+	$self->SUPER::_check_params();
+
+	# Check 'attr_delimeter'.
+	if ($self->{'attr_delimeter'} ne q{"}
+		&& $self->{'attr_delimeter'} ne q{'}) {
+
+		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
+	}
+
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _default_parameters {
+#------------------------------------------------------------------------------
+# Default parameters.
+
+	my $self = shift;
+
+	# Default parameters from SUPER.
+	$self->SUPER::_default_parameters();
+
+	# Attribute delimeter.
+	$self->{'attr_delimeter'} = q{"};
+
+	# CDATA callback.
+	$self->{'cdata_callback'} = undef;
+
+	# Data callback.
+	$self->{'data_callback'} = \&encode_base_entities;
+
+	# No simple tags.
+	$self->{'no_simple'} = [];
+
+	# Output separator. (Rewrite SUPER value.)
+	$self->{'output_sep'} = $EMPTY_STR;
+
+	# Preserved tags.
+	$self->{'preserved'} = [];
+
+	# Raw data callback.
+	$self->{'raw_callback'} = undef;
+
+	# XML output.
+	$self->{'xml'} = 0;
+
+	return;
+}
 
 #------------------------------------------------------------------------------
 sub _flush_tmp {

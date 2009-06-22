@@ -17,82 +17,11 @@ use Tags2::Utils::Preserve;
 
 # Constants.
 Readonly::Scalar my $EMPTY_STR => q{};
-Readonly::Scalar my $LAST_INDEX => -1;
 Readonly::Scalar my $LINE_SIZE => 79;
 Readonly::Scalar my $SPACE => q{ };
 
 # Version.
 our $VERSION = 0.01;
-
-#------------------------------------------------------------------------------
-sub new {
-#------------------------------------------------------------------------------
-# Constructor.
-
-	my ($class, @params) = @_;
-	my $self = bless {}, $class;
-
-	# Auto-flush.
-	$self->{'auto_flush'} = 0;
-
-	# Indent params.
-	$self->{'next_indent'} = $SPACE x 2;
-	$self->{'line_size'} = $LINE_SIZE;
-	$self->{'linebreak'} = "\n";
-
-	# Set output handler.
-	$self->{'output_handler'} = undef;
-
-	# No simple tags.
-	$self->{'no_simple'} = [];
-
-	# Preserved tags.
-	$self->{'preserved'} = [];
-
-	# Attribute delimeter.
-	$self->{'attr_delimeter'} = '"';
-
-	# Skip bad tags.
-	$self->{'skip_bad_tags'} = 0;
-
-	# Callback to instruction.
-	$self->{'instruction'} = $EMPTY_STR;
-
-	# Indent CDATA section.
-	$self->{'cdata_indent'} = 0;
-
-	# XML output.
-	$self->{'xml'} = 0;
-
-	# Process params.
-	while (@params) {
-		my $key = shift @params;
-		my $val = shift @params;
-		if (! exists $self->{$key}) {
-			err "Bad parameter '$key'.";
-		}
-		$self->{$key} = $val;
-	}
-
-	# Check 'attr_delimeter'.
-	if ($self->{'attr_delimeter'} ne '"'
-		&& $self->{'attr_delimeter'} ne '\'') {
-
-		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
-	}
-
-	# Check auto-flush only with output handler.
-	if ($self->{'auto_flush'} && $self->{'output_handler'} eq $EMPTY_STR) {
-		err '\'auto_flush\' parameter can\'t use without '.
-			'\'output_handler\' parameter.';
-	}
-
-	# Reset.
-	$self->reset;
-
-	# Object.
-	return $self;
-}
 
 #------------------------------------------------------------------------------
 sub reset {
@@ -152,6 +81,62 @@ sub reset {
 #------------------------------------------------------------------------------
 # Private methods.
 #------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+sub _check_params {
+#------------------------------------------------------------------------------
+# Check parameters to rigth values.
+
+        my $self = shift;
+
+	# Check params from SUPER.
+	$self->SUPER::_check_params();
+
+	# Check 'attr_delimeter'.
+	if ($self->{'attr_delimeter'} ne q{"}
+		&& $self->{'attr_delimeter'} ne q{'}) {
+
+		err "Bad attribute delimeter '$self->{'attr_delimeter'}'.";
+	}
+
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _default_parameters {
+#------------------------------------------------------------------------------
+# Default parameters.
+
+	my $self = shift;
+
+	# Default parameters from SUPER.
+	$self->SUPER::_default_parameters();
+
+	# Indent params.
+	$self->{'next_indent'} = $SPACE x 2;
+	$self->{'line_size'} = $LINE_SIZE;
+	$self->{'linebreak'} = "\n";
+
+	# No simple tags.
+	$self->{'no_simple'} = [];
+
+	# Preserved tags.
+	$self->{'preserved'} = [];
+
+	# Attribute delimeter.
+	$self->{'attr_delimeter'} = '"';
+
+	# Callback to instruction.
+	$self->{'instruction'} = $EMPTY_STR;
+
+	# Indent CDATA section.
+	$self->{'cdata_indent'} = 0;
+
+	# XML output.
+	$self->{'xml'} = 0;
+
+	return;
+}
 
 #------------------------------------------------------------------------------
 sub _flush_code {

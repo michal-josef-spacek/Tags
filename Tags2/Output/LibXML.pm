@@ -19,60 +19,6 @@ Readonly::Scalar my $EMPTY_STR => q{};
 our $VERSION = 0.02;
 
 #------------------------------------------------------------------------------
-sub new {
-#------------------------------------------------------------------------------
-# Constructor.
-
-	my ($class, @params) = @_;
-	my $self = bless {}, $class;
-
-	# CDATA callback.
-	$self->{'cdata_callback'} = undef;
-
-	# Data callback.
-	$self->{'data_callback'} = undef;
-
-	# Document encoding.
-	$self->{'encoding'} = 'UTF-8';
-
-	# No simple tags.
-	# TODO not implemented.
-	$self->{'no_simple'} = [];
-
-	# Set output handler.
-	$self->{'output_handler'} = undef;
-
-	# Preserved tags.
-	# TODO not implemented.
-	$self->{'preserved'} = [];
-
-	# Set indent.
-	$self->{'set_indent'} = 0;
-
-	# Skip bad tags.
-	$self->{'skip_bad_tags'} = 0;
-
-	# XML version.
-	$self->{'xml_version'} = '1.1';
-
-	# Process params.
-	while (@params) {
-		my $key = shift @params;
-		my $val = shift @params;
-		if (! exists $self->{$key}) {
-			err "Bad parameter '$key'.";
-		}
-		$self->{$key} = $val;
-	}
-
-	# Initialization.
-	$self->reset;
-
-	# Object.
-	return $self;
-}
-
-#------------------------------------------------------------------------------
 sub flush {
 #------------------------------------------------------------------------------
 # Flush tags in object.
@@ -115,6 +61,62 @@ sub reset {
 #------------------------------------------------------------------------------
 # Private methods.
 #------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+sub _check_params {
+#------------------------------------------------------------------------------
+# Check parameters to rigth values.
+
+        my $self = shift;
+
+	# Check to output handler.
+	if (defined $self->{'output_handler'}
+		&& ref $self->{'output_handler'} ne 'GLOB') {
+
+		err 'Output handler is bad file handler.';
+	}
+
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _default_parameters {
+#------------------------------------------------------------------------------
+# Default parameters.
+
+	my $self = shift;
+
+	# CDATA callback.
+	$self->{'cdata_callback'} = undef;
+
+	# Data callback.
+	$self->{'data_callback'} = undef;
+
+	# Document encoding.
+	$self->{'encoding'} = 'UTF-8';
+
+	# No simple tags.
+	# TODO not implemented.
+	$self->{'no_simple'} = [];
+
+	# Set output handler.
+	$self->{'output_handler'} = undef;
+
+	# Preserved tags.
+	# TODO not implemented.
+	$self->{'preserved'} = [];
+
+	# Set indent.
+	$self->{'set_indent'} = 0;
+
+	# Skip bad tags.
+	$self->{'skip_bad_tags'} = 0;
+
+	# XML version.
+	$self->{'xml_version'} = '1.1';
+
+	return;
+}
 
 #------------------------------------------------------------------------------
 sub _put_attribute {
