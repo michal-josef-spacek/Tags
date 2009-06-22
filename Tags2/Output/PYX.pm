@@ -20,47 +20,6 @@ Readonly::Scalar my $SPACE => q{ };
 our $VERSION = 0.01;
 
 #------------------------------------------------------------------------------
-sub new {
-#------------------------------------------------------------------------------
-# Constructor.
-
-	my ($class, @params) = @_;
-	my $self = bless {}, $class;
-
-	# Auto-flush.
-	$self->{'auto_flush'} = 0;
-
-	# Set output handler.
-	$self->{'output_handler'} = undef;
-
-	# Skip bad tags.
-	$self->{'skip_bad_tags'} = 0;
-
-	# Process params.
-	while (@params) {
-		my $key = shift @params;
-		my $val = shift @params;
-		if (! exists $self->{$key}) {
-			err "Unknown parameter '$key'.";
-		}
-		$self->{$key} = $val;
-	}
-
-	# Check to output handler.
-	if (defined $self->{'output_handler'}
-		&& ref $self->{'output_handler'} ne 'GLOB') {
-
-		err 'Output handler is bad file handler.';
-	}
-
-	# Initialization.
-	$self->reset;
-
-	# Object.
-	return $self;
-}
-
-#------------------------------------------------------------------------------
 sub reset {
 #------------------------------------------------------------------------------
 # Resets internal variables.
@@ -79,6 +38,42 @@ sub reset {
 #------------------------------------------------------------------------------
 # Private methods.
 #------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+sub _check_params {
+#------------------------------------------------------------------------------
+# Check parameters to rigth values.
+
+        my $self = shift;
+
+	# Check to output handler.
+	if (defined $self->{'output_handler'}
+		&& ref $self->{'output_handler'} ne 'GLOB') {
+
+		err 'Output handler is bad file handler.';
+	}
+
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _default_parameters {
+#------------------------------------------------------------------------------
+# Default parameters.
+
+	my $self = shift;
+
+	# Auto-flush.
+	$self->{'auto_flush'} = 0;
+
+	# Set output handler.
+	$self->{'output_handler'} = undef;
+
+	# Skip bad tags.
+	$self->{'skip_bad_tags'} = 0;
+
+	return;
+}
 
 #------------------------------------------------------------------------------
 sub _put_attribute {
