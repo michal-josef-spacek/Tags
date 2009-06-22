@@ -26,9 +26,10 @@ sub flush {
 	my $self = shift;
 	my $ouf = $self->{'output_handler'};
 	if ($ouf) {
+		no warnings;
 		print {$ouf} $self->{'doc'}->toString(
 			$self->{'set_indent'} ? 2 : 0)
-			|| err 'Cannot write to output handler.';
+			or err 'Cannot write to output handler.';
 		return;
 	} else {
 		return $self->{'doc'}->toString(
