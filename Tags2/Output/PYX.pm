@@ -60,6 +60,7 @@ sub _put_comment {
 # Comment.
 
 	my ($self, $comments) = @_;
+	$self->_put_data('<!--'.$comment.'-->');
 	return;
 }
 
