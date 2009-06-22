@@ -60,10 +60,7 @@ sub flush {
 	my $ouf = $self->{'output_handler'};
 	my $ret;
 	if (ref $self->{'flush_code'} eq 'ARRAY') {
-		my $output_sep = $self->{'output_sep'}
-			? $self->{'output_sep'}
-			: "\n";
-		$ret = join $output_sep, @{$self->{'flush_code'}};
+		$ret = join $self->{'output_sep'}, @{$self->{'flush_code'}};
 	} else {
 		$ret = $self->{'flush_code'};
 	}
