@@ -226,7 +226,6 @@ L<Tags2::Utils(3pm)>.
 
 L<Tags2(3pm)>,
 L<Tags2::Output::Core(3pm)>,
-L<Tags2::Output::Debug(3pm)>,
 L<Tags2::Output::Indent(3pm)>,
 L<Tags2::Output::Indent2(3pm)>,
 L<Tags2::Output::LibXML(3pm)>,

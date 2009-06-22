@@ -418,7 +418,6 @@ L<Tags2::Utils::Preserve(3pm)>.
 
 L<Tags2(3pm)>,
 L<Tags2::Output::Core(3pm)>,
-L<Tags2::Output::Debug(3pm)>,
 L<Tags2::Output::ESIS(3pm)>,
 L<Tags2::Output::Indent(3pm)>,
 L<Tags2::Output::LibXML(3pm)>,

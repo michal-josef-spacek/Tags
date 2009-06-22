@@ -38,7 +38,6 @@
 =head1 SEE ALSO
 
 L<Tags2::Output::Core(3pm)>,
-L<Tags2::Output::Debug(3pm)>,
 L<Tags2::Output::ESIS(3pm)>,
 L<Tags2::Output::Indent(3pm)>,
 L<Tags2::Output::Indent2(3pm)>,
