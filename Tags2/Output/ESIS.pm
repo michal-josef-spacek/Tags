@@ -89,7 +89,7 @@ sub _put_comment {
 
 	my ($self, @comments) = @_;
 	$self->_flush_tmp;
-	my $comment = join($EMPTY_STR, @comments);
+	my $comment = join $EMPTY_STR, @comments;
 	push @{$self->{'flush_code'}}, '_'.encode_newline($comment);
 	return;
 }
@@ -101,7 +101,7 @@ sub _put_data {
 
 	my ($self, @data) = @_;
 	$self->_flush_tmp;
-	my $data = join($EMPTY_STR, @data);
+	my $data = join $EMPTY_STR, @data;
 	push @{$self->{'flush_code'}}, '-'.encode_newline($data);
 	return;
 }
