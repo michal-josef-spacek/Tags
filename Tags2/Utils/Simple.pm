@@ -30,7 +30,7 @@ sub register {
 # Register tags object to this module.
 
 	my $tags_obj = shift;
-	if (! $tags_obj || (! $tags_obj->isa('Tags2::Output::Debug')
+	if (! $tags_obj || (! $tags_obj->isa('Tags2::Output::Core')
 		&& ! $tags_obj->isa('Tags2::Output::ESIS')
 		&& ! $tags_obj->isa('Tags2::Output::Indent')
 		&& ! $tags_obj->isa('Tags2::Output::Indent2')
