@@ -206,6 +206,11 @@ sub _check_params {
 		err 'Output handler is bad file handler.';
 	}
 
+	# Check auto-flush only with output handler.
+	if ($self->{'auto_flush'} && ! defined $self->{'output_handler'}) {
+		err 'Auto-flush can\'t use without output handler.';
+	}
+
 	return;
 }
 
@@ -395,10 +400,12 @@ __END__
 =head1 ERRORS
 
  Mine:
+   Auto-flush can't use without output handler.
    Bad data.
    Bad number of arguments.
    Bad type of data.
    Cannot write to output handler.
+   Output handler is bad file handler.
 
  From Tags2::Utils:
    Unknown parameter '%s'.
