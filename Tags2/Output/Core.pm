@@ -171,6 +171,9 @@ sub reset {
 	# Flush code.
 	$self->{'flush_code'} = [];
 
+	# Printed tags.
+	$self->{'printed_tags'} = [];
+
 	return;
 }
 
