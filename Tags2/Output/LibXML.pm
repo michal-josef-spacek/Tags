@@ -243,15 +243,15 @@ __END__
 =head1 SYNOPSIS
 
  use Tags2::Output::LibXML;
- my $tags = Tags2::Output::LibXML->new(%parameters);
- $t->put(
+ my $tags2 = Tags2::Output::LibXML->new(%parameters);
+ $tags2->put(
 	['b', 'tag'],
 	['d', 'data'],
  );
- $tags->finalize;
- $tags->flush;
- $tags->reset;
- my @open_tags = $t->open_tags;
+ my @open_tags = $tags2->open_tags;
+ $tags2->finalize;
+ $tags2->flush;
+ $tags2->reset;
 
 =head1 DESCRIPTION
 
@@ -346,6 +346,14 @@ __END__
  TODO
 
 =back
+
+=head1 ERRORS
+
+ TODO
+
+=head1 EXAMPLE
+
+ TODO
 
 =head1 DEPENDENCIES
 

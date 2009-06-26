@@ -390,13 +390,12 @@ __END__
 =head1 SYNOPSIS
 
  use Tags2::Output::Raw;
- my $t = Tags2::Output::Raw->new(%params);
- $t->put(['b', 'tag']);
- $t->finalize;
- $t->flush;
- $t->reset;
- $t->put(['b', 'tag']);
- my @open_tags = $t->open_tags;
+ my $tags2 = Tags2::Output::Raw->new(%params);
+ $tags2->put(['b', 'tag']);
+ my @open_tags = $tags2->open_tags;
+ $tags2->finalize;
+ $tags2->flush;
+ $tags2->reset;
 
 =head1 METHODS
 
@@ -417,11 +416,11 @@ __END__
  Example:
  Prints <tag attr='val' /> instead default <tag attr="val" />
 
- my $t = Tags2::Output::Raw->new(
+ my $tags2 = Tags2::Output::Raw->new(
          'attr_delimeter' => "'",
  );
- $t->put(['b', 'tag'], ['a', 'attr', 'val'], ['e', 'tag']);
- $t->flush;
+ $tags2->put(['b', 'tag'], ['a', 'attr', 'val'], ['e', 'tag']);
+ $tags2->flush;
 
 =item * B<auto_flush>
 
@@ -460,11 +459,11 @@ __END__
  That's normal in html pages, web browsers has problem with <script /> tag.
  Prints <script></script> instead <script />.
 
- my $t = Tags2::Output::Raw->new(
+ my $tags2 = Tags2::Output::Raw->new(
          'no_simple' => ['script'],
  );
- $t->put(['b', 'script'], ['e', 'script']);
- $t->flush;
+ $tags2->put(['b', 'script'], ['e', 'script']);
+ $tags2->flush;
 
 =item * B<output_handler>
 
@@ -539,17 +538,17 @@ __END__
  use Tags2::Output::Raw;
 
  # Object.
- my $tags = Tags2::Output::Raw->new;
+ my $tags2 = Tags2::Output::Raw->new;
 
  # Put data.
- $tags->put(
+ $tags2->put(
          ['b', 'text'],
 	 ['d', 'data'],
 	 ['e', 'text'],
  );
 
  # Print.
- print $tags->flush."\n";
+ print $tags2->flush."\n";
 
  # Output:
  # <text>data</text>
@@ -565,7 +564,7 @@ __END__
  use Tags2::Output::Raw;
 
  # Object.
- my $tags = Tags2::Output::Raw->new(
+ my $tags2 = Tags2::Output::Raw->new(
          'data_callback' => sub {
 	         my $data_arr_ref = shift;
 		 foreach my $data (@{$data_arr_ref}) {
@@ -578,14 +577,14 @@ __END__
  my $data = decode_utf8('řčěšřšč');
 
  # Put data.
- $tags->put(
+ $tags2->put(
          ['b', 'text'],
 	 ['d', $data],
 	 ['e', 'text'],
  );
 
  # Print.
- print $tags->flush."\n";
+ print $tags2->flush."\n";
 
  # Output:
  # <text>řčěšřšč</text>
