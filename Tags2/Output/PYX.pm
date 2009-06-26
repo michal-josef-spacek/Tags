@@ -136,7 +136,7 @@ __END__
 
  TODO
 
-=head1 SESIS LINE CHARS
+=head1 PYX LINE CHARS
 
  ?  - Instruction.
  (  - Open tag.
