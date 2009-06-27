@@ -656,7 +656,7 @@ __END__
 
  Handler for print output strings.
  Must be a GLOB.
- Default is *STDOUT.
+ Default is undef.
 
 =item * B<output_separator>
 
