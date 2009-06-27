@@ -616,8 +616,8 @@ __END__
 
  Example:
  'data_callback' => sub {
-         my $data_arr_ref = shift;
-	 foreach my $data (@{$data_arr_ref}) {
+         my $data_ar = shift;
+	 foreach my $data (@{$data_ar}) {
 
 	         # Some process.
 	         $data =~ s/^\s*//ms;
