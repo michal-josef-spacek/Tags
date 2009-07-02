@@ -6,6 +6,7 @@ WriteMakefile(
 	'NAME' => 'Tags2',
 	'PREREQ_PM' => {
 		'Error::Simple::Multiple' => 0.05,
+		'File::Object' => 0,
 		'List::MoreUtils' => 0,
 		'Readonly' => 0,
 	},
