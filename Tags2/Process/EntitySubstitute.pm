@@ -209,10 +209,6 @@ __END__
 
 =back
 
-=head1 EXAMPLE
-
- TODO
-
 =head1 ERRORS
 
  Mine:
@@ -220,6 +216,10 @@ __END__
 
  From Tags2::Utils:
    Unknown parameter '%s'.
+
+=head1 EXAMPLE
+
+ TODO
 
 =head1 DEPENDENCIES
 
