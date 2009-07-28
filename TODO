@@ -51,7 +51,7 @@ Tags2::Output::Indent hotovo.
 45. Predelat testovani. Idealni by bylo mit na jednom miste vstupni data. 
 48. Zalozit nejaky module Tags2::*::Multi? Ktery by dostal pole objektu a
     postupne by je volal a provadel celou funkcnost.
-52.
+53.
 
 Applied
 =======
@@ -177,3 +177,6 @@ OK [20090622] skim
 Tohle je problematicke. Mozna by bylo dobre mit nejakou tridu ObjectUtils, kde
 tyto veci budou.
 NONE [20090622] skim
+
+52. Chyba v hodnote atributu nabyvajici '0'.
+OK [20090728] skim
