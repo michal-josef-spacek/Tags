@@ -1,6 +1,6 @@
 # Modules.
 use Tags2::Output::LibXML;
-use Test::More 'tests' => 4;
+use Test::More 'tests' => 5;
 
 print "Testing: Normal tag without parameters.\n";
 my $obj = Tags2::Output::LibXML->new;
@@ -28,6 +28,20 @@ $ret = $obj->flush;
 $right_ret = <<'END';
 <?xml version="1.1" encoding="UTF-8"?>
 <MAIN id="id_value">data</MAIN>
+END
+is($ret, $right_ret);
+
+$obj->reset;
+$obj->put(
+	['b', 'MAIN'], 
+	['a', 'id', 0], 
+	['d', 'data'], 
+	['e', 'MAIN'],
+);
+$ret = $obj->flush;
+$right_ret = <<'END';
+<?xml version="1.1" encoding="UTF-8"?>
+<MAIN id="0">data</MAIN>
 END
 is($ret, $right_ret);
 

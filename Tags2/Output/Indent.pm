@@ -297,13 +297,13 @@ sub _put_attribute {
 	}
 
 	# Check to pairs in XML mode.
-	if ($self->{'xml'} && ! $value) {
+	if ($self->{'xml'} && ! defined $value) {
 		err 'In XML mode must be a attribute value.';
 	}
 
 	# Process attribute.
 	push @{$self->{'tmp_code'}}, $SPACE, $attr;
-	if ($value) {
+	if (defined $value) {
 		push @{$self->{'tmp_code'}}, q{=}, $self->{'attr_delimeter'}.
 			$value.$self->{'attr_delimeter'};
 	}

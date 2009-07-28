@@ -1,6 +1,6 @@
 # Modules.
 use Tags2::Output::Raw;
-use Test::More 'tests' => 10;
+use Test::More 'tests' => 11;
 
 print "Testing: Normal tag without parameters (sgml version).\n";
 my $obj = Tags2::Output::Raw->new(
@@ -90,6 +90,16 @@ $obj->put(
 );
 $ret = $obj->flush;
 is($ret, '<main id="id_value">data</main>');
+
+$obj->reset;
+$obj->put(
+	['b', 'main'], 
+	['a', 'id', 0], 
+	['d', 'data'], 
+	['e', 'main'],
+);
+$ret = $obj->flush;
+is($ret, '<main id="0">data</main>');
 
 print "Testing: Normal tag after normal tag (xml version).\n";
 $obj = Tags2::Output::Raw->new(

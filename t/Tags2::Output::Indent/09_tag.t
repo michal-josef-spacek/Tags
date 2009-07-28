@@ -1,6 +1,6 @@
 # Modules.
 use Tags2::Output::Indent;
-use Test::More 'tests' => 4;
+use Test::More 'tests' => 5;
 
 print "Testing: Normal tag without parameters.\n";
 my $obj = Tags2::Output::Indent->new;
@@ -29,6 +29,22 @@ $obj->put(
 $ret = $obj->flush;
 $right_ret = <<'END';
 <MAIN id="id_value">
+  data
+</MAIN>
+END
+chomp $right_ret;
+is($ret, $right_ret);
+
+$obj->reset;
+$obj->put(
+	['b', 'MAIN'], 
+	['a', 'id', 0], 
+	['d', 'data'], 
+	['e', 'MAIN'],
+);
+$ret = $obj->flush;
+$right_ret = <<'END';
+<MAIN id="0">
   data
 </MAIN>
 END

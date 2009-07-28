@@ -162,13 +162,13 @@ sub _put_attribute {
 	}
 
 	# Check to pairs in XML mode.
-	if ($self->{'xml'} && ! $value) {
+	if ($self->{'xml'} && ! defined $value) {
 		err 'In XML mode must be a attribute value.';
 	}
 
 	# Process attribute.
 	my $full_attr = $attr;
-	if ($value) {
+	if (defined $value) {
 		$full_attr .= q{=}.$self->{'attr_delimeter'}.
 			$value.$self->{'attr_delimeter'};
 	}	
