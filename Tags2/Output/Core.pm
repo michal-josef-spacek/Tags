@@ -153,7 +153,7 @@ sub put {
 	# Auto-flush.
 	if ($self->{'auto_flush'}) {
 		$self->flush;
-		$self->{'flush_code'} = [];
+		$self->_reset_flush;
 	}
 
 	return;
@@ -167,7 +167,7 @@ sub reset {
 	my $self = shift;
 
 	# Flush code.
-	$self->{'flush_code'} = [];
+	$self->_reset_flush;
 
 	# Printed tags.
 	$self->{'printed_tags'} = [];
@@ -331,6 +331,16 @@ sub _put_raw {
 
 	my ($self, @raw_data) = @_;
 	push @{$self->{'flush_code'}}, 'Raw data';
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _reset_flush {
+#------------------------------------------------------------------------------
+# Reset flush code.
+
+	my $self = shift;
+	$self->{'flush_code'} = [];
 	return;
 }
 

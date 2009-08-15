@@ -55,7 +55,7 @@ sub reset {
 	);
 
 	# Flush code.
-	$self->{'flush_code'} = $EMPTY_STR;
+	$self->_reset_flush;
 
 	# Tmp code.
 	$self->{'tmp_code'} = [];
@@ -537,6 +537,16 @@ sub _put_raw {
 	# Set raw flag.
 	$self->{'raw_tag'} = 1;
 
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _reset_flush {
+#------------------------------------------------------------------------------
+# Reset flush code.
+
+	my $self = shift;
+	$self->{'flush_code'} = $EMPTY_STR;
 	return;
 }
 

@@ -33,7 +33,7 @@ sub reset {
 	$self->{'comment_flag'} = 0;
 
 	# Flush code.
-	$self->{'flush_code'} = $EMPTY_STR;
+	$self->_reset_flush;
 
 	# Tmp code.
 	$self->{'tmp_code'} = [];
@@ -372,6 +372,16 @@ sub _put_raw {
 	# To flush code.
 	$self->{'flush_code'} .= join $EMPTY_STR, @raw_data;
 
+	return;
+}
+
+#------------------------------------------------------------------------------
+sub _reset_flush {
+#------------------------------------------------------------------------------
+# Reset flush code.
+
+	my $self = shift;
+	$self->{'flush_code'} = $EMPTY_STR;
 	return;
 }
 
