@@ -356,7 +356,7 @@ sub _put_cdata {
 	unshift @cdata, '<![CDATA[';
 
 	# Check to bad cdata.
-	if (join($EMPTY_STR, @cdata) =~ /]]>$/ms) {
+	if ((join $EMPTY_STR, @cdata) =~ /]]>$/ms) {
 		err 'Bad CDATA section.';
 	}
 
@@ -431,7 +431,7 @@ sub _put_data {
 	$self->{'preserve_obj'}->save_previous;
 	my $pre = $self->{'preserve_obj'}->get;
 	my $indent_data = $self->{'indent_word'}->indent(
-		join($EMPTY_STR, @data),
+		(join $EMPTY_STR, @data),
 		$pre ? $EMPTY_STR : $self->{'indent'}->get,
 		$pre ? 1 : 0
 	);
