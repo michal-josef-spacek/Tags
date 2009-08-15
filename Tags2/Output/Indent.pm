@@ -532,7 +532,7 @@ sub _put_raw {
 	$self->_process_callback(\@raw_data, 'raw_callback');
 
 	# Added raw data to flush code.
-	$self->_flush_code(join($EMPTY_STR, @raw_data));
+	$self->_flush_code(join $EMPTY_STR, @raw_data);
 
 	# Set raw flag.
 	$self->{'raw_tag'} = 1;
