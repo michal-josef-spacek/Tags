@@ -1,10 +1,8 @@
 # Modules.
 use File::Object;
+use IO::Scalar;
 use Tags2::Output::Indent;
-use Test::More 'tests' => 3;
-
-# Include helpers.
-do File::Object->new->up->file('get_stdout.inc')->serialize;
+use Test::More 'tests' => 5;
 
 print "Testing: 'auto_flush' parameter.\n";
 my $obj = Tags2::Output::Indent->new(
@@ -12,12 +10,33 @@ my $obj = Tags2::Output::Indent->new(
 	'output_handler' => \*STDOUT,
 	'xml' => 1,
 );
-my $ret = get_stdout($obj, 1, ['b', 'tag'], ['e', 'tag']);
+my $ret;
+tie *STDOUT, 'IO::Scalar', \$ret;
+$obj->put(
+	['b', 'tag'],
+	['e', 'tag'],
+);
+untie *STDOUT;
 my $right_ret = '<tag />';
 is($ret, $right_ret);
 
 $obj->reset;
-$ret = get_stdout($obj, 1, ['b', 'tag'], ['d', 'data'], ['e', 'tag']);
+undef $ret;
+tie *STDOUT, 'IO::Scalar', \$ret;
+$obj->put(['b', 'tag']);
+$obj->put(['e', 'tag']);
+untie *STDOUT;
+is($ret, $right_ret);
+
+$obj->reset;
+undef $ret;
+tie *STDOUT, 'IO::Scalar', \$ret;
+$obj->put(
+	['b', 'tag'],
+	['d', 'data'],
+	['e', 'tag'],
+);
+untie *STDOUT;
 $right_ret = <<'END';
 <tag>
   data
@@ -27,8 +46,16 @@ chomp $right_ret;
 is($ret, $right_ret);
 
 $obj->reset;
-$ret = get_stdout($obj, 1, ['b', 'tag'], ['b', 'other_tag'], ['d', 'data'], 
-	['e', 'other_tag'], ['e', 'tag']);
+undef $ret;
+tie *STDOUT, 'IO::Scalar', \$ret;
+$obj->put(
+	['b', 'tag'],
+	['b', 'other_tag'],
+	['d', 'data'],
+	['e', 'other_tag'],
+	['e', 'tag'],
+);
+untie *STDOUT;
 $right_ret = <<'END';
 <tag>
   <other_tag>
@@ -37,4 +64,15 @@ $right_ret = <<'END';
 </tag>
 END
 chomp $right_ret;
+is($ret, $right_ret);
+
+$obj->reset;
+undef $ret;
+tie *STDOUT, 'IO::Scalar', \$ret;
+$obj->put(['b', 'tag']);
+$obj->put(['b', 'other_tag']);
+$obj->put(['d', 'data']);
+$obj->put(['e', 'other_tag']);
+$obj->put(['e', 'tag']);
+untie *STDOUT;
 is($ret, $right_ret);
