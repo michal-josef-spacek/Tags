@@ -51,9 +51,6 @@ Tags2::Output::Indent hotovo.
 45. Predelat testovani. Idealni by bylo mit na jednom miste vstupni data. 
 48. Zalozit nejaky module Tags2::*::Multi? Ktery by dostal pole objektu a
     postupne by je volal a provadel celou funkcnost.
-53. Nedostatecne testuji auto_flush. V prikladu s (['b', 'tag'], ['e', 'tag'])
-    je to vpohode.. Ale v pripadu toho stejneho s volanim kazdeho tagu
-    samostatne je chyba. Dodelat stejny test pro Tags2::Output::Raw.
 54.
 
 Applied
@@ -183,3 +180,8 @@ NONE [20090622] skim
 
 52. Chyba v hodnote atributu nabyvajici '0'.
 OK [20090728] skim
+
+53. Nedostatecne testuji auto_flush. V prikladu s (['b', 'tag'], ['e', 'tag'])
+    je to vpohode.. Ale v pripadu toho stejneho s volanim kazdeho tagu
+    samostatne je chyba. Dodelat stejny test pro Tags2::Output::Raw.
+OK [20090815] skim
