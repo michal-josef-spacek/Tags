@@ -115,6 +115,7 @@ t/Tags2::Output::Raw/16_data_callback.t
 t/Tags2::Output::Raw/17_finalize.t
 t/Tags2::Output::Raw/18_open_tags.t
 t/Tags2::Output::Raw/19_skip_bad_tags.t
+t/Tags2::Output::Raw/20_auto_flush.t
 t/Tags2::Output::SESIS/00_use.t
 t/Tags2::Output::SESIS/01_version.t
 t/Tags2::Output::SESIS/02_pod_coverage.t
