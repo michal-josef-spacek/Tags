@@ -166,7 +166,7 @@ __END__
 
 =over 8
 
-=item B<new()>
+=item C<new()>
 
  TODO
 
@@ -176,23 +176,23 @@ __END__
 
 =back
 
-=item B<finalize()>
+=item C<finalize()>
 
  TODO
 
-=item B<flush()>
+=item C<flush()>
 
  TODO
 
-=item B<open_tags()>
+=item C<open_tags()>
 
  TODO
 
-=item B<put()>
+=item C<put()>
 
  TODO
 
-=item B<reset()>
+=item C<reset()>
 
  TODO
 

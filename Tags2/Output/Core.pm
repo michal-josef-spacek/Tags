@@ -364,45 +364,45 @@ __END__
 
 =over 8
 
-=item B<new(%parameters)>
+=item C<new(%parameters)>
 
 =over 8
 
-=item * B<auto_flush>
+=item * C<auto_flush>
 
  TODO
 
-=item * B<output_handler>
+=item * C<output_handler>
 
  TODO
 
-=item * B<output_sep>
+=item * C<output_sep>
 
  TODO
 
-=item * B<skip_bad_tags>
+=item * C<skip_bad_tags>
 
  TODO
 
 =back
 
-=item B<finalize()>
+=item C<finalize()>
 
  TODO
 
-=item B<flush($reset_flag)>
+=item C<flush($reset_flag)>
 
  TODO
 
-=item B<open_tags()>
+=item C<open_tags()>
 
  TODO
 
-=item B<put(@data)>
+=item C<put(@data)>
 
  TODO
 
-=item B<reset($reset_flag)>
+=item C<reset($reset_flag)>
 
  TODO
 

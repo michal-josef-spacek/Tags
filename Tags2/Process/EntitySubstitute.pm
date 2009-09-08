@@ -175,35 +175,35 @@ __END__
 
 =over 8
 
-=item B<new(%parameters)>
+=item C<new(%parameters)>
 
  Constructor.
 
 =over 8
 
-=item B<entity>
+=item C<entity>
 
  TODO
 
-=item B<entity_chars>
+=item C<entity_chars>
 
  TODO
 
 =back
 
-=item B<encode($data)>
+=item C<encode($data)>
 
  TODO
 
-=item B<decode($data)>
+=item C<decode($data)>
 
  TODO
 
-=item B<encode_chars($data)>
+=item C<encode_chars($data)>
 
  TODO
 
-=item B<decode_chars($data)>
+=item C<decode_chars($data)>
 
  TODO
 

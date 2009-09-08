@@ -576,13 +576,13 @@ __END__
 
 =over 8
 
-=item B<new(%params)>
+=item C<new(%params)>
 
  Constructor
 
 =over 8
 
-=item * B<attr_delimeter>
+=item * C<attr_delimeter>
 
  String, that defines attribute delimeter.
  Default is '"'.
@@ -601,24 +601,24 @@ __END__
  );
  $tags2->flush;
 
-=item * B<auto_flush>
+=item * C<auto_flush>
 
  Auto flush flag.
  Default is 0.
 
-=item * B<cdata_indent>
+=item * C<cdata_indent>
 
  Flag, that means indent CDATA section.
  Default value is no-indent (0).
 
-=item * B<cdata_callback>
+=item * C<cdata_callback>
 
  Subroutine for output processing of cdata.
  Input argument is reference to array.
  Default value is undef.
  Example is similar as 'data_callback'.
 
-=item * B<data_callback>
+=item * C<data_callback>
 
  Subroutine for output processing of data.
  Input argument is reference to array.
@@ -634,17 +634,17 @@ __END__
 	 }
  }
 
-=item * B<line_size>
+=item * C<line_size>
 
  TODO
  Default value is 79.
 
-=item * B<next_indent>
+=item * C<next_indent>
 
  TODO
  Default value is "  ".
 
-=item * B<no_simple>
+=item * C<no_simple>
 
  Reference to array of tags, that can't by simple.
  Default is [].
@@ -662,57 +662,57 @@ __END__
  );
  $tags2->flush;
 
-=item * B<output_handler>
+=item * C<output_handler>
 
  Handler for print output strings.
  Must be a GLOB.
  Default is undef.
 
-=item * B<output_separator>
+=item * C<output_separator>
 
  TODO
  Default value is newline (\n).
 
-=item * B<preserved>
+=item * C<preserved>
 
  TODO
  Default is reference to blank array.
 
-=item * B<raw_callback>
+=item * C<raw_callback>
 
  Subroutine for output processing of raw data.
  Input argument is reference to array.
  Default value is undef.
  Example is similar as 'data_callback'.
 
-=item * B<skip_bad_tags>
+=item * C<skip_bad_tags>
 
  TODO
  Default is 0.
 
 =back
 
-=item B<finalize()>
+=item C<finalize()>
 
  Finalize Tags output.
  Automaticly puts end of all opened tags.
 
-=item B<flush($reset_flag)>
+=item C<flush($reset_flag)>
 
  Flush tags in object.
  If defined 'output_handler' flush to its.
  Or return code.
  If enabled $reset_flag, then resets internal variables via reset method.
 
-=item B<open_tags()>
+=item C<open_tags()>
 
  Return array of opened tags.
 
-=item B<put(@data)>
+=item C<put(@data)>
 
  Put tags code in tags2 format.
 
-=item B<reset()>
+=item C<reset()>
 
  Resets internal variables.
 

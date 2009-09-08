@@ -148,48 +148,48 @@ __END__
 
 =over 8
 
-=item B<new()>
+=item C<new()>
 
  TODO
 
 =over 8
 
-=item * B<auto_flush>
+=item * C<auto_flush>
 
  Auto flush flag.
  Default is 0.
 
-=item * B<output_handler>
+=item * C<output_handler>
 
  TODO
 
-=item * B<output_sep>
+=item * C<output_sep>
 
  TODO
 
-=item * B<skip_bad_data>
+=item * C<skip_bad_data>
 
  TODO
 
 =back
 
-=item B<finalize()>
+=item C<finalize()>
 
  TODO
 
-=item B<flush()>
+=item C<flush()>
 
  TODO
 
-=item B<open_tags()>
+=item C<open_tags()>
 
  TODO
 
-=item B<put()>
+=item C<put()>
 
  TODO
 
-=item B<reset()>
+=item C<reset()>
 
  TODO
 

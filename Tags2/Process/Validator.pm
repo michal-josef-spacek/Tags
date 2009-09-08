@@ -325,32 +325,32 @@ __END__
 
 =over 8
 
-=item B<new(%parameters)>
+=item C<new(%parameters)>
 
  Constructor.
 
 =over 8
 
-=item B<dtd>
+=item C<dtd>
 
  DTD structure.
 
-=item B<dtd_file>
+=item C<dtd_file>
 
  DTD file.
  Constructor reads DTD file, and structure saves to 'dtd' param.
 
 =back
 
-=item B<check(@data)>
+=item C<check(@data)>
 
  TODO
 
-=item B<check_one($data)>
+=item C<check_one($data)>
 
  TODO
 
-=item B<reset()>
+=item C<reset()>
 
  Resets object.
 

@@ -261,20 +261,20 @@ __END__
 
 =over 8
 
-=item B<new(%parameters)>
+=item C<new(%parameters)>
 
  Constructor.
 
 =over 8
 
-=item * B<cdata_callback>
+=item * C<cdata_callback>
 
  Subroutine for output processing of cdata.
  Input argument is reference to array.
  Default value is undef.
  Example is similar as 'data_callback'.
 
-=item * B<data_callback>
+=item * C<data_callback>
 
  Subroutine for output processing of data, cdata and raw data.
  Input argument is reference to array.
@@ -290,58 +290,58 @@ __END__
 	 }
  }
 
-=item * B<encoding>
+=item * C<encoding>
 
  Encoding for XML header.
  Default is 'UTF-8'.
 
-=item * B<no_simple>
+=item * C<no_simple>
 
  TODO
 
-=item * B<output_handler>
+=item * C<output_handler>
 
  Handler for print output strings.
  Must be a GLOB.
  Default is undef.
 
-=item * B<preserved>
+=item * C<preserved>
 
  TODO
 
-=item * B<set_indent>
+=item * C<set_indent>
 
  TODO
  Default is 0.
 
-=item * B<skip_bad_tags>
+=item * C<skip_bad_tags>
 
  TODO
 
-=item * B<xml_version>
+=item * C<xml_version>
 
  XML version for XML header.
  Default is "1.1".
 
 =back
 
-=item B<finalize()>
+=item C<finalize()>
 
  TODO
 
-=item B<flush()>
+=item C<flush()>
 
  TODO
 
-=item B<open_tags()>
+=item C<open_tags()>
 
  TODO
 
-=item B<put()>
+=item C<put()>
 
  TODO
 
-=item B<reset()>
+=item C<reset()>
 
  TODO
 

@@ -145,16 +145,16 @@ __END__
 
 =over 8
 
-=item B<new(%parameters)>
+=item C<new(%parameters)>
 
  Constructor.
 
-=item B<check(@data)>
+=item C<check(@data)>
 
  Check tags2 structure.
  If is structure bad, turn error.
 
-=item B<reset()>
+=item C<reset()>
 
  Resets class internal variables for id checking.
 

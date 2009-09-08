@@ -411,13 +411,13 @@ __END__
 
 =over 8
 
-=item B<new(%params)>
+=item C<new(%params)>
 
  Constructor.
 
 =over 8
 
-=item * B<attr_delimeter>
+=item * C<attr_delimeter>
 
  String, that defines attribute delimeter.
  Default is '"'.
@@ -432,19 +432,19 @@ __END__
  $tags2->put(['b', 'tag'], ['a', 'attr', 'val'], ['e', 'tag']);
  $tags2->flush;
 
-=item * B<auto_flush>
+=item * C<auto_flush>
 
  Auto flush flag.
  Default is 0.
 
-=item * B<cdata_callback>
+=item * C<cdata_callback>
 
  Subroutine for output processing of cdata.
  Input argument is reference to array.
  Default value is undef.
  Example is similar as 'data_callback'.
 
-=item * B<data_callback>
+=item * C<data_callback>
 
  Subroutine for output processing of data, cdata and raw data.
  Input argument is reference to array.
@@ -460,7 +460,7 @@ __END__
 	 }
  }
 
-=item * B<no-simple>
+=item * C<no-simple>
 
  Reference to array of tags, that can't by simple.
  Default is [].
@@ -475,57 +475,57 @@ __END__
  $tags2->put(['b', 'script'], ['e', 'script']);
  $tags2->flush;
 
-=item * B<output_handler>
+=item * C<output_handler>
 
  Handler for print output strings.
  Must be a GLOB.
  Default is undef.
 
-=item * B<preserved>
+=item * C<preserved>
 
  TODO
  Default is reference to blank array.
 
-=item * B<raw_callback>
+=item * C<raw_callback>
 
  Subroutine for output processing of raw data.
  Input argument is reference to array.
  Default value is undef.
  Example is similar as 'data_callback'.
 
-=item * B<skip_bad_tags>
+=item * C<skip_bad_tags>
 
  TODO
  Default is 0.
 
-=item * B<xml>
+=item * C<xml>
 
  Flag, that means xml output.
  Default is 0 (sgml).
 
 =back
 
-=item B<finalize()>
+=item C<finalize()>
 
  Finalize Tags output.
  Automaticly puts end of all opened tags.
 
-=item B<flush($reset_flag)>
+=item C<flush($reset_flag)>
 
  Flush tags in object.
  If defined 'output_handler' flush to its.
  Or return code.
  If enabled $reset_flag, then resets internal variables via reset method.
 
-=item B<open_tags()>
+=item C<open_tags()>
 
  Return array of opened tags.
 
-=item B<put(@data)>
+=item C<put(@data)>
 
  Put tags code in tags2 format.
 
-=item B<reset()>
+=item C<reset()>
 
  Resets internal variables.
 

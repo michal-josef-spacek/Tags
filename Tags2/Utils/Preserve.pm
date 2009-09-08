@@ -148,35 +148,35 @@ __END__
 
 =over 8
 
-=item B<new(%params)>
+=item C<new(%params)>
 
  Constructor.
 
 =over 8
 
-=item * B<preserved>
+=item * C<preserved>
 
  TODO
 
 =back
 
-=item B<begin()>
+=item C<begin()>
 
  TODO
 
-=item B<end()>
+=item C<end()>
 
  TODO
 
-=item B<get()>
+=item C<get()>
 
  TODO
 
-=item B<reset()>
+=item C<reset()>
 
  TODO
 
-=item B<save_previous()>
+=item C<save_previous()>
 
  TODO
 

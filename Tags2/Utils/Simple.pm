@@ -128,39 +128,39 @@ __END__
 
 =over 8
 
-=item B<register()>
+=item C<register()>
 
  TODO
 
-=item B<put_a()>
+=item C<put_a()>
 
  TODO
 
-=item B<put_b()>
+=item C<put_b()>
 
  TODO
 
-=item B<put_c()>
+=item C<put_c()>
 
  TODO
 
-=item B<put_cd()>
+=item C<put_cd()>
 
  TODO
 
-=item B<put_d()>
+=item C<put_d()>
 
  TODO
 
-=item B<put_e()>
+=item C<put_e()>
 
  TODO
 
-=item B<put_i()>
+=item C<put_i()>
 
  TODO
 
-=item B<put_r()>
+=item C<put_r()>
 
  TODO
 

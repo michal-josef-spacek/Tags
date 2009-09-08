@@ -86,15 +86,15 @@ __END__
 
 =over 8
 
-=item B<encode_newline($string)>
+=item C<encode_newline($string)>
 
  TODO
 
-=item B<encode_base_entities($data_r)>
+=item C<encode_base_entities($data_r)>
 
  TODO
 
-=item B<set_params($self, @params)>
+=item C<set_params($self, @params)>
 
  Sets object parameters to user values.
  If setted key doesn't exist in $self object, turn fatal error.
