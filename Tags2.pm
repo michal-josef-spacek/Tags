@@ -54,10 +54,10 @@ L<Tags2::Utils::SimpleOO(3pm)>.
 
 =head1 AUTHOR
 
- Michal Špaček L<tupinek@gmail.com>
+Michal Špaček L<tupinek@gmail.com>
 
 =head1 VERSION 
 
- 0.01
+0.01
 
 =cut
