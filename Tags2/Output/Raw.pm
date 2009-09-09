@@ -446,7 +446,7 @@ __END__
 
 =item * C<data_callback>
 
- Subroutine for output processing of data, cdata and raw data.
+ Subroutine for output processing of data.
  Input argument is reference to array.
  Default value is &Tags2::Utils::encode_base_entities.
 
