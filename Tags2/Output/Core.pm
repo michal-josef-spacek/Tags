@@ -242,13 +242,13 @@ sub _process_callback {
 #------------------------------------------------------------------------------
 # Process dala callback.
 
-	my ($self, $data_array_ref, $callback_type) = @_;
+	my ($self, $data_ar, $callback_type) = @_;
 
 	# Process data callback.
 	if (defined $self->{$callback_type}
 		&& ref $self->{$callback_type} eq 'CODE') {
 
-		$self->{$callback_type}->($data_array_ref);
+		$self->{$callback_type}->($data_ar);
 	}
 
 	return;
