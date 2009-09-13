@@ -51,7 +51,18 @@ Tags2::Output::Indent hotovo.
 45. Predelat testovani. Idealni by bylo mit na jednom miste vstupni data. 
 48. Zalozit nejaky module Tags2::*::Multi? Ktery by dostal pole objektu a
     postupne by je volal a provadel celou funkcnost.
-54.
+54. V Skim::Storage::InfoStorage::XML::Output::Tags2 byl kod:
+    $self->{'e_atr'} = Tags2::Process::EntitySubstitute->new(
+            'entity' => {
+                    '"' => '&quot;',
+                    '<' => '&lt;',
+                    '&' => '&amp;',
+            },
+    );
+    Ktery se pak volal $self->{'e_atr'}->encode($struct_r->{$key}) v
+    $tags2->put. Tohle ted dela automaticky pomoci callbacku. Bylo by mozne
+    tohle nejak zaclenit do tech callbacku, nebo je ten modul uplne zbytecny?
+55.
 
 Applied
 =======
