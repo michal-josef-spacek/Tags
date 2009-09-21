@@ -144,6 +144,52 @@ __END__
  # In $out:
  # foo\nbar\n
 
+=head1 EXAMPLE2
+
+ # Pragmas.
+ use strict;
+ use warnings;
+
+ # Modules.
+ use Tags2::Utils qw(encode_base_entities);
+
+ # Input data.
+ my @data = ('&', '<', '>');
+
+ # Encode.
+ encode_base_entities(\@data);
+
+ # In @data:
+ # (
+ #         '&amp;',
+ #         '&lt;',
+ #         '&gt;',
+ # )
+
+=head1 EXAMPLE3
+
+ # Pragmas.
+ use strict;
+ use warnings;
+
+ # Modules.
+ use Tags2::Utils qw(set_params);
+
+ # Hash reference with default parameters.
+ my $self = {
+         'test' => 'default',
+ };
+
+ # Set params.
+ set_params($self, 'test', 'real_value');
+
+ # In $self->{'test'} will be 'real_value'.
+
+ # Set bad params.
+ set_params($self, 'bad', 'value');
+
+ # Turn error >>Unknown parameter 'bad'.<<.
+
 =head1 DEPENDENCIES
 
 L<HTML::Entities(3pm)>,
