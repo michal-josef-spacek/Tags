@@ -38,7 +38,6 @@ sub encode_base_entities {
 	my $data_r = shift;
 	if (ref $data_r eq 'SCALAR') {
 		${$data_r} = encode_entities(${$data_r}, '<>&');
-		return;
 	} elsif (ref $data_r eq 'ARRAY') {
 		foreach my $one_data (@{$data_r}) {
 			encode_base_entities(\$one_data);
@@ -48,6 +47,7 @@ sub encode_base_entities {
 	} else {
 		err 'Reference \''.(ref $data_r).'\' doesn\'t supported.';
 	}
+	return;
 }
 
 #------------------------------------------------------------------------------
