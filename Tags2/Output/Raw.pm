@@ -576,10 +576,11 @@ __END__
  # Object.
  my $tags2 = Tags2::Output::Raw->new(
          'data_callback' => sub {
-	         my $data_arr_ref = shift;
-		 foreach my $data (@{$data_arr_ref}) {
+	         my $data_ar = shift;
+		 foreach my $data (@{$data_ar}) {
 		         $data = encode_utf8($data);
 		 }
+                 return;
 	 },
  );
 
