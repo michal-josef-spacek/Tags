@@ -15,6 +15,7 @@ use Readonly;
 # Constants.
 Readonly::Array our @EXPORT_OK => qw(encode_newline encode_base_entities
 	set_params);
+Readonly::Scalar my $EMPTY_STR => q{};
 
 # Version.
 our $VERSION = 0.01;
@@ -33,7 +34,6 @@ sub encode_newline {
 sub encode_base_entities {
 #------------------------------------------------------------------------------
 # Encode '<>&' base entities.
-# TODO Other types.
 
 	my $data_r = shift;
 	if (ref $data_r eq 'SCALAR') {
@@ -43,8 +43,10 @@ sub encode_base_entities {
 		foreach my $one_data (@{$data_r}) {
 			encode_base_entities(\$one_data);
 		}
-	} else {
+	} elsif (ref $data_r eq $EMPTY_STR) {
 		return encode_entities($data_r, '<>&');
+	} else {
+		err 'Reference \''.(ref $data_r).'\' doesn\'t supported.';
 	}
 }
 
@@ -79,8 +81,10 @@ __END__
 
 =head1 SYNOPSIS
 
- use Tags2::Utils qw(encode_newline encode_base_entities);
- TODO
+ use Tags2::Utils qw(encode_newline encode_base_entities set_params);
+ my $string_with_encoded_newline = encode_newline("foo\nbar");
+ my $string_with_encoded_entities = encode_base_entities('data & data');
+ set_params($self, %parameters);
 
 =head1 SUBROUTINES
 
@@ -88,11 +92,16 @@ __END__
 
 =item C<encode_newline($string)>
 
- TODO
+ Encode newline to '\n' string.
 
 =item C<encode_base_entities($data_r)>
 
- TODO
+ Encode '<', '>' and '&' entities to '&..;' string.
+
+ $data_r can be:
+ - Scalar.
+ - Scalar reference.
+ - Array reference of scalars.
 
 =item C<set_params($self, @params)>
 
@@ -105,19 +114,35 @@ __END__
 
 =head1 ERRORS
 
- set_params()
+ encode_newline():
+   None.
+
+ encode_base_entities():
+   Reference '%s' doesn't supported.
+
+ set_params():
    Unknown parameter '%s'.
 
-=head1 EXAMPLE
+=head1 EXAMPLE1
 
  # Pragmas.
  use strict;
  use warnings;
 
  # Modules.
- use Tags2::Utils qw(TODO);
+ use Tags2::Utils qw(encode_newline);
 
- TODO
+ # Input text.
+ my $text = <<'END';
+ foo
+ bar
+ END
+
+ # Encode newlines.
+ my $out = encode_newline($text);
+
+ # In $out:
+ # foo\nbar\n
 
 =head1 DEPENDENCIES
 
