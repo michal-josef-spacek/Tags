@@ -99,9 +99,9 @@ __END__
  Encode '<', '>' and '&' entities to '&..;' string.
 
  $data_r can be:
- - Scalar.
- - Scalar reference.
- - Array reference of scalars.
+ - Scalar. Returns encoded scalar.
+ - Scalar reference. Returns undef.
+ - Array reference of scalars. Returns undef.
 
 =item C<set_params($self, @params)>
 
