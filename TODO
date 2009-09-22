@@ -60,7 +60,8 @@ Tags2::Output::Raw hotovo.
 55. V atributech by se melo predelat zpracovani. Co muze byt v klici?
     Na hodnotu by se mel aplikovat attr_callback(), ted se aplikuje na obe.
 56. Testy pro atribut s uvozovkami a dalsimi chybnymi znaky.
-57.
+57. Implementovat output_callback.
+58.
 
 Applied
 =======
