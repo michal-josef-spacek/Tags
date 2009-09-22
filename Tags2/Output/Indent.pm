@@ -445,6 +445,7 @@ sub _put_data {
 		$pre ? $EMPTY_STR : $self->{'indent'}->get,
 		$pre ? 1 : 0
 	);
+
 	$self->_flush_code($indent_data);
 	return;
 }
@@ -679,6 +680,13 @@ __END__
          ['e', 'script'],
  );
  $tags2->flush;
+
+=item * C<output_callback>
+
+ Output callback.
+ Input argument is reference to scalar of output string.
+ Default value is undef.
+ Example is similar as 'data_callback'.
 
 =item * C<output_handler>
 

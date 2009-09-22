@@ -64,6 +64,10 @@ sub flush {
 	} else {
 		$ret = $self->{'flush_code'};
 	}
+
+	# Output callback.
+	$self->_process_callback(\$ret, 'output_callback');
+
 	if ($ouf) {
 		no warnings;
 		print {$ouf} $ret or err 'Cannot write to output handler.';
@@ -224,6 +228,9 @@ sub _default_parameters {
 
 	# Auto-flush.
 	$self->{'auto_flush'} = 0;
+
+	# Output callback.
+	$self->{'output_callback'} = undef;
 
 	# Set output handler.
 	$self->{'output_handler'} = undef;

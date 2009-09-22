@@ -493,6 +493,13 @@ __END__
  $tags2->put(['b', 'script'], ['e', 'script']);
  $tags2->flush;
 
+=item * C<output_callback>
+
+ Output callback.
+ Input argument is reference to scalar of output string.
+ Default value is undef.
+ Example is similar as 'data_callback'.
+
 =item * C<output_handler>
 
  Handler for print output strings.
