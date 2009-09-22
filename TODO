@@ -60,7 +60,6 @@ Tags2::Output::Raw hotovo.
 55. V atributech by se melo predelat zpracovani. Co muze byt v klici?
     Na hodnotu by se mel aplikovat attr_callback(), ted se aplikuje na obe.
 56. Testy pro atribut s uvozovkami a dalsimi chybnymi znaky.
-57. Implementovat output_callback.
 58.
 
 Applied
@@ -205,4 +204,7 @@ Jsou zde data_callback, attr_callback, cdata_callback, raw_callback.
 data_ ma nastaveno implicitne encode_char_entities (nahrada base_entities).
 attr_ ma nastaveno implicitne encode_attr_entities
 a zbytek undef.
+OK [20090922] skim
+
+57. Implementovat output_callback.
 OK [20090922] skim
