@@ -11,7 +11,7 @@ $obj->put(
 );
 my $ret = $obj->flush;
 my $right_ret = <<'END';
-<tag>a&lt;aa&gt;aa&amp;a</tag>
+<tag>a&lt;aa>aa&amp;a</tag>
 END
 chomp $right_ret;
 is($ret, $right_ret);

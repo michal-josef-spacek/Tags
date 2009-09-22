@@ -14,7 +14,7 @@ use Indent::Word;
 use Indent::Block;
 use List::MoreUtils qw(none);
 use Readonly;
-use Tags2::Utils qw(encode_base_entities);
+use Tags2::Utils qw(encode_char_entities);
 use Tags2::Utils::Preserve;
 
 # Constants.
@@ -125,7 +125,7 @@ sub _default_parameters {
 	$self->{'cdata_callback'} = undef;
 
 	# Data callback.
-	$self->{'data_callback'} = \&encode_base_entities;
+	$self->{'data_callback'} = \&encode_char_entities;
 
 	# Callback to instruction.
 	$self->{'instruction'} = $EMPTY_STR;
@@ -622,7 +622,7 @@ __END__
 
  Subroutine for output processing of data.
  Input argument is reference to array.
- Default value is &Tags2::Utils::encode_base_entities.
+ Default value is &Tags2::Utils::encode_char_entities.
 
  Example:
  'data_callback' => sub {
@@ -632,6 +632,7 @@ __END__
 	         # Some process.
 	         $data =~ s/^\s*//ms;
 	 }
+         return;
  }
 
 =item * C<line_size>
