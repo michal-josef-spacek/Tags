@@ -13,8 +13,10 @@ use HTML::Entities;
 use Readonly;
 
 # Constants.
-Readonly::Array our @EXPORT_OK => qw(encode_newline encode_base_entities
-	set_params);
+Readonly::Array our @EXPORT_OK => qw(encode_newline encode_attr_entities
+	encode_char_entities set_params);
+Readonly::Scalar my $ATTR_CHARS => q{<&"};
+Readonly::Scalar my $CHAR_CHARS => q{<&\240};
 Readonly::Scalar my $EMPTY_STR => q{};
 
 # Version.
@@ -31,19 +33,40 @@ sub encode_newline {
 }
 
 #------------------------------------------------------------------------------
-sub encode_base_entities {
+sub encode_attr_entities {
 #------------------------------------------------------------------------------
-# Encode '<>&' base entities.
+# Encode '<&"' attribute entities.
 
 	my $data_r = shift;
 	if (ref $data_r eq 'SCALAR') {
-		${$data_r} = encode_entities(${$data_r}, '<>&');
+		${$data_r} = encode_entities(decode_entities(${$data_r}),
+			$ATTR_CHARS);
 	} elsif (ref $data_r eq 'ARRAY') {
 		foreach my $one_data (@{$data_r}) {
-			encode_base_entities(\$one_data);
+			encode_attr_entities(\$one_data);
 		}
 	} elsif (ref $data_r eq $EMPTY_STR) {
-		return encode_entities($data_r, '<>&');
+		return encode_entities(decode_entities($data_r), $ATTR_CHARS);
+	} else {
+		err 'Reference \''.(ref $data_r).'\' doesn\'t supported.';
+	}
+	return;
+}
+#------------------------------------------------------------------------------
+sub encode_char_entities {
+#------------------------------------------------------------------------------
+# Encode '<&NBSP' char entities.
+
+	my $data_r = shift;
+	if (ref $data_r eq 'SCALAR') {
+		${$data_r} = encode_entities(decode_entities(${$data_r}),
+			$CHAR_CHARS);
+	} elsif (ref $data_r eq 'ARRAY') {
+		foreach my $one_data (@{$data_r}) {
+			encode_char_entities(\$one_data);
+		}
+	} elsif (ref $data_r eq $EMPTY_STR) {
+		return encode_entities(decode_entities($data_r), $CHAR_CHARS);
 	} else {
 		err 'Reference \''.(ref $data_r).'\' doesn\'t supported.';
 	}
@@ -81,9 +104,10 @@ __END__
 
 =head1 SYNOPSIS
 
- use Tags2::Utils qw(encode_newline encode_base_entities set_params);
+ use Tags2::Utils qw(encode_newline encode_attr_entities encode_char_entities set_params);
  my $string_with_encoded_newline = encode_newline("foo\nbar");
- my $string_with_encoded_entities = encode_base_entities('data & data');
+ my $string_with_encoded_attr_entities = encode_attr_entities('<data & "data"');
+ my $string_with_encoded_char_entities = encode_char_entities('<data & data');
  set_params($self, %parameters);
 
 =head1 SUBROUTINES
@@ -94,9 +118,20 @@ __END__
 
  Encode newline to '\n' string.
 
-=item C<encode_base_entities($data_r)>
+=item C<encode_attr_entities($data_r)>
 
- Encode '<', '>' and '&' entities to '&..;' string.
+ Decode all '&..;' strings.
+ Encode '<', '&' and '"' entities to '&..;' string.
+
+ $data_r can be:
+ - Scalar. Returns encoded scalar.
+ - Scalar reference. Returns undef.
+ - Array reference of scalars. Returns undef.
+
+=item C<encode_char_entities($data_r)>
+
+ Decode all '&..;' strings.
+ Encode '<', '&' and 'non-break space' entities to '&..;' string.
 
  $data_r can be:
  - Scalar. Returns encoded scalar.
@@ -117,7 +152,10 @@ __END__
  encode_newline():
    None.
 
- encode_base_entities():
+ encode_attr_entities():
+   Reference '%s' doesn't supported.
+
+ encode_char_entities():
    Reference '%s' doesn't supported.
 
  set_params():
@@ -151,19 +189,20 @@ __END__
  use warnings;
 
  # Modules.
- use Tags2::Utils qw(encode_base_entities);
+ use Tags2::Utils qw(encode_attr_entities);
 
  # Input data.
- my @data = ('&', '<', '>');
+ my @data = ('&', '<', "\240", '&nbsp;');
 
  # Encode.
- encode_base_entities(\@data);
+ encode_attr_entities(\@data);
 
  # In @data:
  # (
  #         '&amp;',
  #         '&lt;',
- #         '&gt;',
+ #         '&nbsp;',
+ #         '&nbsp;',
  # )
 
 =head1 EXAMPLE3
