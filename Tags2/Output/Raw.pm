@@ -12,7 +12,7 @@ use Error::Simple::Multiple qw(err);
 use List::MoreUtils qw(none);
 use Readonly;
 use Tags2::Utils::Preserve;
-use Tags2::Utils qw(encode_char_entities);
+use Tags2::Utils qw(encode_attr_entities encode_char_entities);
 
 # Constants.
 Readonly::Scalar my $EMPTY_STR => q{};
@@ -83,6 +83,9 @@ sub _default_parameters {
 
 	# Default parameters from SUPER.
 	$self->SUPER::_default_parameters();
+
+	# Attribute callback.
+	$self->{'attr_callback'} = \&encode_attr_entities;
 
 	# Attribute delimeter.
 	$self->{'attr_delimeter'} = q{"};
@@ -166,11 +169,18 @@ sub _put_attribute {
 		err 'In XML mode must be a attribute value.';
 	}
 
-	# Process attribute.
-	my $full_attr = $attr;
+	# Process data callback.
+	my @attr = ($attr);
 	if (defined $value) {
+		push @attr, $value;
+	}
+	$self->_process_callback(\@attr, 'attr_callback');
+
+	# Process attribute.
+	my $full_attr = $attr[0];
+	if (defined $attr[1]) {
 		$full_attr .= q{=}.$self->{'attr_delimeter'}.
-			$value.$self->{'attr_delimeter'};
+			$attr[1].$self->{'attr_delimeter'};
 	}	
 	push @{$self->{'tmp_code'}}, $SPACE, $full_attr;
 
@@ -416,6 +426,13 @@ __END__
  Constructor.
 
 =over 8
+
+=item * C<attr_callback>
+
+ Subroutine for output processing of attribute key and value.
+ Input argument is reference to array.
+ Default value is &Tags2::Utils::encode_attr_entities.
+ Example is similar as 'data_callback'.
 
 =item * C<attr_delimeter>
 

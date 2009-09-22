@@ -14,7 +14,7 @@ use Indent::Word;
 use Indent::Block;
 use List::MoreUtils qw(none);
 use Readonly;
-use Tags2::Utils qw(encode_char_entities);
+use Tags2::Utils qw(encode_attr_entities encode_char_entities);
 use Tags2::Utils::Preserve;
 
 # Constants.
@@ -114,6 +114,9 @@ sub _default_parameters {
 
 	# Default parameters from SUPER.
 	$self->SUPER::_default_parameters();
+
+	# Attribute callback.
+	$self->{'attr_callback'} = \&encode_attr_entities;
 
 	# Attribute delimeter.
 	$self->{'attr_delimeter'} = '"';
@@ -301,11 +304,18 @@ sub _put_attribute {
 		err 'In XML mode must be a attribute value.';
 	}
 
-	# Process attribute.
-	push @{$self->{'tmp_code'}}, $SPACE, $attr;
+	# Process data callback.
+	my @attr = ($attr);
 	if (defined $value) {
+		push @attr, $value;
+	}
+	$self->_process_callback(\@attr, 'attr_callback');
+
+	# Process attribute.
+	push @{$self->{'tmp_code'}}, $SPACE, $attr[0];
+	if (defined $attr[1]) {
 		push @{$self->{'tmp_code'}}, q{=}, $self->{'attr_delimeter'}.
-			$value.$self->{'attr_delimeter'};
+			$attr[1].$self->{'attr_delimeter'};
 	}
 
 	# Reset comment flag.
@@ -581,6 +591,13 @@ __END__
  Constructor
 
 =over 8
+
+=item * C<attr_callback>
+
+ Subroutine for output processing of attribute key and value.
+ Input argument is reference to array.
+ Default value is &Tags2::Utils::encode_attr_entities.
+ Example is similar as 'data_callback'.
 
 =item * C<attr_delimeter>
 
