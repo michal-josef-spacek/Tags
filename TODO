@@ -57,7 +57,10 @@ Tags2::Output::Raw hotovo.
     Ktery se pak volal $self->{'e_atr'}->encode($struct_r->{$key}) v
     $tags2->put. Tohle ted dela automaticky pomoci callbacku. Bylo by mozne
     tohle nejak zaclenit do tech callbacku, nebo je ten modul uplne zbytecny?
-55.
+55. V atributech by se melo predelat zpracovani. Co muze byt v klici?
+    Na hodnotu by se mel aplikovat attr_callback(), ted se aplikuje na obe.
+56. Testy pro atribut s uvozovkami a dalsimi chybnymi znaky.
+57.
 
 Applied
 =======
