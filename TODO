@@ -33,11 +33,6 @@ Tags2::Output::Indent hotovo.
 Tags2::Output::LibXML hotovo.
 Tags2::Output::Raw hotovo.
 38. Attribute callback (vhodne pro prekodovani do utf a nahradu uvozovek).
-39. K data callbacku pridano defaultni encode_base_entities().
-    Pridat cdata_callback a raw_callback.
-    Pridat testy.
-Tags2::Output::Raw hotovo.
-Tags2::Output::Indent hotovo.
 40. encode_base_entities v Tags2::Utils patri jeste proverit.
     Vzhledem k tomu, ze potrebujeme menit ruzne entity, bylo by dobre udelat
     nejakou skupinu procedur.
@@ -196,3 +191,14 @@ OK [20090728] skim
     je to vpohode.. Ale v pripadu toho stejneho s volanim kazdeho tagu
     samostatne je chyba. Dodelat stejny test pro Tags2::Output::Raw.
 OK [20090815] skim
+
+39. K data callbacku pridano defaultni encode_base_entities().
+    Pridat cdata_callback a raw_callback.
+    Pridat testy.
+Tags2::Output::Raw hotovo.
+Tags2::Output::Indent hotovo.
+Jsou zde data_callback, attr_callback, cdata_callback, raw_callback.
+data_ ma nastaveno implicitne encode_char_entities (nahrada base_entities).
+attr_ ma nastaveno implicitne encode_attr_entities
+a zbytek undef.
+OK [20090922] skim
