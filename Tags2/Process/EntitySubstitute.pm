@@ -1,6 +1,4 @@
-#------------------------------------------------------------------------------
 package Tags2::Process::EntitySubstitute;
-#------------------------------------------------------------------------------
 
 # Pragmas.
 use encoding 'utf8';
@@ -15,11 +13,8 @@ use Tags2::Utils qw(set_params);
 # Version.
 our $VERSION = 0.01;
 
-#------------------------------------------------------------------------------
-sub new {
-#------------------------------------------------------------------------------
 # Constructor.
-
+sub new {
 	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
@@ -41,11 +36,8 @@ sub new {
 	return $self;
 }
 
-#------------------------------------------------------------------------------
-sub encode {
-#------------------------------------------------------------------------------
 # Encode text strings in data to entity from dtd.
-
+sub encode {
 	my ($self, @data) = @_;
 	foreach my $i (0 .. $#data) {
 		$data[$i] = $self->_encode($data[$i]);
@@ -55,11 +47,8 @@ sub encode {
 	return @data;
 }
 
-#------------------------------------------------------------------------------
-sub decode {
-#------------------------------------------------------------------------------
 # Decode entity from dtd to text strings.
-
+sub decode {
 	my ($self, @data) = @_;
 	foreach my $i (0 .. $#data) {
 		$data[$i] = $self->_decode($data[$i]);
@@ -69,11 +58,8 @@ sub decode {
 	return @data;
 }
 
-#------------------------------------------------------------------------------
-sub encode_chars {
-#------------------------------------------------------------------------------
 # Encode characters to '&#[0-9]+;' syntax.
-
+sub encode_chars {
 	my ($self, @data) = @_;
 	foreach my $i (0 .. $#data) {
 		$data[$i] = $self->_encode_chars($data[$i]);
@@ -83,11 +69,8 @@ sub encode_chars {
 	return @data;
 }
 
-#------------------------------------------------------------------------------
-sub decode_chars {
-#------------------------------------------------------------------------------
 # Decode characters from '&#[0-9]+;' syntax.
-
+sub decode_chars {
 	my ($self, @data) = @_;
 	foreach my $i (0 .. $#data) {
 		$data[$i] = $self->_decode_chars($data[$i]);
@@ -97,15 +80,8 @@ sub decode_chars {
 	return @data;
 }
 
-#------------------------------------------------------------------------------
-# Private methods.
-#------------------------------------------------------------------------------
-
-#------------------------------------------------------------------------------
-sub _encode {
-#------------------------------------------------------------------------------
 # Encode.
-
+sub _encode {
 	my ($self, $data) = @_;
 	$data = $self->_decode($data);
 	if (any { $_ eq '&' } keys %{$self->{'entity'}}) {
@@ -118,11 +94,8 @@ sub _encode {
 	return $data;
 }
 
-#------------------------------------------------------------------------------
-sub _decode {
-#------------------------------------------------------------------------------
 # Decode.
-
+sub _decode {
 	my ($self, $data) = @_;
 	foreach my $ent (keys %{$self->{'entity'}}) {
 		$data =~ s/$self->{'entity'}->{$ent}/$ent/gmsx;
@@ -130,11 +103,8 @@ sub _decode {
 	return $data;
 }
 
-#------------------------------------------------------------------------------
-sub _encode_chars {
-#------------------------------------------------------------------------------
 # Encode chars.
-
+sub _encode_chars {
 	my ($self, $data) = @_;
 	$data = $self->_decode_chars($data);
 	foreach my $ent_char (@{$self->{'entity_chars'}}) {
@@ -144,11 +114,8 @@ sub _encode_chars {
 	return $data;
 }
 
-#------------------------------------------------------------------------------
-sub _decode_chars {
-#------------------------------------------------------------------------------
 # Decode chars.
-
+sub _decode_chars {
 	my ($self, $data) = @_;
 	$data =~ s/&#(\d+);/chr($1)/egms;
 	$data =~ s/&#x([\da-fA-F]+);/chr($1)/egmsx;

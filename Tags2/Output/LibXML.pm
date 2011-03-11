@@ -1,6 +1,4 @@
-#------------------------------------------------------------------------------
 package Tags2::Output::LibXML;
-#------------------------------------------------------------------------------
 
 # Pragmas.
 use base qw(Tags2::Output::Core);
@@ -18,11 +16,8 @@ Readonly::Scalar my $EMPTY_STR => q{};
 # Version.
 our $VERSION = 0.02;
 
-#------------------------------------------------------------------------------
-sub flush {
-#------------------------------------------------------------------------------
 # Flush tags in object.
-
+sub flush {
 	my $self = shift;
 	my $ouf = $self->{'output_handler'};
 	if ($ouf) {
@@ -37,11 +32,8 @@ sub flush {
 	}
 }
 
-#------------------------------------------------------------------------------
-sub reset {
-#------------------------------------------------------------------------------
 # Resets internal variables.
-
+sub reset {
 	my $self = shift;
 
 	# Root node.
@@ -59,15 +51,8 @@ sub reset {
 	return;
 }
 
-#------------------------------------------------------------------------------
-# Private methods.
-#------------------------------------------------------------------------------
-
-#------------------------------------------------------------------------------
-sub _check_params {
-#------------------------------------------------------------------------------
 # Check parameters to rigth values.
-
+sub _check_params {
         my $self = shift;
 
 	# Check to output handler.
@@ -80,11 +65,8 @@ sub _check_params {
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _default_parameters {
-#------------------------------------------------------------------------------
 # Default parameters.
-
+sub _default_parameters {
 	my $self = shift;
 
 	# CDATA callback.
@@ -119,21 +101,15 @@ sub _default_parameters {
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_attribute {
-#------------------------------------------------------------------------------
 # Attributes.
-
+sub _put_attribute {
 	my ($self, $attr, $value) = @_;
 	$self->{'printed_tags'}->[0]->setAttribute($attr, $value);
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_begin_of_tag {
-#------------------------------------------------------------------------------
 # Begin of tag.
-
+sub _put_begin_of_tag {
 	my ($self, $tag) = @_;
 	my $begin_node = $self->{'doc'}->createElement($tag);
 	if ($self->{'first'} == 0) {
@@ -150,11 +126,8 @@ sub _put_begin_of_tag {
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_cdata {
-#------------------------------------------------------------------------------
 # CData.
-
+sub _put_cdata {
 	my ($self, @cdata) = @_;
 	$self->_process_callback(\@cdata, 'cdata_callback');
 	my $cdata = join($EMPTY_STR, @cdata);
@@ -163,11 +136,8 @@ sub _put_cdata {
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_comment {
-#------------------------------------------------------------------------------
 # Comment.
-
+sub _put_comment {
 	my ($self, @comments) = @_;
 	my $comment = join($EMPTY_STR, @comments);
 	my $comment_node = $self->{'doc'}->createComment($comment);
@@ -179,11 +149,8 @@ sub _put_comment {
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_data {
-#------------------------------------------------------------------------------
 # Data.
-
+sub _put_data {
 	my ($self, @data) = @_;
 	$self->_process_callback(\@data, 'data_callback');
 	my $data = join($EMPTY_STR, @data);
@@ -192,21 +159,15 @@ sub _put_data {
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_end_of_tag {
-#------------------------------------------------------------------------------
 # End of tag.
-
+sub _put_end_of_tag {
 	my ($self, $tag) = @_;
 	shift @{$self->{'printed_tags'}};
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_instruction {
-#------------------------------------------------------------------------------
 # Instruction.
-
+sub _put_instruction {
 	my ($self, $target, $code) = @_;
 	my $instruction_node = $self->{'doc'}->createProcessingInstruction(
 		$target, $code,
@@ -219,11 +180,8 @@ sub _put_instruction {
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_raw {
-#------------------------------------------------------------------------------
 # Raw data.
-
+sub _put_raw {
 	my ($self, @raw_data) = @_;
 	return;
 }

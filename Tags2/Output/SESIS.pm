@@ -1,6 +1,4 @@
-#------------------------------------------------------------------------------
 package Tags2::Output::SESIS;
-#------------------------------------------------------------------------------
 
 # Pragmas.
 use base qw(Tags2::Output::Core);
@@ -19,11 +17,8 @@ Readonly::Scalar my $SPACE => q{ };
 # Version.
 our $VERSION = 0.02;
 
-#------------------------------------------------------------------------------
-sub reset {
-#------------------------------------------------------------------------------
 # Resets internal variables.
-
+sub reset {
 	my $self = shift;
 
 	# Reset from SUPER.
@@ -35,69 +30,47 @@ sub reset {
 	return;
 }
 
-#------------------------------------------------------------------------------
-# Private methods.
-#------------------------------------------------------------------------------
-
-#------------------------------------------------------------------------------
-sub _put_attribute {
-#------------------------------------------------------------------------------
 # Attributes.
-
+sub _put_attribute {
 	my ($self, $attr, $value) = @_;
 	push @{$self->{'flush_code'}}, "A$attr $value";
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_begin_of_tag {
-#------------------------------------------------------------------------------
 # Begin of tag.
-
+sub _put_begin_of_tag {
 	my ($self, $tag) = @_;
 	push @{$self->{'flush_code'}}, "($tag";
 	unshift @{$self->{'printed_tags'}}, $tag;
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_cdata {
-#------------------------------------------------------------------------------
 # CData.
-
+sub _put_cdata {
 	my ($self, @cdata) = @_;
 	my $cdata = join($EMPTY_STR, @cdata);
 	push @{$self->{'flush_code'}}, 'CD'.encode_newline($cdata);
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_comment {
-#------------------------------------------------------------------------------
 # Comment.
-
+sub _put_comment {
 	my ($self, @comments) = @_;
 	my $comment = join($EMPTY_STR, @comments);
 	push @{$self->{'flush_code'}}, '_'.encode_newline($comment);
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_data {
-#------------------------------------------------------------------------------
 # Data.
-
+sub _put_data {
 	my ($self, @data) = @_;
 	my $data = join($EMPTY_STR, @data);
 	push @{$self->{'flush_code'}}, '-'.encode_newline($data);
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_end_of_tag {
-#------------------------------------------------------------------------------
 # End of tag.
-
+sub _put_end_of_tag {
 	my ($self, $tag) = @_;
 	my $printed = shift @{$self->{'printed_tags'}};
 	if ($printed ne $tag) {
@@ -108,11 +81,8 @@ sub _put_end_of_tag {
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_instruction {
-#------------------------------------------------------------------------------
 # Instruction.
-
+sub _put_instruction {
 	my ($self, $target, $code) = @_;
 
 	# Create instruction line.
@@ -124,11 +94,8 @@ sub _put_instruction {
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _put_raw {
-#------------------------------------------------------------------------------
 # Raw data.
-
+sub _put_raw {
 	my ($self, @raw_data) = @_;
 	my $raw_data = join($EMPTY_STR, @raw_data);
 	push @{$self->{'flush_code'}}, 'R'.encode_newline($raw_data);

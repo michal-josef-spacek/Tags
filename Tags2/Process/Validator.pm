@@ -1,6 +1,4 @@
-#------------------------------------------------------------------------------
 package Tags2::Process::Validator;
-#------------------------------------------------------------------------------
 
 # Pragmas.
 use strict;
@@ -19,11 +17,8 @@ our $VERSION = 0.01;
 # a) Overit, jestli jsou #REQUIRED atributy pouzity.
 # b) Overit, jestli jsou spravne data (simple tag, nebo tag s daty).
 
-#------------------------------------------------------------------------------
-sub new {
-#------------------------------------------------------------------------------
 # Constructor.
-
+sub new {
 	my ($class, @params) = @_;
 	my $self = bless {}, $class;
 
@@ -59,11 +54,8 @@ sub new {
 	return $self;
 }
 
-#------------------------------------------------------------------------------
-sub check {
-#------------------------------------------------------------------------------
 # Check structure opposite dtd struct.
-
+sub check {
 	my ($self, @data) = @_;
 	foreach my $dat (@data) {
 		$self->check_one($dat);
@@ -71,11 +63,8 @@ sub check {
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub check_one {
-#------------------------------------------------------------------------------
 # Detect and process one tag.
-
+sub check_one {
 	my ($self, $data) = @_;
 
 	# Check required attributes.
@@ -225,11 +214,8 @@ sub check_one {
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub reset {
-#------------------------------------------------------------------------------
 # Resets object.
-
+sub reset {
 	my $self = shift;
 
 	# Check required attributes flag.
@@ -247,15 +233,8 @@ sub reset {
 	return;
 }
 
-#------------------------------------------------------------------------------
-# Private methods.
-#------------------------------------------------------------------------------
-
-#------------------------------------------------------------------------------
-sub _check_missing {
-#------------------------------------------------------------------------------
 # Check to missing tags.
-
+sub _check_missing {
 	my ($self, $tag) = @_;
 
 	# Previous tag.
@@ -290,11 +269,8 @@ sub _check_missing {
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub _get_required_attr {
-#------------------------------------------------------------------------------
 # Get required attributes.
-
+sub _get_required_attr {
 	my ($self, $tag) = @_;
 	my $attr = $self->{'dtd'}->{$tag}->{'attributes'};
 	my @keys = keys %{$attr};

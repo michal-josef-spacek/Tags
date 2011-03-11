@@ -1,6 +1,4 @@
-#------------------------------------------------------------------------------
 package Tags2::Utils;
-#------------------------------------------------------------------------------
 
 # Pragmas.
 use base qw(Exporter);
@@ -22,21 +20,15 @@ Readonly::Scalar my $EMPTY_STR => q{};
 # Version.
 our $VERSION = 0.01;
 
-#------------------------------------------------------------------------------
-sub encode_newline {
-#------------------------------------------------------------------------------
 # Encode newline in data to '\n' in output.
-
+sub encode_newline {
 	my $string = shift;
 	$string =~ s/\n/\\n/gms;
 	return $string;
 }
 
-#------------------------------------------------------------------------------
-sub encode_attr_entities {
-#------------------------------------------------------------------------------
 # Encode '<&"' attribute entities.
-
+sub encode_attr_entities {
 	my $data_r = shift;
 	if (ref $data_r eq 'SCALAR') {
 		${$data_r} = encode_entities(decode_entities(${$data_r}),
@@ -52,11 +44,9 @@ sub encode_attr_entities {
 	}
 	return;
 }
-#------------------------------------------------------------------------------
-sub encode_char_entities {
-#------------------------------------------------------------------------------
-# Encode '<&NBSP' char entities.
 
+# Encode '<&NBSP' char entities.
+sub encode_char_entities {
 	my $data_r = shift;
 	if (ref $data_r eq 'SCALAR') {
 		${$data_r} = encode_entities(decode_entities(${$data_r}),
@@ -73,11 +63,8 @@ sub encode_char_entities {
 	return;
 }
 
-#------------------------------------------------------------------------------
-sub set_params {
-#------------------------------------------------------------------------------
 # Set parameters to user values.
-
+sub set_params {
 	my ($self, @params) = @_;
 	while (@params) {
 		my $key = shift @params;
