@@ -2,11 +2,8 @@
 use English qw(-no_match_vars);
 use IO::Scalar;
 
-#------------------------------------------------------------------------------
-sub get_stdout {
-#------------------------------------------------------------------------------
 # Helper function to print.
-
+sub get_stdout {
 	my ($class, $val, @tags) = @_;
 
 	my $stdout;
