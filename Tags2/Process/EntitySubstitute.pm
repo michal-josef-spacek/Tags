@@ -6,9 +6,9 @@ use strict;
 use warnings;
 
 # Modules.
+use Class::Utils qw(set_params);
 use Error::Simple::Multiple qw(err);
 use List::MoreUtils qw(any);
-use Tags2::Utils qw(set_params);
 
 # Version.
 our $VERSION = 0.01;
@@ -181,7 +181,7 @@ __END__
  Mine:
    Bad 'entity' hash reference.
 
- From Tags2::Utils:
+ From Class::Utils:
    Unknown parameter '%s'.
 
 =head1 EXAMPLE

@@ -5,10 +5,10 @@ use strict;
 use warnings;
 
 # Modules.
+use Class::Utils qw(set_params);
 use Error::Simple::Multiple qw(err);
 use List::MoreUtils qw(none);
 use Readonly;
-use Tags2::Utils qw(set_params);
 
 # Constants.
 Readonly::Scalar my $EMPTY_STR => q{};
@@ -148,7 +148,7 @@ __END__
    Id attribute '%s' in tag '%s' is duplicit over structure.
    Other id attribute in tag '%s'.
 
- From Tags2::Utils:
+ From Class::Utils:
    Unknown parameter '%s'.
 
 =head1 EXAMPLE1
@@ -200,6 +200,7 @@ __END__
 
 =head1 DEPENDENCIES
 
+L<Class::Utils(3pm)>,
 L<Error::Simple::Multiple(3pm)>,
 L<List::MoreUtils(3pm)>.
 

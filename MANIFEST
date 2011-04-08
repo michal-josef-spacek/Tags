@@ -151,7 +151,6 @@ t/Tags2::Utils/02-pod_coverage.t
 t/Tags2::Utils/03-pod.t
 t/Tags2::Utils/04-encode_newline.t
 t/Tags2::Utils/05-encode_char_entities.t
-t/Tags2::Utils/06-set_params.t
 t/Tags2::Utils/07-encode_attr_entities.t
 t/Tags2::Utils::Preserve/00-use.t
 t/Tags2::Utils::Preserve/01-version.t

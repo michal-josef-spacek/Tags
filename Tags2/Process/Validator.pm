@@ -5,9 +5,9 @@ use strict;
 use warnings;
 
 # Modules.
+use Class::Utils qw(set_params);
 use Error::Simple::Multiple qw(err);
 use List::MoreUtils qw(any none);
-use Tags2::Utils qw(set_params);
 use XML::DTDParser qw(ParseDTDFile);
 
 # Version.
@@ -347,7 +347,7 @@ __END__
    Tag '%s' cannot be after tag '%s'.
    Tag '%s' doesn't exist in dtd.
 
- From Tags2::Utils:
+ From Class::Utils:
    Unknown parameter '%s'.
 
 =head1 EXAMPLE
@@ -363,6 +363,7 @@ __END__
 
 =head1 DEPENDENCIES
 
+L<Class::Utils(3pm)>,
 L<Error::Simple::Multiple(3pm)>.
 
 =head1 SEE ALSO

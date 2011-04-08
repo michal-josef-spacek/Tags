@@ -12,7 +12,7 @@ use Readonly;
 
 # Constants.
 Readonly::Array our @EXPORT_OK => qw(encode_newline encode_attr_entities
-	encode_char_entities set_params);
+	encode_char_entities);
 Readonly::Scalar my $ATTR_CHARS => q{<&"};
 Readonly::Scalar my $CHAR_CHARS => q{<&\240};
 Readonly::Scalar my $EMPTY_STR => q{};
@@ -63,20 +63,6 @@ sub encode_char_entities {
 	return;
 }
 
-# Set parameters to user values.
-sub set_params {
-	my ($self, @params) = @_;
-	while (@params) {
-		my $key = shift @params;
-		my $val = shift @params;
-		if (! exists $self->{$key}) {
-			err "Unknown parameter '$key'.";
-		}
-		$self->{$key} = $val;
-	}
-	return;
-}
-
 1;
 
 __END__
@@ -91,11 +77,10 @@ __END__
 
 =head1 SYNOPSIS
 
- use Tags2::Utils qw(encode_newline encode_attr_entities encode_char_entities set_params);
+ use Tags2::Utils qw(encode_newline encode_attr_entities encode_char_entities);
  my $string_with_encoded_newline = encode_newline("foo\nbar");
  my $string_with_encoded_attr_entities = encode_attr_entities('<data & "data"');
  my $string_with_encoded_char_entities = encode_char_entities('<data & data');
- set_params($self, %parameters);
 
 =head1 SUBROUTINES
 
@@ -125,13 +110,6 @@ __END__
  - Scalar reference. Returns undef.
  - Array reference of scalars. Returns undef.
 
-=item C<set_params($self, @params)>
-
- Sets object parameters to user values.
- If setted key doesn't exist in $self object, turn fatal error.
- $self - Object or hash reference.
- @params - Key, value pairs.
-
 =back
 
 =head1 ERRORS
@@ -144,9 +122,6 @@ __END__
 
  encode_char_entities():
    Reference '%s' doesn't supported.
-
- set_params():
-   Unknown parameter '%s'.
 
 =head1 EXAMPLE1
 
@@ -191,30 +166,6 @@ __END__
  #         '&nbsp;',
  #         '&nbsp;',
  # )
-
-=head1 EXAMPLE3
-
- # Pragmas.
- use strict;
- use warnings;
-
- # Modules.
- use Tags2::Utils qw(set_params);
-
- # Hash reference with default parameters.
- my $self = {
-         'test' => 'default',
- };
-
- # Set params.
- set_params($self, 'test', 'real_value');
-
- # In $self->{'test'} will be 'real_value'.
-
- # Set bad params.
- set_params($self, 'bad', 'value');
-
- # Turn error >>Unknown parameter 'bad'.<<.
 
 =head1 DEPENDENCIES
 

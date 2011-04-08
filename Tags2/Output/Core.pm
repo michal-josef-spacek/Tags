@@ -5,8 +5,8 @@ use strict;
 use warnings;
 
 # Modules.
+use Class::Utils qw(set_params);
 use Error::Simple::Multiple qw(err);
-use Tags2::Utils qw(set_params);
 
 # Version.
 our $VERSION = 0.02;
@@ -362,13 +362,13 @@ __END__
    Cannot write to output handler.
    Output handler is bad file handler.
 
- From Tags2::Utils:
+ From Class::Utils:
    Unknown parameter '%s'.
 
 =head1 DEPENDENCIES
 
-L<Error::Simple::Multiple(3pm)>,
-L<Tags2::Utils(3pm)>.
+L<Class::Utils(3pm)>,
+L<Error::Simple::Multiple(3pm)>.
 
 =head1 SEE ALSO
 
