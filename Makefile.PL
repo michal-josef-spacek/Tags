@@ -3,7 +3,7 @@ use ExtUtils::MakeMaker;
 
 # Definition.
 WriteMakefile(
-	'NAME' => 'Tags2',
+	'NAME' => 'Tags',
 	'PREREQ_PM' => {
 		'Class::Utils' => 0.01,
 		'Error::Simple::Multiple' => 0.05,
@@ -11,20 +11,20 @@ WriteMakefile(
 		'List::MoreUtils' => 0,
 		'Readonly' => 0,
 	},
-	'VERSION' => 0.04,
+	'VERSION' => 0.01,
 	'test' => {
-		'TESTS' => 't/Tags2::Output::Core/*.t '.
-			't/Tags2::Output::ESIS/*.t '.
-			't/Tags2::Output::Indent/*.t '.
-			't/Tags2::Output::Indent2/*.t '.
-			't/Tags2::Output::LibXML/*.t '.
-			't/Tags2::Output::PYX/*.t '.
-			't/Tags2::Output::Raw/*.t '.
-			't/Tags2::Output::SESIS/*.t '.
-			't/Tags2::Process::EntitySubstitute/*.t '.
-			't/Tags2::Process::Id/*.t '.
-			't/Tags2::Process::Validator/*.t '.
-			't/Tags2::Utils/*.t '.
-			't/Tags2::Utils::Preserve/*.t',
+		'TESTS' => 't/Tags::Output::Core/*.t '.
+			't/Tags::Output::ESIS/*.t '.
+			't/Tags::Output::Indent/*.t '.
+			't/Tags::Output::Indent2/*.t '.
+			't/Tags::Output::LibXML/*.t '.
+			't/Tags::Output::PYX/*.t '.
+			't/Tags::Output::Raw/*.t '.
+			't/Tags::Output::SESIS/*.t '.
+			't/Tags::Process::EntitySubstitute/*.t '.
+			't/Tags::Process::Id/*.t '.
+			't/Tags::Process::Validator/*.t '.
+			't/Tags::Utils/*.t '.
+			't/Tags::Utils::Preserve/*.t',
 	},
 );
