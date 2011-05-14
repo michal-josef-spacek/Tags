@@ -1,8 +1,8 @@
 TODO
 ====
 7. Data optimalization.
-   Viz Tags2::Process::DataOptimalization
-10. Pridat Tags2::Process::Filter s callback funkcemi navazanymi na tagy.
+   Viz Tags::Process::DataOptimalization
+10. Pridat Tags::Process::Filter s callback funkcemi navazanymi na tagy.
 12. Optimalizovat deni ve vystupnich rutinach. Casto se tam pouziva stejny kod
     (?, _, -, CD) pro vystup pole dat.
 14. Pokud bude tolik procesnich trid, nebude lepsi to pak nejak prepsat?
@@ -10,30 +10,30 @@ TODO
     -> Kontrola xml? -> Indenter
 21. Docela neprakticke je dat komentar mezi zacatek tagu a atribut. Pak je
     error. Bylo by dobre to presunout za/pred tag.
-Tags2::Output::Raw je hotov.
-Tags2::Output::Indent je hotov.
+Tags::Output::Raw je hotov.
+Tags::Output::Indent je hotov.
 22. class v atributu muze mit vice moznosti, takze 
     ['a', 'class', 'neco'] + ['a', 'class', 'neco_jineho'] by se melo sloucit.
-23. V Tags2::Output::Indent se muze rozdelit atribut na novy radek. To muze?
-24. Tags2::Output::Indent prepsat. Kod, ke je prehazovani comment pred/za tag je
+23. V Tags::Output::Indent se muze rozdelit atribut na novy radek. To muze?
+24. Tags::Output::Indent prepsat. Kod, ke je prehazovani comment pred/za tag je
     neefektivni. Idealni to resit pred timto modulem primo na strukture.
 27. XML vystup muze byt pouze malymi pismeny. Kde jsem na toto prisel?
 29. Pridat xml parameter.
-Tags2::Output::Raw je.
-Tags2::Output::Indent je.
-30. Do Tags2::Output::LibXML jsem pridal detekci druheho root tagu a k tomu
+Tags::Output::Raw je.
+Tags::Output::Indent je.
+30. Do Tags::Output::LibXML jsem pridal detekci druheho root tagu a k tomu
     patricny error. Tohle by melo byt i v ostatnich vystupech v xml modu.
-34. Podobne jako v Tags2::Output::LibXML resit i v ostatnich cdata sekci s
+34. Podobne jako v Tags::Output::LibXML resit i v ostatnich cdata sekci s
     ']]>'.
-35. Prozkoumat v Tags2::Output::Indent volani 'indent_block'. Mohla by tam byt
+35. Prozkoumat v Tags::Output::Indent volani 'indent_block'. Mohla by tam byt
     stejna chyba jako u 'indent_word', ze se bere pole misto skalaru.
     Mozna by bylo dobre vubec zvazit uziti vraceni skalaru z indent funkci.
 36. Data callback (vhodne pro prekodovani do utf8).
-Tags2::Output::Indent hotovo.
-Tags2::Output::LibXML hotovo.
-Tags2::Output::Raw hotovo.
+Tags::Output::Indent hotovo.
+Tags::Output::LibXML hotovo.
+Tags::Output::Raw hotovo.
 38. Attribute callback (vhodne pro prekodovani do utf a nahradu uvozovek).
-40. encode_base_entities v Tags2::Utils patri jeste proverit.
+40. encode_base_entities v Tags::Utils patri jeste proverit.
     Vzhledem k tomu, ze potrebujeme menit ruzne entity, bylo by dobre udelat
     nejakou skupinu procedur.
     - attributy: klic    : Zacina nejakym znakem a uvnitr muzou byt nejake
@@ -42,12 +42,12 @@ Tags2::Output::Raw hotovo.
                            obsazeno.
     - text: Nesmi obsahovat <&
 41. Cover testing.
-43. ex10.pl v perl/MODUELS/Tags2::Output::Indent do testu.
+43. ex10.pl v perl/MODUELS/Tags::Output::Indent do testu.
 45. Predelat testovani. Idealni by bylo mit na jednom miste vstupni data. 
-48. Zalozit nejaky module Tags2::*::Multi? Ktery by dostal pole objektu a
+48. Zalozit nejaky module Tags::*::Multi? Ktery by dostal pole objektu a
     postupne by je volal a provadel celou funkcnost.
-54. V Skim::Storage::InfoStorage::XML::Output::Tags2 byl kod:
-    $self->{'e_atr'} = Tags2::Process::EntitySubstitute->new(
+54. V Skim::Storage::InfoStorage::XML::Output::Tags byl kod:
+    $self->{'e_atr'} = Tags::Process::EntitySubstitute->new(
             'entity' => {
                     '"' => '&quot;',
                     '<' => '&lt;',
@@ -60,7 +60,7 @@ Tags2::Output::Raw hotovo.
 55. V atributech by se melo predelat zpracovani. Co muze byt v klici?
     Na hodnotu by se mel aplikovat attr_callback(), ted se aplikuje na obe.
 56. Testy pro atribut s uvozovkami a dalsimi chybnymi znaky.
-58. Udelat univerzalni Tags2::Output, abych nemusel rucne ve skriptech prepinat?
+58. Udelat univerzalni Tags::Output, abych nemusel rucne ve skriptech prepinat?
 59.
 
 Applied
@@ -71,12 +71,12 @@ OK [20050926] skim
 6. Predelat podobne jako Tags tak, aby vzdycky sel vystup do handleru.
 OK [20051121] skim
 
-4. Chyba v Tags2.pm, kde pri comment a data vykresluji ' '. Je to nesmysl treba 
+4. Chyba v Tags.pm, kde pri comment a data vykresluji ' '. Je to nesmysl treba 
    na zacatku dat.
 OK [20070124] skim
 
 5. Trida pro vystup do PYX.
-   Viz Tags2::Output::PYX.
+   Viz Tags::Output::PYX.
 OK [20070218] skim
 
 8. Do SESIS pridat cdata sekci.
@@ -100,32 +100,32 @@ OK [20070221] skim
 16. Do entit pridat encode a decode utf znaku? (&#cislo)
 OK [20070224] skim
 
-9. Do Tags2::Output::Raw zaimplementovat preserve veci.
+9. Do Tags::Output::Raw zaimplementovat preserve veci.
 OK [20070920] skim
 
 2. Pridat indentovani.
-   Viz Tags2::Output::Indent.
+   Viz Tags::Output::Indent.
 OK [20070920] skim
 
-26. Tags2::Output::Raw nevypise nexml vystup. Kdyz neukoncim tag, tak zahlasi error.
+26. Tags::Output::Raw nevypise nexml vystup. Kdyz neukoncim tag, tak zahlasi error.
     Patri resit / v simple tagu. Nevim jak je to v sgml.
-Do Tags2::Output::Raw jsem pridal xml parameter.
+Do Tags::Output::Raw jsem pridal xml parameter.
 Pridany testy.
 Jeden error je vazan na tenhle xml parametr.
 no_simple pro sgml.
 OK [20080718] skim
 
-28. Chyba ve vykreslovani pomoci perl/MODULES/Tags2::MARC::Field/ex2.pl
+28. Chyba ve vykreslovani pomoci perl/MODULES/Tags::MARC::Field/ex2.pl
 OK [20081105] skim
 
-20. Predelat ve vsech Tags2::Output::* reset. Reset se vola v konstruktoru.
+20. Predelat ve vsech Tags::Output::* reset. Reset se vola v konstruktoru.
     A metode reset bude vsechno, co jde resetovat.
 OK [20090101] skim
 
-19. Implementovat do vsech Tags2::Output::* parametr instruction.
+19. Implementovat do vsech Tags::Output::* parametr instruction.
 OK [20090101] skim
 
-17. Tags2::Output::Raw a jine by mely byt dohromady s dtd, protoze treba
+17. Tags::Output::Raw a jine by mely byt dohromady s dtd, protoze treba
     xml:space FIXED znamena, ze je preserved, ale neni to krome dtd nikde videt.
 Tohle by slo resit tak:
 1) S validatorem (mel by dtd), predal by seznam preserved veci z dtd.
@@ -135,11 +135,11 @@ NONE [20090101] skim
 33. Metodu _encode_newline do Utils.
 OK [20090102] skim
 
-32. V Tags2::Output::PYX prepsat 'flush_code' na pole, namisto skaralu.
+32. V Tags::Output::PYX prepsat 'flush_code' na pole, namisto skaralu.
 OK [20090102] skim
 
-31. V Tags2::Output::Raw prepsat 'flush_code' na pole, namisto skalaru.
-U tohohle modulu a u Tags2::Output::Indent a Tags2::Output::Indent2 to jit
+31. V Tags::Output::Raw prepsat 'flush_code' na pole, namisto skalaru.
+U tohohle modulu a u Tags::Output::Indent a Tags::Output::Indent2 to jit
 nemuze. Dostaneme se do problemu s raw kodem. Uz by nebyl raw, ale raw+"\n".
 NONE [20090102] skim
 
@@ -157,7 +157,7 @@ NONE [20090102] skim
     <tag>raw</tag>
 OK [20090104] skim
 
-42. ex10.pl v perl/MODULES/Tags2::Output::Indent
+42. ex10.pl v perl/MODULES/Tags::Output::Indent
 OK [20090301] skim
 
 44. Validni vystup pro SGML je <input ... readonly>. To stejne je 
@@ -193,14 +193,14 @@ OK [20090728] skim
 
 53. Nedostatecne testuji auto_flush. V prikladu s (['b', 'tag'], ['e', 'tag'])
     je to vpohode.. Ale v pripadu toho stejneho s volanim kazdeho tagu
-    samostatne je chyba. Dodelat stejny test pro Tags2::Output::Raw.
+    samostatne je chyba. Dodelat stejny test pro Tags::Output::Raw.
 OK [20090815] skim
 
 39. K data callbacku pridano defaultni encode_base_entities().
     Pridat cdata_callback a raw_callback.
     Pridat testy.
-Tags2::Output::Raw hotovo.
-Tags2::Output::Indent hotovo.
+Tags::Output::Raw hotovo.
+Tags::Output::Indent hotovo.
 Jsou zde data_callback, attr_callback, cdata_callback, raw_callback.
 data_ ma nastaveno implicitne encode_char_entities (nahrada base_entities).
 attr_ ma nastaveno implicitne encode_attr_entities
