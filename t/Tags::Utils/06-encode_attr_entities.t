@@ -1,5 +1,5 @@
 # Modules.
-use Tags2::Utils qw(encode_attr_entities);
+use Tags::Utils qw(encode_attr_entities);
 use Test::More 'tests' => 3;
 
 print "Testing: encode_attr_entities() function.\n";

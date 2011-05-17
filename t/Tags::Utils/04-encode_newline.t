@@ -1,5 +1,5 @@
 # Modules.
-use Tags2::Utils qw(encode_newline);
+use Tags::Utils qw(encode_newline);
 use Test::More 'tests' => 1;
 
 print "Testing: encode_newline() function.\n";
