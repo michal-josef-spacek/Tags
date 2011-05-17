@@ -5,7 +5,7 @@ use Tags::Process::Validator;
 use Test::More 'tests' => 6;
 
 # Directories.
-my $dtd_dir = File::Object->new->up->dir('dtd')->s;
+my $dtd_dir = File::Object->new->up->dir('dtd');
 
 print "Testing: new('') bad constructor.\n";
 my $obj;
