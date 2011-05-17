@@ -1,10 +1,10 @@
 # Modules.
 use English qw(-no_match_vars);
-use Tags2::Output::Raw;
+use Tags::Output::Raw;
 use Test::More 'tests' => 5;
 
 print "Testing: Errors.\n";
-my $obj = Tags2::Output::Raw->new(
+my $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
 eval {

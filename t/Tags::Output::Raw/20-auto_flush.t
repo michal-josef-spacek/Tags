@@ -1,11 +1,11 @@
 # Modules.
 use File::Object;
 use IO::Scalar;
-use Tags2::Output::Raw;
+use Tags::Output::Raw;
 use Test::More 'tests' => 5;
 
 print "Testing: 'auto_flush' parameter.\n";
-my $obj = Tags2::Output::Raw->new(
+my $obj = Tags::Output::Raw->new(
 	'auto_flush' => 1,
 	'output_handler' => \*STDOUT,
 	'xml' => 1,

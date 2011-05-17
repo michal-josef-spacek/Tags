@@ -1,9 +1,9 @@
 # Modules.
-use Tags2::Output::Raw;
+use Tags::Output::Raw;
 use Test::More 'tests' => 3;
 
 print "Testing: Instruction.\n";
-my $obj = Tags2::Output::Raw->new;
+my $obj = Tags::Output::Raw->new;
 $obj->put(
 	['i', 'perl', 'print "1\n";'],
 );

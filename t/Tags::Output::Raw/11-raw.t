@@ -1,9 +1,9 @@
 # Modules.
-use Tags2::Output::Raw;
+use Tags::Output::Raw;
 use Test::More 'tests' => 7;
 
 print "Testing: Raw.\n";
-my $obj = Tags2::Output::Raw->new(
+my $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
 $obj->put(

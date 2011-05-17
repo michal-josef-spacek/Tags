@@ -1,10 +1,10 @@
 # Modules.
-use Tags2::Output::Raw;
+use Tags::Output::Raw;
 use Test::More 'tests' => 2;
 
 print "Testing: Preserving from attributes (sgml version).\n";
 print "- CHILD1 preserving is off.\n";
-my $obj = Tags2::Output::Raw->new(
+my $obj = Tags::Output::Raw->new(
 	'xml' => 0,
 );
 my $text = <<"END";
@@ -21,7 +21,7 @@ is($ret, $right_ret);
 
 print "Testing: Preserving from attributes (xml version).\n";
 print "- child1 preserving is off.\n";
-$obj = Tags2::Output::Raw->new(
+$obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
 $obj->put(['b', 'main'], ['b', 'child1'], 
@@ -33,7 +33,7 @@ is($ret, $right_ret);
 
 # TODO
 #print "- CHILD1 preserving is on.\n";
-#$obj = Tags2::Output::Raw->new;
+#$obj = Tags::Output::Raw->new;
 #$obj->put(['b', 'MAIN'], ['b', 'CHILD1'], 
 #	['a', 'xml:space', 'preserve'], ['d', $text],
 #	['e', 'CHILD1'], ['e', 'MAIN']);
@@ -43,4 +43,4 @@ is($ret, $right_ret);
 #is($ret, $right_ret);
 
 # TODO Pridat vnorene testy.
-# Bude jich hromada. Viz. ex18.pl az ex24.pl v Tags2::Output::Indent.
+# Bude jich hromada. Viz. ex18.pl az ex24.pl v Tags::Output::Indent.

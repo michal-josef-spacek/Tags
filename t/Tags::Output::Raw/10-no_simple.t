@@ -1,9 +1,9 @@
 # Modules.
-use Tags2::Output::Raw;
+use Tags::Output::Raw;
 use Test::More 'tests' => 1;
 
 print "Testing: No simple.\n";
-my $obj = Tags2::Output::Raw->new(
+my $obj = Tags::Output::Raw->new(
 	'no_simple' => ['tag'],
 	'xml' => 1,
 );

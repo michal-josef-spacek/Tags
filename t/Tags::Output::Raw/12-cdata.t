@@ -1,10 +1,10 @@
 # Modules.
 use English qw(-no_match_vars);
-use Tags2::Output::Raw;
+use Tags::Output::Raw;
 use Test::More 'tests' => 2;
 
 print "Testing: CDATA.\n";
-my $obj = Tags2::Output::Raw->new(
+my $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
 $obj->put(

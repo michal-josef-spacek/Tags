@@ -1,9 +1,9 @@
 # Modules.
-use Tags2::Output::Raw;
+use Tags::Output::Raw;
 use Test::More 'tests' => 1;
 
 print "Testing: 'skip_bad_tags' parameter.\n";
-my $obj = Tags2::Output::Raw->new(
+my $obj = Tags::Output::Raw->new(
 	'skip_bad_tags' => 1,
 );
 $obj->put(
