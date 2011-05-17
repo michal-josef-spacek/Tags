@@ -1,3 +1,7 @@
+# Pragmas.
+use strict;
+use warnings;
+
 # Modules.
 use Tags::Utils qw(encode_attr_entities);
 use Test::More 'tests' => 3;
