@@ -7,7 +7,6 @@ use Test::More 'tests' => 9;
 # Directories.
 my $dtd_dir = File::Object->new->up->dir('dtd');
 
-print "Testing: Validation errors.\n";
 my $obj = Tags::Process::Validator->new(
 	'dtd_file' => $dtd_dir->file('test3.dtd')->s,
 );
