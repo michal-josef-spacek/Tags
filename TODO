@@ -42,7 +42,7 @@ Tags::Output::Raw hotovo.
                            obsazeno.
     - text: Nesmi obsahovat <&
 41. Cover testing.
-43. ex10.pl v perl/MODUELS/Tags::Output::Indent do testu.
+43. ex10.pl v perl/MODULES/Tags::Output::Indent do testu.
 45. Predelat testovani. Idealni by bylo mit na jednom miste vstupni data. 
 48. Zalozit nejaky module Tags::*::Multi? Ktery by dostal pole objektu a
     postupne by je volal a provadel celou funkcnost.
