@@ -2,7 +2,6 @@
 use Tags::Output::Raw;
 use Test::More 'tests' => 2;
 
-print "Testing: finalize() method.\n";
 my $obj = Tags::Output::Raw->new;
 $obj->put(
 	['b', 'tag'],

@@ -6,7 +6,6 @@ use Test::More 'tests' => 2;
 # Include helpers.
 do File::Object->new->up->file('get_stdout.inc')->serialize;
 
-print "Testing: Output handler.\n";
 my $obj = Tags::Output::Raw->new(
 	'output_handler' => \*STDOUT,
 	'xml' => 0,

@@ -2,8 +2,6 @@
 use Tags::Output::Raw;
 use Test::More 'tests' => 2;
 
-print "Testing: Preserving from attributes (sgml version).\n";
-print "- CHILD1 preserving is off.\n";
 my $obj = Tags::Output::Raw->new(
 	'xml' => 0,
 );
@@ -19,8 +17,6 @@ my $ret = $obj->flush;
 my $right_ret = '<MAIN><CHILD1 xml:space="default">'.$text.'</CHILD1></MAIN>';
 is($ret, $right_ret);
 
-print "Testing: Preserving from attributes (xml version).\n";
-print "- child1 preserving is off.\n";
 $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );

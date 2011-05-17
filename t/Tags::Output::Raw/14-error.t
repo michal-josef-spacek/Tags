@@ -3,7 +3,6 @@ use English qw(-no_match_vars);
 use Tags::Output::Raw;
 use Test::More 'tests' => 5;
 
-print "Testing: Errors.\n";
 my $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );

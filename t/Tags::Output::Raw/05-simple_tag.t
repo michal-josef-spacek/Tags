@@ -2,7 +2,6 @@
 use Tags::Output::Raw;
 use Test::More 'tests' => 10;
 
-print "Testing: Simple tag without parameters (sgml version).\n";
 my $obj = Tags::Output::Raw->new(
 	'xml' => 0,
 );
@@ -13,7 +12,6 @@ $obj->put(
 my $ret = $obj->flush;
 is($ret, '<MAIN></MAIN>');
 
-print "Testing: Simple tag with parameters (sgml version).\n";
 $obj->reset;
 $obj->put(
 	['b', 'MAIN'],
@@ -34,7 +32,6 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<MAIN id=\'id_value\'></MAIN>');
 
-print "Testing: Simple tag after simple tag (sgml version).\n";
 $obj = Tags::Output::Raw->new(
 	'xml' => 0,
 );
@@ -63,7 +60,6 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<MAIN id=\'id_value\'></MAIN><MAIN id=\'id_value2\'></MAIN>');
 
-print "Testing: Simple tag without parameters (xml version).\n";
 $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
@@ -74,7 +70,6 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<main />');
 
-print "Testing: Simple tag with parameters (xml version).\n";
 $obj->reset;
 $obj->put(
 	['b', 'main'],
@@ -95,7 +90,6 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<main id=\'id_value\' />');
 
-print "Testing: Simple tag after simple tag (xml version).\n";
 $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );

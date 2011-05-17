@@ -2,7 +2,6 @@
 use Tags::Output::Raw;
 use Test::More 'tests' => 4;
 
-print "Testing: open_tags() method.\n";
 my $obj = Tags::Output::Raw->new;
 my @ret = $obj->open_tags;
 is_deeply(\@ret, []);

@@ -4,7 +4,6 @@ use IO::Scalar;
 use Tags::Output::Raw;
 use Test::More 'tests' => 5;
 
-print "Testing: 'auto_flush' parameter.\n";
 my $obj = Tags::Output::Raw->new(
 	'auto_flush' => 1,
 	'output_handler' => \*STDOUT,

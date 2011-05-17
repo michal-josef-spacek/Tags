@@ -2,7 +2,6 @@
 use Tags::Output::Raw;
 use Test::More 'tests' => 7;
 
-print "Testing: Raw.\n";
 my $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
