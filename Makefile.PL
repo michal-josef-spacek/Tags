@@ -15,7 +15,6 @@ WriteMakefile(
 	'VERSION' => 0.01,
 	'test' => {
 		'TESTS' => 't/Tags::Output::Core/*.t '.
-			't/Tags::Output::ESIS/*.t '.
 			't/Tags::Output::Indent/*.t '.
 			't/Tags::Output::Indent2/*.t '.
 			't/Tags::Output::Raw/*.t '.

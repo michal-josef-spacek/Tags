@@ -20,18 +20,6 @@ t/Tags::Output::Core/02-pod_coverage.t
 t/Tags::Output::Core/03-pod.t
 t/Tags::Output::Core/04-constructor.t
 t/Tags::Output::Core/05-put.t
-t/Tags::Output::ESIS/00-use.t
-t/Tags::Output::ESIS/01-version.t
-t/Tags::Output::ESIS/02-pod_coverage.t
-t/Tags::Output::ESIS/03-pod.t
-t/Tags::Output::ESIS/04-constructor.t
-t/Tags::Output::ESIS/05-comment.t
-t/Tags::Output::ESIS/06-simple_tag.t
-t/Tags::Output::ESIS/07-tag.t
-t/Tags::Output::ESIS/08-instruction.t
-t/Tags::Output::ESIS/09-raw.t
-t/Tags::Output::ESIS/10-cdata.t
-t/Tags::Output::ESIS/11-flush.t
 t/Tags::Output::Indent/00-use.t
 t/Tags::Output::Indent/01-version.t
 t/Tags::Output::Indent/02-pod_coverage.t
@@ -132,7 +120,6 @@ t/Tags::Utils::Preserve/04-constructor.t
 t/Tags::Utils::Preserve/05-preserving.t
 Tags.pm
 Tags/Output/Core.pm
-Tags/Output/ESIS.pm
 Tags/Output/Indent.pm
 Tags/Output/Indent2.pm
 Tags/Output/Raw.pm
