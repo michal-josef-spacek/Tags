@@ -42,9 +42,7 @@ L<Tags::Output::Raw(3pm)>,
 L<Tags::Process::EntitySubstitute(3pm)>,
 L<Tags::Process::Id(3pm)>,
 L<Tags::Process::Validator(3pm)>,
-L<Tags::Utils::Preserve(3pm)>,
-L<Tags::Utils::Simple(3pm)>,
-L<Tags::Utils::SimpleOO(3pm)>.
+L<Tags::Utils::Preserve(3pm)>.
 
 =head1 AUTHOR
 
