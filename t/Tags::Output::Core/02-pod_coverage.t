@@ -6,4 +6,4 @@ use warnings;
 use Test::Pod::Coverage 'tests' => 1;
 
 # Test.
-pod_coverage_ok('Tags2::Output::Core', 'Tags2::Output::Core is covered.');
+pod_coverage_ok('Tags::Output::Core', 'Tags::Output::Core is covered.');

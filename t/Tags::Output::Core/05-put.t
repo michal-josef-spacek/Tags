@@ -3,11 +3,11 @@ use strict;
 use warnings;
 
 # Modules.
-use Tags2::Output::Core;
+use Tags::Output::Core;
 use Test::More 'tests' => 1;
 
 # Test.
-my $obj = Tags2::Output::Core->new;
+my $obj = Tags::Output::Core->new;
 $obj->put(
 	['a', 'key', 'val'],
 	['b', 'tag'],
