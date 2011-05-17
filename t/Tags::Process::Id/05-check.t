@@ -3,6 +3,7 @@ use English qw(-no_match_vars);
 use Tags::Process::Id;
 use Test::More 'tests' => 4;
 
+# Test.
 my $obj = Tags::Process::Id->new;
 eval {
 	$obj->check(
@@ -13,6 +14,7 @@ eval {
 };
 is($EVAL_ERROR, '');
 
+# Test.
 $obj->reset;
 eval {
 	$obj->check(
@@ -24,6 +26,7 @@ eval {
 };
 is($EVAL_ERROR, "Other id attribute in tag 'tag'.\n");
 
+# Test.
 $obj->reset;
 eval {
 	$obj->check(
@@ -34,6 +37,7 @@ eval {
 };
 is($EVAL_ERROR, "Other id attribute in tag 'tag'.\n");
 
+# Test.
 $obj->reset;
 eval {
 	$obj->check(
