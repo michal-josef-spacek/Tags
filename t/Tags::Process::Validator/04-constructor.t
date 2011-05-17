@@ -30,12 +30,13 @@ eval {
 is($EVAL_ERROR, "Cannot read file with DTD defined by 'dtd_file' parameter.\n");
 
 # Test.
+my $dtd_file = $dtd_dir->file('non_exist_file.dtd')->s;
 eval {
 	Tags::Process::Validator->new(
-		'dtd_file' => $dtd_dir->file('non_exist_file.dtd')->s,
+		'dtd_file' => $dtd_file,
 	);
 };
-is($EVAL_ERROR, "Cannot read file '$dtd_dir/non_exist_file.dtd' with DTD.\n");
+is($EVAL_ERROR, "Cannot read file '$dtd_file' with DTD.\n");
 
 # Test.
 my $obj = Tags::Process::Validator->new(
