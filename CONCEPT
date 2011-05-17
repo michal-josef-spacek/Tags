@@ -11,23 +11,23 @@ Concept
 - ['c', 'data', 'data']
 - ['d', 'data', 'data']
 - ['i', 'target', 'data']
-- ['a', 'par', 'val', 'par2', 'val2']
+- ['a', 'par', 'val']
 
 # Tohle se pouziva.
-- ['b', 'tag']                         # "<tag>"
-- ['e', 'tag']                         # "</tag>"
-- ['c', 'data', 'data']                # "<!--datadata-->"
-- ['d', 'data', 'data']                # "datadata"
-- ['i', 'target', 'data']              # "<?target data?>
-- ['a', 'par', 'val', 'par2', 'val2']  # 'par="val" par2="val2"'
-- ['r', "text\ntext"]                  # "text\ntext"
-- ['cd', "cdata section <tag>"]        # "<![CDATA[cdata section <tag>]]>"
+- ['b', 'tag']                   # "<tag>"
+- ['e', 'tag']                   # "</tag>"
+- ['c', 'data', 'data']          # "<!--datadata-->"
+- ['d', 'data', 'data']          # "datadata"
+- ['i', 'target', 'data']        # "<?target data?>
+- ['a', 'par', 'val']            # 'par="val" par2="val2"'
+- ['r', "text\ntext"]            # "text\ntext"
+- ['cd', "cdata section <tag>"]  # "<![CDATA[cdata section <tag>]]>"
 
 ('b 'tag)
 ('e 'tag)
 ('c 'data 'data)
 ('d 'data 'data)
 ('i 'target 'data)
-('a 'par 'val 'par2 'val2)
+('a 'par 'val)
 ('r "text\ntext")
 ('cd "cdata section <tag>")
