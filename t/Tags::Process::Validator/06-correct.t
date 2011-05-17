@@ -6,6 +6,7 @@ use Test::More 'tests' => 47;
 # Directories.
 my $dtd_dir = File::Object->new->up->dir('dtd');
 
+# Test.
 my $obj = Tags::Process::Validator->new(
 	'dtd_file' => $dtd_dir->file('test1.dtd')->s,
 );
@@ -40,6 +41,7 @@ is_deeply(
 	[],
 );
 
+# Test.
 $obj = Tags::Process::Validator->new(
 	'dtd_file' => $dtd_dir->('test2.dtd')->s,
 );
@@ -73,6 +75,7 @@ is_deeply(
 	[],
 );
 
+# Test.
 $obj->reset;
 is_deeply(
 	$obj->{'printed'},
@@ -117,6 +120,7 @@ is_deeply(
 	[],
 );
 
+# Test.
 $obj = Tags::Process::Validator->new(
 	'dtd_file' => $dtd_dir->file('test3.dtd')->s,
 );
@@ -174,6 +178,7 @@ is_deeply(
 	[],
 );
 
+# Test.
 $obj = Tags::Process::Validator->new(
 	'dtd_file' => $dtd_dir->file('test4.dtd')->s,
 );
@@ -201,6 +206,7 @@ is_deeply(
 	[],
 );
 
+# Test.
 $obj = Tags::Process::Validator->new(
 	'dtd_file' => $dtd_dir->file('test5.dtd')->s,
 );
@@ -232,6 +238,7 @@ is_deeply(
 	[],
 );
 
+# Test.
 $obj = Tags::Process::Validator->new(
 	'dtd_file' => $dtd_dir->('test6.dtd')->s,
 );
@@ -254,6 +261,7 @@ is_deeply(
 	[],
 );
 
+# Test.
 $obj->reset;
 is_deeply(
 	$obj->{'printed'},
