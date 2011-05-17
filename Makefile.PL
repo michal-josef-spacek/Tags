@@ -19,7 +19,6 @@ WriteMakefile(
 			't/Tags::Output::Indent/*.t '.
 			't/Tags::Output::Indent2/*.t '.
 			't/Tags::Output::LibXML/*.t '.
-			't/Tags::Output::PYX/*.t '.
 			't/Tags::Output::Raw/*.t '.
 			't/Tags::Output::SESIS/*.t '.
 			't/Tags::Process::EntitySubstitute/*.t '.
