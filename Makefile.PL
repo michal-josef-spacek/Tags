@@ -9,14 +9,11 @@ WriteMakefile(
 		'Class::Utils' => 0.01,
 		'Error::Simple::Multiple' => 0.05,
 		'File::Object' => 0,
-		'List::MoreUtils' => 0,
 		'Readonly' => 0,
 	},
 	'VERSION' => 0.01,
 	'test' => {
 		'TESTS' => 't/Tags::Output::Core/*.t '.
-			't/Tags::Output::Indent/*.t '.
-			't/Tags::Output::Indent2/*.t '.
 			't/Tags::Output::Raw/*.t '.
 			't/Tags::Process::EntitySubstitute/*.t '.
 			't/Tags::Process::Id/*.t '.
