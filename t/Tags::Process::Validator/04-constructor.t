@@ -2,7 +2,7 @@
 use English qw(-no_match_vars);
 use File::Object;
 use Tags::Process::Validator;
-use Test::More 'tests' => 6;
+use Test::More 'tests' => 5;
 
 # Directories.
 my $dtd_dir = File::Object->new->up->dir('dtd');
@@ -32,5 +32,4 @@ is($EVAL_ERROR, "Cannot read file '$dtd_dir/non_exist_file.dtd' with DTD.\n");
 my $obj = Tags::Process::Validator->new(
 	'dtd_file' => $dtd_dir->file('fake.dtd')->s,
 );
-ok(defined $obj);
-ok($obj->isa('Tags::Process::Validator'));
+isa_ok($obj, 'Tags::Process::Validator');
