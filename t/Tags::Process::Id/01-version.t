@@ -1,3 +1,7 @@
+# Pragmas.
+use strict;
+use warnings;
+
 # Modules.
 use Tags::Process::Id;
 use Test::More 'tests' => 1;
