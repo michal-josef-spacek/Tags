@@ -2,7 +2,6 @@
 use Tags::Utils qw(encode_attr_entities);
 use Test::More 'tests' => 3;
 
-print "Testing: encode_attr_entities() function.\n";
 my $string = 'a<a"a&a';
 my $ret = encode_attr_entities($string);
 is($ret, 'a&lt;a&quot;a&amp;a');

@@ -2,7 +2,6 @@
 use Tags::Utils qw(encode_char_entities);
 use Test::More 'tests' => 3;
 
-print "Testing: encode_char_entities() function.\n";
 my $string = 'a<a&a'."\240a";
 my $ret = encode_char_entities($string);
 is($ret, 'a&lt;a&amp;a&nbsp;a');
