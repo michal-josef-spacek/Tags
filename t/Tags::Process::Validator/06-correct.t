@@ -47,7 +47,7 @@ is_deeply(
 
 # Test.
 $obj = Tags::Process::Validator->new(
-	'dtd_file' => $dtd_dir->('test2.dtd')->s,
+	'dtd_file' => $dtd_dir->file('test2.dtd')->s,
 );
 is_deeply(
 	$obj->{'printed'},
@@ -244,7 +244,7 @@ is_deeply(
 
 # Test.
 $obj = Tags::Process::Validator->new(
-	'dtd_file' => $dtd_dir->('test6.dtd')->s,
+	'dtd_file' => $dtd_dir->file('test6.dtd')->s,
 );
 is_deeply(
 	$obj->{'printed'},
