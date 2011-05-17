@@ -4,7 +4,7 @@ use Tags::Output::Raw;
 use Test::More 'tests' => 2;
 
 # Include helpers.
-do File::Object->new->up->file('get_stdout.inc')->serialize;
+do File::Object->new->up->file('get_stdout.inc')->s;
 
 # Test.
 my $obj = Tags::Output::Raw->new(
