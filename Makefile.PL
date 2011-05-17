@@ -18,7 +18,6 @@ WriteMakefile(
 			't/Tags::Output::Indent/*.t '.
 			't/Tags::Output::Indent2/*.t '.
 			't/Tags::Output::Raw/*.t '.
-			't/Tags::Output::SESIS/*.t '.
 			't/Tags::Process::EntitySubstitute/*.t '.
 			't/Tags::Process::Id/*.t '.
 			't/Tags::Process::Validator/*.t '.

@@ -76,18 +76,6 @@ t/Tags::Output::Raw/17-finalize.t
 t/Tags::Output::Raw/18-open_tags.t
 t/Tags::Output::Raw/19-skip_bad_tags.t
 t/Tags::Output::Raw/20-auto_flush.t
-t/Tags::Output::SESIS/00-use.t
-t/Tags::Output::SESIS/01-version.t
-t/Tags::Output::SESIS/02-pod_coverage.t
-t/Tags::Output::SESIS/03-pod.t
-t/Tags::Output::SESIS/04-constructor.t
-t/Tags::Output::SESIS/05-comment.t
-t/Tags::Output::SESIS/06-simple_tag.t
-t/Tags::Output::SESIS/07-tag.t
-t/Tags::Output::SESIS/08-instruction.t
-t/Tags::Output::SESIS/09-raw.t
-t/Tags::Output::SESIS/10-cdata.t
-t/Tags::Output::SESIS/11-flush.t
 t/Tags::Process::EntitySubstitute/00-use.t
 t/Tags::Process::EntitySubstitute/01-version.t
 t/Tags::Process::EntitySubstitute/02-pod_coverage.t
@@ -123,7 +111,6 @@ Tags/Output/Core.pm
 Tags/Output/Indent.pm
 Tags/Output/Indent2.pm
 Tags/Output/Raw.pm
-Tags/Output/SESIS.pm
 Tags/Process/EntitySubstitute.pm
 Tags/Process/Id.pm
 Tags/Process/Validator.pm
