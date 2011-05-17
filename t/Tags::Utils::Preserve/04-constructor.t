@@ -11,13 +11,13 @@ use Test::More 'tests' => 3;
 eval {
 	Tags::Utils::Preserve->new('');
 };
-is($EVAL_ERROR, "Bad parameter ''.\n");
+is($EVAL_ERROR, "Unknown parameter ''.\n");
 
 # Test.
 eval {
 	Tags::Utils::Preserve->new('something' => 'value');
 };
-is($EVAL_ERROR, "Bad parameter 'something'.\n");
+is($EVAL_ERROR, "Unknown parameter 'something'.\n");
 
 # Test.
 my $obj = Tags::Utils::Preserve->new;
