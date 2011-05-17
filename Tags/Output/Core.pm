@@ -1,4 +1,4 @@
-package Tags2::Output::Core;
+package Tags::Output::Core;
 
 # Pragmas.
 use strict;
@@ -165,7 +165,7 @@ sub _check_arguments {
 	my $arg_num = scalar @{$tags_struct_ar};
 	if ($arg_num < $min_arg_num || $arg_num > $max_arg_num) {
 		err 'Bad number of arguments.', 
-			'\'Tags2\' structure', join ', ', @{$tags_struct_ar};
+			'\'Tags\' structure', join ', ', @{$tags_struct_ar};
 	}
 	return;
 }
@@ -298,7 +298,7 @@ __END__
 
 =head1 NAME
 
- Tags2::Output::Core - Base class for Tags2::Output::*.
+ Tags::Output::Core - Base class for Tags::Output::*.
 
 =head1 SYNOPSIS
 
@@ -372,15 +372,15 @@ L<Error::Simple::Multiple(3pm)>.
 
 =head1 SEE ALSO
 
-L<Tags2(3pm)>,
-L<Tags2::Output::ESIS(3pm)>,
-L<Tags2::Output::Indent(3pm)>,
-L<Tags2::Output::Indent2(3pm)>,
-L<Tags2::Output::LibXML(3pm)>,
-L<Tags2::Output::PYX(3pm)>,
-L<Tags2::Output::Raw(3pm)>,
-L<Tags2::Output::SESIS(3pm)>,
-L<Tags2::Utils(3pm)>.
+L<Tags(3pm)>,
+L<Tags::Output::ESIS(3pm)>,
+L<Tags::Output::Indent(3pm)>,
+L<Tags::Output::Indent2(3pm)>,
+L<Tags::Output::LibXML(3pm)>,
+L<Tags::Output::PYX(3pm)>,
+L<Tags::Output::Raw(3pm)>,
+L<Tags::Output::SESIS(3pm)>,
+L<Tags::Utils(3pm)>.
 
 =head1 AUTHOR
 
