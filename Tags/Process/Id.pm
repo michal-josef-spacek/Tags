@@ -208,12 +208,7 @@ L<List::MoreUtils(3pm)>.
 
 L<Tags2(3pm)>,
 L<Tags2::Output::Core(3pm)>,
-L<Tags2::Output::ESIS(3pm)>,
-L<Tags2::Output::Indent(3pm)>,
-L<Tags2::Output::LibXML(3pm)>,
-L<Tags2::Output::PYX(3pm)>,
-L<Tags2::Output::Raw(3pm)>,
-L<Tags2::Output::SESIS(3pm)>.
+L<Tags2::Output::Raw(3pm)>.
 
 =head1 AUTHOR
 

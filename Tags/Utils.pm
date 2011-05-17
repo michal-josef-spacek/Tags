@@ -1,4 +1,4 @@
-package Tags::Utils;
+ackage Tags::Utils;
 
 # Pragmas.
 use base qw(Exporter);
@@ -177,12 +177,7 @@ L<Readonly(3pm)>.
 
 L<Tags(3pm)>,
 L<Tags::Output::Core(3pm)>,
-L<Tags::Output::ESIS(3pm)>,
-L<Tags::Output::Indent(3pm)>,
-L<Tags::Output::LibXML(3pm)>,
-L<Tags::Output::PYX(3pm)>,
-L<Tags::Output::Raw(3pm)>,
-L<Tags::Output::SESIS(3pm)>.
+L<Tags::Output::Raw(3pm)>.
 
 =head1 AUTHOR
 

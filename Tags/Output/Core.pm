@@ -373,13 +373,7 @@ L<Error::Simple::Multiple(3pm)>.
 =head1 SEE ALSO
 
 L<Tags(3pm)>,
-L<Tags::Output::ESIS(3pm)>,
-L<Tags::Output::Indent(3pm)>,
-L<Tags::Output::Indent2(3pm)>,
-L<Tags::Output::LibXML(3pm)>,
-L<Tags::Output::PYX(3pm)>,
 L<Tags::Output::Raw(3pm)>,
-L<Tags::Output::SESIS(3pm)>,
 L<Tags::Utils(3pm)>.
 
 =head1 AUTHOR
