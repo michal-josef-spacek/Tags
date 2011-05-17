@@ -1,4 +1,4 @@
-package Tags2::Utils;
+package Tags::Utils;
 
 # Pragmas.
 use base qw(Exporter);
@@ -73,11 +73,11 @@ __END__
 
 =head1 NAME
 
- Tags2::Utils - Utils module for Tags2.
+ Tags::Utils - Utils module for Tags.
 
 =head1 SYNOPSIS
 
- use Tags2::Utils qw(encode_newline encode_attr_entities encode_char_entities);
+ use Tags::Utils qw(encode_newline encode_attr_entities encode_char_entities);
  my $string_with_encoded_newline = encode_newline("foo\nbar");
  my $string_with_encoded_attr_entities = encode_attr_entities('<data & "data"');
  my $string_with_encoded_char_entities = encode_char_entities('<data & data');
@@ -130,7 +130,7 @@ __END__
  use warnings;
 
  # Modules.
- use Tags2::Utils qw(encode_newline);
+ use Tags::Utils qw(encode_newline);
 
  # Input text.
  my $text = <<'END';
@@ -151,7 +151,7 @@ __END__
  use warnings;
 
  # Modules.
- use Tags2::Utils qw(encode_attr_entities);
+ use Tags::Utils qw(encode_attr_entities);
 
  # Input data.
  my @data = ('&', '<', "\240", '&nbsp;');
@@ -175,14 +175,14 @@ L<Readonly(3pm)>.
 
 =head1 SEE ALSO
 
-L<Tags2(3pm)>,
-L<Tags2::Output::Core(3pm)>,
-L<Tags2::Output::ESIS(3pm)>,
-L<Tags2::Output::Indent(3pm)>,
-L<Tags2::Output::LibXML(3pm)>,
-L<Tags2::Output::PYX(3pm)>,
-L<Tags2::Output::Raw(3pm)>,
-L<Tags2::Output::SESIS(3pm)>.
+L<Tags(3pm)>,
+L<Tags::Output::Core(3pm)>,
+L<Tags::Output::ESIS(3pm)>,
+L<Tags::Output::Indent(3pm)>,
+L<Tags::Output::LibXML(3pm)>,
+L<Tags::Output::PYX(3pm)>,
+L<Tags::Output::Raw(3pm)>,
+L<Tags::Output::SESIS(3pm)>.
 
 =head1 AUTHOR
 
