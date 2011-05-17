@@ -1,4 +1,4 @@
-ackage Tags::Utils;
+package Tags::Utils;
 
 # Pragmas.
 use base qw(Exporter);
