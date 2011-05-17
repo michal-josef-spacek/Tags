@@ -155,7 +155,7 @@ L<Tags2::Output::SESIS(3pm)>.
 
 =head1 AUTHOR
 
-Michal Špaček L<tupinek@gmail.com>
+Michal Špaček L<skim@cpan.org>
 
 =head1 VERSION
 
