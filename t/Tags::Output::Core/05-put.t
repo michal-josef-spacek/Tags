@@ -1,3 +1,7 @@
+# Pragmas.
+use strict;
+use warnings;
+
 # Modules.
 use Tags2::Output::Core;
 use Test::More 'tests' => 1;
