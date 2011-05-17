@@ -1,9 +1,9 @@
 # Modules.
-use Tags2::Utils::Preserve;
+use Tags::Utils::Preserve;
 use Test::More 'tests' => 35;
 
 print "Testing: Preserving (begin(), end() and get() methods).\n";
-my $obj = Tags2::Utils::Preserve->new;
+my $obj = Tags::Utils::Preserve->new;
 my ($pre, $pre_pre) = $obj->get;
 is($pre, 0);
 is($pre_pre, 0);
@@ -14,7 +14,7 @@ is($pre_pre, 0);
 is($pre_pre, 0);
 is($pre, 0);
 
-$obj = Tags2::Utils::Preserve->new(
+$obj = Tags::Utils::Preserve->new(
 	'preserved' => ['tag'],
 );
 ($pre, $pre_pre) = $obj->get;

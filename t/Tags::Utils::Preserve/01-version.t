@@ -1,6 +1,6 @@
 # Modules.
-use Tags2::Utils::Preserve;
+use Tags::Utils::Preserve;
 use Test::More 'tests' => 1;
 
 print "Testing: Version.\n";
-is($Tags2::Utils::Preserve::VERSION, '0.01');
+is($Tags::Utils::Preserve::VERSION, '0.01');
