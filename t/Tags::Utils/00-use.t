@@ -2,6 +2,10 @@
 use Test::More 'tests' => 2;
 
 BEGIN {
+
+	# Test.
 	use_ok('Tags::Utils');
 }
+
+# Test.
 require_ok('Tags::Utils');
