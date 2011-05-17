@@ -135,8 +135,6 @@ Tags/Output/Core.pm
 Tags/Output/ESIS.pm
 Tags/Output/Indent.pm
 Tags/Output/Indent2.pm
-Tags/Output/LibXML.pm
-Tags/Output/PYX.pm
 Tags/Output/Raw.pm
 Tags/Output/SESIS.pm
 Tags/Process/EntitySubstitute.pm
