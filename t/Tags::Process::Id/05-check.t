@@ -1,10 +1,10 @@
 # Modules.
 use English qw(-no_match_vars);
-use Tags2::Process::Id;
+use Tags::Process::Id;
 use Test::More 'tests' => 4;
 
 print "Testing: check() method.\n";
-my $obj = Tags2::Process::Id->new;
+my $obj = Tags::Process::Id->new;
 eval {
 	$obj->check(
 		['b', 'tag'],
