@@ -1,4 +1,4 @@
-package Tags2::Process::Id;
+package Tags::Process::Id;
 
 # Pragmas.
 use strict;
@@ -31,11 +31,11 @@ sub new {
 	return $self;
 }
 
-# Check 'Tags2' structure opposit id attributes.
+# Check 'Tags' structure opposit id attributes.
 sub check {
 	my ($self, @data) = @_;
 
-	# For every 'Tags2' structure.
+	# For every 'Tags' structure.
 	foreach my $data (@data) {
 
 		# Begin of tag.
@@ -107,12 +107,12 @@ __END__
 
 =head1 NAME
 
- Tags2::Process::Id - Class to check id attributes.
+ Tags::Process::Id - Class to check id attributes.
 
 =head1 SYNOPSIS
 
- use Tags2::Process::Id;
- my $id = Tags2::Process::Id->new;
+ use Tags::Process::Id;
+ my $id = Tags::Process::Id->new;
  $id->check(
          ['b', 'tag'],
          ['a', 'id', 'id1'],
@@ -158,10 +158,10 @@ __END__
  use warnings;
 
  # Modules.
- use Tags2::Process::Id;
+ use Tags::Process::Id;
 
  # Object.
- my $id = Tags2::Process::Id->new;
+ my $id = Tags::Process::Id->new;
 
  # Check bad tag with two ids.
  $id->check(
@@ -171,7 +171,7 @@ __END__
  );
 
  # Output:
- # Tags2::Process::Id: Other id attribute in tag 'tag'.
+ # Tags::Process::Id: Other id attribute in tag 'tag'.
 
 =head1 EXAMPLE2
 
@@ -180,10 +180,10 @@ __END__
  use warnings;
 
  # Modules.
- use Tags2::Process::Id;
+ use Tags::Process::Id;
 
  # Object.
- my $id = Tags2::Process::Id->new;
+ my $id = Tags::Process::Id->new;
 
  # Check bad tag with two ids.
  $id->check(
@@ -196,7 +196,7 @@ __END__
  );
 
  # Output:
- # Tags2::Process::Id: Id attribute 'id1' in tag 'tag' is duplicit over structure.
+ # Tags::Process::Id: Id attribute 'id1' in tag 'tag' is duplicit over structure.
 
 =head1 DEPENDENCIES
 
@@ -206,9 +206,9 @@ L<List::MoreUtils(3pm)>.
 
 =head1 SEE ALSO
 
-L<Tags2(3pm)>,
-L<Tags2::Output::Core(3pm)>,
-L<Tags2::Output::Raw(3pm)>.
+L<Tags(3pm)>,
+L<Tags::Output::Core(3pm)>,
+L<Tags::Output::Raw(3pm)>.
 
 =head1 AUTHOR
 

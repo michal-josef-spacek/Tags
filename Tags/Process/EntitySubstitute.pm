@@ -1,4 +1,4 @@
-package Tags2::Process::EntitySubstitute;
+package Tags::Process::EntitySubstitute;
 
 # Pragmas.
 use encoding 'utf8';
@@ -132,7 +132,7 @@ __END__
 
 =head1 NAME
 
- Tags2::Process::EntitySubstitute - Class for entity substitute.
+ Tags::Process::EntitySubstitute - Class for entity substitute.
 
 =head1 SYNOPSIS
 
@@ -194,9 +194,9 @@ L<Error::Simple::Multiple(3pm)>.
 
 =head1 SEE ALSO
 
-L<Tags2(3pm)>,
-L<Tags2::Output::Core(3pm)>,
-L<Tags2::Output::Raw(3pm)>.
+L<Tags(3pm)>,
+L<Tags::Output::Core(3pm)>,
+L<Tags::Output::Raw(3pm)>.
 
 =head1 AUTHOR
 

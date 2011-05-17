@@ -1,4 +1,4 @@
-package Tags2::Process::Validator;
+package Tags::Process::Validator;
 
 # Pragmas.
 use strict;
@@ -287,12 +287,12 @@ __END__
 
 =head1 NAME
 
- Tags2::Process::Validator - Validator class for 'Tags2' structure.
+ Tags::Process::Validator - Validator class for 'Tags' structure.
 
 =head1 SYNOPSIS
 
- use Tags2::Process::Validator;
- my $v = Tags2::Process::Validator(%params);
+ use Tags::Process::Validator;
+ my $v = Tags::Process::Validator(%params);
  $v->check(@data);
  $v->check_one($data);
  $v->reset;
@@ -357,7 +357,7 @@ __END__
  use warnings;
 
  # Modules.
- use Tags2::Process::Validator;
+ use Tags::Process::Validator;
 
  TODO
 
@@ -368,9 +368,9 @@ L<Error::Simple::Multiple(3pm)>.
 
 =head1 SEE ALSO
 
-L<Tags2(3pm)>,
-L<Tags2::Output::Core(3pm)>,
-L<Tags2::Output::Raw(3pm)>.
+L<Tags(3pm)>,
+L<Tags::Output::Core(3pm)>,
+L<Tags::Output::Raw(3pm)>.
 
 =head1 AUTHOR
 
