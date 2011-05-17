@@ -6,6 +6,7 @@ use Test::More 'tests' => 2;
 # Include helpers.
 do File::Object->new->up->file('get_stdout.inc')->serialize;
 
+# Test.
 my $obj = Tags::Output::Raw->new(
 	'output_handler' => \*STDOUT,
 	'xml' => 0,
@@ -13,6 +14,7 @@ my $obj = Tags::Output::Raw->new(
 my $ret = get_stdout($obj, 1, ['b', 'MAIN'], ['d', 'data'], ['e', 'MAIN']);
 is($ret, '<MAIN>data</MAIN>');
 
+# Test.
 $obj = Tags::Output::Raw->new(
 	'auto_flush' => 1,
 	'output_handler' => \*STDOUT,

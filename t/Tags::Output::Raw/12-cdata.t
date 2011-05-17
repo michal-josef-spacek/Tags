@@ -3,6 +3,7 @@ use English qw(-no_match_vars);
 use Tags::Output::Raw;
 use Test::More 'tests' => 2;
 
+# Test.
 my $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
@@ -15,6 +16,7 @@ my $ret = $obj->flush;
 my $right_ret = '<tag><![CDATA[aaaaa<dddd>dddd]]></tag>';
 is($ret, $right_ret);
 
+# Test.
 $obj->reset;
 eval {
 	$obj->put(

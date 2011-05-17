@@ -2,6 +2,7 @@
 use Tags::Output::Raw;
 use Test::More 'tests' => 7;
 
+# Test.
 my $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
@@ -15,6 +16,7 @@ END
 chomp $right_ret;
 is($ret, $right_ret);
 
+# Test.
 $obj->reset;
 $obj->put(
 	['b', 'tag'],
@@ -28,6 +30,7 @@ END
 chomp $right_ret;
 is($ret, $right_ret);
 
+# Test.
 $obj->reset;
 $obj->put(
 	['b', 'tag'],
@@ -43,6 +46,7 @@ END
 chomp $right_ret;
 is($ret, $right_ret);
 
+# Test.
 $obj->reset;
 $obj->put(
 	['b', 'tag'],
@@ -60,6 +64,7 @@ END
 chomp $right_ret;
 is($ret, $right_ret);
 
+# Test.
 $obj->reset;
 $obj->put(
 	['b', 'tag'],
@@ -72,6 +77,7 @@ $ret = $obj->flush;
 $right_ret = '<tag><![CDATA[bla]]></tag>';
 is($ret, $right_ret);
 
+# Test.
 $obj->reset;
 $obj->put(
 	['b', 'tag'],
@@ -85,6 +91,7 @@ $ret = $obj->flush;
 $right_ret = '<tag key="val"><![CDATA[bla]]></tag>';
 is($ret, $right_ret);
 
+# Test.
 $obj->reset;
 $obj->put(
 	['b', 'tag'],

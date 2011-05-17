@@ -2,6 +2,7 @@
 use Tags::Output::Raw;
 use Test::More 'tests' => 3;
 
+# Test.
 my $obj = Tags::Output::Raw->new;
 $obj->put(
 	['i', 'perl', 'print "1\n";'],
@@ -9,6 +10,7 @@ $obj->put(
 my $ret = $obj->flush;
 is($ret, '<?perl print "1\n";?>');
 
+# Test.
 $obj->reset;
 $obj->put(
 	['i', 'perl'],
@@ -16,6 +18,7 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<?perl?>');
 
+# Test.
 $obj->reset;
 $obj->put(
 	['b', 'tag'],

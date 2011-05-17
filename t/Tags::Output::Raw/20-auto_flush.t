@@ -4,6 +4,7 @@ use IO::Scalar;
 use Tags::Output::Raw;
 use Test::More 'tests' => 5;
 
+# Test.
 my $obj = Tags::Output::Raw->new(
 	'auto_flush' => 1,
 	'output_handler' => \*STDOUT,
@@ -18,6 +19,7 @@ $obj->put(
 untie *STDOUT;
 is($ret, '<tag />');
 
+# Test.
 $obj->reset;
 undef $ret;
 tie *STDOUT, 'IO::Scalar', \$ret;
@@ -26,6 +28,7 @@ $obj->put(['e', 'tag']);
 untie *STDOUT;
 is($ret, '<tag />');
 
+# Test.
 $obj->reset;
 undef $ret;
 tie *STDOUT, 'IO::Scalar', \$ret;
@@ -37,6 +40,7 @@ $obj->put(
 untie *STDOUT;
 is($ret, '<tag>data</tag>');
 
+# Test.
 $obj->reset;
 undef $ret;
 tie *STDOUT, 'IO::Scalar', \$ret;
@@ -50,6 +54,7 @@ $obj->put(
 untie *STDOUT;
 is($ret, '<tag><other_tag>data</other_tag></tag>');
 
+# Test.
 $obj->reset;
 undef $ret;
 tie *STDOUT, 'IO::Scalar', \$ret;

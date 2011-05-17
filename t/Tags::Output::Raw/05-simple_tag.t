@@ -2,6 +2,7 @@
 use Tags::Output::Raw;
 use Test::More 'tests' => 10;
 
+# Test.
 my $obj = Tags::Output::Raw->new(
 	'xml' => 0,
 );
@@ -12,6 +13,7 @@ $obj->put(
 my $ret = $obj->flush;
 is($ret, '<MAIN></MAIN>');
 
+# Test.
 $obj->reset;
 $obj->put(
 	['b', 'MAIN'],
@@ -32,6 +34,7 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<MAIN id=\'id_value\'></MAIN>');
 
+# Test.
 $obj = Tags::Output::Raw->new(
 	'xml' => 0,
 );
@@ -60,6 +63,7 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<MAIN id=\'id_value\'></MAIN><MAIN id=\'id_value2\'></MAIN>');
 
+# Test.
 $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
@@ -70,6 +74,7 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<main />');
 
+# Test.
 $obj->reset;
 $obj->put(
 	['b', 'main'],
@@ -90,6 +95,7 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<main id=\'id_value\' />');
 
+# Test.
 $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );

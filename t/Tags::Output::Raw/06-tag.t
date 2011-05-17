@@ -2,6 +2,7 @@
 use Tags::Output::Raw;
 use Test::More 'tests' => 11;
 
+# Test.
 my $obj = Tags::Output::Raw->new(
 	'xml' => 0,
 );
@@ -13,6 +14,7 @@ $obj->put(
 my $ret = $obj->flush;
 is($ret, '<MAIN>data</MAIN>');
 
+# Test.
 $obj->reset;
 $obj->put(
 	['b', 'TAG'], 
@@ -22,6 +24,7 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<TAG><TAG2></TAG>');
 
+# Test.
 $obj = Tags::Output::Raw->new(
 	'xml' => 0,
 );
@@ -34,6 +37,7 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<MAIN id="id_value">data</MAIN>');
 
+# Test.
 $obj = Tags::Output::Raw->new(
 	'xml' => 0,
 );
@@ -46,6 +50,7 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<MAIN disabled>data</MAIN>');
 
+# Test.
 $obj = Tags::Output::Raw->new(
 	'xml' => 0,
 );
@@ -62,6 +67,7 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<MAIN id="id_value">data</MAIN><MAIN id="id_value2">data</MAIN>');
 
+# Test.
 $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
@@ -73,6 +79,7 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<main>data</main>');
 
+# Test.
 $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
@@ -85,6 +92,7 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<main id="id_value">data</main>');
 
+# Test.
 $obj->reset;
 $obj->put(
 	['b', 'main'], 
@@ -95,6 +103,7 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<main id="0">data</main>');
 
+# Test.
 $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
@@ -111,6 +120,7 @@ $obj->put(
 $ret = $obj->flush;
 is($ret, '<main id="id_value">data</main><main id="id_value2">data</main>');
 
+# Test.
 my $long_data = 'a' x 1000;
 $obj = Tags::Output::Raw->new;
 $obj->put(
@@ -125,6 +135,7 @@ END
 chomp $right_ret;
 is($ret, $right_ret);
 
+# Test.
 $long_data = 'aaaa ' x 1000;
 $obj = Tags::Output::Raw->new;
 $obj->put(
