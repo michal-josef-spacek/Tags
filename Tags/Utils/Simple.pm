@@ -1,4 +1,4 @@
-package Tags2::Utils::Simple;
+package Tags::Utils::Simple;
 
 # Pragmas.
 use base qw(Exporter);
@@ -25,16 +25,16 @@ our $VERSION = 0.01;
 # Register tags object to this module.
 sub register {
 	my $tags_obj = shift;
-	if (! $tags_obj || (! $tags_obj->isa('Tags2::Output::Core')
-		&& ! $tags_obj->isa('Tags2::Output::ESIS')
-		&& ! $tags_obj->isa('Tags2::Output::Indent')
-		&& ! $tags_obj->isa('Tags2::Output::Indent2')
-		&& ! $tags_obj->isa('Tags2::Output::LibXML')
-		&& ! $tags_obj->isa('Tags2::Output::PYX')
-		&& ! $tags_obj->isa('Tags2::Output::Raw')
-		&& ! $tags_obj->isa('Tags2::Output::SESIS'))) {
+	if (! $tags_obj || (! $tags_obj->isa('Tags::Output::Core')
+		&& ! $tags_obj->isa('Tags::Output::ESIS')
+		&& ! $tags_obj->isa('Tags::Output::Indent')
+		&& ! $tags_obj->isa('Tags::Output::Indent2')
+		&& ! $tags_obj->isa('Tags::Output::LibXML')
+		&& ! $tags_obj->isa('Tags::Output::PYX')
+		&& ! $tags_obj->isa('Tags::Output::Raw')
+		&& ! $tags_obj->isa('Tags::Output::SESIS'))) {
 
-		err "Bad Tags2 object.\n";
+		err "Bad Tags object.\n";
 	}
 	$TAGS_OBJ = $tags_obj;
 }
@@ -144,14 +144,14 @@ L<Exporter(3pm)>.
 
 =head1 SEE ALSO
 
-L<Tags2(3pm)>,
-L<Tags2::Output::Core(3pm)>,
-L<Tags2::Output::ESIS(3pm)>,
-L<Tags2::Output::Indent(3pm)>,
-L<Tags2::Output::LibXML(3pm)>,
-L<Tags2::Output::PYX(3pm)>,
-L<Tags2::Output::Raw(3pm)>,
-L<Tags2::Output::SESIS(3pm)>.
+L<Tags(3pm)>,
+L<Tags::Output::Core(3pm)>,
+L<Tags::Output::ESIS(3pm)>,
+L<Tags::Output::Indent(3pm)>,
+L<Tags::Output::LibXML(3pm)>,
+L<Tags::Output::PYX(3pm)>,
+L<Tags::Output::Raw(3pm)>,
+L<Tags::Output::SESIS(3pm)>.
 
 =head1 AUTHOR
 
