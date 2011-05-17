@@ -2,6 +2,7 @@
 use Tags::Utils::Preserve;
 use Test::More 'tests' => 35;
 
+# Test.
 my $obj = Tags::Utils::Preserve->new;
 my ($pre, $pre_pre) = $obj->get;
 is($pre, 0);
@@ -13,6 +14,7 @@ is($pre_pre, 0);
 is($pre_pre, 0);
 is($pre, 0);
 
+# Test.
 $obj = Tags::Utils::Preserve->new(
 	'preserved' => ['tag'],
 );
@@ -38,6 +40,7 @@ is($pre_pre, 1);
 is($pre, 0);
 is($pre_pre, 0);
 
+# Test.
 $obj->reset;
 $pre = $obj->get;
 is($pre, 0);
@@ -54,6 +57,7 @@ is($pre, 0);
 $pre = $obj->end('other_tag');
 is($pre, 0);
 
+# Test.
 $obj->reset;
 $obj->begin('other_tag');
 $obj->begin('tag');
@@ -66,6 +70,7 @@ $obj->reset;
 is($pre, 0);
 is($pre_pre, 0);
 
+# Test.
 $obj->reset;
 $obj->begin('other_tag');
 ($pre, $pre_pre) = $obj->begin('tag');
