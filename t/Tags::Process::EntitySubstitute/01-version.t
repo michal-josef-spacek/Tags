@@ -1,6 +1,10 @@
+# Pragmas.
+use strict;
+use warnings;
+
 # Modules.
-use Tags2::Process::EntitySubstitute;
+use Tags::Process::EntitySubstitute;
 use Test::More 'tests' => 1;
 
-print "Testing: Version.\n";
-is($Tags2::Process::EntitySubstitute::VERSION, '0.01');
+# Test.
+is($Tags::Process::EntitySubstitute::VERSION, '0.01', 'Version.');
