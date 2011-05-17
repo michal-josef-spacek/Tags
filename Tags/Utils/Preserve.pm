@@ -5,6 +5,7 @@ use strict;
 use warnings;
 
 # Modules.
+use Class::Utils qw(set_params);
 use Error::Simple::Multiple qw(err);
 use List::MoreUtils qw(any);
 use Readonly;
@@ -24,12 +25,7 @@ sub new {
 	$self->{'preserved'} = [];
 
 	# Process params.
-	while (@params) {
-		my $key = shift @params;
-		my $val = shift @params;
-		err "Bad parameter '$key'." if ! exists $self->{$key};
-		$self->{$key} = $val;
-	}
+	set_params($self, @params);
 
 	# Initialization.
 	$self->reset;
@@ -164,7 +160,11 @@ __END__
 
 =head1 ERRORS
 
- TODO
+ Mine:
+         TODO
+ 
+ From Class::Utils::set_params():
+         Unknown parameter '%s'.
 
 =head1 EXAMPLE
 
@@ -172,6 +172,7 @@ __END__
 
 =head1 DEPENDENCIES
 
+L<Class::Utils(3pm)>,
 L<Error::Simple::Multiple(3pm)>,
 L<List::MoreUtils(3pm)>,
 L<Readonly(3pm)>.
