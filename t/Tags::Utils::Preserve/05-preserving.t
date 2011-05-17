@@ -2,7 +2,6 @@
 use Tags::Utils::Preserve;
 use Test::More 'tests' => 35;
 
-print "Testing: Preserving (begin(), end() and get() methods).\n";
 my $obj = Tags::Utils::Preserve->new;
 my ($pre, $pre_pre) = $obj->get;
 is($pre, 0);
@@ -55,7 +54,6 @@ is($pre, 0);
 $pre = $obj->end('other_tag');
 is($pre, 0);
 
-print "Testing: reset() method.\n";
 $obj->reset;
 $obj->begin('other_tag');
 $obj->begin('tag');
@@ -68,7 +66,6 @@ $obj->reset;
 is($pre, 0);
 is($pre_pre, 0);
 
-print "Testing: save_previous() method.\n";
 $obj->reset;
 $obj->begin('other_tag');
 ($pre, $pre_pre) = $obj->begin('tag');
