@@ -2,6 +2,7 @@
 use Tags2::Output::Core;
 use Test::More 'tests' => 1;
 
+# Test.
 my $obj = Tags2::Output::Core->new;
 $obj->put(
 	['a', 'key', 'val'],
