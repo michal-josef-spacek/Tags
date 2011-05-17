@@ -1,14 +1,14 @@
 # Modules.
 use English qw(-no_match_vars);
 use File::Object;
-use Tags2::Process::Validator;
+use Tags::Process::Validator;
 use Test::More 'tests' => 9;
 
 # Directories.
 my $dtd_dir = File::Object->new->up->dir('dtd')->serialize;
 
 print "Testing: Validation errors.\n";
-my $obj = Tags2::Process::Validator->new('dtd_file' => "$dtd_dir/test3.dtd");
+my $obj = Tags::Process::Validator->new('dtd_file' => "$dtd_dir/test3.dtd");
 eval {
 	$obj->check_one(['b', 'foo']);
 };
@@ -66,7 +66,7 @@ is($EVAL_ERROR, "Bad value 'foo' of attribute 'xml:space' at tag 'CHILD1'.\n");
 #};
 #is($EVAL_ERROR, "Missing tag 'CHILD1' at tag 'MAIN'.\n");
 
-$obj = Tags2::Process::Validator->new('dtd_file' => "$dtd_dir/test10.dtd");
+$obj = Tags::Process::Validator->new('dtd_file' => "$dtd_dir/test10.dtd");
 $obj->check_one(['b', 'MAIN']);
 eval {
 	$obj->check_one(['b', 'CHILD1']);

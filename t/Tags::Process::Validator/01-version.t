@@ -1,6 +1,6 @@
 # Modules.
-use Tags2::Process::Validator;
+use Tags::Process::Validator;
 use Test::More 'tests' => 1;
 
 print "Testing: Version.\n";
-is($Tags2::Process::Validator::VERSION, '0.01');
+is($Tags::Process::Validator::VERSION, '0.01');

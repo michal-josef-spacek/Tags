@@ -1,13 +1,13 @@
 # Modules.
 use File::Object;
-use Tags2::Process::Validator;
+use Tags::Process::Validator;
 use Test::More 'tests' => 47;
 
 # Directories.
 my $dtd_dir = File::Object->new->up->dir('dtd')->serialize;
 
 print "Testing: Validation errors.\n";
-my $obj = Tags2::Process::Validator->new('dtd_file' => "$dtd_dir/test1.dtd");
+my $obj = Tags::Process::Validator->new('dtd_file' => "$dtd_dir/test1.dtd");
 is_deeply(
 	$obj->{'printed'},
 	[],
@@ -39,7 +39,7 @@ is_deeply(
 	[],
 );
 
-$obj = Tags2::Process::Validator->new('dtd_file' => "$dtd_dir/test2.dtd");
+$obj = Tags::Process::Validator->new('dtd_file' => "$dtd_dir/test2.dtd");
 is_deeply(
 	$obj->{'printed'},
 	[],
@@ -114,7 +114,7 @@ is_deeply(
 	[],
 );
 
-$obj = Tags2::Process::Validator->new('dtd_file' => "$dtd_dir/test3.dtd");
+$obj = Tags::Process::Validator->new('dtd_file' => "$dtd_dir/test3.dtd");
 is_deeply(
 	$obj->{'printed'},
 	[],
@@ -169,7 +169,7 @@ is_deeply(
 	[],
 );
 
-$obj = Tags2::Process::Validator->new('dtd_file' => "$dtd_dir/test4.dtd");
+$obj = Tags::Process::Validator->new('dtd_file' => "$dtd_dir/test4.dtd");
 is_deeply(
 	$obj->{'printed'},
 	[],
@@ -194,7 +194,7 @@ is_deeply(
 	[],
 );
 
-$obj = Tags2::Process::Validator->new('dtd_file' => "$dtd_dir/test5.dtd");
+$obj = Tags::Process::Validator->new('dtd_file' => "$dtd_dir/test5.dtd");
 is_deeply(
 	$obj->{'printed'},
 	[],
@@ -223,7 +223,7 @@ is_deeply(
 	[],
 );
 
-$obj = Tags2::Process::Validator->new('dtd_file' => "$dtd_dir/test6.dtd");
+$obj = Tags::Process::Validator->new('dtd_file' => "$dtd_dir/test6.dtd");
 is_deeply(
 	$obj->{'printed'},
 	[],
