@@ -3,7 +3,6 @@ use English qw(-no_match_vars);
 use Tags::Process::Id;
 use Test::More 'tests' => 4;
 
-print "Testing: check() method.\n";
 my $obj = Tags::Process::Id->new;
 eval {
 	$obj->check(
