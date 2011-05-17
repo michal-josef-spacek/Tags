@@ -1,7 +1,7 @@
 # Modules.
 use English qw(-no_match_vars);
 use Tags::Process::Id;
-use Test::More 'tests' => 4;
+use Test::More 'tests' => 3;
 
 eval {
 	Tags::Process::Id->new('');
@@ -14,5 +14,4 @@ eval {
 is($EVAL_ERROR, "Unknown parameter 'something'.\n");
 
 my $obj = Tags::Process::Id->new;
-ok(defined $obj);
-ok($obj->isa('Tags::Process::Id'));
+isa_ok($obj, 'Tags::Process::Id');
