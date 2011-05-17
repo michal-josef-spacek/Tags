@@ -38,13 +38,7 @@
 =head1 SEE ALSO
 
 L<Tags::Output::Core(3pm)>,
-L<Tags::Output::ESIS(3pm)>,
-L<Tags::Output::Indent(3pm)>,
-L<Tags::Output::Indent2(3pm)>,
-L<Tags::Output::LibXML(3pm)>,
-L<Tags::Output::PYX(3pm)>,
 L<Tags::Output::Raw(3pm)>,
-L<Tags::Output::SESIS(3pm)>,
 L<Tags::Process::EntitySubstitute(3pm)>,
 L<Tags::Process::Id(3pm)>,
 L<Tags::Process::Validator(3pm)>,
