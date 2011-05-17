@@ -13,7 +13,8 @@ WriteMakefile(
 	},
 	'VERSION' => 0.01,
 	'test' => {
-		'TESTS' => 't/Tags::Output::Core/*.t '.
+		'TESTS' => 't/Tags/*.t '.
+			't/Tags::Output::Core/*.t '.
 			't/Tags::Output::Raw/*.t '.
 			't/Tags::Process::EntitySubstitute/*.t '.
 			't/Tags::Process::Id/*.t '.
