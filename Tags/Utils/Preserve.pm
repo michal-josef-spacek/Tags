@@ -1,4 +1,4 @@
-package Tags2::Utils::Preserve;
+package Tags::Utils::Preserve;
 
 # Pragmas.
 use strict;
@@ -112,12 +112,12 @@ __END__
 
 =head1 NAME
 
- Tags2::Utils::Preserve - TODO
+ Tags::Utils::Preserve - TODO
 
 =head1 SYNOPSIS
 
- use Tags2::Utils::Preserve;
- my $t = Tags2::Utils::Preserve->new(%params);
+ use Tags::Utils::Preserve;
+ my $t = Tags::Utils::Preserve->new(%params);
  # TODO
 
 =head1 METHODS
@@ -179,15 +179,15 @@ L<Readonly(3pm)>.
 
 =head1 SEE ALSO
 
-L<Tags2(3pm)>,
-L<Tags2::Output::Core(3pm)>,
-L<Tags2::Output::ESIS(3pm)>,
-L<Tags2::Output::Indent(3pm)>,
-L<Tags2::Output::LibXML(3pm)>,
-L<Tags2::Output::PYX(3pm)>,
-L<Tags2::Output::Raw(3pm)>,
-L<Tags2::Output::SESIS(3pm)>,
-L<Tags2::Utils(3pm)>.
+L<Tags(3pm)>,
+L<Tags::Output::Core(3pm)>,
+L<Tags::Output::ESIS(3pm)>,
+L<Tags::Output::Indent(3pm)>,
+L<Tags::Output::LibXML(3pm)>,
+L<Tags::Output::PYX(3pm)>,
+L<Tags::Output::Raw(3pm)>,
+L<Tags::Output::SESIS(3pm)>,
+L<Tags::Utils(3pm)>.
 
 =head1 AUTHOR
 
