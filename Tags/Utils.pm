@@ -6,7 +6,7 @@ use strict;
 use warnings;
 
 # Modules.
-use Error::Simple::Multiple qw(err);
+use Error::Pure qw(err);
 use HTML::Entities;
 use Readonly;
 
@@ -170,7 +170,7 @@ __END__
 =head1 DEPENDENCIES
 
 L<HTML::Entities(3pm)>,
-L<Error::Simple::Multiple(3pm)>,
+L<Error::Pure(3pm)>,
 L<Readonly(3pm)>.
 
 =head1 SEE ALSO

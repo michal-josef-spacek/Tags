@@ -7,7 +7,7 @@ use warnings;
 
 # Modules.
 use Class::Utils qw(set_params);
-use Error::Simple::Multiple qw(err);
+use Error::Pure qw(err);
 use List::MoreUtils qw(any);
 
 # Version.
@@ -190,7 +190,7 @@ __END__
 
 =head1 DEPENDENCIES
 
-L<Error::Simple::Multiple(3pm)>.
+L<Error::Pure(3pm)>.
 
 =head1 SEE ALSO
 
