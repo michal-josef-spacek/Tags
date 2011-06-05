@@ -365,12 +365,12 @@ __END__
 =head1 SYNOPSIS
 
  use Tags::Output::Raw;
- my $tags2 = Tags::Output::Raw->new(%params);
- $tags2->put(['b', 'tag']);
- my @open_tags = $tags2->open_tags;
- $tags2->finalize;
- $tags2->flush;
- $tags2->reset;
+ my $tags = Tags::Output::Raw->new(%params);
+ $tags->put(['b', 'tag']);
+ my @open_tags = $tags->open_tags;
+ $tags->finalize;
+ $tags->flush;
+ $tags->reset;
 
 =head1 METHODS
 
@@ -398,11 +398,11 @@ __END__
  Example:
  Prints <tag attr='val' /> instead default <tag attr="val" />
 
- my $tags2 = Tags::Output::Raw->new(
+ my $tags = Tags::Output::Raw->new(
          'attr_delimeter' => "'",
  );
- $tags2->put(['b', 'tag'], ['a', 'attr', 'val'], ['e', 'tag']);
- $tags2->flush;
+ $tags->put(['b', 'tag'], ['a', 'attr', 'val'], ['e', 'tag']);
+ $tags->flush;
 
 =item * C<auto_flush>
 
@@ -442,11 +442,11 @@ __END__
  That's normal in html pages, web browsers has problem with <script /> tag.
  Prints <script></script> instead <script />.
 
- my $tags2 = Tags::Output::Raw->new(
+ my $tags = Tags::Output::Raw->new(
          'no_simple' => ['script'],
  );
- $tags2->put(['b', 'script'], ['e', 'script']);
- $tags2->flush;
+ $tags->put(['b', 'script'], ['e', 'script']);
+ $tags->flush;
 
 =item * C<output_callback>
 
@@ -503,7 +503,7 @@ __END__
 
 =item C<put(@data)>
 
- Put tags code in tags2 format.
+ Put tags code in tags format.
 
 =item C<reset()>
 
@@ -528,17 +528,17 @@ __END__
  use Tags::Output::Raw;
 
  # Object.
- my $tags2 = Tags::Output::Raw->new;
+ my $tags = Tags::Output::Raw->new;
 
  # Put data.
- $tags2->put(
+ $tags->put(
          ['b', 'text'],
 	 ['d', 'data'],
 	 ['e', 'text'],
  );
 
  # Print.
- print $tags2->flush."\n";
+ print $tags->flush."\n";
 
  # Output:
  # <text>data</text>
@@ -554,7 +554,7 @@ __END__
  use Tags::Output::Raw;
 
  # Object.
- my $tags2 = Tags::Output::Raw->new(
+ my $tags = Tags::Output::Raw->new(
          'data_callback' => sub {
 	         my $data_ar = shift;
 		 foreach my $data (@{$data_ar}) {
@@ -568,14 +568,14 @@ __END__
  my $data = decode_utf8('řčěšřšč');
 
  # Put data.
- $tags2->put(
+ $tags->put(
          ['b', 'text'],
 	 ['d', $data],
 	 ['e', 'text'],
  );
 
  # Print.
- print $tags2->flush."\n";
+ print $tags->flush."\n";
 
  # Output:
  # <text>řčěšřšč</text>

@@ -133,7 +133,7 @@ __END__
 
 =item C<check(@data)>
 
- Check tags2 structure.
+ Check tags structure.
  If is structure bad, turn error.
 
 =item C<reset()>
