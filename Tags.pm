@@ -57,6 +57,10 @@ L<Tags::Utils::Preserve(3pm)>.
 
 Michal Špaček L<skim@cpan.org>
 
+=head1 LICENSE AND COPYRIGHT
+
+BSD license.
+
 =head1 VERSION 
 
 0.01
