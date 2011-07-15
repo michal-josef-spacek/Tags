@@ -15,7 +15,7 @@ our $VERSION = 0.01;
 
 =head1 NAME
 
- Tags - Overview about 'Tags' classes.
+ Tags - Structure oriented SGML/XML/HTML/etc. elements manipulation.
 
 =head1 STRUCTURE
 
