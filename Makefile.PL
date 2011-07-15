@@ -3,28 +3,30 @@ use strict;
 use warnings;
 
 # Modules.
-use ExtUtils::MakeMaker;
+use inc::Module::Install;
 
 # Definition.
-WriteMakefile(
-	'AUTHOR' => 'Michal Špaček <skim@cpan.org>',
-	'LICENSE' => 'bsd',
-	'NAME' => 'Tags',
-	'PREREQ_PM' => {
-		'Class::Utils' => 0.01,
-		'Error::Pure' => 0.01,
-		'File::Object' => 0,
-		'Readonly' => 0,
-	},
-	'VERSION' => 0.01,
-	'test' => {
-		'TESTS' => 't/Tags/*.t '.
-			't/Tags::Output::Core/*.t '.
-			't/Tags::Output::Raw/*.t '.
-			't/Tags::Process::EntitySubstitute/*.t '.
-			't/Tags::Process::Id/*.t '.
-			't/Tags::Process::Validator/*.t '.
-			't/Tags::Utils/*.t '.
-			't/Tags::Utils::Preserve/*.t',
-	},
-);
+abstract 'Structure oriented SGML/XML/HTML/etc. elements manipulation.';
+author 'Michal Špaček <skim@cpan.org>';
+license 'bsd';
+name 'Tags';
+requires 'Class::Utils' => 0.01;
+requires 'HTML::Entities' => 0;
+requires 'Error::Pure' => 0.01;
+requires 'Exporter' => 0;
+requires 'Readonly' => 0;
+resources 'repository' => {
+	'url' => 'git://github.com/tupinek/Tags',
+	'web' => 'https://github.com/tupinek/Tags',
+	'type' => 'git',
+};
+test_requires 'File::Object' => 0.01;
+test_requires 'English' => 0;
+test_requires 'Test::More' => 0;
+test_requires 'Test::Pod' => 0;
+test_requires 'Test::Pod::Coverage' => 0;
+tests_recursive;
+version '0.01';
+
+# Run.
+WriteAll();
