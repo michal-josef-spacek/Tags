@@ -367,14 +367,14 @@ __END__
 
 =head1 DEPENDENCIES
 
-L<Class::Utils(3pm)>,
-L<Error::Pure(3pm)>.
+L<Class::Utils>,
+L<Error::Pure>.
 
 =head1 SEE ALSO
 
-L<Tags(3pm)>,
-L<Tags::Output::Raw(3pm)>,
-L<Tags::Utils(3pm)>.
+L<Tags>,
+L<Tags::Output::Raw>,
+L<Tags::Utils>.
 
 =head1 AUTHOR
 

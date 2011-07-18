@@ -172,22 +172,22 @@ __END__
 
 =head1 DEPENDENCIES
 
-L<Class::Utils(3pm)>,
-L<Error::Pure(3pm)>,
-L<List::MoreUtils(3pm)>,
-L<Readonly(3pm)>.
+L<Class::Utils>,
+L<Error::Pure>,
+L<List::MoreUtils>,
+L<Readonly>.
 
 =head1 SEE ALSO
 
-L<Tags(3pm)>,
-L<Tags::Output::Core(3pm)>,
-L<Tags::Output::ESIS(3pm)>,
-L<Tags::Output::Indent(3pm)>,
-L<Tags::Output::LibXML(3pm)>,
-L<Tags::Output::PYX(3pm)>,
-L<Tags::Output::Raw(3pm)>,
-L<Tags::Output::SESIS(3pm)>,
-L<Tags::Utils(3pm)>.
+L<Tags>,
+L<Tags::Output::Core>,
+L<Tags::Output::ESIS>,
+L<Tags::Output::Indent>,
+L<Tags::Output::LibXML>,
+L<Tags::Output::PYX>,
+L<Tags::Output::Raw>,
+L<Tags::Output::SESIS>,
+L<Tags::Utils>.
 
 =head1 AUTHOR
 

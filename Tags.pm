@@ -46,12 +46,12 @@ our $VERSION = 0.01;
 
 =head1 SEE ALSO
 
-L<Tags::Output::Core(3pm)>,
-L<Tags::Output::Raw(3pm)>,
-L<Tags::Process::EntitySubstitute(3pm)>,
-L<Tags::Process::Id(3pm)>,
-L<Tags::Process::Validator(3pm)>,
-L<Tags::Utils::Preserve(3pm)>.
+L<Tags::Output::Core>,
+L<Tags::Output::Raw>,
+L<Tags::Process::EntitySubstitute>,
+L<Tags::Process::Id>,
+L<Tags::Process::Validator>,
+L<Tags::Utils::Preserve>.
 
 =head1 AUTHOR
 
