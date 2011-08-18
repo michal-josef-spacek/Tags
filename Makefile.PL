@@ -11,9 +11,9 @@ author 'Michal Špaček <skim@cpan.org>';
 license 'bsd';
 name 'Tags';
 requires 'Class::Utils' => 0.01;
-requires 'HTML::Entities' => 0;
 requires 'Error::Pure' => 0.01;
 requires 'Exporter' => 0;
+requires 'HTML::Entities' => 0;
 requires 'Readonly' => 0;
 resources 'repository' => {
 	'url' => 'git://github.com/tupinek/Tags',
