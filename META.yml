@@ -23,8 +23,8 @@ no_index:
     - inc
     - t
 requires:
-  Class::Utils: 0.01
-  Error::Pure: 0.01
+  Class::Utils: 0.02
+  Error::Pure: 0.05
   Exporter: 0
   HTML::Entities: 0
   Readonly: 0

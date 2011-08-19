@@ -10,7 +10,7 @@ abstract 'Structure oriented SGML/XML/HTML/etc. elements manipulation.';
 author 'Michal Špaček <skim@cpan.org>';
 license 'bsd';
 name 'Tags';
-requires 'Class::Utils' => 0.03;
+requires 'Class::Utils' => 0.02;
 requires 'Error::Pure' => 0.05;
 requires 'Exporter' => 0;
 requires 'HTML::Entities' => 0;
