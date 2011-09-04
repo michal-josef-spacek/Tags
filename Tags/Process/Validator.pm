@@ -376,6 +376,8 @@ L<Tags::Output::Raw>.
 
 Michal Špaček L<skim@cpan.org>
 
+L<http://skim.cz>
+
 =head1 LICENSE AND COPYRIGHT
 
 BSD license.
