@@ -41,13 +41,6 @@ t/Tags-Output-Raw/17-finalize.t
 t/Tags-Output-Raw/18-open_tags.t
 t/Tags-Output-Raw/19-skip_bad_tags.t
 t/Tags-Output-Raw/20-auto_flush.t
-t/Tags-Process-Validator/00-use.t
-t/Tags-Process-Validator/01-version.t
-t/Tags-Process-Validator/02-pod_coverage.t
-t/Tags-Process-Validator/03-pod.t
-t/Tags-Process-Validator/04-new.t
-t/Tags-Process-Validator/05-validation_errors.t
-t/Tags-Process-Validator/06-correct.t
 t/Tags-Utils/00-use.t
 t/Tags-Utils/01-version.t
 t/Tags-Utils/02-pod_coverage.t
@@ -64,6 +57,5 @@ t/Tags-Utils-Preserve/05-preserving.t
 Tags.pm
 Tags/Output/Core.pm
 Tags/Output/Raw.pm
-Tags/Process/Validator.pm
 Tags/Utils.pm
 Tags/Utils/Preserve.pm
