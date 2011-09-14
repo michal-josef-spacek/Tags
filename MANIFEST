@@ -28,7 +28,7 @@ t/Tags-Output-Raw/04-new.t
 t/Tags-Output-Raw/05-simple_tag.t
 t/Tags-Output-Raw/06-tag.t
 t/Tags-Output-Raw/07-preserve_from_attribute.t
-t/Tags-Output-Raw/08-preserve_from_new.t
+t/Tags-Output-Raw/08-preserve_from_constructor.t
 t/Tags-Output-Raw/09-comment.t
 t/Tags-Output-Raw/10-no_simple.t
 t/Tags-Output-Raw/11-raw.t
