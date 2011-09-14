@@ -114,14 +114,11 @@ __END__
 
 =head1 ERRORS
 
- encode_newline():
-   None.
-
  encode_attr_entities():
-   Reference '%s' doesn't supported.
+         Reference '%s' doesn't supported.
 
  encode_char_entities():
-   Reference '%s' doesn't supported.
+         Reference '%s' doesn't supported.
 
 =head1 EXAMPLE1
 
