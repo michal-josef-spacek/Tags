@@ -138,7 +138,10 @@ __END__
  # Encode newlines.
  my $out = encode_newline($text);
 
- # In $out:
+ # Print out.
+ print $out."\n";
+
+ # Output:
  # foo\nbar\n
 
 =head1 EXAMPLE2
@@ -148,21 +151,24 @@ __END__
  use warnings;
 
  # Modules.
+ use Dumpvalue;
  use Tags::Utils qw(encode_attr_entities);
 
  # Input data.
- my @data = ('&', '<', "\240", '&nbsp;');
+ my @data = ('&', '<', '"');
 
  # Encode.
  encode_attr_entities(\@data);
 
- # In @data:
- # (
- #         '&amp;',
- #         '&lt;',
- #         '&nbsp;',
- #         '&nbsp;',
- # )
+ # Dump out.
+ my $dump = Dumpvalue->new;
+ $dump->dumpValues(\@data);
+
+ # Output:
+ # 0  ARRAY(0x8b8f428)
+ #    0  '&amp;'
+ #    1  '&lt;'
+ #    2  '&quot;'
 
 =head1 DEPENDENCIES
 
