@@ -53,9 +53,15 @@ L<Tags::Process::Id>,
 L<Tags::Process::Validator>,
 L<Tags::Utils::Preserve>.
 
+=head1 REPOSITORY
+
+L<https://github.com/tupinek/Tags>
+
 =head1 AUTHOR
 
-Michal Špaček L<skim@cpan.org>
+Michal Špaček L<mailto:skim@cpan.org>
+
+L<http://skim.cz>
 
 =head1 LICENSE AND COPYRIGHT
 
