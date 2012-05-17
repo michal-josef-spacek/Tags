@@ -11,7 +11,7 @@ author 'Michal Špaček <skim@cpan.org>';
 license 'bsd';
 name 'Tags';
 requires 'Class::Utils' => 0.02;
-requires 'Error::Pure' => 0.05;
+requires 'Error::Pure' => 0.07;
 requires 'Exporter' => 0;
 requires 'HTML::Entities' => 0;
 requires 'Readonly' => 0;
