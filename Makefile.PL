@@ -15,11 +15,10 @@ requires 'Error::Pure' => 0.07;
 requires 'Exporter' => 0;
 requires 'HTML::Entities' => 0;
 requires 'Readonly' => 0;
-resources 'repository' => {
-	'url' => 'git://github.com/tupinek/Tags',
-	'web' => 'https://github.com/tupinek/Tags',
-	'type' => 'git',
-};
+resources 'bugtracker' => 'https://rt.cpan.org/Public/Dist/Display.html'.
+	'?Name=Tags';
+resources 'homepage' => 'https://github.com/tupinek/Tags';
+resources 'repository' => 'git://github.com/tupinek/Tags';
 test_requires 'English' => 0;
 test_requires 'File::Object' => 0.03;
 test_requires 'Test::More' => 0;
