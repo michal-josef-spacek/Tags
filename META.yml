@@ -30,9 +30,8 @@ requires:
   HTML::Entities: 0
   Readonly: 0
 resources:
+  bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Tags
+  homepage: https://github.com/tupinek/Tags
   license: http://opensource.org/licenses/bsd-license.php
-  repository:
-    type: git
-    url: git://github.com/tupinek/Tags
-    web: https://github.com/tupinek/Tags
+  repository: git://github.com/tupinek/Tags
 version: 0.01
