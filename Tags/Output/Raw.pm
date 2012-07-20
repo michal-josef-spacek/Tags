@@ -464,7 +464,7 @@ __END__
 =item * C<preserved>
 
  TODO
- Default is reference to blank array.
+ Default value is reference to blank array.
 
 =item * C<raw_callback>
 
@@ -476,7 +476,12 @@ __END__
 =item * C<skip_bad_tags>
 
  TODO
- Default is 0.
+ Default value is 0.
+
+=item * C<strict_instruction>
+
+ TODO
+ Default value is 1.
 
 =item * C<xml>
 
