@@ -122,7 +122,9 @@ sub put {
 
 		# Instruction.
 		} elsif ($type eq 'i') {
-			$self->_check_arguments(\@tags_struct, 1, 2);
+			if ($self->{'strict_instruction'}) {
+				$self->_check_arguments(\@tags_struct, 1, 2);
+			}
 			$self->_put_instruction(@tags_struct);
 
 		# Raw data.
@@ -207,6 +209,9 @@ sub _default_parameters {
 
 	# Skip bad tags.
 	$self->{'skip_bad_tags'} = 0;
+
+	# Strict instruction.
+	$self->{'strict_instruction'} = 1;
 
 	return;
 }
@@ -327,6 +332,11 @@ __END__
 =item * C<skip_bad_tags>
 
  TODO
+
+=item * C<strict_instruction>
+
+ TODO
+ Default value is 1.
 
 =back
 
