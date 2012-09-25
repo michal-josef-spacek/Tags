@@ -46,7 +46,7 @@ our $VERSION = 0.01;
 
 =head1 SEE ALSO
 
-L<Tags::Output::Core>,
+L<Tags::Output>,
 L<Tags::Output::Raw>,
 L<Tags::Process::EntitySubstitute>,
 L<Tags::Process::Id>,

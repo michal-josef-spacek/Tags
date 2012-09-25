@@ -179,7 +179,7 @@ L<Readonly>.
 =head1 SEE ALSO
 
 L<Tags>,
-L<Tags::Output::Core>,
+L<Tags::Output>,
 L<Tags::Output::Raw>.
 
 =head1 REPOSITORY

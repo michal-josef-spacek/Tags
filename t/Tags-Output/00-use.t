@@ -8,8 +8,8 @@ use Test::More 'tests' => 2;
 BEGIN {
 
 	# Test.
-	use_ok('Tags::Output::Core');
+	use_ok('Tags::Output');
 }
 
 # Test.
-require_ok('Tags::Output::Core');
+require_ok('Tags::Output');

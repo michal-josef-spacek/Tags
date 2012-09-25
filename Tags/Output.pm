@@ -1,4 +1,4 @@
-package Tags::Output::Core;
+package Tags::Output;
 
 # Pragmas.
 use strict;
@@ -303,7 +303,7 @@ __END__
 
 =head1 NAME
 
- Tags::Output::Core - Base class for Tags::Output::*.
+ Tags::Output - Base class for Tags::Output::*.
 
 =head1 SYNOPSIS
 
