@@ -133,7 +133,7 @@ $obj->put(
 	['e', 'MAIN'],
 );
 $ret = $obj->flush;
-$right_ret = <<"END";
+my $right_ret = <<"END";
 <MAIN>$long_data</MAIN>
 END
 chomp $right_ret;
