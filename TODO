@@ -63,7 +63,9 @@ Tags::Output::Raw hotovo.
 58. Udelat univerzalni Tags::Output, abych nemusel rucne ve skriptech prepinat?
 59. Pokud mam v Tags::Utils v $ATTR_CHARS >"<, tak to plati jenom pro attr
     separator s >"<. Nefunguje pro attr separator s >'<.
-60.
+60. Tags::Output::Core predelat na Tags::Output, coz bude zakladni trida pro
+    check pomoci isa().
+61.
 
 Applied
 =======
