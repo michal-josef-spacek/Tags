@@ -453,7 +453,12 @@ __END__
  Output callback.
  Input argument is reference to scalar of output string.
  Default value is undef.
- Example is similar as 'data_callback'.
+ Example for output encoding in utf8:
+ 'output_callback' => sub {
+         my $data_sr = shift;
+         ${$data_sr} = encode_utf8(${$data_sr});
+         return;
+ }
 
 =item * C<output_handler>
 
