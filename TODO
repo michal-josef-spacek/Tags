@@ -65,7 +65,8 @@ Tags::Output::Raw hotovo.
     separator s >"<. Nefunguje pro attr separator s >'<.
 61. Test pro data_callback s prikladem callbacku s Tags::Output::Raw dokumentace
     a vstupu v utf8. ex35.pl priklad.
-62.
+62. Test na situaci, kdy mam data ['d', undef],
+63.
 
 Applied
 =======
