@@ -48,6 +48,9 @@ sub encode_attr_entities {
 # Encode '<&NBSP' char entities.
 sub encode_char_entities {
 	my $data_r = shift;
+	if (! defined $data_r) {
+		return;
+	}
 	if (ref $data_r eq 'SCALAR') {
 		${$data_r} = encode_entities(decode_entities(${$data_r}),
 			$CHAR_CHARS);
