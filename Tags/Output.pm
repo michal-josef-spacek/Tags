@@ -307,7 +307,13 @@ __END__
 
 =head1 SYNOPSIS
 
- TODO
+ use Tags::Output;
+ my $obj = Tags::Output->new(%parameters);
+ $obj->finalize;
+ my $ret = $obj->flush($reset_flag);
+ my @tags = $obj->open_tags;
+ $obj->put(@data);
+ $obj->reset;
 
 =head1 METHODS
 
@@ -342,23 +348,30 @@ __END__
 
 =item C<finalize()>
 
- TODO
+ Finalize Tags output.
+ Automaticly puts end of all opened tags.
+ Returns undef.
 
 =item C<flush($reset_flag)>
 
- TODO
+ Flush tags in object.
+ If defined 'output_handler' flush to its.
+ Or return code.
+ If enabled $reset_flag, then resets internal variables via reset method.
 
 =item C<open_tags()>
 
- TODO
+ Return array of opened tags.
 
 =item C<put(@data)>
 
- TODO
+ Put tags code in tags format.
+ Returns undef.
 
 =item C<reset($reset_flag)>
 
- TODO
+ Resets internal variables.
+ Returns undef.
 
 =back
 
