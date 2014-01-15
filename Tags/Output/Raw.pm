@@ -499,6 +499,7 @@ __END__
 
  Finalize Tags output.
  Automaticly puts end of all opened tags.
+ Returns undef.
 
 =item C<flush($reset_flag)>
 
