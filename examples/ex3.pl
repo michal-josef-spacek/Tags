@@ -5,20 +5,21 @@ use strict;
 use warnings;
 
 # Modules.
-use Tags::Output::Raw;
+use Dumpvalue;
+use Tags::Utils qw(encode_attr_entities);
 
-# Object.
-my $tags = Tags::Output::Raw->new;
+# Input data.
+my @data = ('&', '<', '"');
 
-# Put data.
-$tags->put(
-        ['b', 'text'],
- ['d', 'data'],
- ['e', 'text'],
-);
+# Encode.
+encode_attr_entities(\@data);
 
-# Print.
-print $tags->flush."\n";
+# Dump out.
+my $dump = Dumpvalue->new;
+$dump->dumpValues(\@data);
 
 # Output:
-# <text>data</text>
+# 0  ARRAY(0x8b8f428)
+#    0  '&amp;'
+#    1  '&lt;'
+#    2  '&quot;'

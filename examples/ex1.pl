@@ -5,19 +5,32 @@ use strict;
 use warnings;
 
 # Modules.
-use Tags::Utils qw(encode_newline);
+use Tags::Output;
 
-# Input text.
-my $text = <<'END';
-foo
-bar
-END
+# Object.
+my $tags = Tags::Output->new;
 
-# Encode newlines.
-my $out = encode_newline($text);
+# Put all tag types.
+$tags->put(
+        ['b', 'tag'],
+        ['a', 'par', 'val'],
+        ['c', 'data', \'data'],
+        ['e', 'tag'],
+        ['i', 'target', 'data'],
+        ['b', 'tag'],
+        ['d', 'data', 'data'],
+        ['e', 'tag'],
+);
 
 # Print out.
-print $out."\n";
+print $tags->flush."\n";
 
 # Output:
-# foo\nbar\n
+# Begin of tag
+# Attribute
+# Comment
+# End of tag
+# Instruction
+# Begin of tag
+# Data
+# End of tag

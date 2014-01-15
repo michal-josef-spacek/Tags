@@ -5,21 +5,19 @@ use strict;
 use warnings;
 
 # Modules.
-use Dumpvalue;
-use Tags::Utils qw(encode_attr_entities);
+use Tags::Utils qw(encode_newline);
 
-# Input data.
-my @data = ('&', '<', '"');
+# Input text.
+my $text = <<'END';
+foo
+bar
+END
 
-# Encode.
-encode_attr_entities(\@data);
+# Encode newlines.
+my $out = encode_newline($text);
 
-# Dump out.
-my $dump = Dumpvalue->new;
-$dump->dumpValues(\@data);
+# Print out.
+print $out."\n";
 
 # Output:
-# 0  ARRAY(0x8b8f428)
-#    0  '&amp;'
-#    1  '&lt;'
-#    2  '&quot;'
+# foo\nbar\n
