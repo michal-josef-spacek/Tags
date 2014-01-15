@@ -445,6 +445,7 @@ L<Error::Pure>.
 =head1 SEE ALSO
 
 L<Tags>,
+L<Tags::Output::PYX>,
 L<Tags::Output::Raw>,
 L<Tags::Utils>.
 

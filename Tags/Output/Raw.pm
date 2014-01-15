@@ -604,6 +604,7 @@ L<Tags::Utils::Preserve>.
 
 L<Tags>,
 L<Tags::Output>,
+L<Tags::Output::PYX>,
 L<Tags::Utils>.
 
 =head1 REPOSITORY

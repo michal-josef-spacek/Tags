@@ -49,6 +49,7 @@ __END__
 =head1 SEE ALSO
 
 L<Tags::Output>,
+L<Tags::Output::PYX>,
 L<Tags::Output::Raw>,
 L<Tags::Process::EntitySubstitute>,
 L<Tags::Process::Id>,
