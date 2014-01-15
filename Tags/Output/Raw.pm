@@ -520,6 +520,7 @@ __END__
 =item C<reset()>
 
  Resets internal variables.
+ Returns undef.
 
 =back
 
