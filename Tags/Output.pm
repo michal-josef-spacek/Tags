@@ -364,16 +364,19 @@ __END__
 
 =head1 ERRORS
 
- Mine:
+ new():
          Auto-flush can't use without output handler.
-         Bad data.
-         Bad number of arguments.
-         Bad type of data.
-         Cannot write to output handler.
          Output handler is bad file handler.
+         From Class::Utils::set_params():
+                 Unknown parameter '%s'.
 
- From Class::Utils::set_params():
-         Unknown parameter '%s'.
+ flush():
+         Cannot write to output handler.
+
+ put():
+         Bad data.
+         Bad type of data.
+         Bad number of arguments. 'Tags' structure %s
 
 =head1 DEPENDENCIES
 
