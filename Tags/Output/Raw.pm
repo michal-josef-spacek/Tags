@@ -515,6 +515,7 @@ __END__
 =item C<put(@data)>
 
  Put tags code in tags format.
+ Returns undef.
 
 =item C<reset()>
 
