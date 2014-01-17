@@ -526,10 +526,29 @@ __END__
 
 =head1 ERRORS
 
- Output handler is bad file handler.
- In XML mode must be a attribute value.
- In XML must be lowercase tag name.
- TODO
+ new():
+         Bad attribute delimeter '%s'.
+         From Tags::Output::new():
+                Auto-flush can't use without output handler.
+                Output handler is bad file handler.
+                From Class::Utils::set_params():
+                       Unknown parameter '%s'.
+
+ flush():
+         From Tags::Output::flush():
+                Cannot write to output handler.
+
+ put():
+         Bad tag type 'a'.
+         Bad CDATA data.
+         Ending bad tag: '%s' in block of tag '%s'.
+         In XML mode must be a attribute value.
+         In XML must be lowercase tag name.
+         From Tags::Output::put():
+                Bad data.
+                Bad type of data.
+                Bad number of arguments. 'Tags' structure %s
+
 
 =head1 EXAMPLE1
 
