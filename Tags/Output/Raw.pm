@@ -145,7 +145,7 @@ sub _put_attribute {
 
 	# Check to pairs in XML mode.
 	if ($self->{'xml'} && ! defined $value) {
-		err 'In XML mode must be a attribute value.';
+		err "In XML mode must be a attribute '$attr' value.";
 	}
 
 	# Process data callback.
@@ -542,7 +542,7 @@ __END__
          Bad tag type 'a'.
          Bad CDATA data.
          Ending bad tag: '%s' in block of tag '%s'.
-         In XML mode must be a attribute value.
+         In XML mode must be a attribute '%s' value.
          In XML must be lowercase tag name.
          From Tags::Output::put():
                 Bad data.
