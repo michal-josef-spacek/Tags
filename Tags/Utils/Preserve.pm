@@ -14,7 +14,7 @@ use Readonly;
 Readonly::Scalar my $LAST_INDEX => -1;
 
 # Version.
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 # Constructor.
 sub new {
@@ -205,6 +205,6 @@ BSD license.
 
 =head1 VERSION
 
-0.01
+0.02
 
 =cut
