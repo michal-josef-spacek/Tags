@@ -3,6 +3,9 @@
  - Add minimal version of Perl.
  - Update Module::Install to 1.14 version.
 
+ [Tags::Output::Raw]
+ - Fix SYNOPSIS in Tags::Output::Raw doc.
+
 0.02 2014-10-17T07:37:27+02:00
  - Fix test dependencies.
 

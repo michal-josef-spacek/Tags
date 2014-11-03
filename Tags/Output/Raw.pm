@@ -369,7 +369,7 @@ __END__
  $tags->put(['b', 'tag']);
  my @open_tags = $tags->open_tags;
  $tags->finalize;
- $tags->flush;
+ $tags->flush($reset_flag);
  $tags->reset;
 
 =head1 METHODS
