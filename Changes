@@ -2,6 +2,7 @@
  [Common]
  - Add minimal version of Perl.
  - Update Module::Install to 1.14 version.
+ - Update LICENSE AND COPYRIGHT section in doc to my standard (bsd-2).
 
  [Tags::Output::Raw]
  - Fix SYNOPSIS in Tags::Output::Raw doc.
