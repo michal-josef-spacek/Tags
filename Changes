@@ -10,6 +10,7 @@
  [Tags::Utils::Preserve]
  - Improve tests.
  - Update ERRORS section in doc.
+ - Update EXAMPLE section in doc.
  - Update SYNOPSIS section in doc.
 
 0.02 2014-10-17T07:37:27+02:00
