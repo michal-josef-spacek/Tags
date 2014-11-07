@@ -116,8 +116,14 @@ __END__
 =head1 SYNOPSIS
 
  use Tags::Utils::Preserve;
- my $t = Tags::Utils::Preserve->new(%params);
- # TODO
+ my $obj = Tags::Utils::Preserve->new(%params);
+ my $preserved_flag = $obj->begin;
+ my ($preserver_flag, $prev_preserved_flag) = $obj->begin;
+ my $preserved_flag = $obj->end;
+ my ($preserved_flag, $prev_preserved_flag) = $obj->end;
+ $obj->get;
+ $obj->reset;
+ $obj->save_previous;
 
 =head1 METHODS
 
