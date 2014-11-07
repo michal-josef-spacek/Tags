@@ -8,10 +8,6 @@ TODO
 14. Pokud bude tolik procesnich trid, nebude lepsi to pak nejak prepsat?
     [Struktura] -> Validator(jenom co muze byt za cim) -> Entitator? 
     -> Kontrola xml? -> Indenter
-21. Docela neprakticke je dat komentar mezi zacatek tagu a atribut. Pak je
-    error. Bylo by dobre to presunout za/pred tag.
-Tags::Output::Raw je hotov.
-Tags::Output::Indent je hotov.
 22. class v atributu muze mit vice moznosti, takze 
     ['a', 'class', 'neco'] + ['a', 'class', 'neco_jineho'] by se melo sloucit.
 23. V Tags::Output::Indent se muze rozdelit atribut na novy radek. To muze?
@@ -224,3 +220,10 @@ OK [20090922] skim
 60. Tags::Output::Core predelat na Tags::Output, coz bude zakladni trida pro
     check pomoci isa().
 OK [20120925] skim
+
+21. Docela neprakticke je dat komentar mezi zacatek tagu a atribut. Pak je
+    error. Bylo by dobre to presunout za/pred tag.
+Tags::Output::Raw je hotov.
+Tags::Output::Indent je hotov.
+Presunuto do patricnych trid.
+OK [20141107] skim
