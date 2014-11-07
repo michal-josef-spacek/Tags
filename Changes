@@ -7,6 +7,9 @@
  [Tags::Output::Raw]
  - Fix SYNOPSIS in Tags::Output::Raw doc.
 
+ [Tags::Utils::Preserve]
+ - Improve tests.
+
 0.02 2014-10-17T07:37:27+02:00
  - Fix test dependencies.
 
