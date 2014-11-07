@@ -6,7 +6,6 @@ use warnings;
 
 # Modules.
 use Class::Utils qw(set_params);
-use Error::Pure qw(err);
 use List::MoreUtils qw(any);
 use Readonly;
 
@@ -171,7 +170,6 @@ __END__
 =head1 DEPENDENCIES
 
 L<Class::Utils>,
-L<Error::Pure>,
 L<List::MoreUtils>,
 L<Readonly>.
 
