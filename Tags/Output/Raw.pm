@@ -18,7 +18,7 @@ Readonly::Scalar my $LAST_INDEX => -1;
 Readonly::Scalar my $SPACE => q{ };
 
 # Version.
-our $VERSION = 0.03;
+our $VERSION = 0.04;
 
 # Resets internal variables.
 sub reset {
@@ -642,6 +642,6 @@ BSD 2-Clause License
 
 =head1 VERSION
 
-0.03
+0.04
 
 =cut
