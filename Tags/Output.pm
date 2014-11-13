@@ -392,6 +392,20 @@ __END__
 
 Constructor.
 
+=item C<_check_params()>
+
+ Check parameters to rigth values.
+ Can check constructor parameters.
+ Returns undef.
+
+=item C<_default_parameters()>
+
+ Default parameters.
+ Set list of constructor parameters with default value.
+ e.g.:
+ $self->{'foo'} = 'bar';
+ Returns undef.
+
 =item C<_put_attribute($attr, $value)>
 
  Attribute callback.
