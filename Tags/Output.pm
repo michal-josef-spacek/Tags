@@ -384,6 +384,64 @@ __END__
 
 =back
 
+=head1 METHODS TO OVERWRITE
+
+=over 8
+
+=item C<new(%parameters)>
+
+Constructor.
+
+=item C<_put_attribute($attr, $value)>
+
+ Attribute callback.
+ Method can write output to 'flush_code' object parameter as array or scalar.
+ Returns undef.
+
+=item C<_put_begin_of_tag($tag)>
+
+ Begin of tag.
+ Method can write output to 'flush_code' object parameter as array or scalar.
+ Returns undef.
+
+=item C<_put_cdata(@cdata)>
+
+ CData.
+ Method can write output to 'flush_code' object parameter as array or scalar.
+ Returns undef.
+
+=item C<_put_comment(@comment)>
+
+ Comment.
+ Method can write output to 'flush_code' object parameter as array or scalar.
+ Returns undef.
+
+=item C<_put_data(@data)>
+
+ Data.
+ Method can write output to 'flush_code' object parameter as array or scalar.
+ Returns undef.
+
+=item C<_put_end_of_tag($tag)>
+
+ End of tag.
+ Method can write output to 'flush_code' object parameter as array or scalar.
+ Returns undef.
+
+=item C<_put_instruction($target, $code)>
+
+ Instruction.
+ Method can write output to 'flush_code' object parameter as array or scalar.
+ Returns undef.
+
+=item C<_put_raw(@raw_data)>
+
+ Raw data.
+ Method can write output to 'flush_code' object parameter as array or scalar.
+ Returns undef.
+
+=back
+
 =head1 ERRORS
 
  new():

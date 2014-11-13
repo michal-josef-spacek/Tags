@@ -1,4 +1,6 @@
 0.04
+ [Tags::Output]
+ - Add 'METHODS TO OVERWRITE' section to doc.
 
 0.03 2014-11-10T06:54:17+01:00
  [Common]
