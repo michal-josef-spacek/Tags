@@ -1,4 +1,7 @@
 0.04
+ [Common]
+ - Improve LICENSE AND COPYRIGHT sections in doc.
+
  [Tags::Output]
  - Add 'METHODS TO OVERWRITE' section to doc.
 
