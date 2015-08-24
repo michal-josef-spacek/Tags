@@ -433,7 +433,7 @@ __END__
          return;
  }
 
-=item * C<no-simple>
+=item * C<no_simple>
 
  Reference to array of tags, that can't by simple.
  Default is [].

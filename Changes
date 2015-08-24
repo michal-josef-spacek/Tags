@@ -7,6 +7,9 @@
  [Tags::Output]
  - Add 'METHODS TO OVERWRITE' section to doc.
 
+ [Tags::Output::Raw]
+ - Fix 'no_simple' parameter in doc.
+
 0.03 2014-11-10T06:54:17+01:00
  [Common]
  - Add minimal version of Perl.
