@@ -480,12 +480,12 @@ __END__
 
 =item * C<skip_bad_tags>
 
- TODO
+ Skip bad tags.
  Default value is 0.
 
 =item * C<strict_instruction>
 
- TODO
+ Strict instruction.
  Default value is 1.
 
 =item * C<xml>

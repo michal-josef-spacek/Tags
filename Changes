@@ -9,6 +9,7 @@
 
  [Tags::Output::Raw]
  - Fix 'no_simple' parameter in doc.
+ - Remove TODOs from doc.
 
 0.03 2014-11-10T06:54:17+01:00
  [Common]
