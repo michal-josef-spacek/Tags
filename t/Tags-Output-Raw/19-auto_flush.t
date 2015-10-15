@@ -6,7 +6,8 @@ use warnings;
 use File::Object;
 use IO::Scalar;
 use Tags::Output::Raw;
-use Test::More 'tests' => 5;
+use Test::More 'tests' => 6;
+use Test::NoWarnings;
 
 # Test.
 my $obj = Tags::Output::Raw->new(

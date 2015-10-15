@@ -4,7 +4,8 @@ use warnings;
 
 # Modules.
 use Tags::Output::Raw;
-use Test::More 'tests' => 11;
+use Test::More 'tests' => 12;
+use Test::NoWarnings;
 
 # Test.
 my $obj = Tags::Output::Raw->new(

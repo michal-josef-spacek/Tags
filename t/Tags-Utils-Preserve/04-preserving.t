@@ -4,7 +4,8 @@ use warnings;
 
 # Modules.
 use Tags::Utils::Preserve;
-use Test::More 'tests' => 35;
+use Test::More 'tests' => 36;
+use Test::NoWarnings;
 
 # Test.
 my $obj = Tags::Utils::Preserve->new;

@@ -4,7 +4,8 @@ use warnings;
 
 # Modules.
 use Tags::Utils qw(encode_char_entities);
-use Test::More 'tests' => 3;
+use Test::More 'tests' => 4;
+use Test::NoWarnings;
 
 # Test.
 my $string = 'a<a&a'."\240a";

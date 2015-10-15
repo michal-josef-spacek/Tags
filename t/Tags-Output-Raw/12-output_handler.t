@@ -5,7 +5,8 @@ use warnings;
 # Modules.
 use File::Object;
 use Tags::Output::Raw;
-use Test::More 'tests' => 2;
+use Test::More 'tests' => 3;
+use Test::NoWarnings;
 
 # Include helpers.
 do File::Object->new->up->file('get_stdout.inc')->s;
