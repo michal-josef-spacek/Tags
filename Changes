@@ -13,6 +13,9 @@
  [Tags::Output]
  - Add 'METHODS TO OVERWRITE' section to doc.
 
+ [Tags::Utils::Preserve]
+ - Remove TODOs from doc.
+
  [Tags::Output::Raw]
  - Fix 'no_simple' parameter in doc.
  - Remove TODOs from doc.

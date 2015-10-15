@@ -111,7 +111,7 @@ __END__
 
 =head1 NAME
 
- Tags::Utils::Preserve - TODO
+ Tags::Utils::Preserve - Class to check if content in element is preserved?
 
 =head1 SYNOPSIS
 
@@ -137,29 +137,37 @@ __END__
 
 =item * C<preserved>
 
- TODO
+ Preserved tags.
 
 =back
 
 =item C<begin()>
 
- TODO
+ Process for begin of tag.
+ Returns preserved flag in scalar context.
+ Returns preserved flag and previous preserved flag in array context.
 
 =item C<end()>
 
- TODO
+ Process for end of tag.
+ Returns preserved flag in scalar context.
+ Returns preserved flag and previous preserved flag in array context.
 
 =item C<get()>
 
- TODO
+ Get preserved flag.
+ Returns preserved flag in scalar context.
+ Returns preserved flag and previous preserved flag in array context.
 
 =item C<reset()>
 
- TODO
+ Resets.
+ Returns undef.
 
 =item C<save_previous()>
 
- TODO
+ Save previous stay.
+ Returns undef.
 
 =back
 
