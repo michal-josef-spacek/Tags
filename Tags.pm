@@ -48,13 +48,13 @@ __END__
 
 =head1 SEE ALSO
 
-L<Tags::Output>,
-L<Tags::Output::PYX>,
-L<Tags::Output::Raw>,
-L<Tags::Process::EntitySubstitute>,
-L<Tags::Process::Id>,
-L<Tags::Process::Validator>,
-L<Tags::Utils::Preserve>.
+=over
+
+=item L<Task::Tags>
+
+Install the Tags modules.
+
+=back
 
 =head1 REPOSITORY
 

@@ -516,10 +516,13 @@ L<Error::Pure>.
 
 =head1 SEE ALSO
 
-L<Tags>,
-L<Tags::Output::PYX>,
-L<Tags::Output::Raw>,
-L<Tags::Utils>.
+=over
+
+=item L<Task::Tags>
+
+Install the Tags modules.
+
+=back
 
 =head1 REPOSITORY
 

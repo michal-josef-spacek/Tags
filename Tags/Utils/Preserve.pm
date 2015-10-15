@@ -224,15 +224,13 @@ L<Readonly>.
 
 =head1 SEE ALSO
 
-L<Tags>,
-L<Tags::Output>,
-L<Tags::Output::ESIS>,
-L<Tags::Output::Indent>,
-L<Tags::Output::LibXML>,
-L<Tags::Output::PYX>,
-L<Tags::Output::Raw>,
-L<Tags::Output::SESIS>,
-L<Tags::Utils>.
+=over
+
+=item L<Task::Tags>
+
+Install the Tags modules.
+
+=back
 
 =head1 REPOSITORY
 

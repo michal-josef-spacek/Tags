@@ -28,9 +28,8 @@ STRUCTURE
      r - @raw_data
 
 SEE ALSO
-    Tags::Output, Tags::Output::PYX, Tags::Output::Raw,
-    Tags::Process::EntitySubstitute, Tags::Process::Id,
-    Tags::Process::Validator, Tags::Utils::Preserve.
+    Task::Tags
+        Install the Tags modules.
 
 REPOSITORY
     <https://github.com/tupinek/Tags>

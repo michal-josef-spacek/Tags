@@ -1,6 +1,7 @@
 0.04
  [Common]
  - Improve LICENSE AND COPYRIGHT sections in doc.
+ - Improve SEE ALSO sections in doc.
  - Update Module::Install to 1.16 version.
  - Update copyright years.
 

@@ -178,9 +178,13 @@ L<Readonly>.
 
 =head1 SEE ALSO
 
-L<Tags>,
-L<Tags::Output>,
-L<Tags::Output::Raw>.
+=over
+
+=item L<Task::Tags>
+
+Install the Tags modules.
+
+=back
 
 =head1 REPOSITORY
 
