@@ -2,6 +2,7 @@
  [Common]
  - Add cleaning of Error::Pure errors.
  - Add Test::NoWarnings to tests.
+ - Fix tabs in code.
  - Improve LICENSE AND COPYRIGHT sections in doc.
  - Improve SEE ALSO sections in doc.
  - Move author tests to xt/ directory.

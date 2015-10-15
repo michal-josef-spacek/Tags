@@ -174,7 +174,7 @@ sub _check_arguments {
 
 # Check parameters to rigth values.
 sub _check_params {
-        my $self = shift;
+	my $self = shift;
 
 	# Check to output handler.
 	if (defined $self->{'output_handler'}

@@ -47,7 +47,7 @@ sub reset {
 
 # Check parameters to rigth values.
 sub _check_params {
-        my $self = shift;
+	my $self = shift;
 
 	# Check params from SUPER.
 	$self->SUPER::_check_params();
@@ -160,7 +160,7 @@ sub _put_attribute {
 	if (defined $attr[1]) {
 		$full_attr .= q{=}.$self->{'attr_delimeter'}.
 			$attr[1].$self->{'attr_delimeter'};
-	}	
+	}
 	push @{$self->{'tmp_code'}}, $SPACE, $full_attr;
 
 	# Reset comment flag.
