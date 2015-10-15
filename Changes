@@ -2,6 +2,7 @@
  [Common]
  - Improve LICENSE AND COPYRIGHT sections in doc.
  - Improve SEE ALSO sections in doc.
+ - Move author tests to xt/ directory.
  - Update Module::Install to 1.16 version.
  - Update copyright years.
 
