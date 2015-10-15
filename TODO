@@ -55,7 +55,8 @@ TODO
     <head><script language="javascript" type="text/javascript" src="/javascript/jquery/jquery.js" />
     <script language="javascript" type="text/javascript" src="/javascript/jquery-ui/jquery-ui.js" />
     </head>
-64.
+64. Eliminovat get_stdout v testech.
+65.
 
 Applied
 =======
