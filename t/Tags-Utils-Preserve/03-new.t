@@ -4,6 +4,7 @@ use warnings;
 
 # Modules.
 use English qw(-no_match_vars);
+use Error::Pure::Utils qw(clean);
 use Tags::Utils::Preserve;
 use Test::More 'tests' => 3;
 
@@ -12,6 +13,7 @@ eval {
 	Tags::Utils::Preserve->new('');
 };
 is($EVAL_ERROR, "Unknown parameter ''.\n", "Unknown parameter ''.");
+clean();
 
 # Test.
 eval {
@@ -19,6 +21,7 @@ eval {
 };
 is($EVAL_ERROR, "Unknown parameter 'something'.\n",
 	"Unknown parameter 'something'.");
+clean();
 
 # Test.
 my $obj = Tags::Utils::Preserve->new;

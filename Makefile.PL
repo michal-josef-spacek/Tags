@@ -29,6 +29,7 @@ resources 'bugtracker' => 'https://rt.cpan.org/Public/Dist/Display.html'.
 resources 'homepage' => 'https://github.com/tupinek/Tags';
 resources 'repository' => 'git://github.com/tupinek/Tags';
 test_requires 'English' => 0;
+test_requires 'Error::Pure::Utils' => 0.22;
 test_requires 'File::Object' => 0.03;
 test_requires 'IO::Scalar' => 0;
 test_requires 'Test::More' => 0;

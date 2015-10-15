@@ -4,6 +4,7 @@ author:
   - 'Michal Spacek <skim@cpan.org>'
 build_requires:
   English: 0
+  Error::Pure::Utils: 0.22
   ExtUtils::MakeMaker: 6.36
   File::Object: 0.03
   IO::Scalar: 0
