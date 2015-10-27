@@ -56,7 +56,10 @@ TODO
     <script language="javascript" type="text/javascript" src="/javascript/jquery-ui/jquery-ui.js" />
     </head>
 64. Eliminovat get_stdout v testech.
-65.
+65. Pridat komentare k testum.
+66. Test soubory prejmenovat tak, aby ty ktere jsou k testu metod, obsahovaly
+    toto jmeno.
+67.
 
 Applied
 =======
