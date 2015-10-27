@@ -17,6 +17,8 @@
  [Tags::Output::Raw]
  - Fix 'no_simple' parameter in doc.
  - Remove TODOs from doc.
+ - Remove default value for 'output_sep' parameter. It doesn't used in this
+   module.
 
  [Tags::Utils::Preserve]
  - Remove TODOs from doc.

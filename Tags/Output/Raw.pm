@@ -84,9 +84,6 @@ sub _default_parameters {
 	# No simple tags.
 	$self->{'no_simple'} = [];
 
-	# Output separator. (Rewrite SUPER value.)
-	$self->{'output_sep'} = $EMPTY_STR;
-
 	# Preserved tags.
 	$self->{'preserved'} = [];
 
