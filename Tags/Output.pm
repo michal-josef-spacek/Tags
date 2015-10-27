@@ -341,7 +341,7 @@ __END__
 =item * C<output_sep>
 
  Output separator.
- Default value is newline.
+ Default value is newline (\n).
 
 =item * C<skip_bad_tags>
 
