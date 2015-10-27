@@ -18,7 +18,7 @@ Readonly::Scalar my $LAST_INDEX => -1;
 Readonly::Scalar my $SPACE => q{ };
 
 # Version.
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 # Resets internal variables.
 sub reset {
@@ -643,6 +643,6 @@ L<http://skim.cz/>
 
 =head1 VERSION
 
-0.04
+0.05
 
 =cut
