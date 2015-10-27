@@ -468,7 +468,7 @@ __END__
 
 =item * C<preserved>
 
- TODO
+ List of elements, which content will be preserved.
  Default value is reference to blank array.
 
 =item * C<raw_callback>
