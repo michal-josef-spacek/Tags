@@ -57,8 +57,6 @@ TODO
     </head>
 64. Eliminovat get_stdout v testech.
 65. Pridat komentare k testum.
-66. Test soubory prejmenovat tak, aby ty ktere jsou k testu metod, obsahovaly
-    toto jmeno.
 67.
 
 Applied
@@ -243,3 +241,7 @@ Tags::Output::Indent hotovo.
 Tags::Output::LibXML hotovo.
 Tags::Output::Raw hotovo.
 OK [20141107] skim
+
+66. Test soubory prejmenovat tak, aby ty ktere jsou k testu metod, obsahovaly
+    toto jmeno.
+OK [20160322] skim
