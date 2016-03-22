@@ -1,4 +1,6 @@
 0.06
+ [Tags::Output::Raw]
+ - Fix finalize() in SGML mode.
 
 0.05 2016-03-22T19:16:13+01:00
  [Common]

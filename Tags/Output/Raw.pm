@@ -20,6 +20,30 @@ Readonly::Scalar my $SPACE => q{ };
 # Version.
 our $VERSION = 0.06;
 
+# Finalize Tags output.
+sub finalize {
+	my $self = shift;
+
+	# XML mode.
+	if ($self->{'xml'}) {
+
+		# Add ending of all opened tags.
+		while (@{$self->{'printed_tags'}}) {
+			$self->put(['e', $self->{'printed_tags'}->[0]]);
+		}
+
+	# SGML mode.
+	} else {
+
+		# Flush tmp code.
+		if (scalar @{$self->{'tmp_code'}}) {
+			$self->_flush_tmp('>');
+		}
+		$self->{'printed_tags'} = [];
+	}
+	return;
+}
+
 # Resets internal variables.
 sub reset {
 	my $self = shift;

@@ -14,7 +14,7 @@ $obj->put(
 );
 $obj->finalize;
 my $ret = $obj->flush;
-is($ret, '<element></element>', 'Finalize open element in SGML mode.');
+is($ret, '<element>', 'Finalize open element in SGML mode.');
 
 # Test.
 $obj = Tags::Output::Raw->new(
