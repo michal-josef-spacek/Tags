@@ -8,6 +8,7 @@
  - Rewrite 'tag' to 'element' in tests.
 
  [Tags::Output::Raw]
+ - Add some test comments.
  - Add test for end of element.
  - Fix sitution for end of element without begin of element in xml mode.
  - Rewrite 'tag' to 'element' in tests.
