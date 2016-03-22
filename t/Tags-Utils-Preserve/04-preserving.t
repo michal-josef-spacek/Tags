@@ -12,36 +12,36 @@ my $obj = Tags::Utils::Preserve->new;
 my ($pre, $pre_pre) = $obj->get;
 is($pre, 0);
 is($pre_pre, 0);
-($pre, $pre_pre) = $obj->begin('tag');
+($pre, $pre_pre) = $obj->begin('element');
 is($pre, 0);
 is($pre_pre, 0);
-($pre, $pre_pre) = $obj->end('tag');
+($pre, $pre_pre) = $obj->end('element');
 is($pre_pre, 0);
 is($pre, 0);
 
 # Test.
 $obj = Tags::Utils::Preserve->new(
-	'preserved' => ['tag'],
+	'preserved' => ['element'],
 );
 ($pre, $pre_pre) = $obj->get;
 is($pre, 0);
 is($pre_pre, 0);
-($pre, $pre_pre) = $obj->begin('other_tag');
+($pre, $pre_pre) = $obj->begin('other_element');
 is($pre, 0);
 is($pre_pre, 0);
-($pre, $pre_pre) = $obj->begin('tag');
+($pre, $pre_pre) = $obj->begin('element');
 is($pre, 1);
 is($pre_pre, 0);
-($pre, $pre_pre) = $obj->begin('other_tag2');
+($pre, $pre_pre) = $obj->begin('other_element2');
 is($pre, 1);
 is($pre_pre, 1);
-($pre, $pre_pre) = $obj->end('other_tag2');
+($pre, $pre_pre) = $obj->end('other_element2');
 is($pre, 1);
 is($pre_pre, 1);
-($pre, $pre_pre) = $obj->end('tag');
+($pre, $pre_pre) = $obj->end('element');
 is($pre, 0);
 is($pre_pre, 1);
-($pre, $pre_pre) = $obj->end('other_tag');
+($pre, $pre_pre) = $obj->end('other_element');
 is($pre, 0);
 is($pre_pre, 0);
 
@@ -49,24 +49,24 @@ is($pre_pre, 0);
 $obj->reset;
 $pre = $obj->get;
 is($pre, 0);
-$pre = $obj->begin('other_tag');
+$pre = $obj->begin('other_element');
 is($pre, 0);
-$pre = $obj->begin('tag');
+$pre = $obj->begin('element');
 is($pre, 1);
-$pre = $obj->begin('other_tag2');
+$pre = $obj->begin('other_element2');
 is($pre, 1);
-$pre = $obj->end('other_tag2');
+$pre = $obj->end('other_element2');
 is($pre, 1);
-$pre = $obj->end('tag');
+$pre = $obj->end('element');
 is($pre, 0);
-$pre = $obj->end('other_tag');
+$pre = $obj->end('other_element');
 is($pre, 0);
 
 # Test.
 $obj->reset;
-$obj->begin('other_tag');
-$obj->begin('tag');
-$obj->begin('other_tag2');
+$obj->begin('other_element');
+$obj->begin('element');
+$obj->begin('other_element2');
 ($pre, $pre_pre) = $obj->get;
 is($pre, 1);
 is($pre_pre, 1);
@@ -77,8 +77,8 @@ is($pre_pre, 0);
 
 # Test.
 $obj->reset;
-$obj->begin('other_tag');
-($pre, $pre_pre) = $obj->begin('tag');
+$obj->begin('other_element');
+($pre, $pre_pre) = $obj->begin('element');
 is($pre, 1);
 is($pre_pre, 0);
 $obj->save_previous;
