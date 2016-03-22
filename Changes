@@ -5,6 +5,7 @@
 
  [Tags::Output::Raw]
  - Add test for end of element.
+ - Fix sitution for end of element without begin of element in xml mode.
 
 0.04 2015-10-27T12:39:38+01:00
  [Common]

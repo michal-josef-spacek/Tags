@@ -269,9 +269,13 @@ sub _put_data {
 sub _put_end_of_tag {
 	my ($self, $tag) = @_;
 	my $printed = shift @{$self->{'printed_tags'}};
-	if ($self->{'xml'} && $printed ne $tag) {
-		err "Ending bad tag: '$tag' in block of ".
-			"tag '$printed'.";
+	if ($self->{'xml'}) {
+		if (! defined $printed) {
+			err "Ending bad tag: '$tag' doesn't begin.";
+		} elsif ($printed ne $tag) {
+			err "Ending bad tag: '$tag' in block of ".
+				"tag '$printed'.";
+		}
 	}
 
 	# Tag can be simple.
@@ -538,6 +542,7 @@ __END__
  put():
          Bad tag type 'a'.
          Bad CDATA data.
+         Ending bad tag: '%s' doesn't begin.
          Ending bad tag: '%s' in block of tag '%s'.
          In XML mode must be a attribute '%s' value.
          In XML must be lowercase tag name.

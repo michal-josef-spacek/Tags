@@ -34,6 +34,6 @@ eval {
 		['e', 'element'],
 	);
 };
-is($EVAL_ERROR, "Ending bad tag: 'element' in block of tag ''.\n",
-	"Ending bad tag: 'element' in block of tag ''.");
+is($EVAL_ERROR, "Ending bad tag: 'element' doesn't begin.\n",
+	"Ending bad tag: 'element' doesn't begin.");
 $obj->reset;
