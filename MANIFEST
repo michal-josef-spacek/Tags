@@ -55,6 +55,7 @@ t/Tags-Output-Raw/16-put-finalize.t
 t/Tags-Output-Raw/17-put-open_tags.t
 t/Tags-Output-Raw/18-put-skip_bad_tags.t
 t/Tags-Output-Raw/19-put-auto_flush.t
+t/Tags-Output-Raw/20-put-end_of_element.t
 t/Tags-Output/01-use.t
 t/Tags-Output/02-version.t
 t/Tags-Output/03-new.t
