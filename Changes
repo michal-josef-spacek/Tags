@@ -3,6 +3,9 @@
  - Update copyright years.
  - Rewrite test files to better names.
 
+ [Tags::Output]
+ - Add test comments.
+
  [Tags::Output::Raw]
  - Add test for end of element.
  - Fix sitution for end of element without begin of element in xml mode.

@@ -31,4 +31,4 @@ Instruction
 Raw data
 END
 chomp $right_ret;
-is($ret, $right_ret);
+is($ret, $right_ret, 'Simple test of all tags.');

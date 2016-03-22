@@ -13,14 +13,15 @@ use Test::NoWarnings;
 eval {
 	Tags::Output->new('');
 };
-is($EVAL_ERROR, "Unknown parameter ''.\n");
+is($EVAL_ERROR, "Unknown parameter ''.\n", "Unknown parameter ''.");
 clean();
 
 # Test.
 eval {
 	Tags::Output->new('something' => 'value');
 };
-is($EVAL_ERROR, "Unknown parameter 'something'.\n");
+is($EVAL_ERROR, "Unknown parameter 'something'.\n",
+	"Unknown parameter 'something'.");
 clean();
 
 # Test.
