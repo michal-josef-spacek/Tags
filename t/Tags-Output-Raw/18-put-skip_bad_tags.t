@@ -12,10 +12,10 @@ my $obj = Tags::Output::Raw->new(
 	'skip_bad_tags' => 1,
 );
 $obj->put(
-	['b', 'tag'],
-	['q', 'tag'],
-	['e', 'tag'],
+	['b', 'element'],
+	['q', 'element'],
+	['e', 'element'],
 );
 $obj->finalize;
 my $ret = $obj->flush;
-is($ret, '<tag></tag>');
+is($ret, '<element></element>');

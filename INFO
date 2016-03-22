@@ -8,7 +8,7 @@ Aid Hodnota id
 
 V onsgml parseru jsou atributy jeste s typem dat, co v nich muzou byt.
 Aid IMPLIED Hodnota id.
-Navic jsou atributy nad vlastnim tagem.
+Navic jsou atributy nad vlastnim elementem.
 
 Kouknout na HTML::Element.
 

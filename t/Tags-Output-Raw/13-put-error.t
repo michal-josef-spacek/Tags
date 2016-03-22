@@ -14,7 +14,7 @@ my $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
 eval {
-	$obj->put(['b', 'TAG']);
+	$obj->put(['b', 'ELEMENT']);
 };
 is($EVAL_ERROR, "In XML must be lowercase tag name.\n");
 clean();
@@ -22,9 +22,9 @@ clean();
 # Test.
 $obj->reset;
 eval {
-	$obj->put(['b', 'tag'], ['b', 'tag2'], ['e', 'tag']);
+	$obj->put(['b', 'element'], ['b', 'element2'], ['e', 'element']);
 };
-is($EVAL_ERROR, "Ending bad tag: 'tag' in block of tag 'tag2'.\n");
+is($EVAL_ERROR, "Ending bad tag: 'element' in block of tag 'element2'.\n");
 clean();
 
 # Test.

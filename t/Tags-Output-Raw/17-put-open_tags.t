@@ -13,17 +13,17 @@ my @ret = $obj->open_tags;
 is_deeply(\@ret, []);
 
 $obj->put(
-	['b', 'tag'],
+	['b', 'element'],
 );
 @ret = $obj->open_tags;
-is_deeply(\@ret, ['tag']);
+is_deeply(\@ret, ['element']);
 
 # Test.
 $obj->put(
-	['b', 'other_tag'],
+	['b', 'other_element'],
 );
 @ret = $obj->open_tags;
-is_deeply(\@ret, ['other_tag', 'tag']);
+is_deeply(\@ret, ['other_element', 'element']);
 
 # Test.
 $obj->finalize;

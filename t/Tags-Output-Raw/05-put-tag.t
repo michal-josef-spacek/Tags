@@ -22,12 +22,12 @@ is($ret, '<MAIN>data</MAIN>');
 # Test.
 $obj->reset;
 $obj->put(
-	['b', 'TAG'], 
-	['b', 'TAG2'], 
-	['e', 'TAG'],
+	['b', 'ELEMENT'], 
+	['b', 'ELEMENT2'], 
+	['e', 'ELEMENT'],
 );
 $ret = $obj->flush;
-is($ret, '<TAG><TAG2></TAG>');
+is($ret, '<ELEMENT><ELEMENT2></ELEMENT>');
 
 # Test.
 $obj = Tags::Output::Raw->new(

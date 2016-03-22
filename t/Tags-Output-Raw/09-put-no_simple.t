@@ -8,13 +8,13 @@ use Test::More 'tests' => 2;
 use Test::NoWarnings;
 
 my $obj = Tags::Output::Raw->new(
-	'no_simple' => ['tag'],
+	'no_simple' => ['element'],
 	'xml' => 1,
 );
 $obj->put(
-	['b', 'tag'],
-	['e', 'tag'],
+	['b', 'element'],
+	['e', 'element'],
 );
 my $ret = $obj->flush;
-my $right_ret = '<tag></tag>';
+my $right_ret = '<element></element>';
 is($ret, $right_ret);

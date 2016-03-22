@@ -10,19 +10,19 @@ use Test::NoWarnings;
 # Test.
 my $obj = Tags::Output::Raw->new;
 $obj->put(
-	['b', 'tag'],
+	['b', 'element'],
 );
 $obj->finalize;
 my $ret = $obj->flush;
-is($ret, '<tag></tag>');
+is($ret, '<element></element>');
 
 # Test.
 $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
 $obj->put(
-	['b', 'tag'],
+	['b', 'element'],
 );
 $obj->finalize;
 $ret = $obj->flush;
-is($ret, '<tag />');
+is($ret, '<element />');

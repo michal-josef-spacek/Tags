@@ -14,21 +14,21 @@ my $obj = Tags::Output::Raw->new(
 	'xml' => 1,
 );
 $obj->put(
-	['b', 'tag'],
+	['b', 'element'],
 	['cd', 'aaaaa<dddd>dddd'],
-	['e', 'tag'],
+	['e', 'element'],
 );
 my $ret = $obj->flush;
-my $right_ret = '<tag><![CDATA[aaaaa<dddd>dddd]]></tag>';
+my $right_ret = '<element><![CDATA[aaaaa<dddd>dddd]]></element>';
 is($ret, $right_ret);
 
 # Test.
 $obj->reset;
 eval {
 	$obj->put(
-		['b', 'tag'],
+		['b', 'element'],
 		['cd', 'aaaaa<dddd>dddd', ']]>'],
-		['e', 'tag'],
+		['e', 'element'],
 	);
 };
 is($EVAL_ERROR, "Bad CDATA data.\n");

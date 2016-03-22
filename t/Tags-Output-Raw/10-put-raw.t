@@ -24,13 +24,13 @@ is($ret, $right_ret);
 # Test.
 $obj->reset;
 $obj->put(
-	['b', 'tag'],
+	['b', 'element'],
 	['r', 'raw'],
-	['e', 'tag'],
+	['e', 'element'],
 );
 $ret = $obj->flush;
 $right_ret = <<'END';
-<tag>raw</tag>
+<element>raw</element>
 END
 chomp $right_ret;
 is($ret, $right_ret);
@@ -38,15 +38,15 @@ is($ret, $right_ret);
 # Test.
 $obj->reset;
 $obj->put(
-	['b', 'tag'],
+	['b', 'element'],
 	['b', 'other'],
 	['r', 'raw'],
 	['e', 'other'],
-	['e', 'tag'],
+	['e', 'element'],
 );
 $ret = $obj->flush;
 $right_ret = <<'END';
-<tag><other>raw</other></tag>
+<element><other>raw</other></element>
 END
 chomp $right_ret;
 is($ret, $right_ret);
@@ -54,17 +54,17 @@ is($ret, $right_ret);
 # Test.
 $obj->reset;
 $obj->put(
-	['b', 'tag'],
+	['b', 'element'],
 	['b', 'other'],
 	['b', 'xxx'],
 	['r', 'raw'],
 	['e', 'xxx'],
 	['e', 'other'],
-	['e', 'tag'],
+	['e', 'element'],
 );
 $ret = $obj->flush;
 $right_ret = <<'END';
-<tag><other><xxx>raw</xxx></other></tag>
+<element><other><xxx>raw</xxx></other></element>
 END
 chomp $right_ret;
 is($ret, $right_ret);
@@ -72,42 +72,42 @@ is($ret, $right_ret);
 # Test.
 $obj->reset;
 $obj->put(
-	['b', 'tag'],
+	['b', 'element'],
 	['r', '<![CDATA['],
 	['d', 'bla'],
 	['r', ']]>'],
-	['e', 'tag'],
+	['e', 'element'],
 );
 $ret = $obj->flush;
-$right_ret = '<tag><![CDATA[bla]]></tag>';
+$right_ret = '<element><![CDATA[bla]]></element>';
 is($ret, $right_ret);
 
 # Test.
 $obj->reset;
 $obj->put(
-	['b', 'tag'],
+	['b', 'element'],
 	['a', 'key', 'val'],
 	['r', '<![CDATA['],
 	['d', 'bla'],
 	['r', ']]>'],
-	['e', 'tag'],
+	['e', 'element'],
 );
 $ret = $obj->flush;
-$right_ret = '<tag key="val"><![CDATA[bla]]></tag>';
+$right_ret = '<element key="val"><![CDATA[bla]]></element>';
 is($ret, $right_ret);
 
 # Test.
 $obj->reset;
 $obj->put(
-	['b', 'tag'],
+	['b', 'element'],
 	['a', 'key', 'val'],
 	['r', '<![CDATA['],
 	['b', 'other'],
 	['d', 'bla'],
 	['e', 'other'],
 	['r', ']]>'],
-	['e', 'tag'],
+	['e', 'element'],
 );
 $ret = $obj->flush;
-$right_ret = '<tag key="val"><![CDATA[<other>bla</other>]]></tag>';
+$right_ret = '<element key="val"><![CDATA[<other>bla</other>]]></element>';
 is($ret, $right_ret);

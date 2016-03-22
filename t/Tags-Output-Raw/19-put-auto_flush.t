@@ -18,55 +18,55 @@ my $obj = Tags::Output::Raw->new(
 my $ret;
 tie *STDOUT, 'IO::Scalar', \$ret;
 $obj->put(
-	['b', 'tag'],
-	['e', 'tag'],
+	['b', 'element'],
+	['e', 'element'],
 );
 untie *STDOUT;
-is($ret, '<tag />');
+is($ret, '<element />');
 
 # Test.
 $obj->reset;
 undef $ret;
 tie *STDOUT, 'IO::Scalar', \$ret;
-$obj->put(['b', 'tag']);
-$obj->put(['e', 'tag']);
+$obj->put(['b', 'element']);
+$obj->put(['e', 'element']);
 untie *STDOUT;
-is($ret, '<tag />');
+is($ret, '<element />');
 
 # Test.
 $obj->reset;
 undef $ret;
 tie *STDOUT, 'IO::Scalar', \$ret;
 $obj->put(
-	['b', 'tag'],
+	['b', 'element'],
 	['d', 'data'],
-	['e', 'tag'],
+	['e', 'element'],
 );
 untie *STDOUT;
-is($ret, '<tag>data</tag>');
+is($ret, '<element>data</element>');
 
 # Test.
 $obj->reset;
 undef $ret;
 tie *STDOUT, 'IO::Scalar', \$ret;
 $obj->put(
-	['b', 'tag'],
-	['b', 'other_tag'],
+	['b', 'element'],
+	['b', 'other_element'],
 	['d', 'data'],
-	['e', 'other_tag'],
-	['e', 'tag'],
+	['e', 'other_element'],
+	['e', 'element'],
 );
 untie *STDOUT;
-is($ret, '<tag><other_tag>data</other_tag></tag>');
+is($ret, '<element><other_element>data</other_element></element>');
 
 # Test.
 $obj->reset;
 undef $ret;
 tie *STDOUT, 'IO::Scalar', \$ret;
-$obj->put(['b', 'tag']);
-$obj->put(['b', 'other_tag']);
+$obj->put(['b', 'element']);
+$obj->put(['b', 'other_element']);
 $obj->put(['d', 'data']);
-$obj->put(['e', 'other_tag']);
-$obj->put(['e', 'tag']);
+$obj->put(['e', 'other_element']);
+$obj->put(['e', 'element']);
 untie *STDOUT;
-is($ret, '<tag><other_tag>data</other_tag></tag>');
+is($ret, '<element><other_element>data</other_element></element>');

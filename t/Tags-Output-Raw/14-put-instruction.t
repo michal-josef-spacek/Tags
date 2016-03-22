@@ -26,9 +26,9 @@ is($ret, '<?perl?>');
 # Test.
 $obj->reset;
 $obj->put(
-	['b', 'tag'],
+	['b', 'element'],
 	['i', 'perl', 'print "1\n";'],
-	['e', 'tag'],
+	['e', 'element'],
 );
 $ret = $obj->flush;
-is($ret, '<tag><?perl print "1\n";?></tag>');
+is($ret, '<element><?perl print "1\n";?></element>');

@@ -31,69 +31,69 @@ is($ret, $right_ret);
 # Test.
 $obj->reset;
 $obj->put(
-	['c', '<tag>comment</tag>'],
+	['c', '<element>comment</element>'],
 );
 $ret = $obj->flush;
-$right_ret = '<!--<tag>comment</tag>-->';
+$right_ret = '<!--<element>comment</element>-->';
 is($ret, $right_ret);
 
 # Test.
 $obj->reset;
 $obj->put(
-	['b', 'tag'],
-	['c', '<tag>comment</tag>'],
-	['e', 'tag'],
+	['b', 'element'],
+	['c', '<element>comment</element>'],
+	['e', 'element'],
 );
 $ret = $obj->flush;
-$right_ret = '<tag><!--<tag>comment</tag>--></tag>';
+$right_ret = '<element><!--<element>comment</element>--></element>';
 is($ret, $right_ret);
 
 # Test.
 $obj->reset;
 $obj->put(
-	['b', 'tag'],
+	['b', 'element'],
 	['a', 'par', 'val'],
-	['c', '<tag>comment</tag>'],
-	['e', 'tag'],
+	['c', '<element>comment</element>'],
+	['e', 'element'],
 );
 $ret = $obj->flush;
-$right_ret = '<tag par="val"><!--<tag>comment</tag>--></tag>';
+$right_ret = '<element par="val"><!--<element>comment</element>--></element>';
 is($ret, $right_ret);
 
 # Test.
 $obj->reset;
 $obj->put(
-	['b', 'tag'],
-	['c', '<tag>comment</tag>'],
+	['b', 'element'],
+	['c', '<element>comment</element>'],
 	['a', 'par', 'val'],
 	['d', 'data'],
-	['e', 'tag'],
+	['e', 'element'],
 );
 $ret = $obj->flush;
-$right_ret = '<!--<tag>comment</tag>--><tag par="val">data</tag>';
+$right_ret = '<!--<element>comment</element>--><element par="val">data</element>';
 is($ret, $right_ret);
 
 # Test.
 $obj->reset;
 $obj->put(
-	['b', 'tag'],
-	['c', '<tag>comment</tag>'],
+	['b', 'element'],
+	['c', '<element>comment</element>'],
 	['a', 'par', 'val'],
 	['cd', 'data'],
-	['e', 'tag'],
+	['e', 'element'],
 );
 $ret = $obj->flush;
-$right_ret = '<!--<tag>comment</tag>--><tag par="val"><![CDATA[data]]></tag>';
+$right_ret = '<!--<element>comment</element>--><element par="val"><![CDATA[data]]></element>';
 is($ret, $right_ret);
 
 # Test.
 $obj->reset;
 $obj->put(
-	['b', 'tag'],
-	['c', '<tag>comment</tag>'],
+	['b', 'element'],
+	['c', '<element>comment</element>'],
 	['a', 'par', 'val'],
-	['e', 'tag'],
+	['e', 'element'],
 );
 $ret = $obj->flush;
-$right_ret = '<!--<tag>comment</tag>--><tag par="val" />';
+$right_ret = '<!--<element>comment</element>--><element par="val" />';
 is($ret, $right_ret);
