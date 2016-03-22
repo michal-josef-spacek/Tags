@@ -11,11 +11,11 @@ use Test::NoWarnings;
 my $obj = Tags::Output->new;
 $obj->put(
 	['a', 'key', 'val'],
-	['b', 'tag'],
+	['b', 'element'],
 	['c', 'comment'],
 	['cd', 'cdata section'],
 	['d', 'data section'],
-	['e', 'tag'],
+	['e', 'element'],
 	['i', 'target', 'code'],
 	['r', 'raw data'],
 );
@@ -31,4 +31,4 @@ Instruction
 Raw data
 END
 chomp $right_ret;
-is($ret, $right_ret, 'Simple test of all tags.');
+is($ret, $right_ret, 'Simple test of all elements.');

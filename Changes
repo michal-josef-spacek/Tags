@@ -5,6 +5,7 @@
 
  [Tags::Output]
  - Add test comments.
+ - Rewrite 'tag' to 'element' in tests.
 
  [Tags::Output::Raw]
  - Add test for end of element.
