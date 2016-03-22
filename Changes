@@ -1,6 +1,7 @@
 0.05
  [Common]
  - Update copyright years.
+ - Rewrite test files to better names.
 
 0.04 2015-10-27T12:39:38+01:00
  [Common]
