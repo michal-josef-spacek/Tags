@@ -292,8 +292,8 @@ sub _put_data {
 # End of tag.
 sub _put_end_of_tag {
 	my ($self, $tag) = @_;
-	my $printed = shift @{$self->{'printed_tags'}};
 	if ($self->{'xml'}) {
+		my $printed = shift @{$self->{'printed_tags'}};
 		if (! defined $printed) {
 			err "Ending bad tag: '$tag' doesn't begin.";
 		} elsif ($printed ne $tag) {
