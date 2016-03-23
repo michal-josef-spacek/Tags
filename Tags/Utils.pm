@@ -18,7 +18,7 @@ Readonly::Scalar my $CHAR_CHARS => q{<&\240};
 Readonly::Scalar my $EMPTY_STR => q{};
 
 # Version.
-our $VERSION = 0.06;
+our $VERSION = 0.07;
 
 # Encode newline in data to '\n' in output.
 sub encode_newline {
@@ -203,6 +203,6 @@ L<http://skim.cz/>
 
 =head1 VERSION
 
-0.06
+0.07
 
 =cut
