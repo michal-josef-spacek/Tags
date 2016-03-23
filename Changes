@@ -1,5 +1,6 @@
 0.06
  [Tags::Output::Raw]
+ - Add test comments.
  - Fix finalize() in SGML mode.
  - Simple optimalization.
 

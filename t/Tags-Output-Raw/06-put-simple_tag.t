@@ -16,7 +16,7 @@ $obj->put(
 	['e', 'MAIN'],
 );
 my $ret = $obj->flush;
-is($ret, '<MAIN></MAIN>');
+is($ret, '<MAIN></MAIN>', 'Simple element in SGML mode.');
 
 # Test.
 $obj->reset;
@@ -26,7 +26,10 @@ $obj->put(
 	['e', 'MAIN'],
 );
 $ret = $obj->flush;
-is($ret, '<MAIN id="id_value"></MAIN>');
+is($ret, '<MAIN id="id_value"></MAIN>',
+	'Simple element with attribute in SGML mode.');
+
+# Test.
 $obj = Tags::Output::Raw->new(
 	'attr_delimeter' => q{'},
 	'xml' => 0,
@@ -37,7 +40,7 @@ $obj->put(
 	['e', 'MAIN'],
 );
 $ret = $obj->flush;
-is($ret, '<MAIN id=\'id_value\'></MAIN>');
+is($ret, '<MAIN id=\'id_value\'></MAIN>', 'Same as previous with \' quotes.');
 
 # Test.
 $obj = Tags::Output::Raw->new(
@@ -52,7 +55,10 @@ $obj->put(
 	['e', 'MAIN'],
 );
 $ret = $obj->flush;
-is($ret, '<MAIN id="id_value"></MAIN><MAIN id="id_value2"></MAIN>');
+is($ret, '<MAIN id="id_value"></MAIN><MAIN id="id_value2"></MAIN>',
+	'Multiple simple elements with attributes in SGML mode.');
+
+# Test.
 $obj = Tags::Output::Raw->new(
 	'attr_delimeter' => q{'},
 	'xml' => 0,
@@ -66,7 +72,8 @@ $obj->put(
 	['e', 'MAIN'],
 );
 $ret = $obj->flush;
-is($ret, '<MAIN id=\'id_value\'></MAIN><MAIN id=\'id_value2\'></MAIN>');
+is($ret, '<MAIN id=\'id_value\'></MAIN><MAIN id=\'id_value2\'></MAIN>',
+	'Same as previous with \' quotes.');
 
 # Test.
 $obj = Tags::Output::Raw->new(
@@ -77,7 +84,7 @@ $obj->put(
 	['e', 'main'],
 );
 $ret = $obj->flush;
-is($ret, '<main />');
+is($ret, '<main />', 'Simple element in XML mode.');
 
 # Test.
 $obj->reset;
@@ -87,7 +94,10 @@ $obj->put(
 	['e', 'main'],
 );
 $ret = $obj->flush;
-is($ret, '<main id="id_value" />');
+is($ret, '<main id="id_value" />',
+	'Simple element with attribute in XML mode.');
+
+# Test.
 $obj = Tags::Output::Raw->new(
 	'attr_delimeter' => q{'},
 	'xml' => 1,
@@ -98,7 +108,7 @@ $obj->put(
 	['e', 'main'],
 );
 $ret = $obj->flush;
-is($ret, '<main id=\'id_value\' />');
+is($ret, '<main id=\'id_value\' />', 'Same as previous with \' quotes.');
 
 # Test.
 $obj = Tags::Output::Raw->new(
@@ -113,7 +123,10 @@ $obj->put(
 	['e', 'main'],
 );
 $ret = $obj->flush;
-is($ret, '<main id="id_value" /><main id="id_value2" />');
+is($ret, '<main id="id_value" /><main id="id_value2" />',
+	'Multiple simple elements with attributes in XML mode.');
+
+# Test.
 $obj = Tags::Output::Raw->new(
 	'attr_delimeter' => q{'},
 	'xml' => 1,
@@ -127,4 +140,5 @@ $obj->put(
 	['e', 'main'],
 );
 $ret = $obj->flush;
-is($ret, '<main id=\'id_value\' /><main id=\'id_value2\' />');
+is($ret, '<main id=\'id_value\' /><main id=\'id_value2\' />',
+	'Same as previous with \' quotes.');
