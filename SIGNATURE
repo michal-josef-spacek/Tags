@@ -14,17 +14,17 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 5624a48b2e839b22d66a0b125bbe6322b82ae819 Changes
+SHA1 70c374d3a5dddb04e432a84314d0e9714a0a2bdd Changes
 SHA1 cab706f69fd9557eea74081f7a8d767f383fad76 LICENSE
 SHA1 5fac96e197ead273bc1d5359ebe42e8e1ccd4078 MANIFEST
-SHA1 32c62a64ec872d5aea1d4aabab36bcd75e814f79 META.yml
-SHA1 114549215bb19b4b5f69718aafafa2acde37a6a0 Makefile.PL
+SHA1 a8ef3f5e0b5f949fe3f04eabe366e980dcf4c4f7 META.yml
+SHA1 7422ed65d301f3dcdbb0deab2536183aaabbe033 Makefile.PL
 SHA1 381461cbf868cc79f6dabd7705689819fdf444cc README
-SHA1 7e6d063afe5de687e72cccf410ebc1caef762f3f Tags.pm
-SHA1 59e07dbd3ae53cf7a326e9ecf0b29f540a39be17 Tags/Output.pm
-SHA1 4b371dfc5f61d479c124231be3b789348b45d90a Tags/Output/Raw.pm
-SHA1 db8d2a6bb3c833eaf894d8534207441dcb7a75aa Tags/Utils.pm
-SHA1 afa5d18dea7719ebbb6fb1a3f507e2dfd5b19f53 Tags/Utils/Preserve.pm
+SHA1 49906c30d8735bc24c2b71afe4c1cab0e1ca4793 Tags.pm
+SHA1 dee86144e06353763c759a53fdf61509d9fbf6ed Tags/Output.pm
+SHA1 b6c46b978827e69dfed1ec874f9355b6965d696f Tags/Output/Raw.pm
+SHA1 fb0bcf1a668742ccc0628f64730d68a4393edfef Tags/Utils.pm
+SHA1 7dfb279a1994f59d8f7abb9be2ad49c05764379c Tags/Utils/Preserve.pm
 SHA1 84bcc902b408ba12b3765eb6a96446679fe402c8 examples/ex1.pl
 SHA1 f6aa6ed1c59a5a6b10ea615438e595f0d72ddc8b examples/ex2.pl
 SHA1 deafd8554776422d8eca332e2cc01e8c28e07739 examples/ex3.pl
@@ -43,11 +43,11 @@ SHA1 79f5b4199f622e8b05aac266b0c39f6a85bb303f inc/Module/Install/ReadmeFromPod.p
 SHA1 c830b819e61bda5eca077c6291293bba61b3b9f2 inc/Module/Install/Win32.pm
 SHA1 cb52b9d6f88d512d448a6f35ed0af0d1201a134b inc/Module/Install/WriteAll.pm
 SHA1 dd5ebb5bf21e4638f48ac3e95cff8aa09bbef06b t/Tags-Output-Raw/01-use.t
-SHA1 8d8961b3ff795e16b34d6d7ff0f50008778eee95 t/Tags-Output-Raw/02-version.t
+SHA1 bfa74050d345301ae8cad70937eb2595239e6baf t/Tags-Output-Raw/02-version.t
 SHA1 ec6aa286f93efddf77cac2289eee86e516bf9726 t/Tags-Output-Raw/03-new.t
-SHA1 9daee3b2579983ad392074ec3e6fd593973fd91e t/Tags-Output-Raw/04-finalize.t
+SHA1 c1c3800b574f7589de665a3c7551b5bc94919e79 t/Tags-Output-Raw/04-finalize.t
 SHA1 03ca4a39e8d0f163e227d5f782aeac4760163795 t/Tags-Output-Raw/05-open_tags.t
-SHA1 2563996fafe0fcba944e3cb739dbc9af8dcf4a14 t/Tags-Output-Raw/06-put-simple_tag.t
+SHA1 d929eb20e60de826a083e5059ab0bcc36a4c344f t/Tags-Output-Raw/06-put-simple_tag.t
 SHA1 40ccf907ffd577cd038634a2cfe5418c5f652bad t/Tags-Output-Raw/07-put-tag.t
 SHA1 426a87ee2ab77524b06d3d6e2556fa772caced6d t/Tags-Output-Raw/08-put-preserve_from_attribute.t
 SHA1 dc57463f953405ef2d7e759a529a7e8404bde70d t/Tags-Output-Raw/09-put-preserve_from_constructor.t
@@ -63,20 +63,20 @@ SHA1 f7894b545140b1f1567fd5b4bbbf711e66853854 t/Tags-Output-Raw/18-put-skip_bad_
 SHA1 a4a4fbdadda10c2bb3ede9536f57943523beffad t/Tags-Output-Raw/19-put-auto_flush.t
 SHA1 47b02166af2f57960c99f57e41ef502c9bec5b8a t/Tags-Output-Raw/20-put-end_of_element.t
 SHA1 e6c3863bcd3585a965302a6701f09b451c76e378 t/Tags-Output/01-use.t
-SHA1 0fdf7041f3457ef0086e5f555e0d01fdd7a8adb7 t/Tags-Output/02-version.t
+SHA1 402f91b3f8335c59be6b05a00e26891c5d5f0488 t/Tags-Output/02-version.t
 SHA1 6b39b3e88e61617ddc974f61892014146a07f476 t/Tags-Output/03-new.t
 SHA1 4e924d59870f92a8ad8f8cc7ede8df7eab3d551e t/Tags-Output/04-put.t
 SHA1 f70bcc0fb5ab45bfa0b5a95272bf9b5233876fb3 t/Tags-Utils-Preserve/01-use.t
-SHA1 3d80cb6032eabc37d403284c9b6348a652d3cf21 t/Tags-Utils-Preserve/02-version.t
+SHA1 f3b76597c8bb0fa468563d126d172627aa0183c4 t/Tags-Utils-Preserve/02-version.t
 SHA1 ef45999974db403f6502c8d7b17c47d379565e97 t/Tags-Utils-Preserve/03-new.t
 SHA1 bddcf8702f4f90414ce1a19329f1198f53e3c100 t/Tags-Utils-Preserve/04-preserving.t
 SHA1 f50fb64d732c0faf087c26d2206de4ad4a05c9f8 t/Tags-Utils/01-use.t
-SHA1 6b7dfae6ba23bc283925ef178c8848f3d9c3724e t/Tags-Utils/02-version.t
+SHA1 93f59b761ebb8b5e9659f7346cbb21ca2e34014b t/Tags-Utils/02-version.t
 SHA1 319b54341ef6dfd9d35ba2ad2cd8c1620ce6be1a t/Tags-Utils/03-encode_newline.t
 SHA1 34b01cb0f03d39fffcedafaf1ac5c4a0abc1440a t/Tags-Utils/04-encode_char_entities.t
 SHA1 649b67cc6e79e8b354ae69c599ca8c5e6d950f1b t/Tags-Utils/05-encode_attr_entities.t
 SHA1 433639d6f6c10bdfb4c741949ea49650dd67f069 t/Tags/01-use.t
-SHA1 4fa0fd827db1ae1615a81ecb013e79f156c49aed t/Tags/02-version.t
+SHA1 398e3a77538cbe0494e0f61d6c1152cb9682673e t/Tags/02-version.t
 SHA1 da39a3ee5e6b4b0d3255bfef95601890afd80709 t/dtd/fake.dtd
 SHA1 25758409283e4d11bbcab2dbf5ee8989b1b2d2ec t/dtd/test1.dtd
 SHA1 a5a0d3a4b4a1868974415b42478f4845cf3f0e44 t/dtd/test10.dtd
@@ -104,11 +104,11 @@ SHA1 d6af287d935876d2e19dec4c81aef1854423ecd3 xt/Tags/02-pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iQEcBAEBAgAGBQJW8YvzAAoJEJe+XXKaIuTlqtIIALnKJxRz3OHelKgSAVwsVrAX
-k3tlB++R5M7tZniB0xXnxEaU9+u7j0FhDtwBhODeL6YcfTCicwUsyRZ5ICo2cNxq
-EHrgYNprEMxHFmPDoy4Md7zYVdFLgnYBKpBXwHLM1L6PMyidd99FFWj1z7L05gVD
-GLC1MsPYlIEpF6BmxKYCClrfdxRvIPnjNG+snxH31etV8Nb2s08iv2UtmB9r9qSA
-B5ehVEJ0aSgugKKAhHQ7N5P51rQ0ZRQJl7L7QkIzDiRvkYg6EThxRe/E8PnzUI0c
-f/3TvIU09ff4KlfLZlnlkeZMUago3fizaOjB62uejyBVyCRPZApN8Fs3MLFL/4c=
-=v8nm
+iQEcBAEBAgAGBQJW8vpLAAoJEJe+XXKaIuTlED0IAKo8LGsnthsEsGesX8Zx1zfd
+L/ZyGWguVnhHTFgL34mYx/m0Xt+iWAZSf5A6pKHNYLPkrQTmGIq+fYwSsPNsq6K0
+lRXpZZ8EgjVntSUvIR4esVslLWYlXv2GhaJGL6dj0kR0m2DPOhid1jfaWGHyiM0H
+IBL8Mel3NUBff2ZmCrLFcEC9QlCWOwyUvGgskPTtE6ggp1kxqlXul915dBOTB1jB
+/3lzdi6gb12Iqdztuya7W4ZgCrhSGoepfG2Yx6pXJTTj9KfcxhidQoueQCtK9+EL
+id7k/3NrfhWs3EAAYBt+ZXg/1Fa0yU8JgMbTJkXq0kaIHpGdi76LUJztns0ZiM4=
+=HM/6
 -----END PGP SIGNATURE-----

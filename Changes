@@ -1,4 +1,4 @@
-0.06
+0.06 2016-03-23T21:19:20+01:00
  [Tags::Output::Raw]
  - Add test comments.
  - Fix finalize() in SGML mode.
