@@ -1,11 +1,9 @@
 package Tags::Output::Raw;
 
-# Pragmas.
 use base qw(Tags::Output);
 use strict;
 use warnings;
 
-# Modules.
 use Error::Pure qw(err);
 use List::MoreUtils qw(none);
 use Readonly;
@@ -17,7 +15,6 @@ Readonly::Scalar my $EMPTY_STR => q{};
 Readonly::Scalar my $LAST_INDEX => -1;
 Readonly::Scalar my $SPACE => q{ };
 
-# Version.
 our $VERSION = 0.07;
 
 # Finalize Tags output.
@@ -578,11 +575,9 @@ __END__
 
 =head1 EXAMPLE1
 
- # Pragmas.
  use strict;
  use warnings;
 
- # Modules.
  use Tags::Output::Raw;
 
  # Object.
@@ -603,11 +598,9 @@ __END__
 
 =head1 EXAMPLE2
 
- # Pragmas.
  use strict;
  use warnings;
 
- # Modules.
  use Encode;
  use Tags::Output::Raw;
 

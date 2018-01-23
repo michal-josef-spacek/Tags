@@ -1,10 +1,8 @@
 package Tags;
 
-# Pragmas.
 use strict;
 use warnings;
 
-# Version.
 our $VERSION = 0.07;
 
 1;

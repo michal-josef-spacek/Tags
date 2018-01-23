@@ -1,11 +1,9 @@
 package Tags::Utils;
 
-# Pragmas.
 use base qw(Exporter);
 use strict;
 use warnings;
 
-# Modules.
 use Error::Pure qw(err);
 use HTML::Entities;
 use Readonly;
@@ -17,7 +15,6 @@ Readonly::Scalar my $ATTR_CHARS => q{<&"};
 Readonly::Scalar my $CHAR_CHARS => q{<&\240};
 Readonly::Scalar my $EMPTY_STR => q{};
 
-# Version.
 our $VERSION = 0.07;
 
 # Encode newline in data to '\n' in output.
@@ -122,11 +119,9 @@ __END__
 
 =head1 EXAMPLE1
 
- # Pragmas.
  use strict;
  use warnings;
 
- # Modules.
  use Tags::Utils qw(encode_newline);
 
  # Input text.
@@ -146,11 +141,9 @@ __END__
 
 =head1 EXAMPLE2
 
- # Pragmas.
  use strict;
  use warnings;
 
- # Modules.
  use Dumpvalue;
  use Tags::Utils qw(encode_attr_entities);
 

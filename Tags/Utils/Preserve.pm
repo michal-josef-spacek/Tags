@@ -1,10 +1,8 @@
 package Tags::Utils::Preserve;
 
-# Pragmas.
 use strict;
 use warnings;
 
-# Modules.
 use Class::Utils qw(set_params);
 use List::MoreUtils qw(any);
 use Readonly;
@@ -12,7 +10,6 @@ use Readonly;
 # Constants.
 Readonly::Scalar my $LAST_INDEX => -1;
 
-# Version.
 our $VERSION = 0.07;
 
 # Constructor.
@@ -179,11 +176,9 @@ __END__
 
 =head1 EXAMPLE
 
- # Pragmas.
  use strict;
  use warnings;
 
- # Modules.
  use Tags::Utils::Preserve;
 
  # Begin element helper.
