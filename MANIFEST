@@ -41,8 +41,8 @@ t/Tags-Output-Raw/02-version.t
 t/Tags-Output-Raw/03-new.t
 t/Tags-Output-Raw/04-finalize.t
 t/Tags-Output-Raw/05-open_tags.t
-t/Tags-Output-Raw/06-put-simple_tag.t
-t/Tags-Output-Raw/07-put-tag.t
+t/Tags-Output-Raw/06-put-simple_element.t
+t/Tags-Output-Raw/07-put-element.t
 t/Tags-Output-Raw/08-put-preserve_from_attribute.t
 t/Tags-Output-Raw/09-put-preserve_from_constructor.t
 t/Tags-Output-Raw/10-put-comment.t
