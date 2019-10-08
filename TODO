@@ -56,7 +56,8 @@ TODO
     </head>
 65. Pridat komentare k testum.
 67. atributy by nemely poustet nonascii znaky v jine forme, nez encodovane
-68.
+68. Prejmenotat open_tags() na open_elements() ze zpetnou kompatibilitou.
+69.
 
 Applied
 =======
