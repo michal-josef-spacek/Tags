@@ -56,7 +56,8 @@ TODO
     <script language="javascript" type="text/javascript" src="/javascript/jquery-ui/jquery-ui.js" />
     </head>
 65. Pridat komentare k testum.
-67.
+67. atributy by nemely poustet nonascii znaky v jine forme, nez encodovane
+68.
 
 Applied
 =======
@@ -244,5 +245,6 @@ OK [20141107] skim
 66. Test soubory prejmenovat tak, aby ty ktere jsou k testu metod, obsahovaly
     toto jmeno.
 OK [20160322] skim
+
 64. Eliminovat get_stdout v testech.
 OK [20191008] skim
