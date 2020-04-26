@@ -42,7 +42,6 @@ TODO
 55. V atributech by se melo predelat zpracovani. Co muze byt v klici?
     Na hodnotu by se mel aplikovat attr_callback(), ted se aplikuje na obe.
 56. Testy pro atribut s uvozovkami a dalsimi chybnymi znaky.
-58. Udelat univerzalni Tags::Output, abych nemusel rucne ve skriptech prepinat?
 59. Pokud mam v Tags::Utils v $ATTR_CHARS >"<, tak to plati jenom pro attr
     separator s >"<. Nefunguje pro attr separator s >'<.
 61. Test pro data_callback s prikladem callbacku s Tags::Output::Raw dokumentace
@@ -253,3 +252,7 @@ OK [20191008] skim
 Nesmysl, ve specifikaci je jasne napsane, ze se muzou pouzivat ruzne dalsi
 znaky.
 NONE [20191008] skim
+
+58. Udelat univerzalni Tags::Output, abych nemusel rucne ve skriptech prepinat?
+Tags::Output existuje
+OK [20200426] skim
