@@ -6,7 +6,6 @@ use warnings;
 use Class::Utils qw(set_params);
 use Error::Pure qw(err);
 
-# Version.
 our $VERSION = 0.08;
 
 # Constructor.
