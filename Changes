@@ -1,5 +1,6 @@
 0.08
  [Common]
+ - Improve LICENSE AND COPYRIGHT section in doc.
  - Improve SYNOPSIS section in doc.
  - Remove helper get_stdout.inc in tests.
  - Rename test files to better version (tag → element).
