@@ -522,7 +522,7 @@ Install the Tags modules.
 
 =head1 REPOSITORY
 
-L<https://github.com/tupinek/Tags>
+L<https://github.com/michal-josef-spacek/Tags>
 
 =head1 AUTHOR
 
