@@ -387,6 +387,7 @@ __END__
 =head1 SYNOPSIS
 
  use Tags::Output::Raw;
+
  my $tags = Tags::Output::Raw->new(%params);
  $tags->put(['b', 'tag']);
  my @open_tags = $tags->open_tags;

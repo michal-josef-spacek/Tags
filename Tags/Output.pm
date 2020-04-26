@@ -305,6 +305,7 @@ __END__
 =head1 SYNOPSIS
 
  use Tags::Output;
+
  my $obj = Tags::Output->new(%parameters);
  $obj->finalize;
  my $ret = $obj->flush($reset_flag);

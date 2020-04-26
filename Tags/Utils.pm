@@ -75,6 +75,7 @@ __END__
 =head1 SYNOPSIS
 
  use Tags::Utils qw(encode_newline encode_attr_entities encode_char_entities);
+
  my $string_with_encoded_newline = encode_newline("foo\nbar");
  my $string_with_encoded_attr_entities = encode_attr_entities('<data & "data"');
  my $string_with_encoded_char_entities = encode_char_entities('<data & data');

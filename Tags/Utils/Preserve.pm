@@ -113,6 +113,7 @@ __END__
 =head1 SYNOPSIS
 
  use Tags::Utils::Preserve;
+
  my $obj = Tags::Utils::Preserve->new(%params);
  my $preserved_flag = $obj->begin;
  my ($preserver_flag, $prev_preserved_flag) = $obj->begin;
