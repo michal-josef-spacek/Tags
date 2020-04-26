@@ -71,6 +71,6 @@ L<http://skim.cz>
 
 =head1 VERSION 
 
-0.01
+0.08
 
 =cut
