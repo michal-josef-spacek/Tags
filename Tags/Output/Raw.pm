@@ -389,10 +389,13 @@ __END__
 
  my $tags = Tags::Output::Raw->new(%params);
  $tags->put(['b', 'tag']);
- my @open_tags = $tags->open_tags;
+ my @elements = $tags->open_elements;
  $tags->finalize;
  $tags->flush($reset_flag);
  $tags->reset;
+
+ # Deprecated methods.
+ my @tags = $obj->open_tags;
 
 =head1 METHODS
 
@@ -530,7 +533,7 @@ __END__
  Or return code.
  If enabled $reset_flag, then resets internal variables via reset method.
 
-=item C<open_tags()>
+=item C<open_elements()>
 
  Return array of opened tags.
 
@@ -543,6 +546,16 @@ __END__
 
  Resets internal variables.
  Returns undef.
+
+=back
+
+=head1 DEPRECATED METHODS
+
+=over 8
+
+=item C<open_tags()>
+
+ Return array of opened tags.
 
 =back
 
