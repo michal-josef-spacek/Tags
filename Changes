@@ -1,3 +1,5 @@
+0.10
+
 0.09 2020-04-27T23:28:40+02:00
  [Tags::Output]
  - Add open_elements() method, deprecate open_tags() method with warning.
