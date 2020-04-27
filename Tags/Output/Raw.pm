@@ -196,11 +196,10 @@ sub _put_begin_of_tag {
 		$self->_flush_tmp('>');
 	}
 
-	# XXX Is really?
-	# Check to lowercased chars for XML.
-	if ($self->{'xml'} && $tag ne lc $tag) {
-		err 'In XML must be lowercase tag name.';
-	}
+	# TODO Add checking of XML element name.
+#	if ($self->{'xml'} && _check(element_name)) {
+#		err 'This is not XML format.';
+#	}
 
 	# Push begin of tag to tmp code.
 	push @{$self->{'tmp_code'}}, "<$tag";
@@ -567,7 +566,6 @@ __END__
          Ending bad tag: '%s' doesn't begin.
          Ending bad tag: '%s' in block of tag '%s'.
          In XML mode must be a attribute '%s' value.
-         In XML must be lowercase tag name.
          From Tags::Output::put():
                 Bad data.
                 Bad type of data.
