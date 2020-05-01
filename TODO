@@ -56,7 +56,9 @@ TODO
 65. Pridat komentare k testum.
 67. atributy by nemely poustet nonascii znaky v jine forme, nez encodovane
 69. Pridat realne testy jmena elementu a ostatnich.
-70.
+70. Zvazit metodu Tags::Output->mime, protoze potrebuji vedet, jakeho typu jsou
+ty vystupni data. HTML/SGML/PYX output.
+71.
 
 Applied
 =======
