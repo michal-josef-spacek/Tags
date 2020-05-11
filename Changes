@@ -1,4 +1,6 @@
 0.10
+ [Tags::Output::Raw]
+ - Sort modules in test.
 
 0.09 2020-04-27T23:28:40+02:00
  [Tags::Output]
