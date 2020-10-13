@@ -1,4 +1,7 @@
 0.10
+ [Common]
+ - Move t/dtd directory out. There is for testing of validation.
+
  [Tags::Output::Raw]
  - Sort modules in test.
 
