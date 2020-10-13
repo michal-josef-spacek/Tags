@@ -460,6 +460,13 @@ __END__
          return;
  }
 
+=item * C<input_tags_item_callback>
+
+ Input 'Tags' item callback.
+ Callback is processing before main 'Tags' put().
+ It's usefull for e.g. validation.
+ Default value is undef.
+
 =item * C<no_simple>
 
  Reference to array of tags, that can't by simple.

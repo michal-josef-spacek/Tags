@@ -3,6 +3,9 @@
  - Add missing test messages.
  - Move t/dtd directory out. There is for testing of validation.
 
+ [Tags::Output]
+ - Add 'input_tags_item_callback' for processing before 'Tags' put().
+
  [Tags::Output::Raw]
  - Sort modules in test.
 
