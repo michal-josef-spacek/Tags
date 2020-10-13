@@ -7,6 +7,7 @@
  - Add 'input_tags_item_callback' for processing before 'Tags' put().
 
  [Tags::Output::Raw]
+ - Add 'input_tags_item_callback' for processing before 'Tags' put().
  - Sort modules in test.
 
 0.09 2020-04-27T23:28:40+02:00
