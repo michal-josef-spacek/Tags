@@ -1,5 +1,6 @@
 0.10
  [Common]
+ - Add missing test messages.
  - Move t/dtd directory out. There is for testing of validation.
 
  [Tags::Output::Raw]
