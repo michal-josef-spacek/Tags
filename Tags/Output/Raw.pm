@@ -367,7 +367,9 @@ sub _put_raw {
 # Reset flush code.
 sub _reset_flush {
 	my $self = shift;
+
 	$self->{'flush_code'} = $EMPTY_STR;
+
 	return;
 }
 
