@@ -19,7 +19,7 @@ $obj->put(['b', 'MAIN'], ['b', 'CHILD1'],
 	['e', 'CHILD1'], ['e', 'MAIN']);
 my $ret = $obj->flush;
 my $right_ret = '<MAIN><CHILD1 xml:space="default">'.$text.'</CHILD1></MAIN>';
-is($ret, $right_ret);
+is($ret, $right_ret, 'SGML preserving test (default).');
 
 # Test.
 $obj = Tags::Output::Raw->new(
@@ -30,7 +30,7 @@ $obj->put(['b', 'main'], ['b', 'child1'],
 	['e', 'child1'], ['e', 'main']);
 $ret = $obj->flush;
 $right_ret = '<main><child1 xml:space="default">'.$text.'</child1></main>';
-is($ret, $right_ret);
+is($ret, $right_ret, 'XML preserving test (default).');
 
 # TODO
 SKIP: {
@@ -42,7 +42,7 @@ $obj->put(['b', 'MAIN'], ['b', 'CHILD1'],
 $ret = $obj->flush;
 print "$ret\n";
 $right_ret = "<MAIN><CHILD1 xml:space=\"preserve\">\n$text</CHILD1></MAIN>";
-is($ret, $right_ret);
+is($ret, $right_ret, 'SGML preserving test (preserve)');
 };
 
 # TODO Pridat vnorene testy.
