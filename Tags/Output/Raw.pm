@@ -452,7 +452,7 @@ __END__
 
  Example:
  'data_callback' => sub {
-         my $data_ar = shift;
+         my ($data_ar, $self) = @_;
          foreach my $data (@{$data_ar}) {
 
                  # Some process.
@@ -629,7 +629,7 @@ __END__
  # Object.
  my $tags = Tags::Output::Raw->new(
          'data_callback' => sub {
-                 my $data_ar = shift;
+                 my ($data_ar, $self) = @_;
                  foreach my $data (@{$data_ar}) {
                           $data = encode_utf8($data);
                  }

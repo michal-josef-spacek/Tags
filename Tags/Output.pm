@@ -244,7 +244,7 @@ sub _process_callback {
 	if (defined $self->{$callback_type}
 		&& ref $self->{$callback_type} eq 'CODE') {
 
-		$self->{$callback_type}->($data_r);
+		$self->{$callback_type}->($data_r, $self);
 	}
 
 	return;
@@ -380,7 +380,10 @@ __END__
 =item * C<output_callback>
 
  Output callback.
- Default value is undef.
+ Default value is callback which encode to output encoding, if parameter 'output_encoding' is present.
+ Arguments of callback:
+ - $data_sr - Reference to data
+ - $self - Object
 
 =item * C<output_handler>
 
