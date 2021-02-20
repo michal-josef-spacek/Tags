@@ -487,11 +487,18 @@ __END__
 
  Output callback.
  Input argument is reference to scalar of output string.
- Default value is undef.
- Example for output encoding in utf8:
+ Default value is callback which encode to output encoding, if parameter 'output_encoding' is present.
+
+ Arguments of callback:
+ - $data_sr - Reference to data
+ - $self - Object
+
+ Example for output encoding in iso-8859-2:
  'output_callback' => sub {
-         my $data_sr = shift;
-         ${$data_sr} = encode_utf8(${$data_sr});
+         my ($data_sr, $self) = @_;
+
+         ${$data_sr} = encode('iso-8859-2', ${$data_sr});
+
          return;
  }
 

@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Class::Utils qw(set_params);
+use Encode;
 use Error::Pure qw(err);
 
 our $VERSION = 0.11;
@@ -219,7 +220,19 @@ sub _default_parameters {
 	$self->{'input_tags_item_callback'} = undef;
 
 	# Output callback.
-	$self->{'output_callback'} = undef;
+	$self->{'output_callback'} = sub {
+		my ($data_sr, $self) = @_;
+
+		if (defined $self->{'output_encoding'}) {
+			${$data_sr} = Encode::encode(
+				$self->{'output_encoding'},
+				${$data_sr},
+			);
+		}
+
+		return;
+	};
+
 	# Output encoding.
 	$self->{'output_encoding'} = undef;
 
@@ -383,9 +396,19 @@ __END__
 
  Output callback.
  Default value is callback which encode to output encoding, if parameter 'output_encoding' is present.
+
  Arguments of callback:
  - $data_sr - Reference to data
  - $self - Object
+
+ Example for output encoding in iso-8859-2:
+ 'output_callback' => sub {
+         my ($data_sr, $self) = @_;
+
+         ${$data_sr} = encode('iso-8859-2', ${$data_sr});
+
+         return;
+ }
 
 =item * C<output_encoding>
 
@@ -579,6 +602,7 @@ Constructor.
 =head1 DEPENDENCIES
 
 L<Class::Utils>,
+L<Encode>,
 L<Error::Pure>.
 
 =head1 SEE ALSO
