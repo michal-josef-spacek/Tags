@@ -220,6 +220,8 @@ sub _default_parameters {
 
 	# Output callback.
 	$self->{'output_callback'} = undef;
+	# Output encoding.
+	$self->{'output_encoding'} = undef;
 
 	# Set output handler.
 	$self->{'output_handler'} = undef;
@@ -384,6 +386,11 @@ __END__
  Arguments of callback:
  - $data_sr - Reference to data
  - $self - Object
+
+=item * C<output_encoding>
+
+ Output encoding.
+ Default value is undef, which mean not encode.
 
 =item * C<output_handler>
 

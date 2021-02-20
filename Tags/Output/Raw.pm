@@ -495,6 +495,11 @@ __END__
          return;
  }
 
+=item * C<output_encoding>
+
+ Output encoding.
+ Default value is undef, which mean not encode.
+
 =item * C<output_handler>
 
  Handler for print output strings.
