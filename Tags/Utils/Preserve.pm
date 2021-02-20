@@ -33,6 +33,7 @@ sub new {
 # Process for begin of tag.
 sub begin {
 	my ($self, $tag) = @_;
+
 	$self->save_previous;
 	if (scalar @{$self->{'preserved'}}
 		&& any { $tag eq $_ } @{$self->{'preserved'}}) {
@@ -50,6 +51,7 @@ sub begin {
 # Process for end of tag.
 sub end {
 	my ($self, $tag) = @_;
+
 	$self->save_previous;
 	my $stack = $self->{'preserved_stack'};
 	if (scalar @{$stack} && $tag eq $stack->[$LAST_INDEX]) {
@@ -94,7 +96,9 @@ sub reset {
 # Save previous stay.
 sub save_previous {
 	my $self = shift;
+
 	$self->{'prev_preserved_flag'} = $self->{'preserved_flag'};
+
 	return;
 }
 

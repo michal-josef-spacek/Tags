@@ -34,15 +34,18 @@ sub new {
 # Finalize Tags output.
 sub finalize {
 	my $self = shift;
+
 	while (@{$self->{'printed_tags'}}) {
 		$self->put(['e', $self->{'printed_tags'}->[0]]);
 	}
+
 	return;
 }
 
 # Flush tags in object.
 sub flush {
 	my ($self, $reset_flag) = @_;
+
 	my $ouf = $self->{'output_handler'};
 	my $ret;
 	if (ref $self->{'flush_code'} eq 'ARRAY') {
@@ -72,13 +75,16 @@ sub flush {
 # Return array of opened elements.
 sub open_elements {
 	my $self = shift;
+
 	return @{$self->{'printed_tags'}};
 }
 
 # Deprecated.
 sub open_tags {
 	my $self = shift;
+
 	warn "Method open_tags() is deprecated";
+
 	return $self->open_elements;
 }
 
@@ -173,11 +179,13 @@ sub reset {
 # Check arguments.
 sub _check_arguments {
 	my ($self, $tags_struct_ar, $min_arg_num, $max_arg_num) = @_;
+
 	my $arg_num = scalar @{$tags_struct_ar};
 	if ($arg_num < $min_arg_num || $arg_num > $max_arg_num) {
 		err 'Bad number of arguments.', 
 			'\'Tags\' structure', join ', ', @{$tags_struct_ar};
 	}
+
 	return;
 }
 
@@ -245,63 +253,81 @@ sub _process_callback {
 # Attributes.
 sub _put_attribute {
 	my ($self, $attr, $value) = @_;
+
 	push @{$self->{'flush_code'}}, 'Attribute';
+
 	return;
 }
 
 # Begin of tag.
 sub _put_begin_of_tag {
 	my ($self, $tag) = @_;
+
 	push @{$self->{'flush_code'}}, 'Begin of tag';
+
 	return;
 }
 
 # CData.
 sub _put_cdata {
 	my ($self, @cdata) = @_;
+
 	push @{$self->{'flush_code'}}, 'CData';
+
 	return;
 }
 
 # Comment.
 sub _put_comment {
 	my ($self, @comments) = @_;
+
 	push @{$self->{'flush_code'}}, 'Comment';
+
 	return;
 }
 
 # Data.
 sub _put_data {
 	my ($self, @data) = @_;
+
 	push @{$self->{'flush_code'}}, 'Data';
+
 	return;
 }
 
 # End of tag.
 sub _put_end_of_tag {
 	my ($self, $tag) = @_;
+
 	push @{$self->{'flush_code'}}, 'End of tag';
+
 	return;
 }
 
 # Instruction.
 sub _put_instruction {
 	my ($self, $target, $code) = @_;
+
 	push @{$self->{'flush_code'}}, 'Instruction';
+
 	return;
 }
 
 # Raw data.
 sub _put_raw {
 	my ($self, @raw_data) = @_;
+
 	push @{$self->{'flush_code'}}, 'Raw data';
+
 	return;
 }
 
 # Reset flush code.
 sub _reset_flush {
 	my $self = shift;
+
 	$self->{'flush_code'} = [];
+
 	return;
 }
 

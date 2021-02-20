@@ -288,6 +288,7 @@ sub _put_data {
 # End of tag.
 sub _put_end_of_tag {
 	my ($self, $tag) = @_;
+
 	if ($self->{'xml'}) {
 		my $printed = shift @{$self->{'printed_tags'}};
 		if (! defined $printed) {

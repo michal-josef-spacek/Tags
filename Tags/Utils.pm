@@ -20,13 +20,16 @@ our $VERSION = 0.11;
 # Encode newline in data to '\n' in output.
 sub encode_newline {
 	my $string = shift;
+
 	$string =~ s/\n/\\n/gms;
+
 	return $string;
 }
 
 # Encode '<&"' attribute entities.
 sub encode_attr_entities {
 	my $data_r = shift;
+
 	if (ref $data_r eq 'SCALAR') {
 		${$data_r} = encode_entities(decode_entities(${$data_r}),
 			$ATTR_CHARS);
@@ -45,6 +48,7 @@ sub encode_attr_entities {
 # Encode '<&NBSP' char entities.
 sub encode_char_entities {
 	my $data_r = shift;
+
 	if (ref $data_r eq 'SCALAR') {
 		${$data_r} = encode_entities(decode_entities(${$data_r}),
 			$CHAR_CHARS);
