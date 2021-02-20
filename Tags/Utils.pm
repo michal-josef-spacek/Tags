@@ -166,8 +166,8 @@ __END__
 
 =head1 DEPENDENCIES
 
-L<HTML::Entities>,
 L<Error::Pure>,
+L<HTML::Entities>,
 L<Readonly>.
 
 =head1 SEE ALSO
