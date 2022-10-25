@@ -1,4 +1,7 @@
 0.12
+ [Common]
+ - Update copyright years.
+
  [Tags::Output]
  - Add 'no_data_callback' parameter to set list of elements which not process
    'data_callback'. Example is 'script' in which we don't need HTML escaping.
