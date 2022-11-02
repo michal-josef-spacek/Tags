@@ -5,6 +5,7 @@ use Tags::Output::Raw;
 use Test::More 'tests' => 2;
 use Test::NoWarnings;
 
+# Test.
 my $obj = Tags::Output::Raw->new(
 	'no_data_callback' => ['element'],
 	'xml' => 1,
