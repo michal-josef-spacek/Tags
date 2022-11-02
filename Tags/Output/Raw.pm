@@ -280,7 +280,9 @@ sub _put_data {
 	}
 
 	# Process data callback.
-	if (none { $_ eq $self->{'printed_tags'}->[0] } @{$self->{'no_data_callback'}}) {
+	if (none { defined $self->{'printed_tags'}->[0] && $_ eq $self->{'printed_tags'}->[0] }
+		@{$self->{'no_data_callback'}}) {
+
 		$self->_process_callback(\@character_data, 'data_callback');
 	}
 
