@@ -15,7 +15,7 @@ Readonly::Scalar my $EMPTY_STR => q{};
 Readonly::Scalar my $LAST_INDEX => -1;
 Readonly::Scalar my $SPACE => q{ };
 
-our $VERSION = 0.13;
+our $VERSION = 0.14;
 
 # Finalize Tags output.
 sub finalize {
@@ -723,6 +723,6 @@ BSD 2-Clause License
 
 =head1 VERSION
 
-0.13
+0.14
 
 =cut
