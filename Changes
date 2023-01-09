@@ -1,5 +1,6 @@
 0.14
  [Common]
+ - Fix dependencies and rewrite from List::MoreUtils to List::Util.
  - Update copyright years.
 
 0.13 2022-11-02T23:12:31+01:00

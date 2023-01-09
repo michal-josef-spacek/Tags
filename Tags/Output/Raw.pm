@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 use Error::Pure qw(err);
-use List::MoreUtils qw(none);
+use List::Util qw(none);
 use Readonly;
 use Tags::Utils::Preserve;
 use Tags::Utils qw(encode_attr_entities encode_char_entities);
@@ -691,7 +691,7 @@ __END__
 =head1 DEPENDENCIES
 
 L<Error::Pure>,
-L<List::MoreUtils>,
+L<List::Util>,
 L<Readonly>,
 L<Tags::Utils::Preserve>.
 

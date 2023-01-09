@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Class::Utils qw(set_params);
-use List::MoreUtils qw(any);
+use List::Util qw(any);
 use Readonly;
 
 # Constants.
@@ -227,7 +227,7 @@ __END__
 =head1 DEPENDENCIES
 
 L<Class::Utils>,
-L<List::MoreUtils>,
+L<List::Util>,
 L<Readonly>.
 
 =head1 SEE ALSO

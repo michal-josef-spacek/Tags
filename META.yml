@@ -32,6 +32,7 @@ requires:
   Error::Pure: 0.07
   Exporter: 0
   HTML::Entities: 0
+  List::Util: 1.33
   Readonly: 0
   perl: 5.8.0
 resources:
