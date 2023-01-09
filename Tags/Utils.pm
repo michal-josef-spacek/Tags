@@ -15,7 +15,7 @@ Readonly::Scalar my $ATTR_CHARS => q{<&"};
 Readonly::Scalar my $CHAR_CHARS => q{<&\240};
 Readonly::Scalar my $EMPTY_STR => q{};
 
-our $VERSION = 0.14;
+our $VERSION = 0.15;
 
 # Encode newline in data to '\n' in output.
 sub encode_newline {
@@ -202,6 +202,6 @@ BSD 2-Clause License
 
 =head1 VERSION
 
-0.14
+0.15
 
 =cut
