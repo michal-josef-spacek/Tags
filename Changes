@@ -1,4 +1,7 @@
 0.15
+ [Common]
+ - Update Module::Install to 1.21 version.
+
  [Tags::Utils]
  - Add test messages.
 
