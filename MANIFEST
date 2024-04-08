@@ -47,7 +47,8 @@ t/Tags-Output-Raw/22-put-end_of_element.t
 t/Tags-Output/01-use.t
 t/Tags-Output/02-version.t
 t/Tags-Output/03-new.t
-t/Tags-Output/04-put.t
+t/Tags-Output/04-finalize.t
+t/Tags-Output/05-put.t
 t/Tags-Utils-Preserve/01-use.t
 t/Tags-Utils-Preserve/02-version.t
 t/Tags-Utils-Preserve/03-new.t

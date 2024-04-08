@@ -6,6 +6,7 @@
  - Update copyright years.
 
  [Tags::Output]
+ - Add tests for finalize() method.
  - Fix work with 'printed_tags' structure.
 
  [Tags::Utils]
