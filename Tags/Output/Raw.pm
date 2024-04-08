@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 use Error::Pure qw(err);
-use List::Util qw(none);
+use List::Util 1.33 qw(none);
 use Readonly;
 use Tags::Utils::Preserve;
 use Tags::Utils qw(encode_attr_entities encode_char_entities);

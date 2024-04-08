@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Class::Utils qw(set_params);
-use List::Util qw(any);
+use List::Util 1.33 qw(any);
 use Readonly;
 
 # Constants.

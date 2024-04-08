@@ -1,5 +1,6 @@
 0.15
  [Common]
+ - Add explicit version for usage of List::Util.
  - Update Module::Install to 1.21 version.
  - Update copyright years.
 
