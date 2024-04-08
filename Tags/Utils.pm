@@ -124,6 +124,8 @@ __END__
 
 =head1 EXAMPLE1
 
+=for comment filename=encode_newline.pl
+
  use strict;
  use warnings;
 
@@ -145,6 +147,8 @@ __END__
  # foo\nbar\n
 
 =head1 EXAMPLE2
+
+=for comment filename=encode_attr_entities.pl
 
  use strict;
  use warnings;

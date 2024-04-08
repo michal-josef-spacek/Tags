@@ -632,6 +632,8 @@ __END__
 
 =head1 EXAMPLE1
 
+=for comment filename=tags_output_raw_element.pl
+
  use strict;
  use warnings;
 
@@ -654,6 +656,8 @@ __END__
  # <text>data</text>
 
 =head1 EXAMPLE2
+
+=for comment filename=tags_output_raw_data_callback.pl
 
  use strict;
  use warnings;

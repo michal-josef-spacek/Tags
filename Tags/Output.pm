@@ -566,6 +566,8 @@ Constructor.
 
 =head1 EXAMPLE
 
+=for comment filename=tags_output_example.pl
+
  use strict;
  use warnings;
 

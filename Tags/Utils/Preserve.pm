@@ -181,6 +181,8 @@ __END__
 
 =head1 EXAMPLE
 
+=for comment filename=preserve_test.pl
+
  use strict;
  use warnings;
 
