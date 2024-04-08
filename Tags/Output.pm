@@ -280,6 +280,8 @@ sub _put_begin_of_tag {
 
 	push @{$self->{'flush_code'}}, 'Begin of tag';
 
+	unshift @{$self->{'printed_tags'}}, $tag;
+
 	return;
 }
 
@@ -315,6 +317,8 @@ sub _put_end_of_tag {
 	my ($self, $tag) = @_;
 
 	push @{$self->{'flush_code'}}, 'End of tag';
+
+	shift @{$self->{'printed_tags'}};
 
 	return;
 }

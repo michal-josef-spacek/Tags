@@ -5,6 +5,9 @@
  - Update Module::Install to 1.21 version.
  - Update copyright years.
 
+ [Tags::Output]
+ - Fix work with 'printed_tags' structure.
+
  [Tags::Utils]
  - Add test messages.
 
