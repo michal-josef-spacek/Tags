@@ -123,55 +123,77 @@ __END__
  my ($preserved_flag, $prev_preserved_flag) = $obj->begin;
  my $preserved_flag = $obj->end;
  my ($preserved_flag, $prev_preserved_flag) = $obj->end;
- $obj->get;
+ my $preserved_flag = $obj->get;
+ my ($preserved_flag, $prev_preserved_flag) = $obj->get;
  $obj->reset;
  $obj->save_previous;
 
 =head1 METHODS
 
-=over 8
+=head2 C<new>
 
-=item C<new(%params)>
+ my $obj = Tags::Utils::Preserve->new(%params);
 
- Constructor.
+Constructor.
 
 =over 8
 
 =item * C<preserved>
 
- Preserved tags.
+Preserved tags.
 
 =back
 
-=item C<begin()>
+Returns instance of object.
 
- Process for begin of tag.
- Returns preserved flag in scalar context.
- Returns preserved flag and previous preserved flag in array context.
+=head2 C<begin>
 
-=item C<end()>
+ my $preserved_flag = $obj->begin;
+ my ($preserved_flag, $prev_preserved_flag) = $obj->begin;
 
- Process for end of tag.
- Returns preserved flag in scalar context.
- Returns preserved flag and previous preserved flag in array context.
+Process for begin of tag.
 
-=item C<get()>
+Returns preserved flag in scalar context.
 
- Get preserved flag.
- Returns preserved flag in scalar context.
- Returns preserved flag and previous preserved flag in array context.
+Returns preserved flag and previous preserved flag in array context.
 
-=item C<reset()>
+=head2 C<end>
 
- Resets.
- Returns undef.
+ my $preserved_flag = $obj->end;
+ my ($preserved_flag, $prev_preserved_flag) = $obj->end;
 
-=item C<save_previous()>
+Process for end of tag.
 
- Save previous stay.
- Returns undef.
+Returns preserved flag in scalar context.
 
-=back
+Returns preserved flag and previous preserved flag in array context.
+
+=head2 C<get>
+
+ my $preserved_flag = $obj->get;
+ my ($preserved_flag, $prev_preserved_flag) = $obj->get;
+
+Get preserved flag.
+
+Returns preserved flag in scalar context.
+
+Returns preserved flag and previous preserved flag in array context.
+
+=head2 C<reset>
+
+ $obj->reset;
+
+Resets.
+
+Returns undef.
+
+=head2 C<save_previous>
+
+ $obj->save_previous;
+
+Save previous stay.
+
+Returns undef.
 
 =head1 ERRORS
 
