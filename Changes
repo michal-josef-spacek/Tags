@@ -5,6 +5,9 @@
  - Rewrite $tag variable and comments to $element.
  - Rewrite doc to use of =head2.
 
+ [Tags::Output::Raw]
+ - Add test comments.
+
 0.15 2024-04-08T22:56:02+02:00
  [Common]
  - Add explicit version for usage of List::Util.
