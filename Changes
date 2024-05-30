@@ -1,5 +1,6 @@
 0.16
  [Tags::Utils::Preserve]
+ - Fix missing arguments in begin() and end() methods.
  - Fix typo in doc.
  - Rewrite $tag variable and comments to $element.
  - Rewrite doc to use of =head2.

@@ -119,10 +119,10 @@ __END__
  use Tags::Utils::Preserve;
 
  my $obj = Tags::Utils::Preserve->new(%params);
- my $preserved_flag = $obj->begin;
- my ($preserved_flag, $prev_preserved_flag) = $obj->begin;
- my $preserved_flag = $obj->end;
- my ($preserved_flag, $prev_preserved_flag) = $obj->end;
+ my $preserved_flag = $obj->begin($element);
+ my ($preserved_flag, $prev_preserved_flag) = $obj->begin($element);
+ my $preserved_flag = $obj->end($element);
+ my ($preserved_flag, $prev_preserved_flag) = $obj->end($element);
  my $preserved_flag = $obj->get;
  my ($preserved_flag, $prev_preserved_flag) = $obj->get;
  $obj->reset;
@@ -150,8 +150,8 @@ Returns instance of object.
 
 =head2 C<begin>
 
- my $preserved_flag = $obj->begin;
- my ($preserved_flag, $prev_preserved_flag) = $obj->begin;
+ my $preserved_flag = $obj->begin($element);
+ my ($preserved_flag, $prev_preserved_flag) = $obj->begin($element);
 
 Process for begin of element.
 
@@ -161,8 +161,8 @@ Returns preserved flag and previous preserved flag in array context.
 
 =head2 C<end>
 
- my $preserved_flag = $obj->end;
- my ($preserved_flag, $prev_preserved_flag) = $obj->end;
+ my $preserved_flag = $obj->end($element);
+ my ($preserved_flag, $prev_preserved_flag) = $obj->end($element);
 
 Process for end of element.
 
